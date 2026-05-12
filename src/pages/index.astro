@@ -1,0 +1,17 @@
+---
+import Layout from "~/layouts/Layout.astro";
+import HeroSection from "~/components/home/HeroSection.astro";
+import Testimonials from "~/components/home/Testimonials.astro";
+import RecentNews from "~/components/home/RecentNews.astro";
+import PersonalBlog from "~/components/home/PersonalBlog.astro";
+import { headTitle } from "~/data/site";
+---
+
+<Layout title={headTitle.homeTitle} hideHeader>
+  <section class="homepage4">
+    <HeroSection />
+    <Testimonials />
+    <RecentNews />
+    <PersonalBlog />
+  </section>
+</Layout>

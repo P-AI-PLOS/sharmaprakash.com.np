@@ -1,0 +1,78 @@
+.react-tabs__tab {
+  border: 0 !important;
+  padding: 0 !important;
+  height: auto !important;
+}
+.react-tabs__tab-panel {
+  min-height: fit-content;
+  @apply mt-10;
+}
+
+.react-tabs__tab.react-tabs__tab--selected {
+  background: none !important;
+  &:nth-child(1) {
+    .custom-tab {
+      @apply border-b-4;
+      border-color: #f04c55 !important;
+    }
+  }
+  &:nth-child(2) {
+    .custom-tab {
+      @apply border-b-4;
+      border-color: #0474E0;
+    }
+  }
+  &:nth-child(3) {
+    .custom-tab {
+      @apply border-b-4;
+      border-color: #0474E0;
+    }
+  }
+}
+
+.react-tabs__tab-list {
+  border: 0 !important;
+  display: flex;
+  gap: 10px;
+}
+
+.custom-tab {
+  @apply flex h-20 flex-col justify-center  px-4 py-6;
+}
+.react-tabs__tab:focus {
+  &:after {
+    display: none !important;
+  }
+}
+
+.slick-prev,
+.slick-next {
+  top: 87% !important;
+}
+
+.slick-prev {
+  left: 47% !important;
+}
+
+.slick-next {
+  right: 47% !important;
+}
+
+#slant-text {
+  -ms-transform: rotate(-10deg);
+  -webkit-transform: rotate(-10deg);
+  -moz-transform: rotate(-10deg);
+  transform: rotate(-10deg);
+}
+
+.slick-prev {
+  width: 40px !important;
+  height: 40px !important;
+  z-index: 100 !important;
+}
+
+.slick-next {
+  width: 40px !important;
+  height: 40px !important;
+  z-index: 100 !important;
+}

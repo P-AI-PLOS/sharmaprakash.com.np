@@ -1,0 +1,59 @@
+---
+import {
+  getRecentPosts,
+  getAllCategories,
+  getUniqueCategories,
+  postUrl,
+} from "~/utils/posts";
+import { createSlug, formatBlogDate } from "~/utils";
+
+const recentPosts = await getRecentPosts();
+const allCats = await getAllCategories();
+const uniqueCats = await getUniqueCategories();
+---
+
+<div class="widget sticky top-[107px] mt-8 space-y-10 lg:mt-0">
+  <div class="widget widget-category card rounded p-4 bg-white dark:bg-dark-400">
+    <h5
+      class="border-b border-slate-500 border-opacity-20 pb-2 font-medium text-slate-900 dark:text-white"
+    >
+      Categories
+    </h5>
+    <ul class="mb-0 list-none pl-0 mt-3 space-y-1">
+      {uniqueCats.map((cat) => (
+        <li>
+          <a
+            href={`/category/${createSlug(cat)}/1/`}
+            class="hover:text-primary-300 font-medium text-slate-900 no-underline dark:text-white flex justify-between"
+          >
+            <span>{cat}</span>
+            <span>({allCats.filter((c) => c === cat).length})</span>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </div>
+
+  <div class="widget widget-recentpost rounded-lg bg-white p-4 dark:bg-dark-400">
+    <h5
+      class="border-b border-slate-500 border-opacity-20 pb-2 font-medium text-slate-900 dark:text-white"
+    >
+      Recent Posts
+    </h5>
+    <ul class="mb-0 list-none pl-0 mt-3">
+      {recentPosts.map((post) => (
+        <li class="mb-4 last:mb-0">
+          <a
+            href={postUrl(post)}
+            class="hover:text-primary-300 font-medium text-slate-900 no-underline hover:underline dark:text-white"
+          >
+            {post.data.title}
+          </a>
+          <small class="block text-gray-500 dark:text-white mt-1">
+            {formatBlogDate(post.data.date)}
+          </small>
+        </li>
+      ))}
+    </ul>
+  </div>
+</div>

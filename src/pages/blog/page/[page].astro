@@ -1,0 +1,70 @@
+---
+import type { GetStaticPaths } from "astro";
+import Layout from "~/layouts/Layout.astro";
+import Breadcrumb from "~/components/Breadcrumb.astro";
+import BlogCard from "~/components/BlogCard.astro";
+import BlogSidebar from "~/components/BlogSidebar.astro";
+import { headTitle } from "~/data/site";
+import { getAllPostsSorted, POSTS_PER_PAGE } from "~/utils/posts";
+
+export const getStaticPaths = (async () => {
+  const posts = await getAllPostsSorted();
+  const totalPages = Math.max(1, Math.ceil(posts.length / POSTS_PER_PAGE));
+  return Array.from({ length: totalPages }, (_, i) => {
+    const pageNum = i + 1;
+    const start = (pageNum - 1) * POSTS_PER_PAGE;
+    return {
+      params: { page: String(pageNum) },
+      props: {
+        posts: posts.slice(start, start + POSTS_PER_PAGE),
+        currentPage: pageNum,
+        totalPages,
+      },
+    };
+  });
+}) satisfies GetStaticPaths;
+
+const { posts, currentPage, totalPages } = Astro.props as {
+  posts: Awaited<ReturnType<typeof getAllPostsSorted>>;
+  currentPage: number;
+  totalPages: number;
+};
+---
+
+<Layout title={headTitle.blogsTitle}>
+  <Breadcrumb
+    title="Blogs"
+    paths={[
+      { name: "Home", link: "/" },
+      { name: "Blogs" },
+    ]}
+  />
+
+  <div class="blogs blog-v4 bg-slate-100 py-24 lg:py-28 xl:py-32 dark:bg-dark-100">
+    <div class="container mx-auto px-6">
+      <div class="grid grid-cols-1 gap-7 lg:grid-cols-12">
+        <div class="col-span-1 lg:col-span-9">
+          <div class="grid grid-cols-1 gap-7 sm:grid-cols-2">
+            {posts.map((post) => <BlogCard post={post} />)}
+          </div>
+
+          <div class="flex justify-between gap-3 pt-10">
+            {currentPage > 1 ? (
+              <a href={`/blog/page/${currentPage - 1}/`} class="btn btn-small-text">
+                <span>Prev</span>
+              </a>
+            ) : <span />}
+            {currentPage < totalPages ? (
+              <a href={`/blog/page/${currentPage + 1}/`} class="btn btn-small-text">
+                <span>Next</span>
+              </a>
+            ) : <span />}
+          </div>
+        </div>
+        <div class="col-span-1 lg:col-span-3">
+          <BlogSidebar />
+        </div>
+      </div>
+    </div>
+  </div>
+</Layout>

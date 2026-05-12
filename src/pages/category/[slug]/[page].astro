@@ -1,0 +1,89 @@
+---
+import type { GetStaticPaths } from "astro";
+import Layout from "~/layouts/Layout.astro";
+import Breadcrumb from "~/components/Breadcrumb.astro";
+import BlogCard from "~/components/BlogCard.astro";
+import BlogSidebar from "~/components/BlogSidebar.astro";
+import { headTitle } from "~/data/site";
+import {
+  getAllPostsSorted,
+  getUniqueCategories,
+  getPostsByCategorySlug,
+  POSTS_PER_PAGE,
+} from "~/utils/posts";
+import { createSlug } from "~/utils";
+
+export const getStaticPaths = (async () => {
+  const categories = await getUniqueCategories();
+  const all = await getAllPostsSorted();
+  void all;
+
+  const result = [];
+  for (const cat of categories) {
+    const slug = createSlug(cat);
+    const posts = await getPostsByCategorySlug(slug);
+    const totalPages = Math.max(1, Math.ceil(posts.length / POSTS_PER_PAGE));
+    for (let i = 0; i < totalPages; i++) {
+      const pageNum = i + 1;
+      const start = i * POSTS_PER_PAGE;
+      result.push({
+        params: { slug, page: String(pageNum) },
+        props: {
+          posts: posts.slice(start, start + POSTS_PER_PAGE),
+          currentPage: pageNum,
+          totalPages,
+          category: cat,
+          slug,
+        },
+      });
+    }
+  }
+  return result;
+}) satisfies GetStaticPaths;
+
+const { posts, currentPage, totalPages, category, slug } = Astro.props as {
+  posts: Awaited<ReturnType<typeof getPostsByCategorySlug>>;
+  currentPage: number;
+  totalPages: number;
+  category: string;
+  slug: string;
+};
+---
+
+<Layout title={`${category} - ${headTitle.blogsTitle}`}>
+  <Breadcrumb
+    title={category}
+    paths={[
+      { name: "Home", link: "/" },
+      { name: "Blogs", link: "/blog/page/1/" },
+      { name: category },
+    ]}
+  />
+
+  <div class="blogs blog-v4 bg-slate-100 py-24 lg:py-28 xl:py-32 dark:bg-dark-100">
+    <div class="container mx-auto px-6">
+      <div class="grid grid-cols-1 gap-7 lg:grid-cols-12">
+        <div class="col-span-1 lg:col-span-9">
+          <div class="grid grid-cols-1 gap-7 sm:grid-cols-2">
+            {posts.map((post) => <BlogCard post={post} />)}
+          </div>
+          <div class="flex justify-between gap-3 pt-10">
+            {currentPage > 1 ? (
+              <a href={`/category/${slug}/${currentPage - 1}/`} class="btn btn-small-text">
+                <span>Prev</span>
+              </a>
+            ) : <span />}
+            {currentPage < totalPages ? (
+              <a href={`/category/${slug}/${currentPage + 1}/`} class="btn btn-small-text">
+                <span>Next</span>
+              </a>
+            ) : <span />}
+          </div>
+        </div>
+        <div class="col-span-1 lg:col-span-3">
+          <BlogSidebar />
+        </div>
+      </div>
+    </div>
+  </div>
+</Layout>

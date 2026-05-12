@@ -1,0 +1,61 @@
+.homepage4 {
+  background-color: #f3f6fa;
+  * {
+    font-family: "poppins", sans-serif !important;
+  }
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  strong {
+    @apply text-gray-900;
+  }
+
+  h1 {
+    @apply text-4xl font-semibold text-white;
+
+    @screen lg {
+      @apply text-5xl;
+    }
+  }
+
+  h2 {
+    @apply py-4 text-4xl font-semibold;
+  }
+
+  h3 {
+    @apply text-2xl font-semibold;
+  }
+
+  p {
+    @apply font-normal;
+  }
+
+  strong {
+    @apply font-semibold;
+  }
+}
+
+.logo {
+  @apply p-5;
+}
+
+p,
+span,
+div {
+  @apply text-gray-600;
+}
+
+input, textarea {
+  @apply border border-gray-300 dark:border-gray-300/10 bg-white dark:bg-dark-400 text-gray-700 dark:text-white;
+  
+  &::placeholder {
+    @apply text-gray-400 ;
+  }
+
+  &:focus {
+    @apply border-primary-300/60;
+
+  }
+}

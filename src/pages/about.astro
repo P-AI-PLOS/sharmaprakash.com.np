@@ -1,0 +1,127 @@
+---
+import fs from "node:fs/promises";
+import path from "node:path";
+import matter from "gray-matter";
+import { marked } from "marked";
+import Layout from "~/layouts/Layout.astro";
+import Breadcrumb from "~/components/Breadcrumb.astro";
+import { headTitle, information } from "~/data/site";
+import { services } from "~/data/resume";
+import { clientReview } from "~/data/reviews";
+
+const aboutRaw = await fs.readFile(
+  path.join(process.cwd(), "src/data/static/about.md"),
+  "utf-8",
+);
+const { content: aboutMarkdown } = matter(aboutRaw);
+const aboutHtml = marked.parse(aboutMarkdown);
+---
+
+<Layout title={headTitle.aboutTitle}>
+  <Breadcrumb
+    title="About"
+    paths={[
+      { name: "Home", link: "/" },
+      { name: "About" },
+    ]}
+  />
+
+  <section class="about-section pt-24 bg-slate-100 dark:bg-dark-100 lg:pt-28 xl:pt-32">
+    <div class="container mx-auto px-6">
+      <div class="text-center mb-12">
+        <h2 class="text-black dark:text-white">About Me</h2>
+      </div>
+      <div class="grid grid-cols-2 items-center gap-7 py-12 lg:py-20">
+        <div class="col-span-2 lg:col-span-1">
+          <div class="overflow-hidden rounded-lg border-10 border-primary-300 border-opacity-20">
+            <img src={information.largeImage} alt={information.fullName} class="w-full h-auto" />
+          </div>
+        </div>
+        <div class="col-span-2 lg:col-span-1">
+          <h3>
+            <span class="text-accent dark:text-white">Hi, I am&nbsp;</span>
+            <span class="text-black dark:text-white">{information.fullName}</span>
+          </h3>
+          <ul class="styledlist mt-4 space-y-2">
+            <li class="text-lg dark:text-white">
+              <strong class="inline-block min-w-[120px] font-medium text-black dark:text-white">First Name </strong>
+              : <span class="text-black dark:text-white">&nbsp; {information.firstName}</span>
+            </li>
+            <li class="text-lg dark:text-white">
+              <strong class="inline-block min-w-[120px] font-medium text-black dark:text-white">Last Name </strong>
+              : <span class="text-black dark:text-white">&nbsp; {information.lastName}</span>
+            </li>
+            <li class="text-lg dark:text-white">
+              <strong class="inline-block min-w-[120px] font-medium text-black dark:text-white">Age </strong>
+              : <span class="text-black dark:text-white">&nbsp; {information.age} years</span>
+            </li>
+            <li class="text-lg dark:text-white">
+              <strong class="inline-block min-w-[120px] font-medium text-black dark:text-white">Nationality </strong>
+              : <span class="text-black dark:text-white">&nbsp; {information.nationality}</span>
+            </li>
+            <li class="text-lg dark:text-white">
+              <strong class="inline-block min-w-[120px] font-medium text-black dark:text-white">Languages </strong>
+              : <span class="text-black dark:text-white">&nbsp; {information.languages.join(", ")}</span>
+            </li>
+            <li class="text-lg dark:text-white">
+              <strong class="inline-block min-w-[120px] font-medium text-black dark:text-white">Address </strong>
+              : <span class="text-black dark:text-white">&nbsp; {information.address}</span>
+            </li>
+            <li class="text-lg dark:text-white">
+              <strong class="inline-block min-w-[120px] font-medium text-black dark:text-white">Freelance </strong>
+              : <span class="text-black dark:text-white">&nbsp; {information.freelance}</span>
+            </li>
+          </ul>
+          <a href="/resume.pdf" class="btn btn-primary btn-small mt-6 inline-block">
+            <span>Download Resume</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="services-section bg-slate-100 dark:bg-dark-100 pt-14 lg:py-14 xl:pt-16 xl:pb-24">
+    <div class="container mx-auto px-6">
+      <div class="text-center mb-12">
+        <h2 class="text-black dark:text-white">My Services</h2>
+      </div>
+      <div class="grid gap-7 md:grid-cols-3">
+        {services.map((s) => (
+          <div class="card p-6 rounded-lg bg-white dark:bg-dark-400">
+            <img src={s.icon} alt={s.title} class="w-10 h-10 mb-4" />
+            <h4 class="text-black dark:text-white mb-2">{s.title}</h4>
+            <p class="text-gray-600 dark:text-white">{s.text}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="reviews-section pb-14 bg-slate-100 dark:bg-dark-100 lg:pt-14 xl:pt-16 xl:pb-24">
+    <div class="container mx-auto px-6">
+      <div class="text-center mb-12">
+        <h2 class="text-black dark:text-white">Client Reviews</h2>
+      </div>
+      <div class="grid gap-7 md:grid-cols-3">
+        {clientReview.map((r) => (
+          <div class="card p-6 rounded-lg bg-white dark:bg-dark-400">
+            <p class="dark:text-white mb-4" set:html={r.text} />
+            <div class="flex items-center gap-3">
+              <img src={r.image} alt={r.name} class="w-12 h-12 rounded-full object-cover" />
+              <div>
+                <strong class="block text-black dark:text-white">{r.name}</strong>
+                <span class="text-sm text-gray-500 dark:text-white">{r.meta}</span>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="pb-14 bg-slate-100 dark:bg-dark-100 xl:pb-24">
+    <div class="container mx-auto px-6 lg:py-16 xl:py-20">
+      <div class="post-body prose max-w-none dark:prose-invert" set:html={aboutHtml} />
+    </div>
+  </section>
+</Layout>

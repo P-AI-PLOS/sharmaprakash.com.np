@@ -1,0 +1,120 @@
+---
+const pathname = Astro.url.pathname;
+const isActive = (href: string) =>
+  pathname === href || pathname.startsWith(href);
+
+const navItems = [
+  { href: "/", label: "Home" },
+  { href: "/about/", label: "About" },
+  { href: "/blog/page/1/", label: "Blog", activeWhen: "/blog" },
+  { href: "/contact/", label: "Contact" },
+];
+---
+
+<header
+  id="site-header"
+  class="header top-0 left-0 z-50 h-auto w-full absolute py-[40px] lg:py-[60px]"
+>
+  <div class="lg:px-28 px-8 mx-auto">
+    <div class="header-inner flex items-center lg:justify-between justify-end">
+      <div class="header-mobilenav block lg:hidden">
+        <button
+          id="mobile-menu-trigger"
+          class="btn btn-small text-white btn-transparent px-3 text-3xl"
+          aria-label="Open menu"
+        >
+          ☰
+        </button>
+      </div>
+      <div class="header-nav hidden lg:block">
+        <nav>
+          <ul class="nav-menu flex list-none gap-6">
+            {navItems.map((item) => (
+              <li class="nav-link">
+                <a
+                  href={item.href}
+                  class={`text-white hover:text-primary-300 ${
+                    isActive(item.activeWhen ?? item.href) ? "active" : ""
+                  }`}
+                >
+                  {item.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      </div>
+      <div class="header-button hidden lg:block">
+        <a class="btn btn-primary btn-small" href="/contact/"><span>Hire me</span></a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div
+  id="mobile-menu"
+  class="fixed inset-0 z-[60] hidden items-center justify-center bg-grey p-4 text-center lg:hidden"
+>
+  <button
+    id="mobile-menu-close"
+    class="absolute top-6 right-6 text-3xl text-white"
+    aria-label="Close menu"
+  >
+    ✕
+  </button>
+  <ul class="space-y-6 list-none text-2xl">
+    {navItems.map((item) => (
+      <li>
+        <a href={item.href} class="text-white hover:text-primary-300">
+          {item.label}
+        </a>
+      </li>
+    ))}
+    <li>
+      <a href="/contact/" class="btn btn-primary btn-small"><span>Hire me</span></a>
+    </li>
+  </ul>
+</div>
+
+<script>
+  const trigger = document.getElementById("mobile-menu-trigger");
+  const menu = document.getElementById("mobile-menu");
+  const close = document.getElementById("mobile-menu-close");
+  const open = () => menu?.classList.replace("hidden", "flex");
+  const hide = () => menu?.classList.replace("flex", "hidden");
+  trigger?.addEventListener("click", open);
+  close?.addEventListener("click", hide);
+
+  const header = document.getElementById("site-header");
+  const onScroll = () => {
+    if (!header) return;
+    if (window.scrollY > 200) {
+      header.classList.add(
+        "fixed",
+        "animate-slidedown",
+        "border-b",
+        "border-white",
+        "border-opacity-20",
+        "bg-dark-200",
+        "py-3",
+        "bg-opacity-80",
+        "backdrop-blur",
+      );
+      header.classList.remove("absolute", "py-[40px]", "lg:py-[60px]");
+    } else {
+      header.classList.remove(
+        "fixed",
+        "animate-slidedown",
+        "border-b",
+        "border-white",
+        "border-opacity-20",
+        "bg-dark-200",
+        "py-3",
+        "bg-opacity-80",
+        "backdrop-blur",
+      );
+      header.classList.add("absolute", "py-[40px]", "lg:py-[60px]");
+    }
+  };
+  window.addEventListener("scroll", onScroll, { passive: true });
+</script>

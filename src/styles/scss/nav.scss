@@ -1,0 +1,15 @@
+.nav-link {
+  @apply pr-11 text-white hover:text-primary-200;
+  a {
+    @apply text-white hover:text-primary-200;
+
+    &.active {
+      @apply pb-1 border-b-3 border-b-primary-300 hover:text-white;
+    }
+  }
+}
+
+.nav-menu {
+  list-style: none;
+  padding-left: 0;
+}

@@ -1,0 +1,67 @@
+---
+import type { GetStaticPaths } from "astro";
+import { render } from "astro:content";
+import Layout from "~/layouts/Layout.astro";
+import Breadcrumb from "~/components/Breadcrumb.astro";
+import { getAllPostsSorted, postUrl, postThumbnail } from "~/utils/posts";
+import { formatBlogDate } from "~/utils";
+
+export const getStaticPaths = (async () => {
+  const posts = await getAllPostsSorted();
+  return posts.map((post) => {
+    const url = postUrl(post).replace(/^\/|\/$/g, "");
+    return {
+      params: { slug: url },
+      props: { post },
+    };
+  });
+}) satisfies GetStaticPaths;
+
+const { post } = Astro.props as { post: Awaited<ReturnType<typeof getAllPostsSorted>>[number] };
+const { Content } = await render(post);
+const thumb = postThumbnail(post);
+const cats = post.data.category ?? [];
+---
+
+<Layout
+  title={post.data.title}
+  description={post.data.excerpt}
+  image={thumb}
+  ogType="article"
+  date={post.data.date}
+  lastModified={post.data.last_modified_at}
+  showCanonical
+>
+  <Breadcrumb
+    title={post.data.title}
+    paths={[
+      { name: "Home", link: "/" },
+      { name: "Blogs", link: "/blog/page/1/" },
+      { name: post.data.title },
+    ]}
+  />
+
+  <article class="bg-slate-100 dark:bg-dark-100 py-16 lg:py-24">
+    <div class="container mx-auto px-6 max-w-3xl">
+      <header class="mb-8">
+        <h1 class="text-3xl lg:text-4xl text-black dark:text-white">{post.data.title}</h1>
+        <div class="mt-3 flex flex-wrap gap-3 text-sm text-gray-500 dark:text-white">
+          <time datetime={new Date(post.data.date).toISOString()}>
+            {formatBlogDate(post.data.date)}
+          </time>
+          {cats.length > 0 && (
+            <span>· {cats.join(", ")}</span>
+          )}
+        </div>
+      </header>
+
+      {post.data.show_category_hero_image && post.data.cover && (
+        <img src={post.data.cover} alt={post.data.title} class="w-full rounded-lg mb-8" />
+      )}
+
+      <div class="post-body prose lg:prose-lg max-w-none dark:prose-invert">
+        <Content />
+      </div>
+    </div>
+  </article>
+</Layout>

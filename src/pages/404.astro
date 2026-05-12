@@ -1,0 +1,21 @@
+---
+import Layout from "~/layouts/Layout.astro";
+import Breadcrumb from "~/components/Breadcrumb.astro";
+import { headTitle } from "~/data/site";
+---
+
+<Layout title={headTitle.notFoundTitle}>
+  <section class="section-notfound">
+    <Breadcrumb title="Page not found" />
+    <div class="pt-10 pb-24 lg:pt-14 lg:pb-28 xl:pt-16 xl:pb-32">
+      <div class="container mx-auto px-6">
+        <div class="text-center">
+          <img src="/images/notfound.svg" alt="not found" class="mx-auto max-w-md" />
+          <div class="mt-6">
+            <a href="/" class="btn btn-primary btn-large"><span>Back to home</span></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>

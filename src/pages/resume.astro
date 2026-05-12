@@ -1,0 +1,99 @@
+---
+import Layout from "~/layouts/Layout.astro";
+import Breadcrumb from "~/components/Breadcrumb.astro";
+import { headTitle } from "~/data/site";
+import {
+  techSkills,
+  languageSkills,
+  jobExperience,
+  educationalBackground,
+} from "~/data/resume";
+---
+
+<Layout title={headTitle.resumeTitle}>
+  <Breadcrumb
+    title="Resume"
+    paths={[
+      { name: "Home", link: "/" },
+      { name: "Resume" },
+    ]}
+  />
+
+  <section class="skills-section pt-24 bg-slate-100 dark:bg-dark-100 lg:pt-28 xl:pt-32">
+    <div class="container mx-auto px-6">
+      <div class="text-center mb-12">
+        <h2 class="text-black dark:text-white">My Skills</h2>
+      </div>
+      <div class="grid gap-12 md:grid-cols-2">
+        <div>
+          <h3 class="text-black dark:text-white mb-6">Tech Skills</h3>
+          <div class="space-y-5">
+            {techSkills.map((s) => (
+              <div>
+                <div class="flex justify-between mb-1 dark:text-white">
+                  <span>{s.title}</span><span>{s.percentage}%</span>
+                </div>
+                <div class="h-2 w-full bg-gray-200 dark:bg-dark-400 rounded">
+                  <div class="h-2 bg-primary-300 rounded" style={`width:${s.percentage}%`} />
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+        <div>
+          <h3 class="text-black dark:text-white mb-6">Languages & Tools</h3>
+          <div class="space-y-5">
+            {languageSkills.map((s) => (
+              <div>
+                <div class="flex justify-between mb-1 dark:text-white">
+                  <span>{s.title}</span><span>{s.percentage}%</span>
+                </div>
+                <div class="h-2 w-full bg-gray-200 dark:bg-dark-400 rounded">
+                  <div class="h-2 bg-primary-300 rounded" style={`width:${s.percentage}%`} />
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="resume-section pt-24 bg-slate-100 dark:bg-dark-100 lg:pt-28 xl:pt-32 pb-24">
+    <div class="container mx-auto px-6">
+      <div class="text-center mb-12">
+        <h2 class="text-black dark:text-white">My Resume</h2>
+      </div>
+      <div class="grid gap-12 md:grid-cols-2">
+        <div>
+          <h3 class="text-black dark:text-white mb-6">Experience</h3>
+          <ol class="border-l border-primary-300 pl-6 space-y-6">
+            {jobExperience.map((j) => (
+              <li>
+                <h4 class="text-black dark:text-white">{j.title}</h4>
+                <span class="block text-sm text-primary-300">{j.year}</span>
+                <span class="text-gray-600 dark:text-white">{j.meta}</span>
+                {j.text && <p class="text-gray-600 dark:text-white mt-1">{j.text}</p>}
+              </li>
+            ))}
+          </ol>
+        </div>
+        <div>
+          <h3 class="text-black dark:text-white mb-6">Education</h3>
+          <ol class="border-l border-primary-300 pl-6 space-y-6">
+            {educationalBackground.map((e) => (
+              <li>
+                <h4 class="text-black dark:text-white">{e.title}</h4>
+                <span class="block text-sm text-primary-300">{e.year}</span>
+                <span class="text-gray-600 dark:text-white">{e.meta}</span>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </div>
+      <div class="text-center mt-12">
+        <a href="/resume.pdf" class="btn btn-primary"><span>Download PDF Resume</span></a>
+      </div>
+    </div>
+  </section>
+</Layout>

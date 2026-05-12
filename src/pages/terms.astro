@@ -1,0 +1,29 @@
+---
+import fs from "node:fs/promises";
+import path from "node:path";
+import matter from "gray-matter";
+import { marked } from "marked";
+import Layout from "~/layouts/Layout.astro";
+import Breadcrumb from "~/components/Breadcrumb.astro";
+import { headTitle } from "~/data/site";
+
+const raw = await fs.readFile(path.join(process.cwd(), "src/data/static/terms.md"), "utf-8");
+const { content } = matter(raw);
+const html = marked.parse(content);
+---
+
+<Layout title={headTitle.termsTitle}>
+  <Breadcrumb
+    title="Terms and Privacy Policy"
+    paths={[
+      { name: "Home", link: "/" },
+      { name: "Terms and Privacy Policy" },
+    ]}
+  />
+
+  <section class="pb-14 bg-slate-100 dark:bg-dark-100 xl:pb-24">
+    <div class="container mx-auto px-6 py-24 lg:py-28 xl:py-32">
+      <div class="post-body prose max-w-none dark:prose-invert mt-4" set:html={html} />
+    </div>
+  </section>
+</Layout>

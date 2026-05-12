@@ -1,0 +1,116 @@
+.sticky-element {
+  position: relative !important;
+
+  @screen lg {
+    position: sticky !important;
+  }
+}
+
+.skill-block {
+  @apply flex flex-wrap gap-5;
+
+  .skill-img {
+    @apply p-5;
+    img {
+      height: 32px;
+      @apply grayscale dark:grayscale-0;
+    }
+    &:hover {
+      @apply bg-white dark:bg-dark-400;
+      box-shadow: 6px 6px 30px rgba(18, 18, 18, 0.11);
+      border-radius: 6px;
+      img {
+        height: 32px;
+        @apply grayscale-0 dark:grayscale-0;
+      }
+    }
+  }
+
+  .skill-imgs {
+    @apply p-5;
+    img {
+      height: 32px;
+    }
+    &:hover {
+      @apply bg-white dark:bg-dark-400;
+      box-shadow: 6px 6px 30px rgba(18, 18, 18, 0.11);
+      border-radius: 6px;
+      img {
+        height: 32px;
+      }
+    }
+  }
+}
+
+.shape {
+  @apply relative inline-block;
+
+  &:before {
+    content: " ";
+    background-image: url("/images/asset/line.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+    position: absolute;
+    display: block;
+    right: -100px;
+    width: 200px;
+    height: 200px;
+    top: -70px;
+  }
+}
+
+.twblog {
+  @apply overflow-hidden;
+  .slick-prev,
+  .slick-next {
+    top: 110% !important;
+  }
+
+  .slick-prev {
+    left: 65% !important;
+  }
+
+  .slick-next {
+    right: 26% !important;
+  }
+}
+
+.testimonials {
+  @apply relative bg-primary-50 px-6 py-20 lg:py-36 lg:px-72;
+}
+
+.blog-card {
+  @apply rounded-lg bg-white text-black;
+  max-width: 330px;
+
+  .blog-card-desc {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+  }
+
+  .landing-card-desc {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+  }
+
+  .blog-card-title {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+  }
+}
+.blog-block {
+  width: 100%;
+  @screen lg {
+    width: 68rem;
+  }
+}
+
+.testimonial-name {
+  @apply flex justify-center;
+}

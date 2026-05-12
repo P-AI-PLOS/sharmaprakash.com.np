@@ -1,0 +1,39 @@
+---
+interface Crumb {
+  name: string;
+  link?: string;
+}
+
+interface Props {
+  title: string;
+  paths?: Crumb[];
+}
+
+const { title, paths = [] } = Astro.props;
+---
+
+<div class="breadcrumb-wrap relative">
+  <div class="breadcrumb-bg absolute left-0 top-0 h-full w-full"></div>
+  <div class="relative z-20 bg-grey-darken pt-[150px] dark:bg-dark-200 bg-opacity-90">
+    <div class="container mx-auto">
+      <div class="breadcrumb py-16 text-center lg:py-20">
+        <h2 class="capitalize text-accent max-lg:mb-0">{title}</h2>
+        {paths.length > 0 && (
+          <ul class="mb-0 inline-flex list-none flex-wrap justify-center gap-x-2 pl-0">
+            {paths.map((p) => (
+              <li class="inline-block capitalize">
+                {p.link ? (
+                  <a href={p.link} class="text-heading hover:text-primary dark:text-white">
+                    {p.name}
+                  </a>
+                ) : (
+                  <span class="text-heading dark:text-white">{p.name}</span>
+                )}
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,90 @@
+---
+import { getTechnicalPosts, postUrl, postThumbnail } from "~/utils/posts";
+
+const posts = (await getTechnicalPosts()).slice(0, 9);
+---
+
+<section class="twblog relative bg-slate-100 pt-8 pb-8 lg:pt-36 lg:pb-40 dark:bg-dark-300 overflow-hidden">
+  <div class="container mx-auto px-4 relative">
+    <div class="grid grid-cols-12 gap-8">
+      <div class="col-span-12 lg:col-span-4">
+        <h2 class="pb-4 text-black dark:text-white lg:pb-20 lg:pr-7">
+          Blogs as a programmer in tech
+        </h2>
+        <p class="pb-4 lg:pb-20 lg:text-lg dark:text-white">
+          Where expert and undiscovered voices can share their writing on any topic
+        </p>
+        <a href="/category/technical/1/" class="btn btn-secondary">
+          <span>Explore More</span>
+        </a>
+      </div>
+      <div class="blog-block relative col-span-12 lg:col-span-8">
+        <swiper-container
+          class="personalblog-swiper"
+          slides-per-view="1"
+          space-between="16"
+          loop="true"
+          speed="500"
+          navigation-next-el=".personalblog-next"
+          navigation-prev-el=".personalblog-prev"
+          breakpoints={JSON.stringify({ 1000: { slidesPerView: 3 } })}
+          style="width:100%"
+        >
+          {posts.map((post) => (
+            <swiper-slide>
+              <a
+                href={postUrl(post)}
+                class="blog-card flex h-full flex-col rounded-lg overflow-hidden bg-white dark:bg-dark-400 hover:shadow-slate-300/60 hover:shadow-3xl dark:hover:shadow-primary-300/30"
+              >
+                <figure>
+                  <img class="h-full w-full" src={postThumbnail(post)} alt={post.data.title} />
+                </figure>
+                <h3 class="px-5 pt-5 text-lg text-black dark:text-white blog-card-title">
+                  {post.data.title}
+                </h3>
+                <p class="px-5 dark:text-white landing-card-desc">{post.data.excerpt}</p>
+                <div class="flex border-t py-5 px-5 mt-auto">
+                  <p class="dark:text-white">3 mins read</p>
+                  <span class="ml-auto text-primary-500 dark:text-primary-200">Read More</span>
+                </div>
+              </a>
+            </swiper-slide>
+          ))}
+        </swiper-container>
+
+        <div class="mt-8 hidden lg:block">
+          <div class="inline-flex items-center gap-3" style="margin-left: 66.6667%">
+            <button type="button" aria-label="Previous" class="personalblog-prev nav-circle">
+              <svg width="40" height="40" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M11 16H21M11 16L15.5 20.5M11 16L15.5 11.5" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" />
+                <rect x="0.5" y="0.5" width="31" height="31" rx="15.5" stroke="currentColor" />
+              </svg>
+            </button>
+            <button type="button" aria-label="Next" class="personalblog-next nav-circle">
+              <svg width="40" height="40" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M21 16H11M21 16L16.5 11.5M21 16L16.5 20.5" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" />
+                <rect x="0.5" y="0.5" width="31" height="31" rx="15.5" stroke="currentColor" />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style is:global>
+  .personalblog-swiper swiper-slide {
+    height: auto;
+    display: flex;
+  }
+  .personalblog-swiper swiper-slide > a { width: 100%; }
+  /* Original .blog-card has max-width: 330px which causes Swiper slides to leave
+     visual gaps — let cards fill their slot here. */
+  .personalblog-swiper .blog-card { max-width: none; }
+</style>
+
+<script>
+  import { register } from "swiper/element/bundle";
+  register();
+</script>

@@ -1,0 +1,82 @@
+---
+import Layout from "~/layouts/Layout.astro";
+import Breadcrumb from "~/components/Breadcrumb.astro";
+import { headTitle } from "~/data/site";
+import { portfolios, portfolioFilters } from "~/data/portfolios";
+---
+
+<Layout title={headTitle.worksTitle}>
+  <Breadcrumb
+    title="Works"
+    paths={[
+      { name: "Home", link: "/" },
+      { name: "Works" },
+    ]}
+  />
+
+  <section class="portfolios-section pt-24 bg-slate-100 dark:bg-dark-100 lg:pt-28 xl:pt-32 pb-24">
+    <div class="container mx-auto px-6">
+      <div class="text-center mb-12">
+        <h2 class="text-black dark:text-white">My Works</h2>
+      </div>
+
+      <div class="flex flex-wrap justify-center gap-3 mb-10" id="portfolio-filter">
+        <button type="button" data-filter="all" class="btn btn-secondary btn-small is-active">
+          <span>All</span>
+        </button>
+        {portfolioFilters.map((f) => (
+          <button type="button" data-filter={f.value} class="btn btn-secondary btn-small">
+            <span>{f.title}</span>
+          </button>
+        ))}
+      </div>
+
+      <div class="grid gap-6 sm:grid-cols-2 md:grid-cols-3" id="portfolio-grid">
+        {portfolios.map((p) => (
+          <article
+            class="portfolio-item rounded-lg overflow-hidden bg-white dark:bg-dark-400 shadow"
+            data-filters={p.filters.join(" ")}
+          >
+            <figure>
+              <img src={p.coverimage} alt={p.title} class="w-full h-56 object-cover" />
+            </figure>
+            <div class="p-4">
+              <h4 class="text-black dark:text-white">{p.title}</h4>
+              <p class="text-sm text-gray-600 dark:text-white">{p.subtitle}</p>
+              {p.url && (
+                <a
+                  href={p.url}
+                  target="_blank"
+                  rel="noopener"
+                  class="text-primary-300 text-sm mt-2 inline-block"
+                >
+                  View →
+                </a>
+              )}
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<script>
+  const grid = document.getElementById("portfolio-grid");
+  const buttons = document.querySelectorAll<HTMLButtonElement>("#portfolio-filter button");
+  const setActive = (active: HTMLButtonElement) => {
+    buttons.forEach((b) => b.classList.remove("is-active"));
+    active.classList.add("is-active");
+  };
+  buttons.forEach((btn) =>
+    btn.addEventListener("click", () => {
+      setActive(btn);
+      const f = btn.dataset.filter;
+      grid?.querySelectorAll<HTMLElement>(".portfolio-item").forEach((item) => {
+        const filters = (item.dataset.filters ?? "").split(" ");
+        const show = f === "all" || filters.includes(f ?? "");
+        item.style.display = show ? "" : "none";
+      });
+    }),
+  );
+</script>
