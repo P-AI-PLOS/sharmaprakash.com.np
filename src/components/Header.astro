@@ -1,19 +1,10 @@
 ---
-const pathname = Astro.url.pathname;
-const isActive = (href: string) =>
-  pathname === href || pathname.startsWith(href);
-
-const navItems = [
-  { href: "/", label: "Home" },
-  { href: "/about/", label: "About" },
-  { href: "/blog/page/1/", label: "Blog", activeWhen: "/blog" },
-  { href: "/contact/", label: "Contact" },
-];
+import SiteNav from "~/components/SiteNav.astro";
 ---
 
 <header
   id="site-header"
-  class="header top-0 left-0 z-50 h-auto w-full absolute py-[40px] lg:py-[60px]"
+  class="header top-0 left-0 z-50 h-auto w-full absolute py-8 lg:py-10"
 >
   <div class="lg:px-28 px-8 mx-auto">
     <div class="header-inner flex items-center lg:justify-between justify-end">
@@ -27,22 +18,7 @@ const navItems = [
         </button>
       </div>
       <div class="header-nav hidden lg:block">
-        <nav>
-          <ul class="nav-menu flex list-none gap-6">
-            {navItems.map((item) => (
-              <li class="nav-link">
-                <a
-                  href={item.href}
-                  class={`text-white hover:text-primary-300 ${
-                    isActive(item.activeWhen ?? item.href) ? "active" : ""
-                  }`}
-                >
-                  {item.label}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </nav>
+        <SiteNav />
       </div>
       <div class="header-button hidden lg:block">
         <a class="btn btn-primary btn-small" href="/contact/"><span>Hire me</span></a>
@@ -63,16 +39,10 @@ const navItems = [
     ✕
   </button>
   <ul class="space-y-6 list-none text-2xl">
-    {navItems.map((item) => (
-      <li>
-        <a href={item.href} class="text-white hover:text-primary-300">
-          {item.label}
-        </a>
-      </li>
-    ))}
-    <li>
-      <a href="/contact/" class="btn btn-primary btn-small"><span>Hire me</span></a>
-    </li>
+    <li><a href="/" class="text-white hover:text-primary-300">Home</a></li>
+    <li><a href="/blog/page/1/" class="text-white hover:text-primary-300">Blog</a></li>
+    <li><a href="/contact/" class="text-white hover:text-primary-300">Contact</a></li>
+    <li><a href="/contact/" class="btn btn-primary btn-small"><span>Hire me</span></a></li>
   </ul>
 </div>
 
@@ -80,10 +50,8 @@ const navItems = [
   const trigger = document.getElementById("mobile-menu-trigger");
   const menu = document.getElementById("mobile-menu");
   const close = document.getElementById("mobile-menu-close");
-  const open = () => menu?.classList.replace("hidden", "flex");
-  const hide = () => menu?.classList.replace("flex", "hidden");
-  trigger?.addEventListener("click", open);
-  close?.addEventListener("click", hide);
+  trigger?.addEventListener("click", () => menu?.classList.replace("hidden", "flex"));
+  close?.addEventListener("click", () => menu?.classList.replace("flex", "hidden"));
 
   const header = document.getElementById("site-header");
   const onScroll = () => {
@@ -93,27 +61,23 @@ const navItems = [
         "fixed",
         "animate-slidedown",
         "border-b",
-        "border-white",
-        "border-opacity-20",
-        "bg-dark-200",
-        "py-3",
-        "bg-opacity-80",
+        "border-white/20",
+        "bg-dark-200/80",
         "backdrop-blur",
+        "py-3",
       );
-      header.classList.remove("absolute", "py-[40px]", "lg:py-[60px]");
+      header.classList.remove("absolute", "py-8", "lg:py-10");
     } else {
       header.classList.remove(
         "fixed",
         "animate-slidedown",
         "border-b",
-        "border-white",
-        "border-opacity-20",
-        "bg-dark-200",
-        "py-3",
-        "bg-opacity-80",
+        "border-white/20",
+        "bg-dark-200/80",
         "backdrop-blur",
+        "py-3",
       );
-      header.classList.add("absolute", "py-[40px]", "lg:py-[60px]");
+      header.classList.add("absolute", "py-8", "lg:py-10");
     }
   };
   window.addEventListener("scroll", onScroll, { passive: true });
