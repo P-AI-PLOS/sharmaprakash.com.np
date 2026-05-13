@@ -12,8 +12,8 @@ share: true
 date: "2016-07-04T07:51:29+05:45"
 last_modified_at:
 category: ['code-quality', 'technical']
-cover: "/images/blog/blog2.png"
-thumb: "/images/blog/blog2.png"
+cover: "/images/blog/tech-notes/ie-includes-fallback.png"
+thumb: "/images/blog/tech-notes/ie-includes-fallback.png"
 show_category_hero_image: true
 ---
 

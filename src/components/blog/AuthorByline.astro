@@ -1,0 +1,31 @@
+---
+import ShareRow from "./ShareRow.astro";
+import { information } from "~/data/site";
+import { formatBlogDate } from "~/utils";
+
+interface Props {
+  date: Date | string;
+  readingMinutes: number;
+  url: string;
+  title: string;
+}
+const { date, readingMinutes, url, title } = Astro.props;
+---
+
+<div class="author-byline">
+  <div class="author-byline-meta">
+    <a href="/about/" class="author-avatar" aria-label={information.fullName}>
+      <img src={information.thumbImage} alt="" />
+    </a>
+    <div>
+      <a href="/about/" class="author-name link-underline">{information.fullName}</a>
+      <p class="author-role">{information.currentRole} · {information.currentCompany}</p>
+      <p class="author-meta">
+        <time datetime={new Date(date).toISOString()}>{formatBlogDate(date)}</time>
+        <span class="text-faint mx-1">·</span>
+        <span>{readingMinutes} min read</span>
+      </p>
+    </div>
+  </div>
+  <ShareRow url={url} title={title} />
+</div>

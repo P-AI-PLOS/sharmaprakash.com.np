@@ -1,0 +1,135 @@
+---
+import { getAiPosts, postUrl, postThumbnail } from "~/utils/posts";
+import { formatBlogDate } from "~/utils";
+import ScrollReveal from "~/components/motion/ScrollReveal.astro";
+
+const posts = (await getAiPosts()).slice(0, 5);
+const [feature, ...rest] = posts;
+---
+
+<section class="bg-surface-base py-24 lg:py-32">
+  <div class="mx-auto max-w-7xl px-6 lg:px-12">
+    <ScrollReveal class="flex items-end justify-between gap-6 mb-12 flex-wrap">
+      <div>
+        <p class="eyebrow mb-3">Field notes · AI &amp; agentic engineering</p>
+        <h2 class="text-h1 text-strong max-w-2xl">
+          On building software with AI agents.
+        </h2>
+      </div>
+      <a href="/category/ai/1/" class="btn btn-secondary">
+        <span>All AI essays</span>
+      </a>
+    </ScrollReveal>
+
+    {posts.length === 0 ? (
+      <p class="text-muted">No essays yet.</p>
+    ) : (
+      <>
+        {feature && (
+          <ScrollReveal>
+            <a
+              href={postUrl(feature)}
+              class="featured-essay group grid lg:grid-cols-2 gap-0 rounded-xl overflow-hidden bg-surface-raised shadow-md"
+            >
+              <figure class="aspect-[5/4] lg:aspect-auto overflow-hidden bg-ink-100">
+                <img
+                  src={postThumbnail(feature)}
+                  alt={feature.data.title}
+                  class="h-full w-full object-cover transition-transform duration-slow ease-out-quad group-hover:scale-[1.04]"
+                  transition:name={`cover-${feature.id}`}
+                />
+              </figure>
+              <div class="p-8 lg:p-12 flex flex-col justify-center">
+                <div class="flex items-center gap-3 mb-5">
+                  <span class="chip is-active">Featured</span>
+                  {feature.data.category?.[0] && (
+                    <span class="chip">{feature.data.category[0]}</span>
+                  )}
+                </div>
+                <h3 class="text-display-lg text-strong leading-tight group-hover:text-accent-700 transition-colors">
+                  {feature.data.title}
+                </h3>
+                {feature.data.excerpt && (
+                  <p class="mt-5 text-body-lg text-muted line-clamp-3">{feature.data.excerpt}</p>
+                )}
+                <div class="mt-8 flex items-center gap-3 text-caption text-muted">
+                  <time datetime={new Date(feature.data.date).toISOString()}>
+                    {formatBlogDate(feature.data.date)}
+                  </time>
+                  <span class="text-faint">·</span>
+                  <span>3 min read</span>
+                  <span class="ml-auto text-accent-700 font-semibold link-underline">
+                    Read essay →
+                  </span>
+                </div>
+              </div>
+            </a>
+          </ScrollReveal>
+        )}
+
+        <div class="mt-10 lg:mt-14 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {rest.map((p, i) => (
+            <ScrollReveal delay={80 * (i + 1)}>
+              <a
+                href={postUrl(p)}
+                class="card-interactive group flex h-full flex-col bg-surface-raised rounded-lg overflow-hidden shadow-md"
+              >
+                <figure class="aspect-[16/10] overflow-hidden bg-ink-100">
+                  <img
+                    src={postThumbnail(p)}
+                    alt={p.data.title}
+                    class="h-full w-full object-cover transition-transform duration-slow ease-out-quad group-hover:scale-[1.04]"
+                    transition:name={`cover-${p.id}`}
+                  />
+                </figure>
+                <div class="p-5 flex-1 flex flex-col gap-3">
+                  <div class="flex items-center gap-2 text-caption text-muted">
+                    {p.data.category?.[0] && <span class="chip">{p.data.category[0]}</span>}
+                  </div>
+                  <h3 class="text-h4 text-strong leading-snug line-clamp-3 group-hover:text-accent-700 transition-colors">
+                    {p.data.title}
+                  </h3>
+                  <time datetime={new Date(p.data.date).toISOString()} class="text-caption text-faint mt-auto">
+                    {formatBlogDate(p.data.date)}
+                  </time>
+                </div>
+              </a>
+            </ScrollReveal>
+          ))}
+        </div>
+      </>
+    )}
+  </div>
+</section>
+
+<style>
+  .featured-essay {
+    position: relative;
+    border: 1px solid var(--border-default);
+    transition:
+      box-shadow var(--dur-base) var(--ease-out-quad),
+      border-color var(--dur-base) var(--ease-out-quad),
+      transform var(--dur-base) var(--ease-out-quad);
+  }
+  .featured-essay::after {
+    content: "";
+    position: absolute;
+    inset: -1px;
+    border-radius: inherit;
+    pointer-events: none;
+    box-shadow: 0 0 0 0 color-mix(in oklab, var(--accent-600), transparent 70%);
+    transition: box-shadow var(--dur-base) var(--ease-out-quad);
+  }
+  .featured-essay:hover {
+    border-color: var(--accent-600);
+    box-shadow: var(--shadow-lg);
+    transform: translateY(-2px);
+  }
+  .featured-essay:hover::after {
+    box-shadow: 0 0 0 6px color-mix(in oklab, var(--accent-600), transparent 78%);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .featured-essay,
+    .featured-essay::after { transition: none; transform: none !important; }
+  }
+</style>

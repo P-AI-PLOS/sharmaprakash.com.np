@@ -1,0 +1,238 @@
+---
+import { Icon } from "@iconify/react";
+import { information } from "~/data/site";
+
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <span class="cta-glow" aria-hidden="true"></span>
+
+  <div class="site-footer-inner">
+    <div class="site-footer-cta">
+      <p class="eyebrow text-accent-500">Want to compare notes?</p>
+      <h2 class="site-footer-headline">
+        On product, engineering, or the awkward space
+        <span class="shape">between</span>.
+      </h2>
+      <p class="site-footer-lede">
+        I'm full-time at Varicon, but I'm always up for a thoughtful conversation
+        about product craft, team-building, or the founder-to-operator transition.
+      </p>
+      <a href="/contact/" class="cta-btn btn btn-primary btn-lg">
+        <span>Say hello</span>
+        <Icon icon="ri:arrow-right-line" client:load />
+      </a>
+    </div>
+
+    <div class="site-footer-meta">
+      <span class="site-footer-copy">© {year} {information.fullName}</span>
+      <div class="site-footer-socials">
+        <a
+          href={information.socialAddress.facebook}
+          aria-label="Facebook"
+          class="iconwrap icon-morph"
+        >
+          <Icon icon="ri:facebook-fill" width="20" height="20" client:load />
+        </a>
+        <a
+          href={information.socialAddress.twitter}
+          aria-label="Twitter"
+          class="iconwrap icon-morph"
+        >
+          <Icon icon="ri:twitter-x-fill" width="20" height="20" client:load />
+        </a>
+        <a
+          href={information.socialAddress.linkedin}
+          aria-label="LinkedIn"
+          class="iconwrap icon-morph"
+        >
+          <Icon icon="ri:linkedin-fill" width="20" height="20" client:load />
+        </a>
+        <a
+          href={information.socialAddress.github}
+          aria-label="GitHub"
+          class="iconwrap icon-morph"
+        >
+          <Icon icon="ri:github-fill" width="20" height="20" client:load />
+        </a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    position: relative;
+    isolation: isolate;
+    background: var(--surface-inverse);
+    color: var(--text-on-inverse);
+    padding: var(--space-20) var(--space-6);
+    text-align: center;
+    overflow: hidden;
+  }
+  @media (min-width: 1024px) {
+    .site-footer {
+      min-height: 100vh;
+      padding-block: var(--space-32);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+
+  /* Ambient glow orbs — bright enough to be visible on the dark band. */
+  .cta-glow {
+    position: absolute;
+    left: 50%;
+    top: 35%;
+    width: 70%;
+    height: 70%;
+    transform: translate(-50%, -50%);
+    background: radial-gradient(closest-side, var(--accent-600), transparent 70%);
+    opacity: 0.55;
+    filter: blur(60px);
+    z-index: 0;
+    pointer-events: none;
+    border-radius: 9999px;
+    animation: cta-glow-pulse 6s var(--ease-in-out-cubic) infinite;
+  }
+  @keyframes cta-glow-pulse {
+    0%, 100% { opacity: 0.45; transform: translate(-50%, -50%) scale(1); }
+    50%      { opacity: 0.7;  transform: translate(-50%, -50%) scale(1.08); }
+  }
+
+  .site-footer-inner {
+    position: relative;
+    z-index: 1;
+    margin-inline: auto;
+    max-width: 56rem;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-16);
+    width: 100%;
+  }
+
+  .site-footer-cta {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-6);
+  }
+
+  .site-footer-headline {
+    color: var(--text-on-inverse);
+    font-size: 36px;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    font-weight: 700;
+    margin: 0;
+    max-width: 22ch;
+  }
+  @media (min-width: 1024px) {
+    .site-footer-headline { font-size: 48px; line-height: 1.1; }
+  }
+
+  /* Hand-drawn scribble accent — pinned behind one word, drawn in amber. */
+  .shape {
+    position: relative;
+    display: inline-block;
+    white-space: nowrap;
+    color: var(--accent-500);
+    isolation: isolate;
+  }
+  .shape::before {
+    content: "";
+    position: absolute;
+    left: 100%;
+    top: 50%;
+    width: 220px;
+    height: 220px;
+    transform: translate(-30%, -80%);
+    background-image: url("/images/asset/line.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    opacity: 0.9;
+    /* Tint the line.png to our accent amber via filter. */
+    filter: brightness(0) saturate(100%)
+      invert(56%) sepia(95%) saturate(1845%) hue-rotate(2deg)
+      brightness(98%) contrast(101%);
+    pointer-events: none;
+    z-index: -1;
+  }
+  @media (max-width: 640px) {
+    .shape::before { width: 160px; height: 160px; }
+  }
+
+  .site-footer-lede {
+    font-size: 18px;
+    line-height: 1.65;
+    color: var(--text-on-inverse-muted);
+    max-width: 36rem;
+    margin: 0;
+  }
+
+  .cta-btn {
+    transition:
+      transform var(--dur-fast) var(--ease-out-quad),
+      box-shadow var(--dur-normal) var(--ease-out-quad);
+  }
+  .cta-btn:hover {
+    transform: translateY(-2px);
+    box-shadow:
+      0 10px 24px -10px color-mix(in oklab, var(--accent-600), transparent 50%);
+  }
+
+  .site-footer-meta {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-4);
+    border-top: 1px solid color-mix(in oklab, var(--ink-50), transparent 90%);
+    padding-top: var(--space-8);
+  }
+  @media (min-width: 768px) {
+    .site-footer-meta {
+      flex-direction: row;
+      justify-content: space-between;
+      gap: var(--space-6);
+    }
+  }
+
+  .site-footer-copy {
+    color: var(--text-on-inverse-muted);
+    font-size: 14px;
+  }
+
+  .site-footer-socials {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+  }
+  .iconwrap {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 9999px;
+    background: color-mix(in oklab, var(--ink-50), transparent 92%);
+    color: var(--text-on-inverse);
+    transition:
+      background-color var(--dur-fast) var(--ease-out-quad),
+      color var(--dur-fast) var(--ease-out-quad),
+      transform var(--dur-normal) var(--ease-out-quad);
+  }
+  .iconwrap:hover {
+    background: var(--accent-600);
+    color: #fff;
+    transform: translateY(-2px);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .cta-glow { animation: none; }
+    .cta-btn,
+    .iconwrap { transition: none; transform: none !important; }
+  }
+</style>

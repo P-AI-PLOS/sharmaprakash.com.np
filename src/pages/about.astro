@@ -3,125 +3,68 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import matter from "gray-matter";
 import { marked } from "marked";
-import Layout from "~/layouts/Layout.astro";
-import Breadcrumb from "~/components/Breadcrumb.astro";
+import SiteShell from "~/layouts/SiteShell.astro";
+import ScrollReveal from "~/components/motion/ScrollReveal.astro";
 import { headTitle, information } from "~/data/site";
 import { services } from "~/data/resume";
-import { clientReview } from "~/data/reviews";
 
-const aboutRaw = await fs.readFile(
-  path.join(process.cwd(), "src/data/static/about.md"),
-  "utf-8",
-);
-const { content: aboutMarkdown } = matter(aboutRaw);
-const aboutHtml = marked.parse(aboutMarkdown);
+const raw = await fs.readFile(path.join(process.cwd(), "src/data/static/about.md"), "utf-8");
+const { content } = matter(raw);
+const html = marked.parse(content);
 ---
 
-<Layout title={headTitle.aboutTitle}>
-  <Breadcrumb
-    title="About"
-    paths={[
-      { name: "Home", link: "/" },
-      { name: "About" },
-    ]}
-  />
+<SiteShell title={headTitle.aboutTitle}>
+  <section class="bg-surface-base pt-40 pb-24">
+    <div class="mx-auto max-w-6xl px-6 lg:px-12 grid lg:grid-cols-12 gap-12 items-start">
+      <ScrollReveal class="lg:col-span-5">
+        <div class="rounded-xl overflow-hidden shadow-lg">
+          <img src={information.largeImage} alt={information.fullName} class="w-full h-auto" />
+        </div>
+      </ScrollReveal>
 
-  <section class="about-section pt-24 bg-slate-100 dark:bg-dark-100 lg:pt-28 xl:pt-32">
-    <div class="container mx-auto px-6">
-      <div class="text-center mb-12">
-        <h2 class="text-black dark:text-white">About Me</h2>
-      </div>
-      <div class="grid grid-cols-2 items-center gap-7 py-12 lg:py-20">
-        <div class="col-span-2 lg:col-span-1">
-          <div class="overflow-hidden rounded-lg border-10 border-primary-300 border-opacity-20">
-            <img src={information.largeImage} alt={information.fullName} class="w-full h-auto" />
-          </div>
+      <ScrollReveal delay={120} class="lg:col-span-7">
+        <p class="eyebrow mb-3">About</p>
+        <h1 class="text-display-lg text-strong mb-6">
+          Programmer who founded a few things, now sharpening the product craft.
+        </h1>
+        <p class="text-body-lg text-muted mb-4">{information.bio}</p>
+        <dl class="mt-8 grid grid-cols-2 gap-x-8 gap-y-3 text-body">
+          <dt class="text-muted">Currently</dt><dd class="text-strong">{information.currentRole}</dd>
+          <dt class="text-muted">At</dt><dd class="text-strong">{information.currentCompany}</dd>
+          <dt class="text-muted">Based in</dt><dd class="text-strong">{information.address}</dd>
+          <dt class="text-muted">Experience</dt><dd class="text-strong">{information.yearsOfExperience}+ years</dd>
+          <dt class="text-muted">Languages</dt><dd class="text-strong">{information.languages.join(", ")}</dd>
+          <dt class="text-muted">Status</dt><dd class="text-strong">{information.freelance}</dd>
+        </dl>
+        <div class="mt-8 flex gap-3">
+          <a href="/resume/" class="btn btn-primary"><span>View résumé</span></a>
+          <a href="/contact/" class="btn btn-secondary"><span>Get in touch</span></a>
         </div>
-        <div class="col-span-2 lg:col-span-1">
-          <h3>
-            <span class="text-accent dark:text-white">Hi, I am&nbsp;</span>
-            <span class="text-black dark:text-white">{information.fullName}</span>
-          </h3>
-          <ul class="styledlist mt-4 space-y-2">
-            <li class="text-lg dark:text-white">
-              <strong class="inline-block min-w-[120px] font-medium text-black dark:text-white">First Name </strong>
-              : <span class="text-black dark:text-white">&nbsp; {information.firstName}</span>
-            </li>
-            <li class="text-lg dark:text-white">
-              <strong class="inline-block min-w-[120px] font-medium text-black dark:text-white">Last Name </strong>
-              : <span class="text-black dark:text-white">&nbsp; {information.lastName}</span>
-            </li>
-            <li class="text-lg dark:text-white">
-              <strong class="inline-block min-w-[120px] font-medium text-black dark:text-white">Age </strong>
-              : <span class="text-black dark:text-white">&nbsp; {information.age} years</span>
-            </li>
-            <li class="text-lg dark:text-white">
-              <strong class="inline-block min-w-[120px] font-medium text-black dark:text-white">Nationality </strong>
-              : <span class="text-black dark:text-white">&nbsp; {information.nationality}</span>
-            </li>
-            <li class="text-lg dark:text-white">
-              <strong class="inline-block min-w-[120px] font-medium text-black dark:text-white">Languages </strong>
-              : <span class="text-black dark:text-white">&nbsp; {information.languages.join(", ")}</span>
-            </li>
-            <li class="text-lg dark:text-white">
-              <strong class="inline-block min-w-[120px] font-medium text-black dark:text-white">Address </strong>
-              : <span class="text-black dark:text-white">&nbsp; {information.address}</span>
-            </li>
-            <li class="text-lg dark:text-white">
-              <strong class="inline-block min-w-[120px] font-medium text-black dark:text-white">Freelance </strong>
-              : <span class="text-black dark:text-white">&nbsp; {information.freelance}</span>
-            </li>
-          </ul>
-          <a href="/resume.pdf" class="btn btn-primary btn-small mt-6 inline-block">
-            <span>Download Resume</span>
-          </a>
-        </div>
-      </div>
+      </ScrollReveal>
     </div>
   </section>
 
-  <section class="services-section bg-slate-100 dark:bg-dark-100 pt-14 lg:py-14 xl:pt-16 xl:pb-24">
-    <div class="container mx-auto px-6">
-      <div class="text-center mb-12">
-        <h2 class="text-black dark:text-white">My Services</h2>
-      </div>
-      <div class="grid gap-7 md:grid-cols-3">
-        {services.map((s) => (
-          <div class="card p-6 rounded-lg bg-white dark:bg-dark-400">
-            <img src={s.icon} alt={s.title} class="w-10 h-10 mb-4" />
-            <h4 class="text-black dark:text-white mb-2">{s.title}</h4>
-            <p class="text-gray-600 dark:text-white">{s.text}</p>
-          </div>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <section class="reviews-section pb-14 bg-slate-100 dark:bg-dark-100 lg:pt-14 xl:pt-16 xl:pb-24">
-    <div class="container mx-auto px-6">
-      <div class="text-center mb-12">
-        <h2 class="text-black dark:text-white">Client Reviews</h2>
-      </div>
-      <div class="grid gap-7 md:grid-cols-3">
-        {clientReview.map((r) => (
-          <div class="card p-6 rounded-lg bg-white dark:bg-dark-400">
-            <p class="dark:text-white mb-4" set:html={r.text} />
-            <div class="flex items-center gap-3">
-              <img src={r.image} alt={r.name} class="w-12 h-12 rounded-full object-cover" />
-              <div>
-                <strong class="block text-black dark:text-white">{r.name}</strong>
-                <span class="text-sm text-gray-500 dark:text-white">{r.meta}</span>
-              </div>
+  <section class="bg-surface-sunken py-24">
+    <div class="mx-auto max-w-6xl px-6 lg:px-12">
+      <ScrollReveal>
+        <p class="eyebrow mb-3">What I do</p>
+        <h2 class="text-h1 text-strong mb-12 max-w-xl">Areas where I tend to be useful.</h2>
+      </ScrollReveal>
+      <div class="grid md:grid-cols-3 gap-8">
+        {services.map((s, i) => (
+          <ScrollReveal delay={80 * i}>
+            <div class="card-interactive rounded-lg bg-surface-raised shadow-md p-8 h-full">
+              <img src={s.icon} alt="" class="w-10 h-10 mb-5 opacity-80" />
+              <h3 class="text-h3 text-strong mb-3">{s.title}</h3>
+              <p class="text-body text-muted">{s.text}</p>
             </div>
-          </div>
+          </ScrollReveal>
         ))}
       </div>
     </div>
   </section>
 
-  <section class="pb-14 bg-slate-100 dark:bg-dark-100 xl:pb-24">
-    <div class="container mx-auto px-6 lg:py-16 xl:py-20">
-      <div class="post-body prose max-w-none dark:prose-invert" set:html={aboutHtml} />
-    </div>
+  <section class="bg-surface-base py-24">
+    <div class="mx-auto max-w-reading px-6 lg:px-0 prose-post" set:html={html} />
   </section>
-</Layout>
+</SiteShell>

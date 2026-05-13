@@ -1,0 +1,44 @@
+---
+/**
+ * The site's primary nav. Same items, same look on the homepage hero and on the
+ * top-of-page header. The visual variant comes from the surrounding context.
+ *
+ * Props:
+ *   tone — "inverse" (white text, for dark surfaces) | "default" (text-default).
+ */
+interface Props {
+  tone?: "inverse" | "default";
+}
+const { tone = "inverse" } = Astro.props;
+
+const pathname = Astro.url.pathname;
+const isActive = (href: string, prefix?: string) =>
+  pathname === href || (prefix ? pathname.startsWith(prefix) : false);
+
+const items = [
+  { href: "/", label: "Home" },
+  { href: "/blog/page/1/", label: "Essays", prefix: "/blog/" },
+  { href: "/contact/", label: "Contact" },
+];
+
+const baseColor = tone === "inverse" ? "text-on-inverse-muted" : "text-default";
+---
+
+<nav aria-label="Primary">
+  <ul class:list={["flex gap-8 list-none font-medium", baseColor]}>
+    {items.map((item) => (
+      <li>
+        <a
+          href={item.href}
+          class:list={[
+            "link-underline hover:text-accent-600 transition-colors",
+            { "is-active text-accent-600": isActive(item.href, item.prefix) },
+            tone === "inverse" ? "text-on-inverse-muted" : "text-default",
+          ]}
+        >
+          {item.label}
+        </a>
+      </li>
+    ))}
+  </ul>
+</nav>

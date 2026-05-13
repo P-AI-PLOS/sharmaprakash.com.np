@@ -13,8 +13,8 @@ share: true
 date: "2016-02-26T13:13:23+05:45"
 toc: true
 category: ['code-quality', 'technical']
-cover: "/images/blog/blog5.png"
-thumb: "/images/blog/blog5.png"
+cover: "/images/blog/tech-notes/rmagick-ubuntu-install.png"
+thumb: "/images/blog/tech-notes/rmagick-ubuntu-install.png"
 show_category_hero_image: true
 ---
 

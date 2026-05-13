@@ -1,0 +1,40 @@
+---
+import type { PostSeriesContext } from "~/utils/posts";
+import { postUrl } from "~/utils/posts";
+import { getSeriesMeta } from "~/data/series";
+
+interface Props { context: PostSeriesContext }
+const { context } = Astro.props;
+const meta = getSeriesMeta(context.slug);
+const title = meta?.title ?? context.slug;
+---
+
+<aside class="series-strip" aria-label={`${title} series navigation`}>
+  <div class="mx-auto max-w-7xl px-6 lg:px-12 py-4 lg:py-5 flex flex-col lg:flex-row lg:items-center gap-3 lg:gap-6">
+    <div class="series-strip-label">
+      <span class="eyebrow">{title}</span>
+      <span class="text-body-sm text-muted ml-2">
+        Part {context.index + 1} of {context.parts.length}
+      </span>
+    </div>
+    <ol class="series-chips list-none">
+      {context.parts.map((p, i) => {
+        const isCurrent = i === context.index;
+        const num = String(i + 1).padStart(2, "0");
+        return (
+          <li>
+            {isCurrent ? (
+              <span class="series-chip is-current" aria-current="step" title={p.data.title}>
+                {num}
+              </span>
+            ) : (
+              <a href={postUrl(p)} class="series-chip" title={p.data.title}>
+                {num}
+              </a>
+            )}
+          </li>
+        );
+      })}
+    </ol>
+  </div>
+</aside>

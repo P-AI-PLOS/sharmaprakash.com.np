@@ -1,0 +1,31 @@
+---
+import type { Post } from "~/utils/posts";
+import { getAllPostsSorted } from "~/utils/posts";
+import PostCard from "./PostCard.astro";
+
+interface Props { current: Post }
+const { current } = Astro.props;
+
+const all = await getAllPostsSorted();
+const others = all.filter((p) => p.id !== current.id);
+const currentCat = current.data.category?.[0];
+
+let related: Post[] = [];
+if (currentCat) {
+  related = others.filter((p) => p.data.category?.includes(currentCat)).slice(0, 3);
+}
+// Fallback to most recent if no category siblings.
+if (related.length === 0) {
+  related = others.slice(0, 3);
+}
+---
+
+{related.length > 0 && (
+  <section class="mx-auto max-w-7xl px-6 lg:px-8 border-t border-default pt-16 pb-24">
+    <p class="eyebrow mb-4">Keep reading</p>
+    <h2 class="text-h2 text-strong mb-10">More on this</h2>
+    <div class="grid gap-8 md:grid-cols-3">
+      {related.map((p) => <PostCard post={p} />)}
+    </div>
+  </section>
+)}

@@ -44,6 +44,8 @@ const posts = defineCollection({
     share: z.boolean().optional(),
     last_modified_at: z.coerce.date().optional(),
     show_category_hero_image: z.boolean().optional().default(false),
+    series: z.string().optional(),
+    seriesOrder: z.number().int().positive().optional(),
   }),
 });
 

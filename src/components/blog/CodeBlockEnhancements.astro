@@ -1,0 +1,99 @@
+---
+/**
+ * Inline client script that enriches each <figure data-rehype-pretty-code-figure>
+ * with a header (language pill + copy button) and a collapse affordance for
+ * blocks longer than COLLAPSE_LINE_THRESHOLD.
+ *
+ * Vanilla JS, no deps. Re-runs on `astro:page-load` so it survives Astro
+ * View Transitions.
+ */
+---
+
+<script is:inline>
+  (function () {
+    const COLLAPSE_LINE_THRESHOLD = 24;
+    const COPY_ICON = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>';
+    const CHECK_ICON = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>';
+
+    function enhance(root) {
+      const figures = (root || document).querySelectorAll(
+        "figure[data-rehype-pretty-code-figure]:not([data-enhanced])"
+      );
+      figures.forEach((figure) => {
+        figure.setAttribute("data-enhanced", "");
+        const pre = figure.querySelector("pre");
+        const code = figure.querySelector("pre > code");
+        if (!pre || !code) return;
+
+        // Language + filename
+        const lang = code.getAttribute("data-language") || "text";
+        const titleEl = figure.querySelector("[data-rehype-pretty-code-title]");
+
+        // Build header
+        const header = document.createElement("div");
+        header.className = "code-header";
+
+        const left = document.createElement("div");
+        left.style.display = "flex";
+        left.style.alignItems = "center";
+        left.style.gap = "10px";
+        const pill = document.createElement("span");
+        pill.className = "code-lang";
+        pill.textContent = lang;
+        left.appendChild(pill);
+        if (titleEl) {
+          // Move the title text into the header beside the pill, then drop the
+          // original (it's redundant once it's in the header).
+          const fname = document.createElement("span");
+          fname.style.fontFamily = "var(--font-mono)";
+          fname.style.fontSize = "12px";
+          fname.style.color = "var(--code-fg)";
+          fname.textContent = titleEl.textContent || "";
+          left.appendChild(fname);
+          titleEl.remove();
+        }
+        header.appendChild(left);
+
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "code-copy";
+        btn.setAttribute("aria-label", "Copy code");
+        btn.innerHTML = COPY_ICON + '<span class="code-copy-label">Copy</span>';
+        btn.addEventListener("click", async () => {
+          try {
+            await navigator.clipboard.writeText(code.textContent || "");
+            btn.classList.add("is-copied");
+            btn.innerHTML = CHECK_ICON + '<span class="code-copy-label">Copied</span>';
+            setTimeout(() => {
+              btn.classList.remove("is-copied");
+              btn.innerHTML = COPY_ICON + '<span class="code-copy-label">Copy</span>';
+            }, 1500);
+          } catch (e) {
+            btn.innerHTML = COPY_ICON + '<span class="code-copy-label">Failed</span>';
+          }
+        });
+        header.appendChild(btn);
+
+        figure.insertBefore(header, figure.firstChild);
+
+        // Collapse if long
+        const lineCount = code.querySelectorAll("[data-line]").length;
+        if (lineCount > COLLAPSE_LINE_THRESHOLD) {
+          figure.classList.add("is-collapsible", "is-collapsed");
+          const expand = document.createElement("button");
+          expand.type = "button";
+          expand.className = "code-expand";
+          expand.textContent = "Show all " + lineCount + " lines";
+          expand.addEventListener("click", () => {
+            figure.classList.remove("is-collapsed");
+            expand.remove();
+          });
+          figure.appendChild(expand);
+        }
+      });
+    }
+
+    enhance();
+    document.addEventListener("astro:page-load", () => enhance());
+  })();
+</script>

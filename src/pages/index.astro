@@ -1,17 +1,21 @@
 ---
-import Layout from "~/layouts/Layout.astro";
-import HeroSection from "~/components/home/HeroSection.astro";
-import Testimonials from "~/components/home/Testimonials.astro";
-import RecentNews from "~/components/home/RecentNews.astro";
-import PersonalBlog from "~/components/home/PersonalBlog.astro";
+import SiteShell from "~/layouts/SiteShell.astro";
+import HomepageHero from "~/components/marketing/HomepageHero.astro";
+import CurrentRoleStrip from "~/components/marketing/CurrentRoleStrip.astro";
+import NowFocus from "~/components/marketing/NowFocus.astro";
+import RecentEssaysList from "~/components/marketing/RecentEssaysList.astro";
+import RecentTechnicalPostsCarousel from "~/components/marketing/RecentTechnicalPostsCarousel.astro";
+import ClientTestimonialsCarousel from "~/components/marketing/ClientTestimonialsCarousel.astro";
+import NewsletterSignup from "~/components/marketing/NewsletterSignup.astro";
 import { headTitle } from "~/data/site";
 ---
 
-<Layout title={headTitle.homeTitle} hideHeader>
-  <section class="homepage4">
-    <HeroSection />
-    <Testimonials />
-    <RecentNews />
-    <PersonalBlog />
-  </section>
-</Layout>
+<SiteShell title={headTitle.homeTitle} hideHeader>
+  <HomepageHero />
+  <CurrentRoleStrip />
+  <NowFocus />
+  <RecentEssaysList />
+  <RecentTechnicalPostsCarousel />
+  <ClientTestimonialsCarousel />
+  <NewsletterSignup />
+</SiteShell>

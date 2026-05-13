@@ -1,67 +1,77 @@
 ---
 import type { GetStaticPaths } from "astro";
 import { render } from "astro:content";
-import Layout from "~/layouts/Layout.astro";
-import Breadcrumb from "~/components/Breadcrumb.astro";
-import { getAllPostsSorted, postUrl, postThumbnail } from "~/utils/posts";
-import { formatBlogDate } from "~/utils";
+import SiteShell from "~/layouts/SiteShell.astro";
+import PostHero from "~/components/blog/PostHero.astro";
+import ReadingProgressBar from "~/components/blog/ReadingProgressBar.astro";
+import RelatedPosts from "~/components/blog/RelatedPosts.astro";
+import CodeBlockEnhancements from "~/components/blog/CodeBlockEnhancements.astro";
+import SeriesNavStrip from "~/components/blog/SeriesNavStrip.astro";
+import SeriesContinueBlock from "~/components/blog/SeriesContinueBlock.astro";
+import AuthorBioCard from "~/components/blog/AuthorBioCard.astro";
+import PrevNextPosts from "~/components/blog/PrevNextPosts.astro";
+import DisqusComments from "~/components/blog/DisqusComments.astro";
+import {
+  getAllPostsSorted,
+  postUrl,
+  postThumbnail,
+  getPostSeries,
+  getAdjacentPosts,
+  estimateReadMinutes,
+} from "~/utils/posts";
 
 export const getStaticPaths = (async () => {
   const posts = await getAllPostsSorted();
   return posts.map((post) => {
     const url = postUrl(post).replace(/^\/|\/$/g, "");
-    return {
-      params: { slug: url },
-      props: { post },
-    };
+    return { params: { slug: url }, props: { post } };
   });
 }) satisfies GetStaticPaths;
 
 const { post } = Astro.props as { post: Awaited<ReturnType<typeof getAllPostsSorted>>[number] };
 const { Content } = await render(post);
-const thumb = postThumbnail(post);
-const cats = post.data.category ?? [];
+const series = await getPostSeries(post);
+const adjacent = await getAdjacentPosts(post);
+const readingMinutes = estimateReadMinutes(post.body);
+const absoluteUrl = new URL(postUrl(post), Astro.site ?? "http://localhost/").toString();
 ---
 
-<Layout
+<SiteShell
   title={post.data.title}
   description={post.data.excerpt}
-  image={thumb}
+  image={postThumbnail(post)}
   ogType="article"
   date={post.data.date}
   lastModified={post.data.last_modified_at}
   showCanonical
 >
-  <Breadcrumb
-    title={post.data.title}
-    paths={[
-      { name: "Home", link: "/" },
-      { name: "Blogs", link: "/blog/page/1/" },
-      { name: post.data.title },
-    ]}
-  />
+  <ReadingProgressBar />
 
-  <article class="bg-slate-100 dark:bg-dark-100 py-16 lg:py-24">
-    <div class="container mx-auto px-6 max-w-3xl">
-      <header class="mb-8">
-        <h1 class="text-3xl lg:text-4xl text-black dark:text-white">{post.data.title}</h1>
-        <div class="mt-3 flex flex-wrap gap-3 text-sm text-gray-500 dark:text-white">
-          <time datetime={new Date(post.data.date).toISOString()}>
-            {formatBlogDate(post.data.date)}
-          </time>
-          {cats.length > 0 && (
-            <span>· {cats.join(", ")}</span>
-          )}
-        </div>
-      </header>
+  <article class="bg-surface-base">
+    <PostHero post={post} readingMinutes={readingMinutes} url={absoluteUrl} />
 
-      {post.data.show_category_hero_image && post.data.cover && (
-        <img src={post.data.cover} alt={post.data.title} class="w-full rounded-lg mb-8" />
-      )}
+    {series && <SeriesNavStrip context={series} />}
 
-      <div class="post-body prose lg:prose-lg max-w-none dark:prose-invert">
+    <div class="mx-auto max-w-5xl px-6 lg:px-8 post-grid">
+      <div class="prose-post">
         <Content />
       </div>
     </div>
+
+    <CodeBlockEnhancements />
+
+    <div class="mx-auto max-w-5xl px-6 lg:px-8 pb-20 space-y-12">
+      <AuthorBioCard />
+      {series && <SeriesContinueBlock context={series} />}
+      <PrevNextPosts adjacent={adjacent} />
+    </div>
+
+    {!series && <RelatedPosts current={post} />}
+
+    <DisqusComments
+      identifier={post.id}
+      title={post.data.title}
+      url={absoluteUrl}
+    />
   </article>
-</Layout>
+</SiteShell>

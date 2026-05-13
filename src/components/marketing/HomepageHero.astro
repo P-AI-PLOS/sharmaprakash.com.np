@@ -1,0 +1,159 @@
+---
+import HeroAuroraBackground from "./HeroAuroraBackground.astro";
+import PrimaryNavigation from "~/components/chrome/PrimaryNavigation.astro";
+import ScrollReveal from "~/components/motion/ScrollReveal.astro";
+import { Icon } from "@iconify/react";
+import { information, siteConfig } from "~/data/site";
+---
+
+<section class="hp-hero relative overflow-hidden bg-surface-inverse text-on-inverse">
+  <HeroAuroraBackground />
+
+  <div class="relative z-10 mx-auto max-w-7xl px-6 lg:px-12 pt-10 lg:pt-12 pb-24 lg:pb-32 min-h-screen flex flex-col">
+    <header class="flex items-center justify-between gap-6">
+      <a href="/" class="font-semibold tracking-tight text-h4 text-on-inverse">{siteConfig.fullName}</a>
+      <div class="hidden lg:block">
+        <PrimaryNavigation tone="inverse" />
+      </div>
+      <a href="/contact/" class="btn btn-primary btn-sm hidden md:inline-flex">
+        <span>Say Hi 👋</span>
+      </a>
+    </header>
+
+    <div class="grid lg:grid-cols-12 gap-16 items-center flex-1 mt-20 lg:mt-12">
+      <div class="lg:col-span-7 max-w-2xl">
+        <ScrollReveal>
+          <span class="eyebrow text-accent-500 hidden 2xl:inline-block">{siteConfig.fullName}</span>
+        </ScrollReveal>
+        <ScrollReveal delay={120}>
+          <h1 class="text-display-xl lg:text-display-2xl text-on-inverse mt-4">
+            Programmer, Founder, <span class="text-accent-500">Product Owner</span>.
+          </h1>
+        </ScrollReveal>
+        <ScrollReveal delay={260}>
+          <p class="mt-6 text-body-lg text-on-inverse-muted max-w-xl">
+            {information.bio}
+          </p>
+        </ScrollReveal>
+        <ScrollReveal delay={400} class="mt-10 flex flex-wrap gap-4">
+          <a href="/contact/" class="btn btn-primary">
+            <span>Say Hi 👋</span>
+            <Icon icon="ri:arrow-right-line" client:load />
+          </a>
+          <a href="/blog/page/1/" class="btn btn-secondary-inverse">
+            <span>Read the essays</span>
+          </a>
+        </ScrollReveal>
+
+        <ScrollReveal delay={540} class="mt-16 flex items-center gap-5 text-on-inverse-muted">
+          <span class="text-caption">Find me at</span>
+          <a href={information.socialAddress.github} aria-label="GitHub" class="icon-morph hover:text-accent-500">
+            <Icon icon="ri:github-fill" width="22" height="22" client:load />
+          </a>
+          <a href={information.socialAddress.linkedin} aria-label="LinkedIn" class="icon-morph hover:text-accent-500">
+            <Icon icon="ri:linkedin-fill" width="22" height="22" client:load />
+          </a>
+          <a href={information.socialAddress.twitter} aria-label="Twitter" class="icon-morph hover:text-accent-500">
+            <Icon icon="ri:twitter-x-fill" width="22" height="22" client:load />
+          </a>
+        </ScrollReveal>
+      </div>
+
+      <ScrollReveal delay={180} class="lg:col-span-5 relative">
+        <div class="hp-portrait" data-hp-parallax>
+          <img
+            src="/images/asset/prakash.jpg"
+            alt={information.fullName}
+            class="w-full h-full object-cover"
+          />
+        </div>
+        <span class="hp-badge hp-badge--a">11+ years shipping</span>
+        <span class="hp-badge hp-badge--b">EM @ Varicon</span>
+      </ScrollReveal>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hp-portrait {
+    aspect-ratio: 4 / 5;
+    max-width: min(100%, calc(72vh * 4 / 5));
+    margin-inline: auto;
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+    box-shadow: var(--shadow-lg);
+    background: var(--ink-800);
+  }
+  .hp-badge {
+    position: absolute;
+    background: color-mix(in oklab, var(--ink-50), transparent 5%);
+    color: var(--ink-900);
+    padding: 8px 14px;
+    border-radius: var(--radius-pill);
+    font-size: 13px;
+    font-weight: 600;
+    box-shadow: var(--shadow-md);
+    backdrop-filter: blur(8px);
+  }
+  .hp-badge--a {
+    top: 8%; left: -16px;
+    animation: badge-float-a 6s var(--ease-in-out-cubic) infinite alternate;
+  }
+  .hp-badge--b {
+    bottom: 8%; right: -16px;
+    background: var(--accent-600); color: white;
+    animation: badge-float-b 7s var(--ease-in-out-cubic) infinite alternate;
+  }
+  .hp-portrait {
+    transition: transform 120ms linear;
+    will-change: transform;
+  }
+
+  @keyframes badge-float-a {
+    from { transform: translateY(-4px) rotate(-1deg); }
+    to   { transform: translateY(4px)  rotate(1deg);  }
+  }
+  @keyframes badge-float-b {
+    from { transform: translateY(4px)  rotate(1deg);  }
+    to   { transform: translateY(-4px) rotate(-1deg); }
+  }
+
+  @media (max-width: 1024px) {
+    .hp-badge--a { left: 8px; }
+    .hp-badge--b { right: 8px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hp-badge--a,
+    .hp-badge--b,
+    .hp-portrait {
+      animation: none !important;
+      transform: none !important;
+    }
+  }
+</style>
+
+<script>
+  const armParallax = () => {
+    const portrait = document.querySelector<HTMLElement>("[data-hp-parallax]");
+    if (!portrait) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+    let ticking = false;
+    const onScroll = () => {
+      if (ticking) return;
+      ticking = true;
+      window.requestAnimationFrame(() => {
+        const y = window.scrollY;
+        // Cap displacement so it stays subtle.
+        const offset = Math.max(-24, Math.min(24, y * 0.06));
+        portrait.style.transform = `translateY(${offset}px)`;
+        ticking = false;
+      });
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+  };
+  armParallax();
+  document.addEventListener("astro:page-load", armParallax);
+</script>

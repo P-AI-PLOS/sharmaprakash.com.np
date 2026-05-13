@@ -12,8 +12,8 @@ header:
 tags:
 date: "2019-03-20T09:42:12+05:45"
 category: ['code-quality', 'technical']
-cover: "/images/blog/header.png"
-thumb: "/images/blog/header.png"
+cover: "/images/blog/tech-notes/programming-language-career-paths.png"
+thumb: "/images/blog/tech-notes/programming-language-career-paths.png"
 minute: 3
 show_category_hero_image: true
 ---

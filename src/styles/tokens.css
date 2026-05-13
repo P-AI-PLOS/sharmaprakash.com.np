@@ -1,0 +1,140 @@
+/* ---------------------------------------------------------------------------
+ * Design tokens. Source of truth for color, type, spacing, motion.
+ * If you add or change a value here, update design.md in the same commit.
+ * --------------------------------------------------------------------------- */
+
+:root {
+  /* --- Color: ink (neutrals) -------------------------------------------- */
+  --ink-50:  #F8FAFC;
+  --ink-100: #F1F5F9;
+  --ink-200: #E2E8F0;
+  --ink-300: #CBD5E1;
+  --ink-400: #94A3B8;
+  --ink-500: #64748B;
+  --ink-600: #475569;
+  --ink-700: #334155;
+  --ink-800: #1E293B;
+  --ink-900: #0F172A;
+  --ink-950: #020617;
+
+  /* --- Color: accent (deep amber) -------------------------------------- */
+  --accent-50:  #FFFBEB;
+  --accent-100: #FEF3C7;
+  --accent-200: #FDE68A;
+  --accent-300: #FCD34D;
+  --accent-400: #FBBF24;
+  --accent-500: #F59E0B;
+  --accent-600: #D97706;
+  --accent-700: #B45309;
+  --accent-800: #92400E;
+  --accent-900: #78350F;
+  --accent-950: #451A03;
+
+  /* --- Semantic surfaces ---------------------------------------------- */
+  --surface-base:    var(--ink-50);
+  --surface-raised:  #FFFFFF;
+  --surface-sunken:  var(--ink-100);
+  --surface-inverse: var(--ink-900);
+  --surface-glow:    color-mix(in oklab, var(--accent-600), transparent 90%);
+
+  /* --- Semantic text -------------------------------------------------- */
+  --text-strong:           var(--ink-900);
+  --text-default:          var(--ink-700);
+  --text-muted:            var(--ink-500);
+  --text-faint:            var(--ink-400);
+  --text-on-inverse:       var(--ink-50);
+  --text-on-inverse-muted: var(--ink-300);
+
+  /* --- Semantic borders ----------------------------------------------- */
+  --border-default: var(--ink-200);
+  --border-strong:  var(--ink-300);
+  --border-accent:  var(--accent-600);
+
+  /* --- Semantic code surface ----------------------------------------- */
+  --code-bg:        var(--ink-900);
+  --code-bg-raised: var(--ink-800);                                            /* filename / header strip */
+  --code-fg:        var(--ink-100);
+  --code-gutter:    var(--ink-500);                                            /* line-number colour */
+  --code-line-hl:   color-mix(in oklab, var(--accent-600), transparent 88%);   /* highlighted-line bg */
+  --code-border:    var(--ink-700);
+
+  /* --- Spacing (4px base, exposed for non-Tailwind contexts) --------- */
+  --space-0:  0;
+  --space-1:  4px;
+  --space-2:  8px;
+  --space-3:  12px;
+  --space-4:  16px;
+  --space-5:  20px;
+  --space-6:  24px;
+  --space-8:  32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --space-20: 80px;
+  --space-24: 96px;
+  --space-32: 128px;
+
+  /* --- Radius --------------------------------------------------------- */
+  --radius-sm:   4px;
+  --radius-md:   8px;
+  --radius-lg:   16px;
+  --radius-xl:   24px;
+  --radius-pill: 9999px;
+  --radius-full: 50%;
+
+  /* --- Shadow --------------------------------------------------------- */
+  --shadow-sm:   0 1px 2px 0 rgb(15 23 42 / 0.04);
+  --shadow-md:   0 4px 12px -2px rgb(15 23 42 / 0.06);
+  --shadow-lg:   0 12px 32px -8px rgb(15 23 42 / 0.10);
+  --shadow-glow: 0 0 32px -4px rgb(217 119 6 / 0.25);
+
+  /* --- Motion --------------------------------------------------------- */
+  --ease-out-quad:     cubic-bezier(0.5, 1, 0.89, 1);
+  --ease-out-expo:     cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out-cubic: cubic-bezier(0.65, 0, 0.35, 1);
+
+  --dur-fast:     150ms;
+  --dur-normal:   250ms;
+  --dur-slow:     400ms;
+  --dur-pageturn: 600ms;
+
+  /* --- Type families -------------------------------------------------- */
+  --font-ui:    "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-serif: "Source Serif 4", Georgia, "Times New Roman", serif;
+  --font-mono:  "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+/* Dark mode tokens. Not wired at runtime in v1 — apply by adding `.dark` to <html>. */
+.dark {
+  --surface-base:    var(--ink-900);
+  --surface-raised:  var(--ink-800);
+  --surface-sunken:  var(--ink-950);
+  --surface-inverse: var(--ink-50);
+
+  --text-strong:           var(--ink-50);
+  --text-default:          var(--ink-200);
+  --text-muted:            var(--ink-400);
+  --text-faint:            var(--ink-500);
+  --text-on-inverse:       var(--ink-900);
+  --text-on-inverse-muted: var(--ink-700);
+
+  --border-default: var(--ink-700);
+  --border-strong:  var(--ink-600);
+}
+
+/* Honor user motion preference globally. */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Astro view-transition defaults — tuned with our motion tokens. */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: var(--dur-pageturn);
+  animation-timing-function: var(--ease-out-expo);
+}

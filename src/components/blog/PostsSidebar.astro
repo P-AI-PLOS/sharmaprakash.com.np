@@ -1,0 +1,43 @@
+---
+import {
+  getAllCategories,
+  getRecentPosts,
+  getUniqueCategories,
+  postUrl,
+} from "~/utils/posts";
+import { createSlug, formatBlogDate } from "~/utils";
+
+const recent = await getRecentPosts(5);
+const cats = await getUniqueCategories();
+const all = await getAllCategories();
+const counts = Object.fromEntries(cats.map((c) => [c, all.filter((x) => x === c).length]));
+---
+
+<aside class="space-y-10 sticky top-28">
+  <section>
+    <p class="eyebrow mb-3">Categories</p>
+    <ul class="flex flex-wrap gap-2 list-none">
+      {cats.map((c) => (
+        <li>
+          <a href={`/category/${createSlug(c)}/1/`} class="chip">
+            {c} <span class="text-faint ml-1">({counts[c]})</span>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <section>
+    <p class="eyebrow mb-3">Recent</p>
+    <ul class="list-none space-y-4">
+      {recent.map((p) => (
+        <li>
+          <a href={postUrl(p)} class="link-underline text-default font-medium leading-snug block">
+            {p.data.title}
+          </a>
+          <small class="text-faint">{formatBlogDate(p.data.date)}</small>
+        </li>
+      ))}
+    </ul>
+  </section>
+</aside>

@@ -1,103 +1,87 @@
 ---
-import Layout from "~/layouts/Layout.astro";
-import Breadcrumb from "~/components/Breadcrumb.astro";
 import { Icon } from "@iconify/react";
+import SiteShell from "~/layouts/SiteShell.astro";
+import ScrollReveal from "~/components/motion/ScrollReveal.astro";
 import { headTitle, information } from "~/data/site";
 ---
 
-<Layout title={headTitle.contactTitle}>
-  <Breadcrumb
-    title="Contact"
-    paths={[
-      { name: "Home", link: "/" },
-      { name: "Contact" },
-    ]}
-  />
-
-  <section class="contact-section bg-slate-100 dark:bg-dark-100 py-24 lg:py-28 xl:py-32">
-    <div class="container mx-auto px-6">
-      <div class="text-center mb-12">
-        <h2 class="text-black dark:text-white">Contact Us</h2>
-      </div>
-      <div class="grid grid-cols-9 gap-7">
-        <div class="col-span-9 lg:col-span-4">
-          <h4 class="text-black dark:text-white">Contact Information</h4>
-          <p class="text-gray-600 dark:text-white mt-2">
-            Whether you have project inquiries, collaboration proposals, or simply want to reach
-            out, feel free to contact. Let's build something amazing together!
-          </p>
-          <span class="inline-block w-20 h-1 rounded-full bg-accent bg-opacity-20 my-4"></span>
-
-          <div class="mt-5 space-y-5">
-            <div class="flex p-4 card rounded-lg bg-white dark:bg-dark-400 md:p-5">
-              <span class="inline-flex items-center justify-center w-16 h-16 mr-4 text-3xl rounded-full shrink-0 bg-primary-300 bg-opacity-10 text-primary-300">
-                <Icon icon="ri:phone-line" client:load />
-              </span>
-              <div>
-                <h5 class="mb-2 text-black dark:text-white">Contact on phone</h5>
-                {information.phoneNumbers.map((n) => (
-                  <p class="mb-0 text-gray-600 dark:text-white">
-                    <a href={`tel:${n.replaceAll("-", "")}`} class="no-underline">{n}</a>
-                  </p>
-                ))}
-              </div>
-            </div>
-
-            <div class="flex p-4 card rounded-lg bg-white dark:bg-dark-400 md:p-5">
-              <span class="inline-flex items-center justify-center w-16 h-16 mr-4 text-3xl rounded-full shrink-0 bg-primary-300 bg-opacity-10 text-primary-300">
-                <Icon icon="ri:mail-line" client:load />
-              </span>
-              <div>
-                <h5 class="mb-2 text-black dark:text-white">Contact on mail</h5>
-                {information.emailAddress.map((e) => (
-                  <p class="mb-0 text-gray-600 dark:text-white">
-                    <a href={`mailto:${e}`} class="no-underline">{e}</a>
-                  </p>
-                ))}
-              </div>
-            </div>
-
-            <div class="flex p-4 card rounded-lg bg-white dark:bg-dark-400 md:p-5">
-              <span class="inline-flex items-center justify-center w-16 h-16 mr-4 text-3xl rounded-full shrink-0 bg-primary-300 bg-opacity-10 text-primary-300">
-                <Icon icon="ri:map-pin-line" client:load />
-              </span>
-              <div>
-                <h5 class="mb-2 text-black dark:text-white">Contact address</h5>
-                <p class="mb-0 text-gray-600 dark:text-white">Newroad, Kathmandu, Nepal</p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-span-9 lg:col-span-5">
-          <form
-            class="card -mt-1.5 space-y-4 p-4 md:p-5 rounded-lg bg-white dark:bg-dark-400"
-            action={`mailto:${information.emailAddress[0]}`}
-            method="post"
-            enctype="text/plain"
-          >
-            <div>
-              <label for="name" class="text-gray-600 dark:text-white">Name</label>
-              <input type="text" name="name" id="name" placeholder="Enter your name..." required autocomplete="off" />
-            </div>
-            <div>
-              <label for="email" class="text-gray-600 dark:text-white">Email</label>
-              <input type="email" name="email" id="email" placeholder="Enter your email..." required autocomplete="off" />
-            </div>
-            <div>
-              <label for="subject" class="text-gray-600 dark:text-white">Subject</label>
-              <input type="text" name="subject" id="subject" placeholder="Enter subject..." required autocomplete="off" />
-            </div>
-            <div>
-              <label for="message" class="text-gray-600 dark:text-white">Message</label>
-              <textarea name="message" id="message" rows="5" placeholder="Enter your message..." required></textarea>
-            </div>
-            <button type="submit" class="btn btn-primary btn-small">
-              <span>Send Mail</span>
-            </button>
-          </form>
-        </div>
-      </div>
+<SiteShell title={headTitle.contactTitle}>
+  <section class="bg-surface-base pt-40 pb-12">
+    <div class="mx-auto max-w-3xl px-6 lg:px-12 text-center">
+      <p class="eyebrow mb-3">Contact</p>
+      <h1 class="text-display-lg text-strong">Say hello.</h1>
+      <p class="mt-4 text-body-lg text-muted max-w-xl mx-auto">
+        Product, engineering, founders, agentic AI, or just a thoughtful note about
+        something you read here. I read every message.
+      </p>
     </div>
   </section>
-</Layout>
+
+  <section class="bg-surface-base pb-24">
+    <div class="mx-auto max-w-5xl px-6 lg:px-12 grid lg:grid-cols-5 gap-12">
+      <ScrollReveal class="lg:col-span-2 space-y-6">
+        <div class="flex items-start gap-4">
+          <span class="flex h-12 w-12 items-center justify-center rounded-pill bg-accent-100 text-accent-700 shrink-0">
+            <Icon icon="ri:mail-line" width="22" client:load />
+          </span>
+          <div>
+            <p class="eyebrow mb-1">Email</p>
+            {information.emailAddress.map((e) => (
+              <a href={`mailto:${e}`} class="link-underline text-default block">{e}</a>
+            ))}
+          </div>
+        </div>
+        <div class="flex items-start gap-4">
+          <span class="flex h-12 w-12 items-center justify-center rounded-pill bg-accent-100 text-accent-700 shrink-0">
+            <Icon icon="ri:phone-line" width="22" client:load />
+          </span>
+          <div>
+            <p class="eyebrow mb-1">Phone</p>
+            {information.phoneNumbers.map((n) => (
+              <a href={`tel:${n.replaceAll("-", "")}`} class="link-underline text-default block">{n}</a>
+            ))}
+          </div>
+        </div>
+        <div class="flex items-start gap-4">
+          <span class="flex h-12 w-12 items-center justify-center rounded-pill bg-accent-100 text-accent-700 shrink-0">
+            <Icon icon="ri:map-pin-line" width="22" client:load />
+          </span>
+          <div>
+            <p class="eyebrow mb-1">Where</p>
+            <p class="text-default">{information.address}</p>
+          </div>
+        </div>
+      </ScrollReveal>
+
+      <ScrollReveal delay={150} class="lg:col-span-3">
+        <form
+          class="card-interactive rounded-lg bg-surface-raised shadow-md p-8 space-y-5"
+          action={`mailto:${information.emailAddress[0]}`}
+          method="post"
+          enctype="text/plain"
+        >
+          <div class="field">
+            <label class="field-label" for="name">Your name</label>
+            <input class="field-input" type="text" name="name" id="name" required autocomplete="name" />
+          </div>
+          <div class="field">
+            <label class="field-label" for="email">Email</label>
+            <input class="field-input" type="email" name="email" id="email" required autocomplete="email" />
+          </div>
+          <div class="field">
+            <label class="field-label" for="subject">Subject</label>
+            <input class="field-input" type="text" name="subject" id="subject" required />
+          </div>
+          <div class="field">
+            <label class="field-label" for="message">Message</label>
+            <textarea class="field-textarea" name="message" id="message" rows="6" required></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary btn-lg w-full justify-center">
+            <span>Send</span>
+            <Icon icon="ri:send-plane-line" client:load />
+          </button>
+        </form>
+      </ScrollReveal>
+    </div>
+  </section>
+</SiteShell>
