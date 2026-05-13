@@ -1,4 +1,5 @@
 ---
+draft: true
 title: "Writing Task-Specific Agent Prompts That Work First Try"
 date: "2026-05-11T10:00:00+05:45"
 category: ["AI"]

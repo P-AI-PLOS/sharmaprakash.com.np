@@ -1,4 +1,5 @@
 ---
+draft: true
 title: "What to Put in design.md: A Complete Template"
 date: "2026-05-10T10:00:00+05:45"
 category: ["AI"]

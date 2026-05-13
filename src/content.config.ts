@@ -46,6 +46,7 @@ const posts = defineCollection({
     show_category_hero_image: z.boolean().optional().default(false),
     series: z.string().optional(),
     seriesOrder: z.number().int().positive().optional(),
+    draft: z.boolean().optional().default(false),
   }),
 });
 

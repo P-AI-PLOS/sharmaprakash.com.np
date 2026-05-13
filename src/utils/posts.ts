@@ -7,7 +7,7 @@ export type Post = CollectionEntry<"posts">;
 export const POSTS_PER_PAGE = 6;
 
 export const getAllPostsSorted = async (): Promise<Post[]> => {
-  const posts = await getCollection("posts");
+  const posts = await getCollection("posts", ({ data }) => !data.draft);
   return posts.sort(
     (a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime(),
   );
