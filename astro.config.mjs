@@ -4,7 +4,7 @@ import react from "@astrojs/react";
 import mdx from "@astrojs/mdx";
 import rehypePrettyCode from "rehype-pretty-code";
 
-const site = (process.env.WEBSITE_URL?.trim()) || "https://sharmaprakash.com.np/";
+const site = (process.env.WEBSITE_URL?.trim()) || "https://www.sharmaprakash.com.np/";
 
 /** @type {import("rehype-pretty-code").Options} */
 const prettyCodeOptions = {
