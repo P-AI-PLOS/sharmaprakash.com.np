@@ -1,4 +1,5 @@
 ---
+draft: true
 title: "Why Your Legacy React Codebase Confuses AI Coding Agents"
 date: "2026-05-07T10:00:00+05:45"
 category: ["AI"]

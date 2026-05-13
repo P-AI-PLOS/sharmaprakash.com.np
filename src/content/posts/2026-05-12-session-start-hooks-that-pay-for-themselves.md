@@ -1,4 +1,5 @@
 ---
+draft: true
 title: "Session-Start Hooks That Pay for Themselves"
 date: "2026-05-12T10:00:00+05:45"
 category: ["AI"]

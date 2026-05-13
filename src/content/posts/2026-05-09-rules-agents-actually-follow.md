@@ -1,4 +1,5 @@
 ---
+draft: true
 title: "Rules That Agents Actually Follow: Enforcement Over Aspiration"
 date: "2026-05-09T10:00:00+05:45"
 category: ["AI"]

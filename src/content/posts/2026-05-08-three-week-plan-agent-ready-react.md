@@ -1,4 +1,5 @@
 ---
+draft: true
 title: "A 3-Week Plan to Make Your Legacy React Codebase Agent-Ready"
 date: "2026-05-08T10:00:00+05:45"
 category: ["AI"]
