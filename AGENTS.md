@@ -116,7 +116,7 @@ src/
 
 | You want to… | Read these first |
 | --- | --- |
-| Add a blog post | `src/content/posts/` (filename pattern `YYYY-MM-DD-slug.md`), schema in `src/content.config.ts`. |
+| Add a blog post | `src/content/posts/` (filename pattern `YYYY-MM-DD-slug.md`), schema in `src/content.config.ts`. Required frontmatter: `title`, `date`. Common optional: `excerpt`, `category`/`categories`, `tags`, `cover`, `thumb`, `directory`, `series` + `seriesOrder`. Set `draft: true` to hide a post from all listings, feeds, and the sitemap (filter lives in `src/utils/posts.ts`). |
 | Add a new homepage section | `design.md` §8 (page archetypes), then add to `src/components/marketing/` and import in `src/pages/index.astro`. |
 | Change the accent color | `design.md` §1.2, then update `--accent-*` in `src/styles/tokens.css`. All consumers update for free. |
 | Add a new page | `design.md` §8 (does it fit an archetype?). Create `src/pages/<name>.astro` using `<SiteShell title="…">`. Add to nav if user-facing. |
