@@ -3,6 +3,7 @@ import sitemap from "@astrojs/sitemap";
 import react from "@astrojs/react";
 import mdx from "@astrojs/mdx";
 import rehypePrettyCode from "rehype-pretty-code";
+import tailwindcss from "@tailwindcss/vite";
 
 const site = (process.env.WEBSITE_URL?.trim()) || "https://www.sharmaprakash.com.np/";
 
@@ -17,6 +18,9 @@ const prettyCodeOptions = {
 export default defineConfig({
   site,
   trailingSlash: "always",
+  vite: {
+    plugins: [tailwindcss()],
+  },
   integrations: [
     react(),
     mdx({
