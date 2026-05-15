@@ -7,9 +7,9 @@ const posts = (await getAiPosts()).slice(0, 5);
 const [feature, ...rest] = posts;
 ---
 
-<section class="bg-surface-base py-14 lg:py-32">
+<section class="bg-surface-base py-8 lg:py-32">
   <div class="mx-auto max-w-7xl px-6 lg:px-12">
-    <ScrollReveal class="flex items-end justify-between gap-6 mb-12 flex-wrap">
+    <ScrollReveal class="flex items-end justify-between gap-6 mb-8 flex-wrap">
       <div>
         <p class="eyebrow mb-3">Field notes · AI &amp; agentic engineering</p>
         <h2 class="text-h1 text-strong max-w-2xl">
@@ -67,36 +67,38 @@ const [feature, ...rest] = posts;
           </ScrollReveal>
         )}
 
-        <div class="mt-10 lg:mt-14 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {rest.map((p, i) => (
-            <ScrollReveal delay={80 * (i + 1)}>
-              <a
-                href={postUrl(p)}
-                class="card-interactive group flex h-full flex-col bg-surface-raised rounded-lg overflow-hidden shadow-md"
-              >
-                <figure class="aspect-[16/10] overflow-hidden bg-ink-100">
-                  <img
-                    src={postThumbnail(p)}
-                    alt={p.data.title}
-                    class="h-full w-full object-cover transition-transform duration-slow ease-out-quad group-hover:scale-[1.04]"
-                    transition:name={`cover-${p.id}`}
-                  />
-                </figure>
-                <div class="p-5 flex-1 flex flex-col gap-3">
-                  <div class="flex items-center gap-2 text-caption text-muted">
-                    {p.data.category?.[0] && <span class="chip">{p.data.category[0]}</span>}
+        {rest.length > 0 && (
+          <div class="mt-10 lg:mt-14 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {rest.map((p, i) => (
+              <ScrollReveal delay={80 * (i + 1)}>
+                <a
+                  href={postUrl(p)}
+                  class="card-interactive group flex h-full flex-col bg-surface-raised rounded-lg overflow-hidden shadow-md"
+                >
+                  <figure class="aspect-[16/10] overflow-hidden bg-ink-100">
+                    <img
+                      src={postThumbnail(p)}
+                      alt={p.data.title}
+                      class="h-full w-full object-cover transition-transform duration-slow ease-out-quad group-hover:scale-[1.04]"
+                      transition:name={`cover-${p.id}`}
+                    />
+                  </figure>
+                  <div class="p-5 flex-1 flex flex-col gap-3">
+                    <div class="flex items-center gap-2 text-caption text-muted">
+                      {p.data.category?.[0] && <span class="chip">{p.data.category[0]}</span>}
+                    </div>
+                    <h3 class="text-h4 text-strong leading-snug line-clamp-3 group-hover:text-accent-700 transition-colors">
+                      {p.data.title}
+                    </h3>
+                    <time datetime={new Date(p.data.date).toISOString()} class="text-caption text-faint mt-auto">
+                      {formatBlogDate(p.data.date)}
+                    </time>
                   </div>
-                  <h3 class="text-h4 text-strong leading-snug line-clamp-3 group-hover:text-accent-700 transition-colors">
-                    {p.data.title}
-                  </h3>
-                  <time datetime={new Date(p.data.date).toISOString()} class="text-caption text-faint mt-auto">
-                    {formatBlogDate(p.data.date)}
-                  </time>
-                </div>
-              </a>
-            </ScrollReveal>
-          ))}
-        </div>
+                </a>
+              </ScrollReveal>
+            ))}
+          </div>
+        )}
       </>
     )}
   </div>

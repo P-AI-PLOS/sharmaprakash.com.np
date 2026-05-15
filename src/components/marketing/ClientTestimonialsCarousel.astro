@@ -3,7 +3,7 @@ import { Icon } from "@iconify/react";
 import { clientReview } from "~/data/reviews";
 ---
 
-<section class="testimonials-section relative bg-surface-inverse text-on-inverse py-14 lg:py-28 overflow-hidden">
+<section class="testimonials-section relative bg-surface-inverse text-on-inverse py-8 lg:py-28 overflow-hidden">
   <div class="ct-grid-overlay" aria-hidden="true"></div>
   <div class="relative mx-auto max-w-7xl px-6 lg:px-12">
     <div class="grid lg:grid-cols-12 gap-10 lg:gap-14 items-center">
@@ -17,6 +17,32 @@ import { clientReview } from "~/data/reviews";
       </div>
 
       <div class="lg:col-span-8">
+        {/* Mobile: scroll-snap strip with 3× items for infinite loop feel */}
+        <div class="ct-mobile-scroll" id="ct-mobile-scroll">
+          {[...clientReview, ...clientReview, ...clientReview].map((r, i) => {
+            const quote = r.featuredText ?? r.text;
+            const isShort = quote.length < 150;
+            return (
+              <blockquote class="ct-panel ct-mobile-card" aria-hidden={i < clientReview.length || i >= clientReview.length * 2 ? "true" : undefined}>
+                <div class="ct-mark" aria-hidden="true">
+                  <Icon icon="ri:double-quotes-l" width="34" height="34" client:load />
+                </div>
+                <p class:list={["ct-text", { "ct-text--short": isShort }]} set:html={quote} />
+                <footer class="ct-footer">
+                  <div class="ct-person">
+                    <img src={r.image} alt={r.name} class="ct-avatar" />
+                    <div>
+                      <cite class="not-italic font-semibold text-on-inverse block">{r.name}</cite>
+                      <span class="text-body-sm text-on-inverse-muted">{r.meta}</span>
+                    </div>
+                  </div>
+                </footer>
+              </blockquote>
+            );
+          })}
+        </div>
+
+        {/* Tablet+: Swiper carousel */}
         <swiper-container class="ct-swiper" slides-per-view="1" loop="true" autoplay-delay="6500">
           {clientReview.map((r) => {
             const quote = r.featuredText ?? r.text;
@@ -76,10 +102,32 @@ import { clientReview } from "~/data/reviews";
     mask-image: linear-gradient(90deg, transparent, var(--ink-950) 16%, var(--ink-950) 84%, transparent);
   }
 
+  /* Mobile scroll-snap infinite strip */
+  .ct-mobile-scroll {
+    display: flex;
+    gap: var(--space-4);
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding-bottom: var(--space-2);
+  }
+  .ct-mobile-scroll::-webkit-scrollbar { display: none; }
+  .ct-mobile-card {
+    flex: 0 0 85vw;
+    max-width: 360px;
+    scroll-snap-align: start;
+  }
+  @media (min-width: 640px) { .ct-mobile-scroll { display: none; } }
+
   .ct-swiper {
     --swiper-theme-color: var(--accent-500);
+    display: none;
+    width: 100%;
     overflow: visible;
   }
+  @media (min-width: 640px) { .ct-swiper { display: block; } }
+
 
   .ct-panel {
     position: relative;
@@ -165,12 +213,13 @@ import { clientReview } from "~/data/reviews";
   }
 
   .ct-nav {
-    display: flex;
+    display: none;
     align-items: center;
     justify-content: flex-end;
     gap: var(--space-2);
     margin-top: var(--space-6);
   }
+  @media (min-width: 640px) { .ct-nav { display: flex; } }
 
   .ct-nav-button {
     display: inline-flex;
@@ -274,6 +323,56 @@ import { clientReview } from "~/data/reviews";
     });
   };
 
+  const fixSwiperWidth = () => {
+    const el = document.querySelector<any>(".ct-swiper");
+    if (!el) return;
+    const observer = new ResizeObserver(() => {
+      if (el.swiper) { el.swiper.update(); observer.disconnect(); }
+    });
+    observer.observe(el);
+  };
+
+  const initMobileLoop = () => {
+    const strip = document.getElementById("ct-mobile-scroll");
+    if (!strip || window.innerWidth >= 640) return;
+    if ((strip as any)._loopReady) return;
+    (strip as any)._loopReady = true;
+
+    const cards = strip.querySelectorAll<HTMLElement>(".ct-mobile-card");
+    const count = cards.length / 3;
+    const gap = 16;
+
+    const jumpToMiddle = () => {
+      const cardWidth = cards[0].offsetWidth + gap;
+      const setWidth = count * cardWidth;
+      // Start at the middle set, no animation
+      strip.scrollTo({ left: setWidth, behavior: "instant" });
+    };
+    jumpToMiddle();
+
+    let ticking = false;
+    strip.addEventListener("scroll", () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(() => {
+        const cardWidth = cards[0].offsetWidth + gap;
+        const setWidth = count * cardWidth;
+        if (strip.scrollLeft < setWidth * 0.25) {
+          strip.scrollLeft += setWidth;
+        } else if (strip.scrollLeft >= setWidth * 2) {
+          strip.scrollLeft -= setWidth;
+        }
+        ticking = false;
+      });
+    }, { passive: true });
+  };
+
   initTestimonials();
-  document.addEventListener("astro:page-load", initTestimonials);
+  fixSwiperWidth();
+  initMobileLoop();
+  document.addEventListener("astro:page-load", () => {
+    initTestimonials();
+    fixSwiperWidth();
+    initMobileLoop();
+  });
 </script>

@@ -138,3 +138,14 @@
   animation-duration: var(--dur-pageturn);
   animation-timing-function: var(--ease-out-expo);
 }
+
+/* Scale down display and heading sizes on small screens. */
+@media (max-width: 639px) {
+  :root {
+    --text-display-2xl: 40px;
+    --text-display-xl: 36px;
+    --text-display-lg: 28px;
+    --text-h1: 26px;
+    --text-h2: 22px;
+  }
+}

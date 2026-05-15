@@ -6,7 +6,7 @@ import ScrollReveal from "~/components/motion/ScrollReveal.astro";
 const posts = (await getTechnicalPosts()).slice(0, 9);
 ---
 
-<section class="bg-surface-sunken py-14 lg:py-32 overflow-hidden">
+<section class="bg-surface-sunken py-8 lg:py-32 overflow-hidden">
   <div class="mx-auto max-w-7xl px-6 lg:px-12">
     <div class="grid lg:grid-cols-12 gap-12">
       <ScrollReveal class="lg:col-span-4">
@@ -21,9 +21,34 @@ const posts = (await getTechnicalPosts()).slice(0, 9);
       </ScrollReveal>
 
       <ScrollReveal delay={120} class="lg:col-span-8 relative">
+        {/* Mobile: plain vertical list (no Swiper — avoids width-measurement bugs) */}
+        <div class="tech-mobile-list flex-col gap-4">
+          {posts.slice(0, 3).map((post) => (
+            <a
+              href={postUrl(post)}
+              class="card-interactive group flex bg-surface-raised rounded-lg overflow-hidden shadow-md"
+            >
+              <figure class="w-24 shrink-0 overflow-hidden">
+                <img
+                  src={postThumbnail(post)}
+                  alt={post.data.title}
+                  class="h-full w-full object-cover transition-transform duration-slow ease-out-quad group-hover:scale-[1.03]"
+                />
+              </figure>
+              <div class="p-4 flex flex-col gap-1 min-w-0">
+                <span class="text-caption text-faint">{formatBlogDate(post.data.date)}</span>
+                <h3 class="text-h4 text-strong line-clamp-2 group-hover:text-accent-700 transition-colors">
+                  {post.data.title}
+                </h3>
+              </div>
+            </a>
+          ))}
+        </div>
+
+        {/* Tablet + Desktop: Swiper carousel */}
         <swiper-container
           class="tech-swiper"
-          slides-per-view="1"
+          slides-per-view="2"
           space-between="16"
           loop="true"
           speed="700"
@@ -32,7 +57,7 @@ const posts = (await getTechnicalPosts()).slice(0, 9);
           autoplay-pause-on-mouse-enter="true"
           navigation-next-el=".tech-next"
           navigation-prev-el=".tech-prev"
-          breakpoints={JSON.stringify({ 640: { slidesPerView: 2 }, 1024: { slidesPerView: 3 } })}
+          breakpoints={JSON.stringify({ 1024: { slidesPerView: 3 } })}
         >
           {posts.map((post) => (
             <swiper-slide>
@@ -87,8 +112,13 @@ const posts = (await getTechnicalPosts()).slice(0, 9);
 </section>
 
 <style is:global>
+  .tech-swiper { display: none; width: 100%; }
+  @media (min-width: 640px) { .tech-swiper { display: block; } }
   .tech-swiper swiper-slide { height: auto; display: flex; }
   .tech-swiper swiper-slide > a { width: 100%; }
+
+  .tech-mobile-list { display: flex; }
+  @media (min-width: 640px) { .tech-mobile-list { display: none; } }
 
   .nav-circle {
     background: transparent; border: 0; padding: 0; cursor: pointer;
@@ -108,4 +138,19 @@ const posts = (await getTechnicalPosts()).slice(0, 9);
 <script>
   import { register } from "swiper/element/bundle";
   register();
+
+  const initSwiper = () => {
+    const el = document.querySelector<any>(".tech-swiper");
+    if (!el) return;
+    // Force swiper to recalculate layout after the container has real dimensions
+    const observer = new ResizeObserver(() => {
+      if (el.swiper) {
+        el.swiper.update();
+        observer.disconnect();
+      }
+    });
+    observer.observe(el);
+  };
+  initSwiper();
+  document.addEventListener("astro:page-load", initSwiper);
 </script>

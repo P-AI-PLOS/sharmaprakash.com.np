@@ -11,8 +11,8 @@
     ]
   },
   "scripts": {
-    "dev": "astro dev",
-    "start": "astro dev",
+    "dev": "astro dev --host",
+    "start": "astro dev --host",
     "build": "astro build",
     "preview": "astro preview",
     "check": "astro check"
