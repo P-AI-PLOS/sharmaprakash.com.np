@@ -8,19 +8,26 @@ import { information } from "~/data/site";
     <img src={information.thumbImage} alt="" />
   </a>
   <div class="author-bio-body">
-    <p class="eyebrow mb-2">About the author</p>
-    <h3 class="text-h3 text-strong">{information.fullName}</h3>
-    <p class="text-body-sm text-muted mb-3">
-      {information.currentRole} · {information.currentCompany}
+    <span class="author-bio-eyebrow">About the author</span>
+    <h3 class="author-bio-name">{information.fullName}</h3>
+    <p class="author-bio-meta">
+      <Icon icon="ri:briefcase-line" client:load aria-hidden="true" />
+      <span>{information.currentRole} · {information.currentCompany}</span>
     </p>
-    <p class="text-body text-default">{information.bio}</p>
-    <div class="mt-5 flex flex-wrap gap-3">
-      <a href={information.socialAddress.linkedin} target="_blank" rel="noopener" class="btn btn-secondary btn-sm">
+    <p class="author-bio-text">{information.bio}</p>
+    <div class="author-bio-actions">
+      <a
+        href={information.socialAddress.linkedin}
+        target="_blank"
+        rel="noopener"
+        class="btn btn-secondary btn-sm"
+      >
         <Icon icon="ri:linkedin-fill" client:load />
         <span>Follow on LinkedIn</span>
       </a>
-      <a href="/blog/page/1/" class="btn btn-ghost btn-sm">
-        <span>More essays →</span>
+      <a href="/blog/page/1/" class="author-bio-more">
+        <span>More essays</span>
+        <span class="author-bio-more-arrow" aria-hidden="true">→</span>
       </a>
     </div>
   </div>
