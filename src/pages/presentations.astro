@@ -76,18 +76,18 @@ const decks = await loadDecks();
             <ScrollReveal delay={i * 80}>
               <li class="card-interactive rounded-lg overflow-hidden bg-surface-raised shadow-md h-full flex flex-col">
                 {d.thumb && (
-                  <a href={`/presentations/${d.slug}/`} class="block aspect-[16/9] overflow-hidden border-b border-default">
+                  <a href={`/presentations/${d.slug}/index.html`} class="block aspect-[16/9] overflow-hidden border-b border-default">
                     <img src={d.thumb} alt={`${d.title} — first slide`} class="h-full w-full object-cover" loading="lazy" />
                   </a>
                 )}
                 <div class="p-6 flex-1 flex flex-col">
                   {d.date && <p class="text-body-sm text-muted">{d.date}</p>}
                   <h2 class="text-h3 text-strong mt-1">
-                    <a href={`/presentations/${d.slug}/`} class="link-underline">{d.title}</a>
+                    <a href={`/presentations/${d.slug}/index.html`} class="link-underline">{d.title}</a>
                   </h2>
                   {d.description && <p class="text-body-sm text-muted mt-2 flex-1">{d.description}</p>}
                   <p class="mt-4 flex gap-4 text-body-sm">
-                    <a href={`/presentations/${d.slug}/`} class="link-underline text-accent-700 font-semibold">Open deck →</a>
+                    <a href={`/presentations/${d.slug}/index.html`} class="link-underline text-accent-700 font-semibold">Open deck →</a>
                     {d.hasPdf && (
                       <a href={`/presentations/${d.slug}/slides.pdf`} class="link-underline text-accent-700 font-semibold">PDF</a>
                     )}
