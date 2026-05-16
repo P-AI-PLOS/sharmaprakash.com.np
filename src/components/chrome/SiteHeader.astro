@@ -5,6 +5,7 @@
  * once you scroll past 200px it becomes a fixed, blurred light bar.
  */
 import PrimaryNavigation from "./PrimaryNavigation.astro";
+import SiteSearch from "./SiteSearch.astro";
 import { siteConfig } from "~/data/site";
 ---
 
@@ -24,6 +25,7 @@ import { siteConfig } from "~/data/site";
       </div>
 
       <div class="flex items-center gap-3">
+        <SiteSearch />
         <a href="/contact/" class="btn btn-primary btn-sm hidden md:inline-flex">
           <span>Say Hi 👋</span>
         </a>

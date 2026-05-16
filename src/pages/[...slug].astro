@@ -53,7 +53,12 @@ const absoluteUrl = new URL(postUrl(post), Astro.site ?? "http://localhost/").to
     {series && <SeriesNavStrip context={series} />}
 
     <div class="mx-auto max-w-5xl px-6 lg:px-8 post-grid">
-      <div class="prose-post">
+      <div
+        class="prose-post"
+        data-pagefind-body
+        data-pagefind-meta={`title:${post.data.title}`}
+        data-pagefind-filter={`category:${post.data.category ?? (post.data.categories?.[0] ?? "uncategorized")}`}
+      >
         <Content />
       </div>
     </div>
