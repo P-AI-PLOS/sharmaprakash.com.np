@@ -1,5 +1,5 @@
 ---
-draft: true
+draft: false
 title: "OpenSpec: Write the Contract Before the Code"
 date: "2026-04-15T10:00:00+05:45"
 category: ["AI"]

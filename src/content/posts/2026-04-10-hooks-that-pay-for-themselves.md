@@ -1,5 +1,5 @@
 ---
-draft: true
+draft: false
 title: "Hooks That Pay for Themselves"
 date: "2026-04-10T10:00:00+05:45"
 category: ["AI"]

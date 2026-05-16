@@ -1,5 +1,5 @@
 ---
-draft: true
+draft: false
 title: "Token vs Subscription: Which AI Pricing Model Is Right for You"
 date: "2026-04-25T10:00:00+05:45"
 category: ["AI"]

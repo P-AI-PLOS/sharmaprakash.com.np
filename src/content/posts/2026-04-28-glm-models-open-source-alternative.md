@@ -1,5 +1,5 @@
 ---
-draft: true
+draft: false
 title: "GLM Models: The Open-Source Alternative from Zhipu AI"
 date: "2026-04-28T10:00:00+05:45"
 category: ["AI"]

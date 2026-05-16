@@ -1,5 +1,5 @@
 ---
-draft: true
+draft: false
 title: "Setting Up the Jira MCP Server (And When Not To)"
 date: "2026-04-19T10:00:00+05:45"
 category: ["AI"]

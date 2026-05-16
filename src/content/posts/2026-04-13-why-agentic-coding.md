@@ -1,5 +1,5 @@
 ---
-draft: true
+draft: false
 title: "Why Agentic Coding? It's Not About the AI"
 date: "2026-04-13T10:00:00+05:45"
 category: ["AI"]

@@ -4,7 +4,7 @@ import SeriesCatalogCard from "~/components/blog/SeriesCatalogCard.astro";
 import ScrollReveal from "~/components/motion/ScrollReveal.astro";
 import { headTitle } from "~/data/site";
 import { seriesRegistry } from "~/data/series";
-import { getSeriesPosts, postCoverImage, type Post } from "~/utils/posts";
+import { getSeriesPosts, type Post } from "~/utils/posts";
 
 interface SeriesEntry {
   slug: string;
@@ -19,8 +19,6 @@ interface SeriesEntry {
 const entries: SeriesEntry[] = await Promise.all(
   Object.entries(seriesRegistry).map(async ([slug, meta]) => {
     const parts = await getSeriesPosts(slug);
-    const first = parts[0];
-    const cover = first ? postCoverImage(first) : "/images/blog/blog-image-12.jpg";
     const latestDate = parts.reduce(
       (max, p) => Math.max(max, new Date(p.data.date).getTime()),
       0,
@@ -31,7 +29,7 @@ const entries: SeriesEntry[] = await Promise.all(
       description: meta.description,
       parts,
       partCount: parts.length,
-      cover,
+      cover: meta.cover,
       latestDate,
     };
   }),

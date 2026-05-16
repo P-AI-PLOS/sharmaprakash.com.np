@@ -1,5 +1,5 @@
 ---
-draft: true
+draft: false
 title: "Git Worktrees: Branches as Places, Not States"
 date: "2026-04-14T10:00:00+05:45"
 category: ["AI"]

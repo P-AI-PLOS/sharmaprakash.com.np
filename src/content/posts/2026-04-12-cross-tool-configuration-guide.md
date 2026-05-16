@@ -1,5 +1,5 @@
 ---
-draft: true
+draft: false
 title: "Not on Claude? The Cross-Tool Configuration Guide"
 date: "2026-04-12T10:00:00+05:45"
 category: ["AI"]

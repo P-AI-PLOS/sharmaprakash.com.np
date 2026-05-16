@@ -1,5 +1,5 @@
 ---
-draft: true
+draft: false
 title: "DeepSeek for Developers: Capable, Cheap, and Worth Knowing"
 date: "2026-04-27T10:00:00+05:45"
 category: ["AI"]

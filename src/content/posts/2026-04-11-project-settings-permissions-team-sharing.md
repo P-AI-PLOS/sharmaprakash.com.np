@@ -1,5 +1,5 @@
 ---
-draft: true
+draft: false
 title: "Project Settings, Permissions, and Team Sharing"
 date: "2026-04-11T10:00:00+05:45"
 category: ["AI"]

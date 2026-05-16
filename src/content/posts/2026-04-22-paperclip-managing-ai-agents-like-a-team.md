@@ -1,5 +1,5 @@
 ---
-draft: true
+draft: false
 title: "Paperclip: Managing AI Agents Like a Team"
 date: "2026-04-22T10:00:00+05:45"
 category: ["AI"]

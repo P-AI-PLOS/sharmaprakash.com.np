@@ -1,5 +1,5 @@
 ---
-draft: true
+draft: false
 title: "AI Agents That Work: Give Them Structure, Not Just Prompts"
 date: "2026-04-17T10:00:00+05:45"
 category: ["AI"]

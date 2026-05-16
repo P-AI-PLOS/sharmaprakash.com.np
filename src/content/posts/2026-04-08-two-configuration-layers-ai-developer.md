@@ -1,5 +1,5 @@
 ---
-draft: true
+draft: false
 title: "The Two Configuration Layers Every AI Developer Needs"
 date: "2026-04-08T10:00:00+05:45"
 category: ["AI"]

@@ -1,5 +1,5 @@
 ---
-draft: true
+draft: false
 title: "Beads: A Local-First Task Graph for Developers and AI Agents"
 date: "2026-04-16T10:00:00+05:45"
 category: ["AI"]

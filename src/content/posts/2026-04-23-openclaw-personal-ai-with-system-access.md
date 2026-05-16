@@ -1,5 +1,5 @@
 ---
-draft: true
+draft: false
 title: "OpenClaw: A Personal AI with Eyes and Hands"
 date: "2026-04-23T10:00:00+05:45"
 category: ["AI"]

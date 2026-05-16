@@ -6,7 +6,6 @@ import { seriesRegistry } from "~/data/series";
 import {
   getSeriesPosts,
   postUrl,
-  postCoverImage,
   estimateReadMinutes,
   type Post,
 } from "~/utils/posts";
@@ -21,12 +20,12 @@ export const getStaticPaths = (async () => {
 
 const { slug, meta } = Astro.props as {
   slug: string;
-  meta: { title: string; description: string };
+  meta: { title: string; description: string; cover: string };
 };
 
 const parts: Post[] = await getSeriesPosts(slug);
 const first = parts[0];
-const cover = first ? postCoverImage(first) : "/images/blog/blog-image-12.jpg";
+const cover = meta.cover;
 const firstDate = first ? formatBlogDate(first.data.date) : "";
 const partWord = parts.length === 1 ? "part" : "parts";
 const pad = (n: number) => String(n).padStart(2, "0");
@@ -53,7 +52,7 @@ const pad = (n: number) => String(n).padStart(2, "0");
           </div>
         )}
       </div>
-      {first && (
+      {cover && (
         <figure class="lg:col-span-5 aspect-[21/9] lg:aspect-[4/3] overflow-hidden rounded-xl bg-ink-100 shadow-md">
           <img src={cover} alt={meta.title} class="h-full w-full object-cover" />
         </figure>

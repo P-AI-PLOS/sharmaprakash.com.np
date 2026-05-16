@@ -1,5 +1,5 @@
 ---
-draft: true
+draft: false
 title: "Setting Up the Notion MCP Server"
 date: "2026-04-20T10:00:00+05:45"
 category: ["AI"]

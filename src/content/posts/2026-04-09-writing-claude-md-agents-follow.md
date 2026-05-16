@@ -1,5 +1,5 @@
 ---
-draft: true
+draft: false
 title: "Writing CLAUDE.md That Agents Actually Follow"
 date: "2026-04-09T10:00:00+05:45"
 category: ["AI"]

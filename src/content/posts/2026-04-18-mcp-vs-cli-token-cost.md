@@ -1,5 +1,5 @@
 ---
-draft: true
+draft: false
 title: "MCP vs CLI: The Token Cost You're Not Tracking"
 date: "2026-04-18T10:00:00+05:45"
 category: ["AI"]
