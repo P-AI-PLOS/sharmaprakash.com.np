@@ -93,7 +93,24 @@
       });
     }
 
+    function wrapTables(root) {
+      const tables = (root || document).querySelectorAll(
+        ".prose-post > table:not([data-enhanced])"
+      );
+      tables.forEach((table) => {
+        table.setAttribute("data-enhanced", "");
+        const wrap = document.createElement("div");
+        wrap.className = "table-wrap";
+        table.parentNode.insertBefore(wrap, table);
+        wrap.appendChild(table);
+      });
+    }
+
     enhance();
-    document.addEventListener("astro:page-load", () => enhance());
+    wrapTables();
+    document.addEventListener("astro:page-load", () => {
+      enhance();
+      wrapTables();
+    });
   })();
 </script>

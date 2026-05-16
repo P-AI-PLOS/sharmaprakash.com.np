@@ -382,13 +382,3 @@ Use it for the five rules that, if the agent forgets them, will cost you the mos
 Your agent will start every session pre-aligned with how your codebase actually works — not how a generic React project on GitHub works.
 
 That's the unlock. One small file, ten minutes of writing, every session a little sharper.
-
----
-
-*Related posts in this series:*
-
-- *[Why your legacy React codebase confuses AI coding agents](/ai/why-legacy-react-confuses-ai-agents/)*
-- *[A 3-week plan to make your legacy React codebase agent-ready](/ai/three-week-plan-agent-ready-react/)*
-- *[Rules that agents actually follow: enforcement over aspiration](/ai/rules-agents-actually-follow/)*
-- *[What to put in design.md: a complete template](/ai/design-md-template/)*
-- *[Writing task-specific agent prompts that work first try](/ai/task-prompts-that-work/)*

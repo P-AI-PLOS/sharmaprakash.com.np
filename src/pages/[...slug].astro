@@ -63,7 +63,7 @@ const absoluteUrl = new URL(postUrl(post), Astro.site ?? "http://localhost/").to
     <div class="mx-auto max-w-5xl px-6 lg:px-8 pb-20 space-y-12">
       <AuthorBioCard />
       {series && <SeriesContinueBlock context={series} />}
-      <PrevNextPosts adjacent={adjacent} />
+      {!series && <PrevNextPosts adjacent={adjacent} />}
     </div>
 
     {!series && <RelatedPosts current={post} />}

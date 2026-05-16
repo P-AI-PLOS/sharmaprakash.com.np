@@ -348,12 +348,3 @@ The task-prompt layer is the cheaper of the two to fix. You can write your first
 That's the goal. Not "agent does everything." Just "agent does the 80% mechanical stuff perfectly, so humans can think about the 20% that matters."
 
 Build the prompts. They're the cheapest, highest-leverage agentic asset you can ship.
-
----
-
-*Related posts in this series:*
-
-- *[Why your legacy React codebase confuses AI coding agents](/ai/why-legacy-react-confuses-ai-agents/)*
-- *[A 3-week plan to make your legacy React codebase agent-ready](/ai/three-week-plan-agent-ready-react/)*
-- *[Rules that agents actually follow: enforcement over aspiration](/ai/rules-agents-actually-follow/)*
-- *[What to put in design.md: a complete template](/ai/design-md-template/)*
