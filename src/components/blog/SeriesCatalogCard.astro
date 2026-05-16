@@ -1,0 +1,45 @@
+---
+/**
+ * Catalog card for a single essay series. Mirrors the image-led card chrome
+ * used by `RecentEssaysList.astro`.
+ *
+ * Props:
+ *   slug         — kebab series key
+ *   title        — series display title
+ *   description  — series description
+ *   partCount    — number of parts in the series
+ *   cover        — absolute URL/path for the cover image (16/10)
+ */
+interface Props {
+  slug: string;
+  title: string;
+  description: string;
+  partCount: number;
+  cover: string;
+}
+const { slug, title, description, partCount, cover } = Astro.props;
+const href = `/series/${slug}/`;
+---
+
+<a
+  href={href}
+  class="card-interactive group flex h-full flex-col bg-surface-raised rounded-lg overflow-hidden shadow-md"
+>
+  <figure class="aspect-[16/10] overflow-hidden bg-ink-100">
+    <img
+      src={cover}
+      alt={title}
+      class="h-full w-full object-cover transition-transform duration-slow ease-out-quad group-hover:scale-[1.04]"
+    />
+  </figure>
+  <div class="p-6 flex-1 flex flex-col gap-3">
+    <p class="eyebrow">Series · {partCount} {partCount === 1 ? "part" : "parts"}</p>
+    <h3 class="text-h3 text-strong leading-snug group-hover:text-accent-700 transition-colors">
+      {title}
+    </h3>
+    <p class="text-body text-muted line-clamp-3">{description}</p>
+    <span class="mt-auto pt-2 text-accent-700 font-semibold link-underline">
+      Start the series →
+    </span>
+  </div>
+</a>
