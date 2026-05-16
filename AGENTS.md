@@ -141,9 +141,66 @@ src/
 - Don't introduce a second style system (no `styled-components`, no UnoCSS).
 - Don't break post URL shape (`/[directory]/[slug]/` or `/[slug]/`).
 
+## Parallel work via cmux
+
+The owner (Prakash) uses cmux. Any task that decomposes into ≥3 roughly
+independent units should fan out into parallel cmux sessions instead of running
+sequentially in one long chat. Typical fan-out candidates:
+
+- **Multi-section plans** — one session per section of the plan file.
+- **Batch blog drafting** — one session per post in a shared brief.
+- **Batch design fixes** — one session per file/component getting reworked.
+- **Token / convention sweeps** — one session per directory under audit.
+
+### Handoff pattern
+
+1. Write the plan / brief to a single file at the repo root (or `briefs/`).
+2. Run `scripts/cmux-fanout.sh <plan-file> "<label-1>" "<label-2>" ...` — one
+   label per parallel session. The label is what each spawned Claude is told to
+   "work only on".
+3. End the parent session. Each child session lives in its own cmux workspace
+   with its own context window.
+
+The launcher invokes `cmux new-workspace --cwd <repo> --command "claude …"` per
+label. See the script header for examples.
+
+Do **not** execute a multi-section plan inline in one session — context bloat
+and repeated re-reads waste tokens and degrade output. Fan out by default.
+
+### Trigger phrases (so Prakash doesn't have to remember the syntax)
+
+If Prakash says any of these, propose the exact `scripts/cmux-fanout.sh` call
+and run it (don't make him type it):
+
+- "fan this out", "fanout", "split this into cmux sessions", "parallelize this"
+- "spawn cmux sessions for X, Y, Z"
+- "draft these blog posts in parallel" / "write these N posts at once"
+- "fix designs across A, B, C in parallel"
+- "run this plan in parallel"
+
+Standard recipe to propose:
+
+```sh
+# Multi-section plan
+scripts/cmux-fanout.sh PLAN.md "Section A" "Section B" "Section C"
+
+# Batch blog drafts (one session per slug)
+scripts/cmux-fanout.sh briefs/<batch>.md "slug-1" "slug-2" "slug-3"
+
+# Batch design fixes (label is the file path)
+scripts/cmux-fanout.sh "design.md §3 cleanup" \
+  "src/components/marketing/Hero.astro" \
+  "src/components/marketing/CurrentRoleStrip.astro"
+```
+
+If the plan file doesn't exist yet, write it first, then fan out. If labels
+aren't obvious, infer them from the plan's section headings or the list of
+posts/files Prakash mentioned, and confirm them in one line before running.
+
 ## Pointers
 
 - Visual decisions → [`design.md`](./design.md)
+- Parallel session launcher → [`scripts/cmux-fanout.sh`](./scripts/cmux-fanout.sh)
 - Plan / history → `/Users/prakash/.claude/plans/time-to-plan-for-functional-boole.md`
 - Original Next.js source (read-only, for reference) → `../sharmaprakash.com.np/`
 
