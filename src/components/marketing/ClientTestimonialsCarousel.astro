@@ -312,7 +312,7 @@ import { clientReview } from "~/data/reviews";
     document.querySelectorAll(".testimonials-section").forEach((section) => {
       if (section instanceof HTMLElement && section.dataset.testimonialsReady === "true") return;
 
-      const swiper = section.querySelector(".ct-swiper");
+      const swiper = section.querySelector<any>(".ct-swiper");
       const previous = section.querySelector(".ct-prev");
       const next = section.querySelector(".ct-next");
       if (!(section instanceof HTMLElement) || !swiper || !previous || !next) return;
