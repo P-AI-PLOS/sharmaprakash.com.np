@@ -58,6 +58,9 @@ section.lead p {
   color: var(--ink-200);
 }
 
+section.lead strong { color: var(--ink-50); }
+section.lead a { color: var(--accent-500); }
+
 section h1 {
   font-size: 56px;
   line-height: 1.1;
@@ -189,6 +192,66 @@ section:not(.lead) h2::after {
   margin-top: 12px;
 }
 
+/* View Transitions API — tighter timing than Marp's ~500ms default. */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 280ms;
+  animation-timing-function: cubic-bezier(0.2, 0, 0, 1);
+}
+
+/* Per-element transitions. Names must be unique in the live DOM, so we
+ * scope them to the currently-visible slide (bespoke adds .bespoke-marp-active).
+ * Result: titles morph between slides, code/tables crossfade on their own
+ * timing instead of smearing as part of the whole-slide snapshot. */
+section.bespoke-marp-active h1 { view-transition-name: deck-title; }
+section.bespoke-marp-active h2 { view-transition-name: deck-heading; }
+section.bespoke-marp-active pre { view-transition-name: deck-code; }
+section.bespoke-marp-active table { view-transition-name: deck-table; }
+section.bespoke-marp-active blockquote { view-transition-name: deck-quote; }
+
+/* Heading morph: snappier than body; same easing. */
+::view-transition-old(deck-title),
+::view-transition-new(deck-title),
+::view-transition-old(deck-heading),
+::view-transition-new(deck-heading) {
+  animation-duration: 240ms;
+  animation-timing-function: cubic-bezier(0.2, 0, 0, 1);
+}
+
+/* Code blocks: linear crossfade so monospace stays legible mid-transition. */
+::view-transition-old(deck-code),
+::view-transition-new(deck-code) {
+  animation-duration: 200ms;
+  animation-timing-function: linear;
+}
+
+/* Tables: slightly slower fade so rows don't smear. */
+::view-transition-old(deck-table),
+::view-transition-new(deck-table) {
+  animation-duration: 320ms;
+  animation-timing-function: cubic-bezier(0.2, 0, 0, 1);
+}
+
+/* Blockquotes: ease-out for a calmer settle. */
+::view-transition-old(deck-quote),
+::view-transition-new(deck-quote) {
+  animation-duration: 280ms;
+  animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
+}
+
 @media (prefers-reduced-motion: reduce) {
   * { animation: none !important; transition: none !important; }
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
+  }
+  /* Drop per-element names too so the API doesn't pair-morph. */
+  section.bespoke-marp-active h1,
+  section.bespoke-marp-active h2,
+  section.bespoke-marp-active pre,
+  section.bespoke-marp-active table,
+  section.bespoke-marp-active blockquote {
+    view-transition-name: none;
+  }
 }

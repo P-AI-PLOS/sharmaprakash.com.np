@@ -14,8 +14,8 @@ header:
   og_image: /assets/images/posts/guake-like-terminal-mac/header.jpg
 last_modified_at: "2020-03-26T12:30:29+05:45"
 category: ['code-quality', 'technical']
-cover: "/images/blog/tech-notes/dropdown-terminal-iterm2.png"
-thumb: "/images/blog/tech-notes/dropdown-terminal-iterm2.png"
+cover: "/images/blog/generated/covers/2020-03-25-guake-like-dropdown-terminal-in-mac.png"
+thumb: "/images/blog/generated/thumbs/2020-03-25-guake-like-dropdown-terminal-in-mac.png"
 use_featured_image: true
 ---
 

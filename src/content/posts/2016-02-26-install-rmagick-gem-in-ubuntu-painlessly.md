@@ -13,8 +13,8 @@ share: true
 date: "2016-02-26T13:13:23+05:45"
 toc: true
 category: ['code-quality', 'technical']
-cover: "/images/blog/tech-notes/rmagick-ubuntu-install.png"
-thumb: "/images/blog/tech-notes/rmagick-ubuntu-install.png"
+cover: "/images/blog/generated/covers/2016-02-26-install-rmagick-gem-in-ubuntu-painlessly.png"
+thumb: "/images/blog/generated/thumbs/2016-02-26-install-rmagick-gem-in-ubuntu-painlessly.png"
 use_featured_image: true
 ---
 

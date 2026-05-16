@@ -7,3 +7,10 @@ public/pagefind/
 .env.production
 .env.local
 *.log
+
+# Podcast: raw NotebookLM downloads and finalized MP3s live in GitHub Releases,
+# never in git. Sources, transcripts, and metadata ARE committed.
+podcast/**/ep-*-raw.*
+podcast/**/ep-*.mp3
+podcast/**/ep-*.wav
+podcast/**/ep-*.m4a

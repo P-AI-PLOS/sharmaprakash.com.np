@@ -16,6 +16,8 @@ import { spawnSync } from "node:child_process";
 import { readFileSync, readdirSync, mkdirSync, writeFileSync, existsSync, statSync } from "node:fs";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
+import matter from "gray-matter";
+import QRCode from "qrcode";
 
 const __filename = fileURLToPath(import.meta.url);
 const repoRoot = resolve(dirname(__filename), "..", "..");
@@ -24,6 +26,17 @@ const SRC_DIR = join(repoRoot, "src", "content", "presentations");
 const OUT_DIR = join(repoRoot, "public", "presentations");
 const THEME = join(repoRoot, "src", "styles", "marp-theme.css");
 const MANIFEST = join(OUT_DIR, "manifest.json");
+
+// Default site root for the auto-generated QR. Per-deck override via
+// `qr:` frontmatter; per-environment override via WEBSITE_URL.
+const SITE_URL = (process.env.WEBSITE_URL ?? "https://sharmaprakash.com.np/").replace(/\/+$/, "");
+
+// QR styling: matches the lead-slide palette in src/styles/marp-theme.css.
+const QR_OPTIONS = {
+  width: 600,
+  margin: 1,
+  color: { dark: "#0F172A", light: "#F8FAFC" },
+};
 
 const sha256 = (data) => createHash("sha256").update(data).digest("hex");
 
@@ -46,7 +59,7 @@ function runMarp(args) {
   return result.status === 0;
 }
 
-function build() {
+async function build() {
   const decks = discoverDecks();
   if (!decks.length) {
     console.log("No decks found in src/content/presentations/.");
@@ -62,7 +75,17 @@ function build() {
     const source = readFileSync(deck.file);
     const hash = sha256(source);
 
+    const { data: frontmatter } = matter(source);
+    const qrUrl = frontmatter.qr ?? `${SITE_URL}/presentations/${deck.slug}/`;
+    const qrPath = join(outSubdir, "qr.png");
+    try {
+      await QRCode.toFile(qrPath, qrUrl, QR_OPTIONS);
+    } catch (err) {
+      console.warn(`  QR generation failed for ${deck.slug}: ${err.message}`);
+    }
+
     console.log(`\n→ Building ${deck.slug}`);
+    console.log(`  QR → ${qrUrl}`);
 
     const htmlOk = runMarp([
       deck.file,
@@ -112,10 +135,12 @@ function build() {
       source: `src/content/presentations/${deck.slug}.md`,
       sha256: hash,
       builtAt: new Date().toISOString(),
+      qrUrl,
       artifacts: {
         html: existsSync(join(outSubdir, "index.html")),
         pdf: existsSync(join(outSubdir, "slides.pdf")),
         thumb: existsSync(join(outSubdir, "thumb.png")) ? "thumb.png" : null,
+        qr: existsSync(qrPath) ? "qr.png" : null,
       },
     };
   }
@@ -124,4 +149,4 @@ function build() {
   console.log(`\nWrote ${MANIFEST}`);
 }
 
-build();
+await build();

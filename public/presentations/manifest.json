@@ -1,13 +1,15 @@
 {
   "decks": {
-    "ruby-nepal-example": {
-      "source": "src/content/presentations/ruby-nepal-example.md",
-      "sha256": "c888002bfe76daf7d3457d5b64e697a10b6213ec788ce15f545188dc49683ace",
-      "builtAt": "2026-05-16T03:51:29.881Z",
+    "parallel-developer": {
+      "source": "src/content/presentations/parallel-developer.md",
+      "sha256": "994d049237895a4f9424c03c61e164a051ad703605ca2aa609bbb9e8edae613b",
+      "builtAt": "2026-05-16T20:29:08.817Z",
+      "qrUrl": "https://sharmaprakash.com.np/presentations/parallel-developer/",
       "artifacts": {
         "html": true,
         "pdf": true,
-        "thumb": "thumb.png"
+        "thumb": "thumb.png",
+        "qr": "qr.png"
       }
     }
   }

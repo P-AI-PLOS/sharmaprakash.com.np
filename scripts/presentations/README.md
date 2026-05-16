@@ -31,8 +31,23 @@ explicit — it is **not** wired into `pnpm build`.
    pnpm presentations:build
    ```
 
-   This writes `index.html`, `slides.pdf`, and `thumb.png` under
+   This writes `index.html`, `slides.pdf`, `thumb.png`, and `qr.png` under
    `public/presentations/<slug>/`, plus a `manifest.json` record.
+
+   The `qr.png` is auto-generated from the deck's own public URL
+   (`${WEBSITE_URL}/presentations/<slug>/`). To encode a different URL,
+   add `qr:` to the front matter:
+
+   ```yaml
+   qr: "https://example.com/companion-resource/"
+   ```
+
+   Reference the QR from any slide with the absolute path
+   `/presentations/<slug>/qr.png` — e.g.
+
+   ```html
+   <img src="/presentations/<slug>/qr.png" alt="QR" style="width:280px;" />
+   ```
 
 4. Verify the artifacts match the source:
 
