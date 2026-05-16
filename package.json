@@ -17,7 +17,12 @@
     "preview": "astro preview",
     "check": "astro check",
     "presentations:build": "node scripts/presentations/build-presentations.mjs",
-    "presentations:check": "node scripts/presentations/check-presentations.mjs"
+    "presentations:check": "node scripts/presentations/check-presentations.mjs",
+    "z": "zellij attach sharmaprakash 2>/dev/null || zellij -s sharmaprakash -n .zellij/layouts/default.kdl",
+    "cmux:up": "scripts/cmux-up.sh",
+    "cmux:reset": "scripts/cmux-up.sh --reset",
+    "cmux:recreate": "scripts/cmux-up.sh --recreate",
+    "cmux:down": "scripts/cmux-down.sh"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.9",
