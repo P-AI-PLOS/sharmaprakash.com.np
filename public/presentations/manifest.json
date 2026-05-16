@@ -3,7 +3,7 @@
     "ruby-nepal-example": {
       "source": "src/content/presentations/ruby-nepal-example.md",
       "sha256": "c888002bfe76daf7d3457d5b64e697a10b6213ec788ce15f545188dc49683ace",
-      "builtAt": "2026-05-16T03:47:18.049Z",
+      "builtAt": "2026-05-16T03:50:07.407Z",
       "artifacts": {
         "html": true,
         "pdf": true,

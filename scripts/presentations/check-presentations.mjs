@@ -36,7 +36,7 @@ function check() {
   }
 
   const sources = readdirSync(SRC_DIR)
-    .filter((f) => f.endsWith(".md"))
+    .filter((f) => f.endsWith(".md") && !f.startsWith("_") && f.toLowerCase() !== "readme.md")
     .map((f) => f.replace(/\.md$/, ""));
 
   if (!sources.length) {

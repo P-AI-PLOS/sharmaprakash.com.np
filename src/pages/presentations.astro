@@ -20,7 +20,9 @@ type Deck = {
 async function loadDecks(): Promise<Deck[]> {
   let entries: string[] = [];
   try {
-    entries = (await fs.readdir(SRC_DIR)).filter((f) => f.endsWith(".md"));
+    entries = (await fs.readdir(SRC_DIR)).filter(
+      (f) => f.endsWith(".md") && !f.startsWith("_") && f.toLowerCase() !== "readme.md",
+    );
   } catch {
     return [];
   }

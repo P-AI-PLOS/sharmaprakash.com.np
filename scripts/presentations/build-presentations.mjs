@@ -30,7 +30,7 @@ const sha256 = (data) => createHash("sha256").update(data).digest("hex");
 function discoverDecks() {
   if (!existsSync(SRC_DIR)) return [];
   return readdirSync(SRC_DIR)
-    .filter((f) => f.endsWith(".md"))
+    .filter((f) => f.endsWith(".md") && !f.startsWith("_") && f.toLowerCase() !== "readme.md")
     .map((f) => ({
       slug: f.replace(/\.md$/, ""),
       file: join(SRC_DIR, f),
