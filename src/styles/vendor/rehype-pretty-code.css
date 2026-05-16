@@ -1,0 +1,151 @@
+/* -----------------------------------------------------------------
+ * Code blocks — rehype-pretty-code wraps each fence in
+ * <figure data-rehype-pretty-code-figure>. The CodeBlockEnhancements
+ * client script inserts a .code-header containing the language pill
+ * and copy button after page load.
+ * -----------------------------------------------------------------*/
+.prose-post figure[data-rehype-pretty-code-figure] {
+  grid-column: full;
+  width: min(100%, 1024px);
+  margin: var(--space-8) auto;
+  background: var(--code-bg);
+  border: 1px solid var(--code-border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  position: relative;
+  font-family: var(--font-mono);
+  font-size: 14px;
+  line-height: 1.65;
+  color: var(--code-fg);
+}
+
+/* Filename header (rehype-pretty-code emits this when fence has title="...") */
+.prose-post [data-rehype-pretty-code-title] {
+  background: var(--code-bg-raised);
+  color: var(--code-fg);
+  padding: 10px 16px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  border-bottom: 1px solid var(--code-border);
+}
+
+/* Header strip we inject from the client script */
+.prose-post .code-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding: 8px 12px;
+  background: var(--code-bg-raised);
+  border-bottom: 1px solid var(--code-border);
+  font-family: var(--font-ui);
+}
+.prose-post .code-lang {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--code-gutter);
+  padding: 2px 8px;
+  background: color-mix(in oklab, var(--ink-50), transparent 92%);
+  border-radius: var(--radius-pill);
+}
+.prose-post .code-copy {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--code-gutter);
+  background: transparent;
+  border: 1px solid var(--code-border);
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+  transition:
+    color var(--dur-fast) var(--ease-out-quad),
+    border-color var(--dur-fast) var(--ease-out-quad),
+    background-color var(--dur-fast) var(--ease-out-quad);
+}
+.prose-post .code-copy:hover {
+  color: var(--ink-50);
+  border-color: var(--accent-600);
+  background: color-mix(in oklab, var(--accent-600), transparent 75%);
+}
+.prose-post .code-copy.is-copied {
+  color: var(--ink-50);
+  border-color: var(--accent-600);
+  background: var(--accent-600);
+}
+
+.prose-post pre {
+  margin: 0;
+  padding: var(--space-5) 0;
+  background: transparent;
+  overflow-x: auto;
+}
+.prose-post pre > code {
+  display: block;
+  width: max-content;
+  min-width: 100%;
+  background: transparent;
+  padding: 0;
+  font-size: inherit;
+  color: inherit;
+}
+
+/* Line numbers + line highlighting (rehype-pretty-code emits [data-line] when grid:true) */
+.prose-post pre > code { counter-reset: codeline; }
+.prose-post pre [data-line] {
+  display: block;
+  padding: 0 var(--space-5);
+  border-left: 2px solid transparent;
+}
+.prose-post pre [data-line]::before {
+  counter-increment: codeline;
+  content: counter(codeline);
+  display: inline-block;
+  width: 2.25rem;
+  margin-right: var(--space-4);
+  text-align: right;
+  color: var(--code-gutter);
+  user-select: none;
+}
+.prose-post pre [data-highlighted-line] {
+  background: var(--code-line-hl);
+  border-left-color: var(--accent-600);
+}
+
+/* Diff fences */
+.prose-post pre [data-line].diff.add    { background: color-mix(in oklab, #22c55e, transparent 88%); }
+.prose-post pre [data-line].diff.remove { background: color-mix(in oklab, #ef4444, transparent 88%); }
+
+/* Collapse for long blocks (script adds .is-collapsible + .is-collapsed) */
+.prose-post figure.is-collapsed pre {
+  max-height: 480px;
+  overflow: hidden;
+  position: relative;
+  mask-image: linear-gradient(to bottom, black 70%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, black 70%, transparent 100%);
+}
+.prose-post .code-expand {
+  display: block;
+  width: 100%;
+  padding: 10px 16px;
+  background: var(--code-bg-raised);
+  border: 0;
+  border-top: 1px solid var(--code-border);
+  color: var(--code-fg);
+  font-family: var(--font-ui);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background-color var(--dur-fast) var(--ease-out-quad);
+}
+.prose-post .code-expand:hover {
+  background: color-mix(in oklab, var(--accent-600), transparent 75%);
+}
