@@ -28,16 +28,16 @@ mise ERROR Failed to install aqua:openai/codex@latest: HTTP status client error 
 
 ## The fix
 
-Create a [personal access token](https://github.com/settings/tokens) — no scopes required, read-only public access is enough — and add it to your root mise config:
+Create a [personal access token](https://github.com/settings/tokens) — no scopes required, read-only public access is enough — and add it to your root mise config via the `[env]` section:
 
 ```toml
 # ~/.config/mise/config.toml
 
-[settings]
-github_token = "github_pat_..."
+[env]
+GITHUB_TOKEN = "github_pat_..."
 ```
 
-That's it. mise picks up the token automatically from that file, no shell export needed. Authenticated requests get 5,000 calls/hour, which is effectively unlimited for tool installs.
+That's it. mise exports this into its own environment automatically, no shell export needed. Authenticated requests get 5,000 calls/hour, which is effectively unlimited for tool installs.
 
 ## Why no scopes?
 
