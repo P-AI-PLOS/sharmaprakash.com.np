@@ -15,7 +15,9 @@
     "start": "astro dev --host",
     "build": "astro build",
     "preview": "astro preview",
-    "check": "astro check"
+    "check": "astro check",
+    "presentations:build": "node scripts/presentations/build-presentations.mjs",
+    "presentations:check": "node scripts/presentations/check-presentations.mjs"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.9",
@@ -35,6 +37,7 @@
     "swiper": "^12.1.4"
   },
   "devDependencies": {
+    "@marp-team/marp-cli": "^4.4.0",
     "@tailwindcss/postcss": "^4.3.0",
     "@tailwindcss/vite": "^4.3.0",
     "@types/react": "^19.2.14",

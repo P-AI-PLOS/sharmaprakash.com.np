@@ -1,0 +1,101 @@
+---
+import fs from "node:fs/promises";
+import path from "node:path";
+import matter from "gray-matter";
+import SiteShell from "~/layouts/SiteShell.astro";
+import ScrollReveal from "~/components/motion/ScrollReveal.astro";
+
+const SRC_DIR = path.join(process.cwd(), "src/content/presentations");
+const OUT_DIR = path.join(process.cwd(), "public/presentations");
+
+type Deck = {
+  slug: string;
+  title: string;
+  description: string;
+  date?: string;
+  hasPdf: boolean;
+  thumb?: string;
+};
+
+async function loadDecks(): Promise<Deck[]> {
+  let entries: string[] = [];
+  try {
+    entries = (await fs.readdir(SRC_DIR)).filter((f) => f.endsWith(".md"));
+  } catch {
+    return [];
+  }
+
+  const decks: Deck[] = [];
+  for (const file of entries) {
+    const slug = file.replace(/\.md$/, "");
+    const raw = await fs.readFile(path.join(SRC_DIR, file), "utf-8");
+    const { data } = matter(raw);
+    const pdfPath = path.join(OUT_DIR, slug, "slides.pdf");
+    const thumbPath = path.join(OUT_DIR, slug, "thumb.png");
+    const [hasPdf, hasThumb] = await Promise.all([
+      fs.access(pdfPath).then(() => true).catch(() => false),
+      fs.access(thumbPath).then(() => true).catch(() => false),
+    ]);
+    decks.push({
+      slug,
+      title: typeof data.title === "string" ? data.title : slug,
+      description: typeof data.description === "string" ? data.description : "",
+      date: data.date ? new Date(data.date).toISOString().slice(0, 10) : undefined,
+      hasPdf,
+      thumb: hasThumb ? `/presentations/${slug}/thumb.png` : undefined,
+    });
+  }
+  decks.sort((a, b) => (b.date ?? "").localeCompare(a.date ?? ""));
+  return decks;
+}
+
+const decks = await loadDecks();
+---
+
+<SiteShell title="Presentations · Prakash Poudel Sharma">
+  <section class="bg-surface-base pt-40 pb-12">
+    <div class="mx-auto max-w-5xl px-6 lg:px-12">
+      <p class="eyebrow mb-3">Presentations</p>
+      <h1 class="text-display-lg text-strong max-w-2xl">Slide decks, kept in the repo as Markdown.</h1>
+      <p class="text-body-lg text-muted mt-4 max-w-2xl">
+        Each deck is a Marp markdown source rendered to a static HTML deck and a PDF.
+        Run <code>pnpm presentations:build</code> to regenerate after editing.
+      </p>
+    </div>
+  </section>
+
+  <section class="bg-surface-base pb-24">
+    <div class="mx-auto max-w-5xl px-6 lg:px-12">
+      {decks.length === 0 ? (
+        <p class="text-muted">No presentations yet.</p>
+      ) : (
+        <ul class="grid gap-6 sm:grid-cols-2 list-none p-0">
+          {decks.map((d, i) => (
+            <ScrollReveal delay={i * 80}>
+              <li class="card-interactive rounded-lg overflow-hidden bg-surface-raised shadow-md h-full flex flex-col">
+                {d.thumb && (
+                  <a href={`/presentations/${d.slug}/`} class="block aspect-[16/9] overflow-hidden border-b border-default">
+                    <img src={d.thumb} alt={`${d.title} — first slide`} class="h-full w-full object-cover" loading="lazy" />
+                  </a>
+                )}
+                <div class="p-6 flex-1 flex flex-col">
+                  {d.date && <p class="text-body-sm text-muted">{d.date}</p>}
+                  <h2 class="text-h3 text-strong mt-1">
+                    <a href={`/presentations/${d.slug}/`} class="link-underline">{d.title}</a>
+                  </h2>
+                  {d.description && <p class="text-body-sm text-muted mt-2 flex-1">{d.description}</p>}
+                  <p class="mt-4 flex gap-4 text-body-sm">
+                    <a href={`/presentations/${d.slug}/`} class="link-underline text-accent-700 font-semibold">Open deck →</a>
+                    {d.hasPdf && (
+                      <a href={`/presentations/${d.slug}/slides.pdf`} class="link-underline text-accent-700 font-semibold">PDF</a>
+                    )}
+                  </p>
+                </div>
+              </li>
+            </ScrollReveal>
+          ))}
+        </ul>
+      )}
+    </div>
+  </section>
+</SiteShell>
