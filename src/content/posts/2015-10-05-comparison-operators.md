@@ -1,8 +1,8 @@
 ---
 title: Comparison Operators
 category: ['code-quality']
-cover: "/images/blog/blog-image-12.jpg"
-thumb: "/images/blog/sm/blog-image-4.jpg"
+cover: "/images/blog/generated/covers/2015-10-05-comparison-operators.png"
+thumb: "/images/blog/generated/thumbs/2015-10-05-comparison-operators.png"
 categories: javascript
 directory:  javascript
 excerpt: comparison operators in js
@@ -12,7 +12,7 @@ share: true
 published: true
 date: "2015-10-05T23:09:32+05:45"
 toc: true
-show_category_hero_image: false
+use_featured_image: true
 ---
 ## strict vs type–converting comparisons
 

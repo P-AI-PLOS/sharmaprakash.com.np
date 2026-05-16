@@ -12,9 +12,9 @@ toc: true
 toc_sticky: true
 author_profile: true
 category: ['code-quality']
-cover: "/images/blog/blog-image-12.jpg"
-thumb: "/images/blog/sm/blog-image-4.jpg"
-show_category_hero_image: false
+cover: "/images/blog/generated/covers/2018-12-25-git-commands.png"
+thumb: "/images/blog/generated/thumbs/2018-12-25-git-commands.png"
+use_featured_image: true
 # sidebar:
 #   title: "Sample Title"
 #   nav: git-sidebar

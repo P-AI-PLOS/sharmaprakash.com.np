@@ -15,7 +15,7 @@ category: ['code-quality', 'technical']
 cover: "/images/blog/tech-notes/programming-language-career-paths.png"
 thumb: "/images/blog/tech-notes/programming-language-career-paths.png"
 minute: 3
-show_category_hero_image: true
+use_featured_image: true
 ---
 
 **"What programming language should I learn to have successful career"** is the most common question that burns the heart of anyone who wants programmer as their career.

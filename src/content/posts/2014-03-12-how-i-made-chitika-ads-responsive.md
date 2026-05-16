@@ -2,8 +2,8 @@
 title: "How I made chitika ads responsive"
 date: "2014-03-12T20:07:01+05:45"
 category: ["Javascript"]
-cover: "/images/blog/blog-image-12.jpg"
-thumb: "/images/blog/sm/blog-image-4.jpg"
+cover: "/images/blog/generated/covers/2014-03-12-how-i-made-chitika-ads-responsive.png"
+thumb: "/images/blog/generated/thumbs/2014-03-12-how-i-made-chitika-ads-responsive.png"
 categories:
   - javascript
 directory:  javascript
@@ -15,7 +15,7 @@ comments: true
 share: true
 # date: 2014-03-12T20:07:01+05:45
 last_modified_at: "2017-06-10T20:07:01+05:45"
-show_category_hero_image: false
+use_featured_image: true
 ---
 
 Yesterday I implemented <a rel="nofollow" target="_blank" href="http://www.chitika.com/publishers/apply?refid=prakash_arsenal">chitika</a> in my blog only to realise that it does not serve responsive ads yet. Horizontal scrollbar in the mobile view was ugly thing I wanted to fix.

@@ -8,9 +8,9 @@ comments: true
 share: true
 date: "2015-12-19T10:10:39+05:45"
 category: ['code-quality']
-cover: "/images/blog/blog-image-12.jpg"
-thumb: "/images/blog/sm/blog-image-4.jpg"
-show_category_hero_image: false
+cover: "/images/blog/generated/covers/2015-12-19-calculating-potential-android-market-in-nepal.png"
+thumb: "/images/blog/generated/thumbs/2015-12-19-calculating-potential-android-market-in-nepal.png"
+use_featured_image: true
 ---
 
 Forget about getting accurate data, even getting data in nepal is really difficult. This is an attempt to get rough figure on how many potential android customers can I get aged 15-35. This data might contains lots of error hence you are warned in the beginning if you are about to use this data.

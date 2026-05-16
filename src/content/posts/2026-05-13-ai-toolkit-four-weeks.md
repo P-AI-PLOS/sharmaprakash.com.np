@@ -9,7 +9,7 @@ excerpt: "A no-marketing inventory of the models, agent harnesses, and supportin
 cover: "/images/blog/ai/ai-toolkit-four-weeks.png"
 thumb: "/images/blog/ai/ai-toolkit-four-weeks.png"
 last_modified_at: "2026-05-13T10:00:00+05:45"
-show_category_hero_image: true
+use_featured_image: true
 ---
 
 Every "AI tool" listicle reads the same. Twenty bullets, each with a vendor blurb, none with the question I actually want answered: *did the author keep using it after week one?*

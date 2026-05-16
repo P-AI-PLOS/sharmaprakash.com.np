@@ -2,8 +2,8 @@
 layout: single
 title: Continuous Integration, Delivery and Deployment
 category: ["code-quality"]
-cover: "/images/blog/blog-image-12.jpg"
-thumb: "/images/blog/sm/blog-image-4.jpg"
+cover: "/images/blog/generated/covers/2015-10-05-continuous-integration-delivery-and-deployment.png"
+thumb: "/images/blog/generated/thumbs/2015-10-05-continuous-integration-delivery-and-deployment.png"
 categories:
 directory:
 excerpt: difference between continuous integration, continuous delivery and continuous deployment
@@ -11,7 +11,7 @@ tags:
 comments: true
 share: true
 date: "2015-10-05T20:50:47+05:45"
-show_category_hero_image: false
+use_featured_image: true
 ---
 
 ## Continuous Integration

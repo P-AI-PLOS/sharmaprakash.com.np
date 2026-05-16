@@ -1,5 +1,4 @@
 ---
-draft: true
 title: "What to Put in design.md: A Complete Template"
 date: "2026-05-10T10:00:00+05:45"
 category: ["AI"]
@@ -9,7 +8,7 @@ excerpt: "A good design.md is a decision document, not a style guide. If a senio
 cover: "/images/blog/ai/design-md-template.png"
 thumb: "/images/blog/ai/design-md-template.png"
 last_modified_at: "2026-05-10T10:00:00+05:45"
-show_category_hero_image: true
+use_featured_image: true
 series: agent-ready-react
 seriesOrder: 4
 ---

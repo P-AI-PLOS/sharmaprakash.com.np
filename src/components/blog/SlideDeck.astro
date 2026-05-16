@@ -1,0 +1,44 @@
+---
+interface Slide {
+  image: string;
+  caption?: string;
+}
+
+interface Props {
+  slides: Slide[];
+  label?: string;
+}
+
+const { slides, label = "Key slides" } = Astro.props;
+---
+
+<div class="slide-deck not-prose my-8">
+  {label && <p class="text-xs font-medium text-muted mb-2 uppercase tracking-wide">{label}</p>}
+  <div class="slide-deck__swiper">
+    <swiper-container
+      slides-per-view="1"
+      navigation="true"
+      pagination='{"clickable": true}'
+      loop="false"
+      class="rounded-lg overflow-hidden border border-default"
+    >
+      {slides.map((slide) => (
+        <swiper-slide>
+          <figure class="slide-deck__slide">
+            <img
+              src={slide.image}
+              alt={slide.caption ?? "Slide"}
+              class="w-full h-auto object-contain bg-subtle"
+              loading="lazy"
+            />
+            {slide.caption && (
+              <figcaption class="px-4 py-2 text-sm text-muted bg-subtle border-t border-default">
+                {slide.caption}
+              </figcaption>
+            )}
+          </figure>
+        </swiper-slide>
+      ))}
+    </swiper-container>
+  </div>
+</div>

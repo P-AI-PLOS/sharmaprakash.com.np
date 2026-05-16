@@ -8,9 +8,9 @@ comments: true
 share: true
 date: "2016-02-26T22:36:42+05:45"
 category: ['code-quality']
-cover: "/images/blog/blog-image-12.jpg"
-thumb: "/images/blog/sm/blog-image-4.jpg"
-show_category_hero_image: false
+cover: "/images/blog/generated/covers/2016-02-26-upgrade-nodejs-using-npm.png"
+thumb: "/images/blog/generated/thumbs/2016-02-26-upgrade-nodejs-using-npm.png"
+use_featured_image: true
 ---
 
 There are two kinds of nodejs users I frequently meet:

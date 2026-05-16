@@ -8,10 +8,10 @@ comments: true
 share: true
 toc: true
 category: ['code-quality']
-cover: "/images/blog/blog-image-12.jpg"
-thumb: "/images/blog/sm/blog-image-4.jpg"
+cover: "/images/blog/generated/covers/2016-02-05-troubleshoot-enable-wifi-disabled-in-linux.png"
+thumb: "/images/blog/generated/thumbs/2016-02-05-troubleshoot-enable-wifi-disabled-in-linux.png"
 date: "2016-02-05T21:32:30+05:45"
-show_category_hero_image: false
+use_featured_image: true
 ---
 
 ## Ubuntu loves messing up!

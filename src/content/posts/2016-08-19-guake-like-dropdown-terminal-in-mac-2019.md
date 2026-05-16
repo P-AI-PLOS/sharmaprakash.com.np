@@ -8,13 +8,13 @@ comments: true
 share: true
 date: "2016-08-19T07:51:29+05:45"
 category: ['code-quality']
-cover: "/images/blog/blog-image-12.jpg"
-thumb: "/images/blog/sm/blog-image-4.jpg"
+cover: "/images/blog/generated/covers/2016-08-19-guake-like-dropdown-terminal-in-mac-2019.png"
+thumb: "/images/blog/generated/thumbs/2016-08-19-guake-like-dropdown-terminal-in-mac-2019.png"
 toc: true
 header:
   og_image: /assets/images/posts/guake-like-terminal-mac/header.jpg
 last_modified_at: "2020-03-25T12:30:29+05:45"
-show_category_hero_image: false
+use_featured_image: true
 ---
 
 <BlogDetailsNoticeWrapper class="notice--danger block">

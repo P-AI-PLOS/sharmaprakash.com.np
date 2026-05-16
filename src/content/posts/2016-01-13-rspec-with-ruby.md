@@ -11,9 +11,9 @@ comments: true
 share: true
 date: "2016-01-13T08:41:34+05:45"
 category: ['code-quality']
-cover: "/images/blog/blog-image-12.jpg"
-thumb: "/images/blog/sm/blog-image-4.jpg"
-show_category_hero_image: false
+cover: "/images/blog/generated/covers/2016-01-13-rspec-with-ruby.png"
+thumb: "/images/blog/generated/thumbs/2016-01-13-rspec-with-ruby.png"
+use_featured_image: true
 ---
 
 Most of the Ruby on Rails developer directly start their development career from rails project. They rarely work on any core ruby projects. They learn all the best practices, design principles, tdd. Doing something in core ruby sounds something from another world. If this sounds like someone is describing you or if you are just starting ruby, this post is for you.

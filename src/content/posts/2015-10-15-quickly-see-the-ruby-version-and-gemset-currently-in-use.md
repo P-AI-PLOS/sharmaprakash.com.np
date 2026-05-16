@@ -11,9 +11,9 @@ comments: true
 share: true
 date: "2015-10-15T17:28:44+05:45"
 category: ['code-quality']
-cover: "/images/blog/blog-image-12.jpg"
-thumb: "/images/blog/sm/blog-image-4.jpg"
-show_category_hero_image: false
+cover: "/images/blog/generated/covers/2015-10-15-quickly-see-the-ruby-version-and-gemset-currently-in-use.png"
+thumb: "/images/blog/generated/thumbs/2015-10-15-quickly-see-the-ruby-version-and-gemset-currently-in-use.png"
+use_featured_image: true
 ---
 
 When you want to see the ruby version and gemset that is currently being used just enter `rvm-prompt` in your terminal.

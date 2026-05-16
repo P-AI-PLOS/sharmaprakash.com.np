@@ -10,9 +10,9 @@ toc: true
 date: "2017-05-05T23:24:12+05:45"
 last_modified_at: "2017-05-25T23:24:12+05:45"
 category: ['code-quality']
-cover: "/images/blog/blog-image-12.jpg"
-thumb: "/images/blog/sm/blog-image-4.jpg"
-show_category_hero_image: false
+cover: "/images/blog/generated/covers/2017-05-05-best-way-to-share-project-locally-using-ruby.png"
+thumb: "/images/blog/generated/thumbs/2017-05-05-best-way-to-share-project-locally-using-ruby.png"
+use_featured_image: true
 ---
 
 <BlogDetailsNoticeWrapper class="notice--info block">

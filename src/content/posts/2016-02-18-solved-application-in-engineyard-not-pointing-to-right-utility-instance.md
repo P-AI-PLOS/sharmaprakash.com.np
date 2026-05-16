@@ -7,10 +7,10 @@ tags: engineyard
 comments: true
 share: true
 category: ['code-quality']
-cover: "/images/blog/blog-image-12.jpg"
-thumb: "/images/blog/sm/blog-image-4.jpg"
+cover: "/images/blog/generated/covers/2016-02-18-solved-application-in-engineyard-not-pointing-to-right-utility-instance.png"
+thumb: "/images/blog/generated/thumbs/2016-02-18-solved-application-in-engineyard-not-pointing-to-right-utility-instance.png"
 date: "2016-02-18T13:58:49+05:45"
-show_category_hero_image: false
+use_featured_image: true
 ---
 
 Does this sound familiar?

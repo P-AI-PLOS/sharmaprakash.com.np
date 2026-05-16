@@ -12,10 +12,10 @@ share: true
 toc: true
 toc_label: "possible ways"
 category: ['code-quality']
-cover: "/images/blog/blog-image-12.jpg"
-thumb: "/images/blog/sm/blog-image-4.jpg"
+cover: "/images/blog/generated/covers/2016-02-14-running-shell-command-from-ruby-script.png"
+thumb: "/images/blog/generated/thumbs/2016-02-14-running-shell-command-from-ruby-script.png"
 date: "2016-02-14T12:50:09+05:45"
-show_category_hero_image: false
+use_featured_image: true
 ---
 
 Yesterday I was watching ruby-tapas video on binary literals. Avdi was showing an example where he changes file permissions from ruby script. His code would look like this:

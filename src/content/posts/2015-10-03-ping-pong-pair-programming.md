@@ -2,8 +2,8 @@
 layout: single
 title: "Ping Pong Pair Programming"
 category: ['code-quality']
-cover: "/images/blog/blog-image-12.jpg"
-thumb: "/images/blog/sm/blog-image-4.jpg"
+cover: "/images/blog/generated/covers/2015-10-03-ping-pong-pair-programming.png"
+thumb: "/images/blog/generated/thumbs/2015-10-03-ping-pong-pair-programming.png"
 categories:
 directory:
 excerpt: An ExtremeProgrammingPractice in which two engineers participate in one development effort at one workstation. Each member performs the action the other is not currently doing.
@@ -11,7 +11,7 @@ tags:
 comments: true
 share: true
 date: "2015-10-03T14:37:57+05:45"
-show_category_hero_image: false
+use_featured_image: true
 ---
 
 ## Pair Programming

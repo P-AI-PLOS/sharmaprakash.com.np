@@ -11,9 +11,9 @@ image:
 date: "2015-10-30T13:58:12+05:45"
 last_modified_at: "2020-03-24T13:58:12+05:45"
 category: ['code-quality']
-cover: "/images/blog/blog-image-12.jpg"
-thumb: "/images/blog/sm/blog-image-4.jpg"
-show_category_hero_image: false
+cover: "/images/blog/generated/covers/2015-10-30-how-to-get-current-host-url-in-rails.png"
+thumb: "/images/blog/generated/thumbs/2015-10-30-how-to-get-current-host-url-in-rails.png"
+use_featured_image: true
 ---
 
 You are in right place if you want to get root url along with port number in rails.

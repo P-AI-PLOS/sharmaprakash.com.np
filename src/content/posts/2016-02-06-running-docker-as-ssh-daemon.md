@@ -9,11 +9,11 @@ comments: true
 share: true
 toc: true
 category: ['code-quality']
-cover: "/images/blog/blog-image-12.jpg"
-thumb: "/images/blog/sm/blog-image-4.jpg"
+cover: "/images/blog/generated/covers/2016-02-06-running-docker-as-ssh-daemon.png"
+thumb: "/images/blog/generated/thumbs/2016-02-06-running-docker-as-ssh-daemon.png"
 date: "2016-02-06T00:07:54+05:45"
 last_modified_at: "2016-04-10"
-show_category_hero_image: false
+use_featured_image: true
 ---
 
 Please follow [this tutorial][install-docker-in-ubuntu] to install docker.

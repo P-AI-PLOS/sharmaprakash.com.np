@@ -1,5 +1,4 @@
 ---
-draft: true
 title: "Why Your Legacy React Codebase Confuses AI Coding Agents"
 date: "2026-05-07T10:00:00+05:45"
 category: ["AI"]
@@ -9,7 +8,7 @@ excerpt: "AI agents stumble on mature codebases because they have accreted multi
 cover: "/images/blog/ai/legacy-react-ai-agents.png"
 thumb: "/images/blog/ai/legacy-react-ai-agents.png"
 last_modified_at: "2026-05-07T10:00:00+05:45"
-show_category_hero_image: true
+use_featured_image: true
 series: agent-ready-react
 seriesOrder: 1
 ---

@@ -15,7 +15,7 @@ toc: true
 category: ['code-quality', 'technical']
 cover: "/images/blog/tech-notes/rmagick-ubuntu-install.png"
 thumb: "/images/blog/tech-notes/rmagick-ubuntu-install.png"
-show_category_hero_image: true
+use_featured_image: true
 ---
 
 ## tl;dr for busy ones

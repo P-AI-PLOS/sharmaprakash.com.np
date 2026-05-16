@@ -8,10 +8,10 @@ tags:
 comments: true
 share: true
 category: ['code-quality']
-cover: "/images/blog/blog-image-12.jpg"
-thumb: "/images/blog/sm/blog-image-4.jpg"
+cover: "/images/blog/generated/covers/2016-02-06-unresolved-gem-specification.png"
+thumb: "/images/blog/generated/thumbs/2016-02-06-unresolved-gem-specification.png"
 date: "2016-02-06T14:40:14+05:45"
-show_category_hero_image: false
+use_featured_image: true
 ---
 
 Me: Hey! I upgraded my blog to use latest version of Jekyll.

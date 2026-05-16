@@ -16,7 +16,7 @@ date: "2020-03-24T09:42:12+05:45"
 category: ['code-quality', 'entrepreneurial']
 cover: "/images/blog/wfh.jpg"
 thumb: "/images/blog/wfh.jpg"
-show_category_hero_image: true
+use_featured_image: true
 ---
 
 Working from home isn’t a new thing at all. It is gradually becoming common nowadays. And with the ongoing COVID-19 infection and lockdown situation, everyone is currently working from home.<br />

@@ -11,9 +11,9 @@ comments: true
 share: true
 date: "2016-03-01T01:13:36+05:45"
 category: ['code-quality']
-cover: "/images/blog/blog-image-12.jpg"
-thumb: "/images/blog/sm/blog-image-4.jpg"
-show_category_hero_image: false
+cover: "/images/blog/generated/covers/2016-03-01-making-rbenv-work-with-zsh.png"
+thumb: "/images/blog/generated/thumbs/2016-03-01-making-rbenv-work-with-zsh.png"
+use_featured_image: true
 ---
 
 I have heard lots of great things about `zsh`. I had already installed `zsh` in my system and tried out few times.

@@ -1,8 +1,8 @@
 ---
 title: "Reduce Global Variables"
 category: ['Javascript']
-cover: "/images/blog/blog-image-12.jpg"
-thumb: "/images/blog/sm/blog-image-4.jpg"
+cover: "/images/blog/generated/covers/2015-10-02-reduce-global-variables.png"
+thumb: "/images/blog/generated/thumbs/2015-10-02-reduce-global-variables.png"
 categories: javascript
 directory:  javascript
 excerpt: small discussion on how to reduce global variables in js
@@ -12,7 +12,7 @@ comments: true
 share: true
 date: "2015-10-02T07:19:24+05:45"
 toc: true
-show_category_hero_image: false
+use_featured_image: true
 ---
 
 >"By reducing your global footprint to a single name, you significantly reduce the chance of bad interactions with other applications, widgets, or libraries." - Douglas Crockford

@@ -8,9 +8,9 @@ comments: true
 share: true
 date: "2016-06-18T07:51:29+05:45"
 category: ['code-quality']
-cover: "/images/blog/blog-image-12.jpg"
-thumb: "/images/blog/sm/blog-image-4.jpg"
-show_category_hero_image: false
+cover: "/images/blog/generated/covers/2016-06-18-scrapping-kaymu-for-products-price.png"
+thumb: "/images/blog/generated/thumbs/2016-06-18-scrapping-kaymu-for-products-price.png"
+use_featured_image: true
 ---
 
 It's saturday morning and I have nothing interesting to do. So I thought of scraping Kaymu and list out products and their price using ruby. I targeted raspberry pi for this exercise.

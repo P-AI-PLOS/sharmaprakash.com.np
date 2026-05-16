@@ -8,9 +8,9 @@ comments: true
 share: true
 date: "2017-07-07T23:24:12+05:45"
 category: ['code-quality']
-cover: "/images/blog/blog-image-12.jpg"
-thumb: "/images/blog/sm/blog-image-4.jpg"
-show_category_hero_image: false
+cover: "/images/blog/generated/covers/2017-05-30-flickering-screen-chrome-ubuntu.png"
+thumb: "/images/blog/generated/thumbs/2017-05-30-flickering-screen-chrome-ubuntu.png"
+use_featured_image: true
 ---
 
 Recently I upgraded my ubunutu to 17.04. After few minutes with this new os, I started noticing that my screen was flickering.

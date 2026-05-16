@@ -2,8 +2,8 @@
 layout: single
 title: Js Debugger
 category: ['code-quality']
-cover: "/images/blog/blog-image-12.jpg"
-thumb: "/images/blog/sm/blog-image-4.jpg"
+cover: "/images/blog/generated/covers/2015-10-05-js-debugger.png"
+thumb: "/images/blog/generated/thumbs/2015-10-05-js-debugger.png"
 categories: javascript
 directory:  javascript
 excerpt: debugger is a great tool in js that provides breakpoint in your code so that you can easily debug your code
@@ -12,7 +12,7 @@ author:
 comments: true
 share: true
 date: "2015-10-05T23:09:10+05:45"
-show_category_hero_image: false
+use_featured_image: true
 ---
 
 ## Bit of personal history, skip with pleasure

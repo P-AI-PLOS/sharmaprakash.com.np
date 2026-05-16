@@ -11,6 +11,7 @@ import {
   postThumbnail,
   POSTS_PER_PAGE,
 } from "~/utils/posts";
+import Pagination from "~/components/blog/Pagination.astro";
 import { createSlug, formatBlogDate } from "~/utils";
 
 export const getStaticPaths = (async () => {
@@ -58,7 +59,7 @@ const { posts, currentPage, totalPages, category, slug } = Astro.props as {
   <section class="pb-24">
     <div class="mx-auto max-w-7xl px-6 lg:px-12 grid lg:grid-cols-12 gap-12">
       <div class="lg:col-span-8">
-        <ul class="list-none divide-y divide-default">
+        <ul class="list-none divide-y divide-[var(--border-default)]">
           {posts.map((post, i) => (
             <ScrollReveal delay={60 * i} as="li">
               <a href={postUrl(post)} class="group block py-10 grid grid-cols-1 md:grid-cols-[1fr_180px] gap-8 items-start">
@@ -90,19 +91,11 @@ const { posts, currentPage, totalPages, category, slug } = Astro.props as {
           ))}
         </ul>
 
-        <nav class="mt-12 flex justify-between items-center" aria-label="Pagination">
-          {currentPage > 1 ? (
-            <a href={`/category/${slug}/${currentPage - 1}/`} class="btn btn-secondary">
-              <span>← Newer</span>
-            </a>
-          ) : <span />}
-          <span class="text-body-sm text-muted">Page {currentPage} of {totalPages}</span>
-          {currentPage < totalPages ? (
-            <a href={`/category/${slug}/${currentPage + 1}/`} class="btn btn-secondary">
-              <span>Older →</span>
-            </a>
-          ) : <span />}
-        </nav>
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          buildUrl={(p) => `/category/${slug}/${p}/`}
+        />
       </div>
 
       <div class="lg:col-span-4">

@@ -4,7 +4,7 @@ import { blogImageCategory } from "~/data/portfolios";
 
 export type Post = CollectionEntry<"posts">;
 
-export const POSTS_PER_PAGE = 6;
+export const POSTS_PER_PAGE = 10;
 
 export const getAllPostsSorted = async (): Promise<Post[]> => {
   const posts = await getCollection("posts", ({ data }) => !data.draft);
@@ -121,11 +121,22 @@ export const postUrl = (post: Post): string => {
   return post.data.directory ? `/${post.data.directory}/${slug}/` : `/${slug}/`;
 };
 
-export const postThumbnail = (post: Post): string => {
-  if (post.data.show_category_hero_image && post.data.thumb) return post.data.thumb;
+export const categoryFallbackImage = (post: Post): string => {
   const isEntrepreneurial = (post.data.category ?? [])[1] === "entrepreneurial";
   if (isEntrepreneurial) return "/images/blog/blog-image-12.jpg";
   const cat = (post.data.category ?? [])[0];
   const matched = blogImageCategory.find((c) => c.categoryName === cat);
   return matched?.imageLink ?? "/images/blog/blog-image-12.jpg";
+};
+
+export const postCoverImage = (post: Post): string => {
+  if (post.data.use_featured_image && post.data.cover) return post.data.cover;
+  if (post.data.use_featured_image && post.data.thumb) return post.data.thumb;
+  return categoryFallbackImage(post);
+};
+
+export const postThumbnail = (post: Post): string => {
+  if (post.data.use_featured_image && post.data.thumb) return post.data.thumb;
+  if (post.data.use_featured_image && post.data.cover) return post.data.cover;
+  return categoryFallbackImage(post);
 };

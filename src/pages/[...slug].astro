@@ -14,7 +14,7 @@ import DisqusComments from "~/components/blog/DisqusComments.astro";
 import {
   getAllPostsSorted,
   postUrl,
-  postThumbnail,
+  postCoverImage,
   getPostSeries,
   getAdjacentPosts,
   estimateReadMinutes,
@@ -39,7 +39,7 @@ const absoluteUrl = new URL(postUrl(post), Astro.site ?? "http://localhost/").to
 <SiteShell
   title={post.data.title}
   description={post.data.excerpt}
-  image={postThumbnail(post)}
+  image={postCoverImage(post)}
   ogType="article"
   date={post.data.date}
   lastModified={post.data.last_modified_at}

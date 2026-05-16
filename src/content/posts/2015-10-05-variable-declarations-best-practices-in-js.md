@@ -2,8 +2,8 @@
 layout: single
 title: Variable Declarations Best Practices in Js
 category: ['code-quality']
-cover: "/images/blog/blog-image-12.jpg"
-thumb: "/images/blog/sm/blog-image-4.jpg"
+cover: "/images/blog/generated/covers/2015-10-05-variable-declarations-best-practices-in-js.png"
+thumb: "/images/blog/generated/thumbs/2015-10-05-variable-declarations-best-practices-in-js.png"
 categories: javascript
 directory:  javascript
 excerpt: best practices in js compiled from various sources like airbnb and jshint
@@ -13,7 +13,7 @@ comments: true
 share: true
 date: "2015-10-05T22:21:08+05:45"
 toc: true
-show_category_hero_image: false
+use_featured_image: true
 ---
 
 ## Don't declare variable twice

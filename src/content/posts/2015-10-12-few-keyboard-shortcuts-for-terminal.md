@@ -10,9 +10,9 @@ comments: true
 share: true
 date: "2015-10-12T21:43:49+05:45"
 category: ['code-quality']
-cover: "/images/blog/blog-image-12.jpg"
-thumb: "/images/blog/sm/blog-image-4.jpg"
-show_category_hero_image: false
+cover: "/images/blog/generated/covers/2015-10-12-few-keyboard-shortcuts-for-terminal.png"
+thumb: "/images/blog/generated/thumbs/2015-10-12-few-keyboard-shortcuts-for-terminal.png"
+use_featured_image: true
 ---
 
 * **Up/Down Arrows:** The up and down arrows on your keyboard move through your last used commands. So, if you wanted to run the second to last command you ran, just hit the up arrow twice and hit Enter. You can also edit the command before you run it.

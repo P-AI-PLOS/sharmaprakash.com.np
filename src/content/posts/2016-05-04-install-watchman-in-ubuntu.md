@@ -8,9 +8,9 @@ comments: true
 share: true
 date: "2016-03-19T08:26:29+05:45"
 category: ['code-quality']
-cover: "/images/blog/blog-image-12.jpg"
-thumb: "/images/blog/sm/blog-image-4.jpg"
-show_category_hero_image: false
+cover: "/images/blog/generated/covers/2016-05-04-install-watchman-in-ubuntu.png"
+thumb: "/images/blog/generated/thumbs/2016-05-04-install-watchman-in-ubuntu.png"
+use_featured_image: true
 ---
 
 ## Step 1: Install dependent files

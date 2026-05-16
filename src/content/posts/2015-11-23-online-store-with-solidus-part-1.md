@@ -11,9 +11,9 @@ share: true
 date: "2015-11-23T23:04:49+05:45"
 last_modified_at: "2015-05-10"
 category: ['code-quality']
-cover: "/images/blog/blog-image-12.jpg"
-thumb: "/images/blog/sm/blog-image-4.jpg"
-show_category_hero_image: false
+cover: "/images/blog/generated/covers/2015-11-23-online-store-with-solidus-part-1.png"
+thumb: "/images/blog/generated/thumbs/2015-11-23-online-store-with-solidus-part-1.png"
+use_featured_image: true
 ---
 Since spree has been sold, I thought it might be good idea to setup tutorial to create ecommerce with alternative.
 

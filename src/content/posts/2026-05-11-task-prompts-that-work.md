@@ -1,5 +1,4 @@
 ---
-draft: true
 title: "Writing Task-Specific Agent Prompts That Work First Try"
 date: "2026-05-11T10:00:00+05:45"
 category: ["AI"]
@@ -9,7 +8,7 @@ excerpt: "If design.md is the agent's memory, task prompts are its muscle memory
 cover: "/images/blog/ai/task-specific-agent-prompts.png"
 thumb: "/images/blog/ai/task-specific-agent-prompts.png"
 last_modified_at: "2026-05-11T10:00:00+05:45"
-show_category_hero_image: true
+use_featured_image: true
 series: agent-ready-react
 seriesOrder: 5
 ---

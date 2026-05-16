@@ -1,5 +1,4 @@
 ---
-draft: true
 title: "A 3-Week Plan to Make Your Legacy React Codebase Agent-Ready"
 date: "2026-05-08T10:00:00+05:45"
 category: ["AI"]
@@ -9,7 +8,7 @@ excerpt: "Three weeks, one engineer, one opinionated order. Stop the drift, coll
 cover: "/images/blog/ai/agent-ready-react-plan.png"
 thumb: "/images/blog/ai/agent-ready-react-plan.png"
 last_modified_at: "2026-05-08T10:00:00+05:45"
-show_category_hero_image: true
+use_featured_image: true
 series: agent-ready-react
 seriesOrder: 2
 ---

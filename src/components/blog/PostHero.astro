@@ -1,6 +1,7 @@
 ---
 import type { Post } from "~/utils/posts";
-import { postThumbnail } from "~/utils/posts";
+import { postCoverImage } from "~/utils/posts";
+import { createSlug } from "~/utils";
 import AuthorByline from "./AuthorByline.astro";
 
 interface Props {
@@ -9,7 +10,7 @@ interface Props {
   url: string;
 }
 const { post, readingMinutes, url } = Astro.props;
-const cover = postThumbnail(post);
+const cover = postCoverImage(post);
 const cats = post.data.category ?? [];
 const tags = post.data.tags ?? [];
 ---
@@ -23,7 +24,7 @@ const tags = post.data.tags ?? [];
       {cats[0] && (
         <>
           <li class="text-faint">›</li>
-          <li class="text-default">{cats[0]}</li>
+          <li><a href={`/category/${createSlug(cats[0])}/1/`} class="link-underline text-muted hover:text-default">{cats[0]}</a></li>
         </>
       )}
     </ol>

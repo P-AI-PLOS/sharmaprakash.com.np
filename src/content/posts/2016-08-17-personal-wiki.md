@@ -8,9 +8,9 @@ comments: true
 share: true
 date: "2016-08-17T07:51:29+05:45"
 category: ['code-quality']
-cover: "/images/blog/blog-image-12.jpg"
-thumb: "/images/blog/sm/blog-image-4.jpg"
-show_category_hero_image: false
+cover: "/images/blog/generated/covers/2016-08-17-personal-wiki.png"
+thumb: "/images/blog/generated/thumbs/2016-08-17-personal-wiki.png"
+use_featured_image: true
 ---
 
 For some time I have been trying to have my personal wiki,where I could add programming notes for my own reference.

@@ -11,9 +11,9 @@ share: true
 published: true
 date: "2015-10-09T20:42:12+05:45"
 category: ['code-quality']
-cover: "/images/blog/blog-image-12.jpg"
-thumb: "/images/blog/sm/blog-image-4.jpg"
-show_category_hero_image: false
+cover: "/images/blog/generated/covers/2015-10-09-setup-nodejs-in-ubuntu.png"
+thumb: "/images/blog/generated/thumbs/2015-10-09-setup-nodejs-in-ubuntu.png"
+use_featured_image: true
 ---
 
 This tutorial has been updated with installation instruction for nodejs6.

@@ -9,9 +9,9 @@ comments: true
 share: true
 date: "2015-12-06T22:24:07+05:45"
 category: ['code-quality']
-cover: "/images/blog/blog-image-12.jpg"
-thumb: "/images/blog/sm/blog-image-4.jpg"
-show_category_hero_image: false
+cover: "/images/blog/generated/covers/2015-12-06-installing-nokogiri-less-painfully.png"
+thumb: "/images/blog/generated/thumbs/2015-12-06-installing-nokogiri-less-painfully.png"
+use_featured_image: true
 ---
 
 <BlogDetailsNoticeWrapper class="notice block">

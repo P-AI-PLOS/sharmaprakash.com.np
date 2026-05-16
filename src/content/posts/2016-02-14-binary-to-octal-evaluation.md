@@ -8,10 +8,10 @@ tags:
 comments: true
 share: true
 category: ['code-quality']
-cover: "/images/blog/blog-image-12.jpg"
-thumb: "/images/blog/sm/blog-image-4.jpg"
+cover: "/images/blog/generated/covers/2016-02-14-binary-to-octal-evaluation.png"
+thumb: "/images/blog/generated/thumbs/2016-02-14-binary-to-octal-evaluation.png"
 date: "2016-02-14T13:30:31+05:45"
-show_category_hero_image: false
+use_featured_image: true
 ---
 
 This is another thing I learned while watching ruby-tapas video on binary literals. Length of the video was 1m:47s only and I am already writing second blog about the learnings from there!

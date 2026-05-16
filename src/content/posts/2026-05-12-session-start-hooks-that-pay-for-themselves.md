@@ -1,5 +1,4 @@
 ---
-draft: true
 title: "Session-Start Hooks That Pay for Themselves"
 date: "2026-05-12T10:00:00+05:45"
 category: ["AI"]
@@ -9,7 +8,7 @@ excerpt: "Zero ongoing cost. Measurable improvement on every interaction. The un
 cover: "/images/blog/ai/session-start-hooks.png"
 thumb: "/images/blog/ai/session-start-hooks.png"
 last_modified_at: "2026-05-12T10:00:00+05:45"
-show_category_hero_image: true
+use_featured_image: true
 series: agent-ready-react
 seriesOrder: 6
 ---

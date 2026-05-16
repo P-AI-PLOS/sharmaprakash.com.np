@@ -2,8 +2,8 @@
 layout: single
 title: Setup New Rails Project
 category: ['code-quality']
-cover: "/images/blog/blog-image-12.jpg"
-thumb: "/images/blog/sm/blog-image-4.jpg"
+cover: "/images/blog/generated/covers/2015-10-07-setup-new-rails-project.png"
+thumb: "/images/blog/generated/thumbs/2015-10-07-setup-new-rails-project.png"
 categories: rails
 directory:  rails
 excerpt: setup new rails project with rspec for testing
@@ -12,7 +12,7 @@ author:
 comments: true
 share: true
 date: "2015-10-07T00:13:34+05:45"
-show_category_hero_image: false
+use_featured_image: true
 ---
 
 Today we will setup new rails project with rspec for testing.

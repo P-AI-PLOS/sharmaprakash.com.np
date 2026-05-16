@@ -1,8 +1,8 @@
 ---
 title: "Four Types of Duplication in Source Code"
 category: ['code-quality']
-cover: "/images/blog/blog-image-12.jpg"
-thumb: "/images/blog/sm/blog-image-4.jpg"
+cover: "/images/blog/generated/covers/2015-10-01-four-types-of-duplication-in-source-code.png"
+thumb: "/images/blog/generated/thumbs/2015-10-01-four-types-of-duplication-in-source-code.png"
 categories:
 directory:
 excerpt: "We all know about DRY but time and again we can find duplication in our code. Here we talk about four types of duplication: imposed, inadvertent, impatient and interdeveloper."
@@ -10,7 +10,7 @@ tags:
 comments: true
 share: true
 date: "2015-10-01T18:37:13+05:45"
-show_category_hero_image: false
+use_featured_image: true
 ---
 
 1. **Imposed duplication:** Developer feel they have no choice - the environment seems to require duplication.

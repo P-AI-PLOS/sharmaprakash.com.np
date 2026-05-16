@@ -8,9 +8,9 @@ comments: true
 share: true
 date: "2016-05-10T07:51:29+05:45"
 category: ['code-quality']
-cover: "/images/blog/blog-image-12.jpg"
-thumb: "/images/blog/sm/blog-image-4.jpg"
-show_category_hero_image: false
+cover: "/images/blog/generated/covers/2016-05-10-install-hipchat-in-ubuntu16.png"
+thumb: "/images/blog/generated/thumbs/2016-05-10-install-hipchat-in-ubuntu16.png"
+use_featured_image: true
 ---
 
 Upgraded to ubuntu 16.04? chances are high that you have already faced problem while trying to install `hipchat` as steps listed in official site is of no help.

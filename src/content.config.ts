@@ -3,11 +3,7 @@ import { glob } from "astro/loaders";
 
 // Strip the `YYYY-MM-DD-` prefix from post filenames to get the URL slug.
 const stripDatePrefix = (filename: string): string =>
-  filename
-    .replace(/\.(md|mdx)$/, "")
-    .split("-")
-    .slice(3)
-    .join("-");
+  filename.replace(/\.(md|mdx)$/, "").replace(/^\d{4}-\d{2}-\d{2}-/, "");
 
 const posts = defineCollection({
   loader: glob({
@@ -43,7 +39,7 @@ const posts = defineCollection({
     comments: z.boolean().optional(),
     share: z.boolean().optional(),
     last_modified_at: z.coerce.date().optional(),
-    show_category_hero_image: z.boolean().optional().default(false),
+    use_featured_image: z.boolean().optional().default(false),
     series: z.string().optional(),
     seriesOrder: z.number().int().positive().optional(),
     draft: z.boolean().optional().default(false),

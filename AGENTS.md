@@ -116,7 +116,8 @@ src/
 
 | You want to… | Read these first |
 | --- | --- |
-| Add a blog post | `src/content/posts/` (filename pattern `YYYY-MM-DD-slug.md`), schema in `src/content.config.ts`. Required frontmatter: `title`, `date`. Common optional: `excerpt`, `category`/`categories`, `tags`, `cover`, `thumb`, `directory`, `series` + `seriesOrder`. Set `draft: true` to hide a post from all listings, feeds, and the sitemap (filter lives in `src/utils/posts.ts`). |
+| Add a blog post | `src/content/posts/` using filename pattern `YYYY-MM-DD-slug.md` only; do not create undated post filenames. The `date` frontmatter must match the filename date. Schema lives in `src/content.config.ts`. Required frontmatter: `title`, `date`. Common optional: `excerpt`, `category`/`categories`, `tags`, `cover`, `thumb`, `directory`, `series` + `seriesOrder`. Set `draft: true` to hide a post from all listings, feeds, and the sitemap (filter lives in `src/utils/posts.ts`). |
+| Create a featured blog image | Use Codex image generation for an editorial header image, no embedded text, no logos, no watermarks. Save the 21:9 hero image as `cover` and the 16:9 card crop as `thumb` under `public/images/blog/<category-or-series>/`. Set `use_featured_image: true`. Post heroes and OG tags read `cover` through `postCoverImage()`; cards/listings read `thumb` through `postThumbnail()`. If only one generated image exists, use the same public path for both fields. Category images are only a fallback for posts without a featured image. |
 | Add a new homepage section | `design.md` §8 (page archetypes), then add to `src/components/marketing/` and import in `src/pages/index.astro`. |
 | Change the accent color | `design.md` §1.2, then update `--accent-*` in `src/styles/tokens.css`. All consumers update for free. |
 | Add a new page | `design.md` §8 (does it fit an archetype?). Create `src/pages/<name>.astro` using `<SiteShell title="…">`. Add to nav if user-facing. |

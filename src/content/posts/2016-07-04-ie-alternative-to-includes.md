@@ -14,7 +14,7 @@ last_modified_at:
 category: ['code-quality', 'technical']
 cover: "/images/blog/tech-notes/ie-includes-fallback.png"
 thumb: "/images/blog/tech-notes/ie-includes-fallback.png"
-show_category_hero_image: true
+use_featured_image: true
 ---
 
 For past 2 months I have been actively developing emberjs addon. As we near the release of this add-on, it is time for cross-browser testing(only time developer tests runs his app in Internet Explorer(IE)).

@@ -8,9 +8,9 @@ comments: true
 share: true
 date: "2016-03-17T14:08:00+05:45"
 category: ['code-quality']
-cover: "/images/blog/blog-image-12.jpg"
-thumb: "/images/blog/sm/blog-image-4.jpg"
-show_category_hero_image: false
+cover: "/images/blog/generated/covers/2016-03-17-js-equivalent-of-send.png"
+thumb: "/images/blog/generated/thumbs/2016-03-17-js-equivalent-of-send.png"
+use_featured_image: true
 ---
 
 Do you remember we talked about ruby's send method [here]({{ site.url }}/using-send-method-in-ruby-to-refactor-conditional/). It is used to call a ruby function from string having same value as function name.

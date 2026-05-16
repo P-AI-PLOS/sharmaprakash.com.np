@@ -11,9 +11,9 @@ share: true
 published: false
 date: "2015-10-09T21:06:47+05:45"
 category: ['code-quality']
-cover: "/images/blog/blog-image-12.jpg"
-thumb: "/images/blog/sm/blog-image-4.jpg"
-show_category_hero_image: false
+cover: "/images/blog/generated/covers/2015-10-09-host-static-website-in-github-with-custom-domain-name.png"
+thumb: "/images/blog/generated/thumbs/2015-10-09-host-static-website-in-github-with-custom-domain-name.png"
+use_featured_image: true
 ---
 
  create a file called `CNAME` and write name of your site there. For me it was `www.sharmaprakash.com.np

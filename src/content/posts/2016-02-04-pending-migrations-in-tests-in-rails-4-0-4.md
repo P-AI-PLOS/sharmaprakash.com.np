@@ -9,10 +9,10 @@ tags:
 comments: true
 share: true
 category: ['code-quality']
-cover: "/images/blog/blog-image-12.jpg"
-thumb: "/images/blog/sm/blog-image-4.jpg"
+cover: "/images/blog/generated/covers/2016-02-04-pending-migrations-in-tests-in-rails-4-0-4.png"
+thumb: "/images/blog/generated/thumbs/2016-02-04-pending-migrations-in-tests-in-rails-4-0-4.png"
 date: "2016-02-04T11:14:31+05:45"
-show_category_hero_image: false
+use_featured_image: true
 ---
 
 How would you feel if all your test that were running fine till yesterday suddenly fails? That is what happened with me this morning. Below is the exception I encountered.

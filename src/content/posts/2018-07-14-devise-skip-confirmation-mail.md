@@ -11,9 +11,9 @@ classes: wide
 date: "2017-07-14T23:24:12+05:45"
 last_modified_at: "2017-09-17T23:24:12+05:45"
 category: ['code-quality']
-cover: "/images/blog/blog-image-12.jpg"
-thumb: "/images/blog/sm/blog-image-4.jpg"
-show_category_hero_image: false
+cover: "/images/blog/generated/covers/2018-07-14-devise-skip-confirmation-mail.png"
+thumb: "/images/blog/generated/thumbs/2018-07-14-devise-skip-confirmation-mail.png"
+use_featured_image: true
 ---
 So you integrated devise in your app and need your email signups to confirm. You setup devise and enabled confirmable module and things were going great.
 

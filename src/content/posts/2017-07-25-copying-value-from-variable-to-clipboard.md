@@ -8,9 +8,9 @@ comments: true
 share: true
 date: "2017-07-25T23:24:12+05:45"
 category: ['code-quality']
-cover: "/images/blog/blog-image-12.jpg"
-thumb: "/images/blog/sm/blog-image-4.jpg"
-show_category_hero_image: false
+cover: "/images/blog/generated/covers/2017-07-25-copying-value-from-variable-to-clipboard.png"
+thumb: "/images/blog/generated/thumbs/2017-07-25-copying-value-from-variable-to-clipboard.png"
+use_featured_image: true
 ---
 
 In javascript, copying a value from variable to clipboard is not straightforward as there is no direct command.

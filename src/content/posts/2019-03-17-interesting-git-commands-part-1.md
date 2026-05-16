@@ -10,9 +10,9 @@ header:
   teaser: /assets/images/posts/6-git-tricks-1.jpg
 date: "2019-03-17T08:42:12+05:45"
 category: ['code-quality']
-cover: "/images/blog/blog-image-12.jpg"
-thumb: "/images/blog/blog5.png"
-show_category_hero_image: false
+cover: "/images/blog/generated/covers/2019-03-17-interesting-git-commands-part-1.png"
+thumb: "/images/blog/generated/thumbs/2019-03-17-interesting-git-commands-part-1.png"
+use_featured_image: true
 ---
 
 ## Merging your current change to previous commit

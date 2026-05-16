@@ -8,7 +8,7 @@ directory:
 excerpt: "mise makes unauthenticated GitHub API calls by default. When you hit the rate limit installing tools, a personal access token (no scopes required) fixes it permanently."
 cover: "/images/blog/tech-notes/mise-github-token.png"
 thumb: "/images/blog/tech-notes/mise-github-token.png"
-show_category_hero_image: false
+use_featured_image: true
 last_modified_at: "2026-06-09T10:00:00+05:45"
 tags:
   - mise

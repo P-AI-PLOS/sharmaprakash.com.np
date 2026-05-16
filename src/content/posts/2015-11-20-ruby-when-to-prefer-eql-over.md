@@ -8,9 +8,9 @@ comments: true
 share: true
 date: "2015-11-20T14:16:50+05:45"
 category: ['code-quality']
-cover: "/images/blog/blog-image-12.jpg"
-thumb: "/images/blog/sm/blog-image-4.jpg"
-show_category_hero_image: false
+cover: "/images/blog/generated/covers/2015-11-20-ruby-when-to-prefer-eql-over.png"
+thumb: "/images/blog/generated/thumbs/2015-11-20-ruby-when-to-prefer-eql-over.png"
+use_featured_image: true
 ---
 
 I don't remember since when did I pick up habit of preferring `eql?` over `==`. But today I found out when should it be actually preferred and when it is ok to use `==`.

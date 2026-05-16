@@ -8,9 +8,9 @@ comments: true
 share: true
 date: "2017-07-07T23:24:12+05:45"
 category: ['code-quality']
-cover: "/images/blog/blog-image-12.jpg"
-thumb: "/images/blog/sm/blog-image-4.jpg"
-show_category_hero_image: false
+cover: "/images/blog/generated/covers/2017-06-07-setup-golang-in-ubuntu-16.04.png"
+thumb: "/images/blog/generated/thumbs/2017-06-07-setup-golang-in-ubuntu-16.04.png"
+use_featured_image: true
 ---
 
 ## Install Go 1.8

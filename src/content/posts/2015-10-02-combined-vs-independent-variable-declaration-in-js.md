@@ -2,8 +2,8 @@
 layout: single
 title: "Debate: combined vs independent variable declaration in js"
 category: ['Javascript']
-cover: "/images/blog/blog-image-12.jpg"
-thumb: "/images/blog/sm/blog-image-4.jpg"
+cover: "/images/blog/generated/covers/2015-10-02-combined-vs-independent-variable-declaration-in-js.png"
+thumb: "/images/blog/generated/thumbs/2015-10-02-combined-vs-independent-variable-declaration-in-js.png"
 categories: javascript
 directory:  javascript
 excerpt: Debate regarding combined variable declaration and individual variable declaration in js.
@@ -11,7 +11,7 @@ tags:
 comments: true
 share: true
 date: "2015-10-02T14:00:30+05:45"
-show_category_hero_image: false
+use_featured_image: true
 ---
 
 It is regarded as good practice to declare all variables at the top. It is believed that this practice will make it easier while searching for variable declarations and may also help in avoiding multiple declarations in a long file.

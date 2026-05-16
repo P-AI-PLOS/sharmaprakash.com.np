@@ -12,9 +12,9 @@ toc: true
 date: "2016-03-03T22:13:42+05:45"
 last_modified_at: "2020-04-25"
 category: ['code-quality']
-cover: "/images/blog/blog-image-12.jpg"
-thumb: "/images/blog/sm/blog-image-4.jpg"
-show_category_hero_image: false
+cover: "/images/blog/generated/covers/2016-03-03-generate-an-application-with-a-specific-rails-version.png"
+thumb: "/images/blog/generated/thumbs/2016-03-03-generate-an-application-with-a-specific-rails-version.png"
+use_featured_image: true
 ---
 
 There are few ways we can create an application with specific rails version.

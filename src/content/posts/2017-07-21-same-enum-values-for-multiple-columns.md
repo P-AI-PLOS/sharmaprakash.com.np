@@ -9,9 +9,9 @@ share: true
 date: "2017-07-21T23:24:12+05:45"
 last_modified_at: "2017-09-17T23:24:12+05:45"
 category: ['code-quality']
-cover: "/images/blog/blog-image-12.jpg"
-thumb: "/images/blog/sm/blog-image-4.jpg"
-show_category_hero_image: false
+cover: "/images/blog/generated/covers/2017-07-21-same-enum-values-for-multiple-columns.png"
+thumb: "/images/blog/generated/thumbs/2017-07-21-same-enum-values-for-multiple-columns.png"
+use_featured_image: true
 ---
 
 Sometimes we may need to share same enum values in multiple columns in rails. For eg:

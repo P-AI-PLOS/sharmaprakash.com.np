@@ -14,9 +14,9 @@ share: true
 date: "2020-03-26T07:51:29+05:45"
 last_modified_at: "2020-03-26T12:30:29+05:45"
 category: ['code-quality', 'entrepreneurial']
-cover: "/images/blog/blog-image-12.jpg"
-thumb: "/images/blog/sm/blog-image-4.jpg"
-show_category_hero_image: false
+cover: "/images/blog/generated/covers/2020-03-26-sort-object-array-by-two-properties.png"
+thumb: "/images/blog/generated/thumbs/2020-03-26-sort-object-array-by-two-properties.png"
+use_featured_image: true
 ---
 
 ## Using Lodash

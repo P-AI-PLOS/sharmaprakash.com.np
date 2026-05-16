@@ -1,5 +1,4 @@
 ---
-draft: true
 title: "Rules That Agents Actually Follow: Enforcement Over Aspiration"
 date: "2026-05-09T10:00:00+05:45"
 category: ["AI"]
@@ -9,7 +8,7 @@ excerpt: "A perfectly written CLAUDE.md cannot fix a contradictory codebase. The
 cover: "/images/blog/ai/enforced-agent-rules.png"
 thumb: "/images/blog/ai/enforced-agent-rules.png"
 last_modified_at: "2026-05-09T10:00:00+05:45"
-show_category_hero_image: true
+use_featured_image: true
 series: agent-ready-react
 seriesOrder: 3
 ---

@@ -2,8 +2,8 @@
 layout: single
 title: "Debugging Strategies"
 category: ['code-quality']
-cover: "/images/blog/blog-image-12.jpg"
-thumb: "/images/blog/sm/blog-image-4.jpg"
+cover: "/images/blog/generated/covers/2015-10-03-debugging-strategies.png"
+thumb: "/images/blog/generated/thumbs/2015-10-03-debugging-strategies.png"
 categories:
 directory:
 excerpt: Let's talk about debugging strategies with a bit of humour.
@@ -12,7 +12,7 @@ comments: true
 share: true
 date: "2015-10-03T10:34:42+05:45"
 toc: true
-show_category_hero_image: false
+use_featured_image: true
 ---
 
 <p style="color:red">warning: contains lots of violence</p>

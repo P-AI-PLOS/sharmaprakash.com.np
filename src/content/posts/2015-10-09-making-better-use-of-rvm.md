@@ -9,9 +9,9 @@ share: true
 toc: true
 date: "2015-10-09T20:40:12+05:45"
 category: ['code-quality']
-cover: "/images/blog/blog-image-12.jpg"
-thumb: "/images/blog/sm/blog-image-4.jpg"
-show_category_hero_image: false
+cover: "/images/blog/generated/covers/2015-10-09-making-better-use-of-rvm.png"
+thumb: "/images/blog/generated/thumbs/2015-10-09-making-better-use-of-rvm.png"
+use_featured_image: true
 ---
 
 ## quick tip
