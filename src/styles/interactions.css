@@ -190,3 +190,21 @@ a.chip:hover { background: var(--accent-100); color: var(--accent-700); }
   text-transform: uppercase;
   color: var(--accent-600);
 }
+
+/* Pill-filled eyebrow chip used to label foot sections (author bio
+ * card, comments, search dialog). Use with Tailwind utilities for
+ * surrounding spacing (e.g. `class="eyebrow-chip mb-3"`). */
+.eyebrow-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--accent-100);
+  color: var(--accent-700);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: var(--radius-pill);
+}
+.eyebrow-chip svg { width: 12px; height: 12px; flex-shrink: 0; }

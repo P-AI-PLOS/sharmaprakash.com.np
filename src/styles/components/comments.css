@@ -1,0 +1,109 @@
+/* --- Comments section (foot of post) ----------------------------
+ * The Disqus thread itself renders inside an iframe served from
+ * disqus.com so we can't touch its internals. What we can style is
+ * the wrapper: a section break, eyebrow + live count badge, heading
+ * with accent underline, supporting line, accent-rail framed card
+ * around the iframe.
+ * Disqus-specific selectors (:empty loading skeleton, footer
+ * alignment) live in src/styles/vendor/disqus.css.
+ * ---------------------------------------------------------------- */
+.comments-section {
+  border-top: 1px solid var(--border-default);
+  background:
+    radial-gradient(
+      ellipse 70% 60% at 0% 0%,
+      color-mix(in oklab, var(--accent-100), transparent 60%) 0%,
+      transparent 60%
+    ),
+    var(--surface-base);
+  padding-top: var(--space-12);
+}
+.comments-header {
+  margin-bottom: var(--space-8);
+}
+.comments-count {
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-muted);
+  background: var(--surface-raised);
+  border: 1px solid var(--border-default);
+  padding: 3px 10px;
+  border-radius: var(--radius-pill);
+  text-decoration: none;
+  transition:
+    color var(--dur-fast) var(--ease-out-quad),
+    border-color var(--dur-fast) var(--ease-out-quad);
+}
+.comments-count:hover {
+  color: var(--accent-700);
+  border-color: var(--accent-300);
+}
+.comments-title {
+  font-family: var(--font-ui);
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--text-strong);
+  margin: 0;
+  position: relative;
+  padding-bottom: var(--space-3);
+}
+.comments-title::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 32px;
+  height: 2px;
+  background: var(--accent-500);
+  border-radius: 1px;
+}
+.comments-subtitle {
+  font-size: 15px;
+  color: var(--text-muted);
+  margin: var(--space-3) 0 0;
+  max-width: 56ch;
+  line-height: 1.55;
+}
+
+.comments-thread {
+  position: relative;
+  background: var(--surface-raised);
+  border: 1px solid var(--accent-200);
+  border-radius: var(--radius-lg);
+  padding: var(--space-6) var(--space-6) var(--space-4);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+}
+.comments-thread::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 4px;
+  background: var(--accent-600);
+}
+
+.comments-noscript {
+  color: var(--text-muted);
+  font-size: 14px;
+  margin: 0;
+}
+
+.comments-footnote {
+  margin: var(--space-4) 0 0;
+  font-size: 12px;
+  color: var(--text-muted);
+  text-align: right;
+}
+.comments-footnote a {
+  color: var(--text-muted);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 2px;
+}
+.comments-footnote a:hover { color: var(--accent-700); }

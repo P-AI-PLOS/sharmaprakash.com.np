@@ -1,0 +1,224 @@
+---
+/**
+ * Site-wide search. Trigger button (header) opens a centered dialog
+ * containing Pagefind's default UI, which lazy-loads on first open.
+ *
+ * Pagefind indexes are written to /pagefind/ during `pnpm build`. In
+ * dev mode the assets don't exist, so the script shows an inline
+ * "search index not available" message instead of 404-spamming the
+ * console. Build the site (`pnpm build && pnpm preview`) to test.
+ */
+---
+
+<button
+  id="search-trigger"
+  type="button"
+  class="search-trigger"
+  aria-label="Search the site"
+  aria-haspopup="dialog"
+  aria-controls="search-dialog"
+>
+  <svg
+    width="16"
+    height="16"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="2"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    aria-hidden="true"
+  >
+    <circle cx="11" cy="11" r="8"></circle>
+    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+  </svg>
+  <span class="search-trigger-label">Search</span>
+  <kbd class="search-trigger-kbd" aria-hidden="true">
+    <span class="search-trigger-kbd-mac">⌘K</span>
+    <span class="search-trigger-kbd-pc">Ctrl K</span>
+  </kbd>
+</button>
+
+<dialog id="search-dialog" class="search-dialog" aria-label="Search">
+  <div class="search-dialog-inner">
+    <div class="search-dialog-header">
+      <span class="eyebrow-chip">Search the archive</span>
+      <button
+        type="button"
+        id="search-close"
+        class="search-close"
+        aria-label="Close search"
+      >
+        <svg
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+    </div>
+    <div id="search-ui" class="search-ui"></div>
+    <p id="search-unavailable" class="search-unavailable" hidden>
+      Search index isn't built in dev mode. Run
+      <code>pnpm build &amp;&amp; pnpm preview</code> to try it.
+    </p>
+    <p class="search-hint">
+      Try
+      <button type="button" class="search-hint-chip" data-q="token economics">token economics</button>
+      ·
+      <button type="button" class="search-hint-chip" data-q="agent prompts">agent prompts</button>
+      ·
+      <button type="button" class="search-hint-chip" data-q="design.md">design.md</button>
+    </p>
+  </div>
+</dialog>
+
+<script is:inline>
+  (function () {
+    const PAGEFIND_JS = "/pagefind/pagefind-ui.js";
+    const PAGEFIND_CSS = "/pagefind/pagefind-ui.css";
+    let mounted = false;
+
+    function loadAsset(tag, attrs) {
+      return new Promise(function (resolve, reject) {
+        const el = document.createElement(tag);
+        Object.keys(attrs).forEach(function (k) { el[k] = attrs[k]; });
+        el.onload = resolve;
+        el.onerror = reject;
+        document.head.appendChild(el);
+      });
+    }
+
+    function mountPagefind() {
+      if (mounted) return Promise.resolve(true);
+      mounted = true;
+      const host = document.getElementById("search-ui");
+      if (!host) return Promise.resolve(false);
+      return Promise.all([
+        loadAsset("link", { rel: "stylesheet", href: PAGEFIND_CSS }),
+        loadAsset("script", { src: PAGEFIND_JS, defer: true }),
+      ])
+        .then(function () {
+          if (!window.PagefindUI) throw new Error("PagefindUI missing");
+          new window.PagefindUI({
+            element: "#search-ui",
+            showSubResults: true,
+            showImages: false,
+            resetStyles: false,
+            translations: {
+              placeholder: "Search posts…",
+              zero_results: "No matches for [SEARCH_TERM]",
+            },
+          });
+          return true;
+        })
+        .catch(function () {
+          mounted = false;
+          const fallback = document.getElementById("search-unavailable");
+          if (fallback) fallback.hidden = false;
+          host.hidden = true;
+          return false;
+        });
+    }
+
+    function open() {
+      const dlg = document.getElementById("search-dialog");
+      if (!dlg) return;
+      if (typeof dlg.showModal === "function") {
+        dlg.showModal();
+      } else {
+        dlg.setAttribute("open", "");
+      }
+      mountPagefind().then(function (ok) {
+        if (!ok) return;
+        const input = dlg.querySelector("input[type='text']");
+        if (input) setTimeout(function () { input.focus(); }, 30);
+      });
+    }
+    function close() {
+      const dlg = document.getElementById("search-dialog");
+      if (!dlg) return;
+      if (typeof dlg.close === "function" && dlg.open) dlg.close();
+      else dlg.removeAttribute("open");
+    }
+
+    function seedQuery(q) {
+      Promise.resolve(mountPagefind()).then(function (ok) {
+        if (!ok) return;
+        const input = document.querySelector(".search-ui input[type='text']");
+        if (!input) return;
+        input.value = q;
+        input.dispatchEvent(new Event("input", { bubbles: true }));
+        input.focus();
+      });
+    }
+
+    function bindElements() {
+      const trigger = document.getElementById("search-trigger");
+      const closeBtn = document.getElementById("search-close");
+      const dlg = document.getElementById("search-dialog");
+      if (trigger && !trigger.dataset.searchBound) {
+        trigger.dataset.searchBound = "1";
+        trigger.addEventListener("click", open);
+      }
+      if (closeBtn && !closeBtn.dataset.searchBound) {
+        closeBtn.dataset.searchBound = "1";
+        closeBtn.addEventListener("click", close);
+      }
+      if (dlg && !dlg.dataset.searchBound) {
+        dlg.dataset.searchBound = "1";
+        dlg.addEventListener("click", function (e) {
+          if (e.target === dlg) close();
+        });
+      }
+      document.querySelectorAll(".search-hint-chip").forEach(function (btn) {
+        if (btn.dataset.searchBound) return;
+        btn.dataset.searchBound = "1";
+        btn.addEventListener("click", function () {
+          seedQuery(btn.dataset.q || btn.textContent || "");
+        });
+      });
+    }
+
+    // Global keyboard shortcuts — bind once on the document, regardless
+    // of view transitions. Look the dialog up at fire time so a
+    // re-rendered node is always reachable.
+    if (!window.__siteSearchKeyBound) {
+      window.__siteSearchKeyBound = true;
+      document.addEventListener("keydown", function (e) {
+        const dlg = document.getElementById("search-dialog");
+        if (!dlg) return;
+        const mod = e.metaKey || e.ctrlKey;
+        if (mod && (e.key === "k" || e.key === "K")) {
+          e.preventDefault();
+          if (dlg.open) close(); else open();
+          return;
+        }
+        if (e.key === "Escape" && dlg.open) {
+          // <dialog> already handles Escape; this is a no-op safety net.
+          return;
+        }
+        if (
+          e.key === "/" &&
+          !mod &&
+          !e.altKey &&
+          !e.shiftKey &&
+          document.activeElement === document.body
+        ) {
+          e.preventDefault();
+          open();
+        }
+      });
+    }
+
+    bindElements();
+    document.addEventListener("astro:page-load", bindElements);
+  })();
+</script>

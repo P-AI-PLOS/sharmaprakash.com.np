@@ -397,3 +397,34 @@ page hero, no breadcrumb crutch.
 - **Page that doesn't fit an archetype** → add a new archetype sketch in §8.
 
 If you find yourself reaching for an inline hex / px / ms value, stop and add a token.
+
+### 10.1 Where to put styles
+
+Three places, one rule each.
+
+- **Tailwind utilities on the markup** — first choice when the rule is one to
+  six tokens of spacing, typography, color, or flex/grid alignment, and isn't
+  reused. Example: `class="flex items-center gap-3 mb-3"` on a comments
+  eyebrow row. Keeps the named-selector surface area small and puts styling
+  at the point of use.
+
+- **A file under `src/styles/components/<name>.css`** — when the rule needs
+  pseudo-elements (`::before` rails, `::after` underlines, `:empty::before`
+  loading states), `@keyframes`, multi-layer `box-shadow`, gradient
+  backgrounds, complex descendant selectors, or is shared across enough sites
+  to deserve a named class. One file per visual primitive. Add an
+  `@import "./components/<name>.css"` line to `globals.css`.
+
+- **A file under `src/styles/vendor/<lib>.css`** — when the selector targets
+  a third-party widget's class names (Pagefind, Disqus, rehype-pretty-code,
+  Marp) and usually needs `!important` to win the cascade. One file per
+  library. Only the library's selectors live here; our own component CSS
+  doesn't leak in.
+
+Shared primitives (`.btn`, `.chip`, `.field`, `.eyebrow`, `.eyebrow-chip`,
+`.link-underline`) live in `interactions.css` so any component can compose
+them via Tailwind alongside.
+
+Don't reach for CSS-in-JS, `styled-components`, or UnoCSS — the project is
+intentionally CSS-first with Tailwind utilities and tokenized custom CSS as
+the only two levers.

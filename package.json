@@ -13,8 +13,9 @@
   "scripts": {
     "dev": "astro dev --host",
     "start": "astro dev --host",
-    "build": "astro build",
+    "build": "astro build && pagefind --site dist",
     "preview": "astro preview",
+    "search:index": "astro build && pagefind --site dist --output-path public/pagefind",
     "check": "astro check",
     "presentations:build": "node scripts/presentations/build-presentations.mjs",
     "presentations:check": "node scripts/presentations/check-presentations.mjs",
@@ -47,6 +48,7 @@
     "@tailwindcss/vite": "^4.3.0",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
+    "pagefind": "^1.5.2",
     "postcss": "^8.5.14",
     "sass": "^1.99.0",
     "tailwindcss": "^4.3.0",
