@@ -2,6 +2,7 @@
 import type { GetStaticPaths } from "astro";
 import SiteShell from "~/layouts/SiteShell.astro";
 import PostsSidebar from "~/components/blog/PostsSidebar.astro";
+import SeriesStrip from "~/components/blog/SeriesStrip.astro";
 import ScrollReveal from "~/components/motion/ScrollReveal.astro";
 import { headTitle } from "~/data/site";
 import {
@@ -43,6 +44,8 @@ const { posts, currentPage, totalPages } = Astro.props as {
       <h1 class="text-display-lg text-strong max-w-2xl">Essays, tech notes, and the in-between.</h1>
     </div>
   </section>
+
+  {currentPage === 1 && <SeriesStrip />}
 
   <section class="pb-24">
     <div class="mx-auto max-w-7xl px-6 lg:px-12 grid lg:grid-cols-12 gap-12">
