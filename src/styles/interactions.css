@@ -1,0 +1,221 @@
+/* ---------------------------------------------------------------------------
+ * Hover / focus / micro-interaction primitives.
+ * Components apply these via class — never inline a hover style in a template.
+ * --------------------------------------------------------------------------- */
+
+/* Universal focus ring — always visible on keyboard nav. */
+*:focus-visible {
+  outline: 2px solid var(--accent-600);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
+/* --- Button -------------------------------------------------------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  padding: 12px 20px;
+  font-family: var(--font-ui);
+  font-weight: 600;
+  font-size: 15px;
+  line-height: 1;
+  border-radius: var(--radius-pill);
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition:
+    background-color var(--dur-fast) var(--ease-out-quad),
+    color var(--dur-fast) var(--ease-out-quad),
+    box-shadow var(--dur-normal) var(--ease-out-quad),
+    transform var(--dur-fast) var(--ease-out-quad);
+  text-decoration: none;
+  white-space: nowrap;
+}
+.btn-sm { padding: 8px 16px; font-size: 14px; }
+.btn-lg { padding: 14px 24px; font-size: 16px; }
+
+.btn-primary {
+  background-color: var(--accent-600);
+  color: #FFFFFF;
+}
+.btn-primary:hover {
+  background-color: var(--accent-500);
+  box-shadow: var(--shadow-glow);
+  transform: translateY(-1px);
+}
+.btn-primary:active {
+  background-color: var(--accent-700);
+  transform: translateY(0);
+}
+
+.btn-secondary {
+  background-color: transparent;
+  color: var(--ink-700);
+  border-color: var(--ink-700);
+}
+.btn-secondary:hover {
+  background-color: var(--ink-700);
+  color: #FFFFFF;
+}
+.btn-secondary:active { background-color: var(--ink-800); }
+
+.btn-secondary-inverse {
+  background-color: transparent;
+  color: var(--ink-50);
+  border-color: var(--ink-50);
+}
+.btn-secondary-inverse:hover {
+  background-color: var(--ink-50);
+  color: var(--ink-900);
+}
+
+.btn-ghost {
+  background-color: transparent;
+  color: var(--text-default);
+}
+.btn-ghost:hover { background-color: var(--ink-100); }
+.btn-ghost:active { background-color: var(--ink-200); }
+
+.btn:disabled,
+.btn[aria-disabled="true"] {
+  background-color: var(--ink-200);
+  color: var(--ink-400);
+  border-color: transparent;
+  box-shadow: none;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* --- Interactive card lift --------------------------------------- */
+.card-interactive {
+  transition:
+    transform var(--dur-normal) var(--ease-out-quad),
+    box-shadow var(--dur-normal) var(--ease-out-quad);
+}
+.card-interactive:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+/* --- Animated underline (left-anchored, grows on hover) ---------- */
+.link-underline {
+  position: relative;
+  display: inline-block;
+}
+.link-underline::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  height: 1.5px;
+  width: 100%;
+  background-color: var(--accent-500);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--dur-normal) var(--ease-out-quad);
+}
+.link-underline:hover::after,
+.link-underline:focus-visible::after,
+.link-underline.is-active::after {
+  transform: scaleX(1);
+}
+
+/* --- Icon morph (rotate / color shift on hover container) -------- */
+.icon-morph {
+  transition:
+    color var(--dur-fast) var(--ease-out-quad),
+    transform var(--dur-normal) var(--ease-out-quad);
+}
+
+/* --- Form fields -------------------------------------------------- */
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+.field-label {
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  color: var(--text-default);
+  text-transform: uppercase;
+}
+.field-input,
+.field-textarea {
+  font: inherit;
+  padding: 12px 16px;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-md);
+  background: var(--surface-raised);
+  color: var(--text-default);
+  transition:
+    border-color var(--dur-fast) var(--ease-out-quad),
+    box-shadow var(--dur-fast) var(--ease-out-quad);
+}
+.field-input::placeholder,
+.field-textarea::placeholder { color: var(--text-faint); }
+.field-input:focus,
+.field-textarea:focus {
+  outline: none;
+  border-color: var(--accent-600);
+  box-shadow: 0 0 0 3px color-mix(in oklab, var(--accent-600), transparent 80%);
+}
+
+/* --- Chip / Tag -------------------------------------------------- */
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding: 4px 10px;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  border-radius: var(--radius-pill);
+  background: var(--ink-100);
+  color: var(--ink-700);
+  border: 1px solid transparent;
+  text-transform: capitalize;
+  transition:
+    background-color var(--dur-fast) var(--ease-out-quad),
+    color var(--dur-fast) var(--ease-out-quad),
+    border-color var(--dur-fast) var(--ease-out-quad);
+}
+a.chip:hover {
+  background: var(--accent-50);
+  color: var(--accent-700);
+  border-color: var(--accent-200);
+}
+.chip.is-active {
+  background: var(--accent-50);
+  color: var(--accent-700);
+  border-color: var(--accent-300);
+}
+
+/* --- Eyebrow -------------------------------------------------- */
+.eyebrow {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent-600);
+}
+
+/* Pill-filled eyebrow chip used to label foot sections (author bio
+ * card, comments, search dialog). Use with Tailwind utilities for
+ * surrounding spacing (e.g. `class="eyebrow-chip mb-3"`). */
+.eyebrow-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--accent-100);
+  color: var(--accent-700);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: var(--radius-pill);
+}
+.eyebrow-chip svg { width: 12px; height: 12px; flex-shrink: 0; }

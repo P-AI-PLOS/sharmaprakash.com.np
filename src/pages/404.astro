@@ -1,0 +1,20 @@
+---
+import SiteShell from "~/layouts/SiteShell.astro";
+import { headTitle } from "~/data/site";
+---
+
+<SiteShell title={headTitle.notFoundTitle}>
+  <section class="bg-surface-base min-h-[80vh] flex items-center">
+    <div class="mx-auto max-w-3xl px-6 lg:px-12 py-32 text-center">
+      <p class="eyebrow mb-3">404</p>
+      <h1 class="text-display-lg text-strong mb-4">This page doesn't exist (yet).</h1>
+      <p class="text-body-lg text-muted mb-10 max-w-xl mx-auto">
+        The link may be stale or the page may have moved. Try the homepage or the essay archive.
+      </p>
+      <div class="flex justify-center gap-3">
+        <a href="/" class="btn btn-primary"><span>Home</span></a>
+        <a href="/blog/page/1/" class="btn btn-secondary"><span>Read essays</span></a>
+      </div>
+    </div>
+  </section>
+</SiteShell>

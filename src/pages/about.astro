@@ -1,0 +1,59 @@
+---
+import SiteShell from "~/layouts/SiteShell.astro";
+import ScrollReveal from "~/components/motion/ScrollReveal.astro";
+import { headTitle, information } from "~/data/site";
+import { services } from "~/data/resume";
+---
+
+<SiteShell title={headTitle.aboutTitle}>
+  <section class="bg-surface-base pt-40 pb-24">
+    <div class="mx-auto max-w-6xl px-6 lg:px-12 grid lg:grid-cols-12 gap-12 items-start">
+      <ScrollReveal class="lg:col-span-5">
+        <div class="rounded-xl overflow-hidden shadow-lg">
+          <img src={information.largeImage} alt={information.fullName} class="w-full h-auto" />
+        </div>
+      </ScrollReveal>
+
+      <ScrollReveal delay={120} class="lg:col-span-7">
+        <p class="eyebrow mb-3">About</p>
+        <h1 class="text-display-lg text-strong mb-6">
+          Programmer who founded a few things, now sharpening the product craft.
+        </h1>
+        <p class="text-body-lg text-muted mb-4">{information.bio}</p>
+        <dl class="mt-8 grid grid-cols-2 gap-x-8 gap-y-3 text-body">
+          <dt class="text-muted">Currently</dt><dd class="text-strong">{information.currentRole}</dd>
+          <dt class="text-muted">At</dt><dd class="text-strong">{information.currentCompany}</dd>
+          <dt class="text-muted">Based in</dt><dd class="text-strong">{information.address}</dd>
+          <dt class="text-muted">Experience</dt><dd class="text-strong">{information.yearsOfExperience}+ years</dd>
+          <dt class="text-muted">Languages</dt><dd class="text-strong">{information.languages.join(", ")}</dd>
+          <dt class="text-muted">Status</dt><dd class="text-strong">{information.freelance}</dd>
+        </dl>
+        <div class="mt-8 flex gap-3">
+          <a href="/resume/" class="btn btn-primary"><span>View résumé</span></a>
+          <a href="/contact/" class="btn btn-secondary"><span>Get in touch</span></a>
+        </div>
+      </ScrollReveal>
+    </div>
+  </section>
+
+  <section class="bg-surface-sunken py-24">
+    <div class="mx-auto max-w-6xl px-6 lg:px-12">
+      <ScrollReveal>
+        <p class="eyebrow mb-3">What I do</p>
+        <h2 class="text-h1 text-strong mb-12 max-w-xl">Areas where I tend to be useful.</h2>
+      </ScrollReveal>
+      <div class="grid md:grid-cols-3 gap-8">
+        {services.map((s, i) => (
+          <ScrollReveal delay={80 * i}>
+            <div class="card-interactive rounded-lg bg-surface-raised shadow-md p-8 h-full">
+              <img src={s.icon} alt="" class="w-10 h-10 mb-5 opacity-80" />
+              <h3 class="text-h3 text-strong mb-3">{s.title}</h3>
+              <p class="text-body text-muted">{s.text}</p>
+            </div>
+          </ScrollReveal>
+        ))}
+      </div>
+    </div>
+  </section>
+
+</SiteShell>

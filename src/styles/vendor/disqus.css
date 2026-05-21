@@ -1,0 +1,31 @@
+/* -----------------------------------------------------------------
+ * Disqus thread overrides. Disqus renders its widget inside an
+ * iframe served from disqus.com — these rules only affect the empty
+ * #disqus_thread <div> we own (loading state) and don't reach the
+ * iframe contents. See src/styles/components/comments.css for the
+ * surrounding wrapper card.
+ * -----------------------------------------------------------------*/
+
+/* Loading placeholder. Shows while embed.js is still injecting the
+ * iframe — replaced the moment Disqus mounts content into the div. */
+.comments-thread #disqus_thread:empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 220px;
+}
+.comments-thread #disqus_thread:empty::before {
+  content: "Loading discussion…";
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--text-muted);
+  letter-spacing: 0.04em;
+  animation: comments-pulse 1.6s ease-in-out infinite;
+}
+@keyframes comments-pulse {
+  0%, 100% { opacity: 0.55; }
+  50%      { opacity: 1; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .comments-thread #disqus_thread:empty::before { animation: none; }
+}

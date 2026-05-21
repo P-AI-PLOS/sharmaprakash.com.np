@@ -1,0 +1,19 @@
+/* --- Prev / next grid -------------------------------------------- */
+.prev-next-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-4);
+}
+@media (min-width: 640px) {
+  .prev-next-grid { grid-template-columns: 1fr 1fr; }
+}
+.prev-next-card {
+  display: block;
+  padding: var(--space-6);
+  background: var(--surface-raised);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-lg);
+  text-decoration: none;
+  color: var(--text-default);
+}
+.prev-next-card.is-next { text-align: right; }

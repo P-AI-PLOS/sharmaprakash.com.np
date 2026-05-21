@@ -1,0 +1,23 @@
+[
+    {
+        "id": 1,
+        "title": "Bachelors of Engineering (Computer)",
+        "meta": "Advanced College of Engineering and Management (TU).",
+        "text": "",
+        "year": "2010 - 2014"
+    },
+    {
+        "id": 2,
+        "title": "HSEB +2",
+        "meta": "Nepal Police School, Sanga, Kavre.",
+        "text": "",
+        "year": "2007 - 2009"
+    },
+    {
+        "id": 3,
+        "title": "School Leaving Certificate",
+        "meta": "Nepal Police School, Sanga, Kavre.",
+        "text": "",
+        "year": "2004 - 2007"
+    }
+]

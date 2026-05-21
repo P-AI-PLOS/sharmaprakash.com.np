@@ -1,0 +1,9 @@
+Two-host technical podcast, Deep Dive format, for working software developers.
+Cover the source in order. Conversational, a little dry — no hype.
+Describe code and commands by intent, not character-by-character.
+
+Focus of this episode: A 1,500-line CLAUDE.md doesn't make agents more consistent — it makes them less. The agents that work best have short rules backed by tooling, not long rules backed by hope.
+
+Open with a 15-second cold-open framing the specific problem the source
+identifies. Close with one concrete "try this tomorrow" takeaway the listener
+can act on before their next coding session.

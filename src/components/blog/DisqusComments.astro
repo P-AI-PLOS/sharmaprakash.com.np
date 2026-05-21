@@ -1,0 +1,131 @@
+---
+import { siteConfig } from "~/data/site";
+
+interface Props {
+  identifier: string;
+  title: string;
+  url: string;
+}
+
+const { identifier, title, url } = Astro.props;
+const shortname = siteConfig.disqusShortname;
+---
+
+<section class="comments-section">
+  <div class="mx-auto max-w-5xl px-6 lg:px-8 pb-20">
+    <header class="comments-header">
+      <div class="flex items-center flex-wrap gap-3 mb-3">
+        <span class="eyebrow-chip">
+          <svg
+            width="12"
+            height="12"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+          </svg>
+          <span>Join the conversation</span>
+        </span>
+        <a
+          href={`${url}#disqus_thread`}
+          class="comments-count disqus-comment-count"
+          data-disqus-identifier={identifier}
+          aria-label="Jump to comment thread"
+        >
+          0 comments
+        </a>
+      </div>
+      <h2 class="comments-title">What did you take away?</h2>
+      <p class="comments-subtitle">
+        Thoughts, pushback, or a story of your own? Drop a reply below — I
+        read every one.
+      </p>
+    </header>
+
+    <div class="comments-thread">
+      <div
+        id="disqus_thread"
+        data-disqus-shortname={shortname}
+        data-disqus-identifier={identifier}
+        data-disqus-title={title}
+        data-disqus-url={url}
+      >
+      </div>
+      <noscript>
+        <p class="comments-noscript">
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript" rel="nofollow">
+            comments powered by Disqus.
+          </a>
+        </p>
+      </noscript>
+    </div>
+
+    <p class="comments-footnote">
+      Comments are powered by Disqus. By posting you agree to their
+      <a href="https://help.disqus.com/terms-and-policies/terms-of-service" target="_blank" rel="noopener">terms</a>.
+    </p>
+  </div>
+</section>
+
+<script>
+  const mount = () => {
+    const el = document.getElementById("disqus_thread");
+    if (!el) return;
+
+    const shortname = el.dataset.disqusShortname;
+    const identifier = el.dataset.disqusIdentifier ?? "";
+    const title = el.dataset.disqusTitle ?? "";
+    const url = el.dataset.disqusUrl ?? window.location.href;
+    if (!shortname) return;
+
+    const w = window as unknown as {
+      DISQUS?: { reset: (opts: { reload: boolean; config: () => void }) => void };
+      disqus_config?: () => void;
+    };
+
+    function disqusConfig(this: {
+      page: { url: string; identifier: string; title: string };
+    }) {
+      this.page.url = url;
+      this.page.identifier = identifier;
+      this.page.title = title;
+    }
+
+    if (w.DISQUS) {
+      w.DISQUS.reset({ reload: true, config: disqusConfig });
+      return;
+    }
+
+    w.disqus_config = disqusConfig;
+    const s = document.createElement("script");
+    s.src = `https://${shortname}.disqus.com/embed.js`;
+    s.setAttribute("data-timestamp", String(+new Date()));
+    s.async = true;
+    (document.head || document.body).appendChild(s);
+
+    // Live comment count badge. Disqus's count.js scans the page for
+    // <a class="disqus-comment-count" data-disqus-identifier="…">…</a>
+    // and replaces the inner text with the live count.
+    const COUNT_ID = "dsq-count-scr";
+    if (!document.getElementById(COUNT_ID)) {
+      const c = document.createElement("script");
+      c.id = COUNT_ID;
+      c.src = `https://${shortname}.disqus.com/count.js`;
+      c.async = true;
+      (document.head || document.body).appendChild(c);
+    } else {
+      // Re-scan on view-transition swap so the badge updates per post.
+      const wAny = w as unknown as { DISQUSWIDGETS?: { getCount: (o: { reset: boolean }) => void } };
+      wAny.DISQUSWIDGETS?.getCount({ reset: true });
+    }
+  };
+
+  mount();
+  document.addEventListener("astro:after-swap", mount);
+</script>

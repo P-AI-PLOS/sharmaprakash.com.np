@@ -1,0 +1,95 @@
+---
+import type { GetStaticPaths } from "astro";
+import { render } from "astro:content";
+import SiteShell from "~/layouts/SiteShell.astro";
+import PostHero from "~/components/blog/PostHero.astro";
+import ReadingProgressBar from "~/components/blog/ReadingProgressBar.astro";
+import RelatedPosts from "~/components/blog/RelatedPosts.astro";
+import CodeBlockEnhancements from "~/components/blog/CodeBlockEnhancements.astro";
+import SeriesNavStrip from "~/components/blog/SeriesNavStrip.astro";
+import SeriesContinueBlock from "~/components/blog/SeriesContinueBlock.astro";
+import AuthorBioCard from "~/components/blog/AuthorBioCard.astro";
+import PrevNextPosts from "~/components/blog/PrevNextPosts.astro";
+import DisqusComments from "~/components/blog/DisqusComments.astro";
+import PodcastPlayer from "~/components/blog/PodcastPlayer.astro";
+import { findEpisode } from "~/data/podcast";
+import {
+  getAllPostsSorted,
+  postUrl,
+  postCoverImage,
+  getPostSeries,
+  getAdjacentPosts,
+  estimateReadMinutes,
+} from "~/utils/posts";
+
+export const getStaticPaths = (async () => {
+  const posts = await getAllPostsSorted();
+  // Workshop chapters render via the dedicated /workshop/[slug].astro route
+  // (course-style chrome). Skip them here to avoid duplicate static paths.
+  return posts
+    .filter((post) => post.data.directory !== "workshop")
+    .map((post) => {
+      const url = postUrl(post).replace(/^\/|\/$/g, "");
+      return { params: { slug: url }, props: { post } };
+    });
+}) satisfies GetStaticPaths;
+
+const { post } = Astro.props as { post: Awaited<ReturnType<typeof getAllPostsSorted>>[number] };
+const { Content } = await render(post);
+const series = await getPostSeries(post);
+const adjacent = await getAdjacentPosts(post);
+const readingMinutes = estimateReadMinutes(post.body);
+const episode = findEpisode(post.data.series, post.data.seriesOrder);
+const absoluteUrl = new URL(postUrl(post), Astro.site ?? "http://localhost/").toString();
+---
+
+<SiteShell
+  title={post.data.title}
+  description={post.data.excerpt}
+  image={postCoverImage(post)}
+  ogType="article"
+  date={post.data.date}
+  lastModified={post.data.last_modified_at}
+  showCanonical
+>
+  <ReadingProgressBar />
+
+  <article class="bg-surface-base">
+    <PostHero post={post} readingMinutes={readingMinutes} url={absoluteUrl} />
+
+    {series && <SeriesNavStrip context={series} />}
+
+    {episode && (
+      <div class="mx-auto max-w-5xl px-6 lg:px-8 pt-8">
+        <PodcastPlayer episode={episode} compact />
+      </div>
+    )}
+
+    <div class="mx-auto max-w-5xl px-6 lg:px-8 post-grid">
+      <div
+        class="prose-post"
+        data-pagefind-body
+        data-pagefind-meta={`title:${post.data.title}`}
+        data-pagefind-filter={`category:${post.data.category ?? (post.data.categories?.[0] ?? "uncategorized")}`}
+      >
+        <Content />
+      </div>
+    </div>
+
+    <CodeBlockEnhancements />
+
+    <div class="mx-auto max-w-5xl px-6 lg:px-8 pt-12 pb-20 space-y-12">
+      <AuthorBioCard />
+      {series && <SeriesContinueBlock context={series} />}
+      {!series && <PrevNextPosts adjacent={adjacent} />}
+    </div>
+
+    {!series && <RelatedPosts current={post} />}
+
+    <DisqusComments
+      identifier={post.id}
+      title={post.data.title}
+      url={absoluteUrl}
+    />
+  </article>
+</SiteShell>

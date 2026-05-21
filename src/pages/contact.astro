@@ -1,0 +1,107 @@
+---
+import { Icon } from "@iconify/react";
+import SiteShell from "~/layouts/SiteShell.astro";
+import ScrollReveal from "~/components/motion/ScrollReveal.astro";
+import { headTitle, information, bookingUrl, bookingEmbedUrl } from "~/data/site";
+---
+
+<SiteShell title={headTitle.contactTitle}>
+  <section class="bg-surface-base pt-40 pb-12">
+    <div class="mx-auto max-w-3xl px-6 lg:px-12 text-center">
+      <p class="eyebrow mb-3">Contact</p>
+      <h1 class="text-display-lg text-strong">Say hello.</h1>
+      <p class="mt-4 text-body-lg text-muted max-w-xl mx-auto">
+        Product, engineering, founders, agentic AI, or just a thoughtful note about
+        something you read here. I read every message.
+      </p>
+    </div>
+  </section>
+
+  <section class="bg-surface-base pb-24">
+    <div class="mx-auto max-w-6xl px-6 lg:px-12 grid lg:grid-cols-5 gap-12">
+      <ScrollReveal class="lg:col-span-2 space-y-6">
+        <div class="flex items-start gap-4">
+          <span class="flex h-12 w-12 items-center justify-center rounded-pill bg-accent-100 text-accent-700 shrink-0">
+            <Icon icon="ri:mail-line" width="22" client:load />
+          </span>
+          <div>
+            <p class="eyebrow mb-1">Email</p>
+            {information.emailAddress.map((e) => (
+              <a href={`mailto:${e}`} class="link-underline text-default block">{e}</a>
+            ))}
+          </div>
+        </div>
+        <div class="flex items-start gap-4">
+          <span class="flex h-12 w-12 items-center justify-center rounded-pill bg-accent-100 text-accent-700 shrink-0">
+            <Icon icon="ri:phone-line" width="22" client:load />
+          </span>
+          <div>
+            <p class="eyebrow mb-1">Phone</p>
+            {information.phoneNumbers.map((n) => (
+              <a href={`tel:${n.replaceAll("-", "")}`} class="link-underline text-default block">{n}</a>
+            ))}
+          </div>
+        </div>
+        <div class="flex items-start gap-4">
+          <span class="flex h-12 w-12 items-center justify-center rounded-pill bg-accent-100 text-accent-700 shrink-0">
+            <Icon icon="ri:map-pin-line" width="22" client:load />
+          </span>
+          <div>
+            <p class="eyebrow mb-1">Where</p>
+            <p class="text-default">{information.address}</p>
+          </div>
+        </div>
+      </ScrollReveal>
+
+      <ScrollReveal delay={150} class="lg:col-span-3">
+        <div class="booking-card">
+          <div class="booking-head">
+            <div>
+              <p class="eyebrow mb-1">Book a slot</p>
+              <p class="text-default">45 minutes, video call. Pick a time that works.</p>
+            </div>
+            <a href={bookingUrl} target="_blank" rel="noopener" class="btn btn-ghost btn-sm">
+              <span>Open in new tab</span>
+              <Icon icon="ri:external-link-line" client:load />
+            </a>
+          </div>
+          <iframe
+            src={bookingEmbedUrl}
+            title="Book a meeting with Prakash"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            class="booking-frame"
+          ></iframe>
+        </div>
+      </ScrollReveal>
+    </div>
+  </section>
+</SiteShell>
+
+<style>
+  .booking-card {
+    background: var(--surface-raised);
+    border: 1px solid var(--border-default);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+    overflow: hidden;
+  }
+  .booking-head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: var(--space-4);
+    padding: var(--space-5) var(--space-6);
+    border-bottom: 1px solid var(--border-default);
+  }
+  .booking-frame {
+    display: block;
+    width: 100%;
+    height: 720px;
+    border: 0;
+    background: var(--surface-base);
+  }
+  @media (max-width: 640px) {
+    .booking-frame { height: 640px; }
+  }
+</style>

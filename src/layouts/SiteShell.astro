@@ -1,0 +1,67 @@
+---
+/**
+ * Root layout. Wraps every page with <html>, <head>, fonts, tokens, view
+ * transitions, header (optional), main, footer.
+ *
+ * Pages that render their own hero with built-in nav (homepage) pass
+ * hideHeader.
+ */
+import { ClientRouter } from "astro:transitions";
+import "~/styles/globals.css";
+import SiteHeader from "~/components/chrome/SiteHeader.astro";
+import SiteFooter from "~/components/chrome/SiteFooter.astro";
+import SeoHead from "~/components/chrome/SeoHead.astro";
+
+interface Props {
+  title: string;
+  description?: string;
+  image?: string;
+  ogType?: "website" | "article";
+  date?: Date | string;
+  lastModified?: Date | string;
+  showCanonical?: boolean;
+  hideHeader?: boolean;
+  bodyClass?: string;
+}
+
+const {
+  title,
+  description,
+  image,
+  ogType,
+  date,
+  lastModified,
+  showCanonical,
+  hideHeader = false,
+  bodyClass = "",
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" href="/favicon.ico" type="image/x-icon" />
+    <link rel="apple-touch-icon" href="/favicon.ico" />
+    <link rel="manifest" href="/manifest.json" />
+    <meta name="theme-color" content="#0F172A" />
+    <SeoHead
+      title={title}
+      description={description}
+      image={image}
+      ogType={ogType}
+      date={date}
+      lastModified={lastModified}
+      showCanonical={showCanonical}
+    />
+    <ClientRouter />
+  </head>
+  <body class:list={["bg-surface-base text-default", bodyClass]}>
+    {!hideHeader && <SiteHeader transition:persist />}
+    <main id="main" transition:animate="fade">
+      <slot />
+    </main>
+    <SiteFooter />
+  </body>
+</html>

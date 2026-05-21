@@ -1,0 +1,155 @@
+---
+import { seriesRegistry } from "~/data/series";
+import { getSeriesPosts } from "~/utils/posts";
+import { createSlug } from "~/utils";
+
+interface Props {
+  categorySlug?: string;
+}
+
+const { categorySlug } = Astro.props as Props;
+
+interface SeriesCard {
+  slug: string;
+  title: string;
+  description: string;
+  partCount: number;
+  newest: number; // ms timestamp of newest post date
+}
+
+const allEntries = Object.entries(seriesRegistry);
+
+const cards: SeriesCard[] = [];
+for (const [slug, meta] of allEntries) {
+  const parts = await getSeriesPosts(slug);
+  if (parts.length === 0) continue;
+
+  if (categorySlug) {
+    const matchesCategory = parts.some((p) =>
+      (p.data.category ?? []).map((c) => createSlug(c)).includes(categorySlug),
+    );
+    if (!matchesCategory) continue;
+  }
+
+  const newest = parts.reduce(
+    (max, p) => Math.max(max, new Date(p.data.date).getTime()),
+    0,
+  );
+
+  cards.push({
+    slug,
+    title: meta.title,
+    description: meta.description,
+    partCount: parts.length,
+    newest,
+  });
+}
+
+cards.sort((a, b) => b.newest - a.newest);
+const topCards = cards.slice(0, 4);
+
+const hasAny = topCards.length > 0;
+---
+
+{hasAny && (
+  <section class="bg-surface-base py-12 lg:py-16 overflow-hidden">
+    <div class="mx-auto max-w-7xl px-6 lg:px-12">
+      <div class="flex items-end justify-between gap-6 mb-8">
+        <div>
+          <p class="eyebrow mb-2">Reading paths</p>
+          <h2 class="text-h3 text-strong">Read end to end.</h2>
+        </div>
+        <a href="/series/" class="link-underline text-body-sm shrink-0">
+          All series →
+        </a>
+      </div>
+
+      <swiper-container
+        class="series-swiper"
+        slides-per-view="1"
+        space-between="16"
+        speed="600"
+        navigation-next-el=".series-next"
+        navigation-prev-el=".series-prev"
+        breakpoints={JSON.stringify({
+          768: { slidesPerView: 2 },
+          1024: { slidesPerView: 3 },
+        })}
+      >
+        {topCards.map((card) => (
+          <swiper-slide>
+            <a
+              href={`/series/${card.slug}/`}
+              class="card-interactive group flex h-full flex-col bg-surface-raised rounded-lg p-6"
+            >
+              <span class="eyebrow mb-3">Series · {card.partCount} parts</span>
+              <h3 class="text-h4 text-strong line-clamp-2 group-hover:text-accent-700 transition-colors">
+                {card.title}
+              </h3>
+              <p class="text-body-sm text-muted line-clamp-2 mt-2 flex-1">
+                {card.description}
+              </p>
+              <span class="text-accent-700 font-semibold text-body-sm mt-4">Start →</span>
+            </a>
+          </swiper-slide>
+        ))}
+        <swiper-slide>
+          <a
+            href="/series/"
+            class="card-interactive group flex h-full flex-col justify-center items-start bg-surface-raised rounded-lg p-6 border border-default"
+          >
+            <span class="eyebrow mb-3">Index</span>
+            <h3 class="text-h4 text-strong group-hover:text-accent-700 transition-colors">
+              Browse all series →
+            </h3>
+            <p class="text-body-sm text-muted mt-2">
+              See every reading path on the site.
+            </p>
+          </a>
+        </swiper-slide>
+      </swiper-container>
+
+      <div class="mt-6 hidden md:flex justify-end">
+        <div class="inline-flex items-center gap-3 mr-2">
+          <button type="button" aria-label="Previous" class="series-prev nav-circle">
+            <svg width="40" height="40" viewBox="0 0 32 32" fill="none">
+              <rect x="0.5" y="0.5" width="31" height="31" rx="15.5" stroke="currentColor" />
+              <path d="M11 16H21M11 16L15.5 20.5M11 16L15.5 11.5" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </button>
+          <button type="button" aria-label="Next" class="series-next nav-circle">
+            <svg width="40" height="40" viewBox="0 0 32 32" fill="none">
+              <rect x="0.5" y="0.5" width="31" height="31" rx="15.5" stroke="currentColor" />
+              <path d="M21 16H11M21 16L16.5 11.5M21 16L16.5 20.5" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+)}
+
+<style is:global>
+  .series-swiper { display: block; width: 100%; }
+  .series-swiper swiper-slide { height: auto; display: flex; }
+  .series-swiper swiper-slide > a { width: 100%; }
+</style>
+
+<script>
+  import { register } from "swiper/element/bundle";
+  register();
+
+  const initSeriesSwiper = () => {
+    const el = document.querySelector<any>(".series-swiper");
+    if (!el) return;
+    const observer = new ResizeObserver(() => {
+      if (el.swiper) {
+        el.swiper.update();
+        observer.disconnect();
+      }
+    });
+    observer.observe(el);
+  };
+  initSeriesSwiper();
+  document.addEventListener("astro:page-load", initSeriesSwiper);
+</script>

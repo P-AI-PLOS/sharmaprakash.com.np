@@ -1,0 +1,34 @@
+---
+import { Icon } from "@iconify/react";
+import { information } from "~/data/site";
+---
+
+<section class="author-bio-card">
+  <a href="/about/" class="author-bio-avatar" aria-label={information.fullName}>
+    <img src={information.thumbImage} alt="" />
+  </a>
+  <div class="author-bio-body">
+    <span class="eyebrow-chip mb-3">About the author</span>
+    <h3 class="author-bio-name">{information.fullName}</h3>
+    <p class="author-bio-meta">
+      <Icon icon="ri:briefcase-line" client:load aria-hidden="true" />
+      <span>{information.currentRole} · {information.currentCompany}</span>
+    </p>
+    <p class="author-bio-text">{information.bio}</p>
+    <div class="author-bio-actions">
+      <a
+        href={information.socialAddress.linkedin}
+        target="_blank"
+        rel="noopener"
+        class="btn btn-secondary btn-sm"
+      >
+        <Icon icon="ri:linkedin-fill" client:load />
+        <span>Follow on LinkedIn</span>
+      </a>
+      <a href="/blog/page/1/" class="author-bio-more">
+        <span>More essays</span>
+        <span class="author-bio-more-arrow" aria-hidden="true">→</span>
+      </a>
+    </div>
+  </div>
+</section>

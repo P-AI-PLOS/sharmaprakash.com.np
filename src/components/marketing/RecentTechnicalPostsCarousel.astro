@@ -1,0 +1,156 @@
+---
+import { getTechnicalPosts, postUrl, postThumbnail } from "~/utils/posts";
+import { formatBlogDate } from "~/utils";
+import ScrollReveal from "~/components/motion/ScrollReveal.astro";
+
+const posts = (await getTechnicalPosts()).slice(0, 9);
+---
+
+<section class="bg-surface-sunken py-8 lg:py-32 overflow-hidden">
+  <div class="mx-auto max-w-7xl px-6 lg:px-12">
+    <div class="grid lg:grid-cols-12 gap-12">
+      <ScrollReveal class="lg:col-span-4">
+        <p class="eyebrow mb-3">Tech notes</p>
+        <h2 class="text-h1 text-strong mb-6">From the engineer's notebook.</h2>
+        <p class="text-body-lg text-muted mb-8">
+          Patterns, debug stories, and small wins — written for my future self.
+        </p>
+        <a href="/category/technical/1/" class="btn btn-secondary">
+          <span>Browse all</span>
+        </a>
+      </ScrollReveal>
+
+      <ScrollReveal delay={120} class="lg:col-span-8 relative">
+        {/* Mobile: plain vertical list (no Swiper — avoids width-measurement bugs) */}
+        <div class="tech-mobile-list flex-col gap-4">
+          {posts.slice(0, 3).map((post) => (
+            <a
+              href={postUrl(post)}
+              class="card-interactive group flex bg-surface-raised rounded-lg overflow-hidden shadow-md"
+            >
+              <figure class="w-24 shrink-0 overflow-hidden">
+                <img
+                  src={postThumbnail(post)}
+                  alt={post.data.title}
+                  class="h-full w-full object-cover transition-transform duration-slow ease-out-quad group-hover:scale-[1.03]"
+                />
+              </figure>
+              <div class="p-4 flex flex-col gap-1 min-w-0">
+                <span class="text-caption text-faint">{formatBlogDate(post.data.date)}</span>
+                <h3 class="text-h4 text-strong line-clamp-2 group-hover:text-accent-700 transition-colors">
+                  {post.data.title}
+                </h3>
+              </div>
+            </a>
+          ))}
+        </div>
+
+        {/* Tablet + Desktop: Swiper carousel */}
+        <swiper-container
+          class="tech-swiper"
+          slides-per-view="2"
+          space-between="16"
+          loop="true"
+          speed="700"
+          autoplay-delay="7000"
+          autoplay-disable-on-interaction="true"
+          autoplay-pause-on-mouse-enter="true"
+          navigation-next-el=".tech-next"
+          navigation-prev-el=".tech-prev"
+          breakpoints={JSON.stringify({ 1024: { slidesPerView: 3 } })}
+        >
+          {posts.map((post) => (
+            <swiper-slide>
+              <a
+                href={postUrl(post)}
+                class="card-interactive group flex h-full flex-col bg-surface-raised rounded-lg overflow-hidden shadow-md"
+              >
+                <figure class="aspect-[16/9] overflow-hidden">
+                  <img
+                    src={postThumbnail(post)}
+                    alt={post.data.title}
+                    class="h-full w-full object-cover transition-transform duration-slow ease-out-quad group-hover:scale-[1.03]"
+                  />
+                </figure>
+                <div class="p-5 flex-1 flex flex-col gap-2">
+                  <span class="text-caption text-faint">{formatBlogDate(post.data.date)}</span>
+                  <h3 class="text-h3 text-strong line-clamp-2 group-hover:text-accent-700 transition-colors">
+                    {post.data.title}
+                  </h3>
+                  {post.data.excerpt && (
+                    <p class="text-body-sm text-muted line-clamp-2 mt-1">{post.data.excerpt}</p>
+                  )}
+                </div>
+                <div class="px-5 py-4 border-t border-default flex items-center justify-between text-body-sm">
+                  <span class="text-muted">3 min read</span>
+                  <span class="text-accent-700 font-semibold">Read →</span>
+                </div>
+              </a>
+            </swiper-slide>
+          ))}
+        </swiper-container>
+
+        <div class="mt-8 hidden lg:flex justify-end">
+          <div class="inline-flex items-center gap-3 mr-2">
+            <button type="button" aria-label="Previous" class="tech-prev nav-circle">
+              <svg width="40" height="40" viewBox="0 0 32 32" fill="none">
+                <rect x="0.5" y="0.5" width="31" height="31" rx="15.5" stroke="currentColor" />
+                <path d="M11 16H21M11 16L15.5 20.5M11 16L15.5 11.5" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </button>
+            <button type="button" aria-label="Next" class="tech-next nav-circle">
+              <svg width="40" height="40" viewBox="0 0 32 32" fill="none">
+                <rect x="0.5" y="0.5" width="31" height="31" rx="15.5" stroke="currentColor" />
+                <path d="M21 16H11M21 16L16.5 11.5M21 16L16.5 20.5" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </ScrollReveal>
+    </div>
+  </div>
+</section>
+
+<style is:global>
+  .tech-swiper { display: none; width: 100%; }
+  @media (min-width: 640px) { .tech-swiper { display: block; } }
+  .tech-swiper swiper-slide { height: auto; display: flex; }
+  .tech-swiper swiper-slide > a { width: 100%; }
+
+  .tech-mobile-list { display: flex; }
+  @media (min-width: 640px) { .tech-mobile-list { display: none; } }
+
+  .nav-circle {
+    background: transparent; border: 0; padding: 0; cursor: pointer;
+    color: var(--ink-700);
+    border-radius: 9999px;
+  }
+  .nav-circle svg rect, .nav-circle svg path {
+    transition: stroke var(--dur-fast) var(--ease-out-quad),
+                fill var(--dur-fast) var(--ease-out-quad);
+  }
+  .nav-circle svg rect { fill: transparent; stroke: currentColor; }
+  .nav-circle svg path { stroke: currentColor; }
+  .nav-circle:hover svg rect { fill: var(--accent-600); stroke: var(--accent-600); }
+  .nav-circle:hover svg path { stroke: white; }
+</style>
+
+<script>
+  import { register } from "swiper/element/bundle";
+  register();
+
+  const initSwiper = () => {
+    const el = document.querySelector<any>(".tech-swiper");
+    if (!el) return;
+    // Force swiper to recalculate layout after the container has real dimensions
+    const observer = new ResizeObserver(() => {
+      if (el.swiper) {
+        el.swiper.update();
+        observer.disconnect();
+      }
+    });
+    observer.observe(el);
+  };
+  initSwiper();
+  document.addEventListener("astro:page-load", initSwiper);
+</script>

@@ -1,0 +1,59 @@
+---
+/**
+ * Sticky accent strip at the top of the viewport. Width tracks read progress
+ * down the page via CSS scroll-linked animation where supported, with a JS
+ * fallback for browsers without animation-timeline.
+ */
+---
+
+<div class="reading-progress" aria-hidden="true"><span class="reading-progress-bar"></span></div>
+
+<style>
+  .reading-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    z-index: 70;
+    pointer-events: none;
+  }
+  .reading-progress-bar {
+    display: block;
+    height: 100%;
+    width: 0%;
+    background: var(--accent-600);
+    transform-origin: left;
+    will-change: width;
+    transition: width 80ms linear;
+  }
+
+  @supports (animation-timeline: scroll()) {
+    .reading-progress-bar {
+      width: 100%;
+      transform: scaleX(0);
+      animation: progress linear forwards;
+      animation-timeline: scroll(root block);
+    }
+    @keyframes progress {
+      to { transform: scaleX(1); }
+    }
+  }
+</style>
+
+<script>
+  // JS fallback for browsers without animation-timeline.
+  const hasScrollTimeline = CSS.supports("animation-timeline", "scroll()");
+  if (!hasScrollTimeline) {
+    const onScroll = () => {
+      const bar = document.querySelector<HTMLElement>(".reading-progress-bar");
+      if (!bar) return;
+      const h = document.documentElement;
+      const pct = h.scrollTop / Math.max(1, h.scrollHeight - h.clientHeight);
+      bar.style.width = `${Math.min(100, pct * 100)}%`;
+    };
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    document.addEventListener("astro:page-load", onScroll);
+  }
+</script>

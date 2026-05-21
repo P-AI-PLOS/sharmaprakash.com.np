@@ -1,0 +1,28 @@
+{
+  "decks": {
+    "hooks-subagents-skills": {
+      "source": "src/content/presentations/hooks-subagents-skills.md",
+      "sha256": "fbe98f8ef03daecafc0617d85dee3934436c4ec749caf7d43616f857de09ad9a",
+      "builtAt": "2026-05-22T07:35:40.283Z",
+      "qrUrl": "https://sharmaprakash.com.np/course/hooks-subagents-skills/",
+      "artifacts": {
+        "html": true,
+        "pdf": true,
+        "thumb": "thumb.png",
+        "qr": "qr.png"
+      }
+    },
+    "parallel-developer": {
+      "source": "src/content/presentations/parallel-developer.md",
+      "sha256": "994d049237895a4f9424c03c61e164a051ad703605ca2aa609bbb9e8edae613b",
+      "builtAt": "2026-05-22T07:35:46.078Z",
+      "qrUrl": "https://sharmaprakash.com.np/presentations/parallel-developer/",
+      "artifacts": {
+        "html": true,
+        "pdf": true,
+        "thumb": "thumb.png",
+        "qr": "qr.png"
+      }
+    }
+  }
+}

@@ -1,0 +1,217 @@
+---
+/**
+ * "Where I am now" band. Replaces the older multi-company strip — the journey
+ * is the story: engineer at Leapfrog → founder at Truemark/Intelliante → EM
+ * and Product Owner at Varicon today.
+ */
+import ScrollReveal from "~/components/motion/ScrollReveal.astro";
+
+const milestones = [
+  {
+    year: "2014 — 2017",
+    title: "Software Engineer",
+    org: "Leapfrog Technology",
+    note: "Three years across Rails, React, and React Native. Trainee → Technical Project Manager.",
+  },
+  {
+    year: "2017 — 2025",
+    title: "Founder",
+    org: "Truemark",
+    note: "Founded and ran a product engineering studio for eight years. Wound it down to focus on a single product team.",
+  },
+  {
+    year: "2022 — 2024",
+    title: "CTO",
+    org: "Intelliante",
+    note: "Built and led the engineering team that took an HR-tech platform from zero to production.",
+  },
+  {
+    year: "Nov 2025 —",
+    title: "Engineering Manager · Product Owner",
+    org: "Varicon · Onboarding squad",
+    note: "Leading the Onboarding squad — sharpening product judgement from the inside of a focused team.",
+    current: true,
+  },
+];
+---
+
+<section class="bg-surface-base border-y border-default">
+  <div class="mx-auto max-w-7xl px-6 lg:px-12 py-8 lg:py-24">
+    <div class="grid lg:grid-cols-12 gap-12 lg:items-start">
+      <ScrollReveal class="lg:col-span-4 lg:sticky lg:top-24">
+        <p class="eyebrow mb-3">The journey</p>
+        <h2 class="text-h1 text-strong">From Programmer to Founder, now Product Owner.</h2>
+        <p class="mt-4 text-body-lg text-muted">
+          Eleven years of building. Each chapter sharpened a different muscle.
+        </p>
+      </ScrollReveal>
+
+      <ol class="journey-timeline lg:col-span-8 list-none relative">
+        <span class="journey-rail" aria-hidden="true"></span>
+        <span class="journey-rail-fill" aria-hidden="true"></span>
+
+        {milestones.map((m, i) => (
+          <li
+            class:list={["journey-item", m.current && "is-current"]}
+            style={`--i:${i}`}
+          >
+            <span class="journey-dot" aria-hidden="true">
+              {m.current && <span class="journey-dot-ping"></span>}
+            </span>
+            <div class="journey-content">
+              <div class="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+                <h3 class="text-h3 text-strong">{m.title}</h3>
+                {m.current && <span class="chip is-active">Now</span>}
+              </div>
+              <p class="mt-1 text-caption text-faint tracking-wide uppercase">
+                <span class="font-semibold text-default normal-case tracking-normal">{m.org}</span>
+                <span class="mx-2 text-ink-300">·</span>
+                {m.year}
+              </p>
+              <p class="mt-3 text-body text-muted">{m.note}</p>
+            </div>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </div>
+</section>
+
+<style>
+  .journey-timeline {
+    /* dot column + content column */
+    --dot-size: 14px;
+    --rail-x: 6px; /* center of dot from left */
+    padding-left: 0;
+  }
+
+  .journey-rail,
+  .journey-rail-fill {
+    position: absolute;
+    left: var(--rail-x);
+    top: 8px;
+    bottom: 8px;
+    width: 2px;
+    transform: translateX(-50%);
+    border-radius: 1px;
+  }
+  .journey-rail {
+    background: var(--ink-200);
+  }
+  .journey-rail-fill {
+    background: linear-gradient(
+      to bottom,
+      var(--accent-600),
+      var(--accent-500)
+    );
+    transform: translateX(-50%) scaleY(0);
+    transform-origin: top;
+    transition: transform 1.2s var(--ease-out-expo) 0.1s;
+  }
+  .journey-timeline.is-revealed .journey-rail-fill {
+    transform: translateX(-50%) scaleY(1);
+  }
+
+  .journey-item {
+    position: relative;
+    display: grid;
+    grid-template-columns: calc(var(--rail-x) * 2 + 8px) 1fr;
+    column-gap: 24px;
+    padding-bottom: 48px;
+    opacity: 0;
+    transform: translateY(14px);
+    transition:
+      opacity var(--dur-slow) var(--ease-out-expo),
+      transform var(--dur-slow) var(--ease-out-expo);
+    transition-delay: calc(var(--i) * 120ms + 200ms);
+  }
+  .journey-item:last-child {
+    padding-bottom: 0;
+  }
+  .journey-timeline.is-revealed .journey-item {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .journey-dot {
+    position: relative;
+    grid-column: 1;
+    margin-top: 10px; /* aligns with h3 cap height */
+    justify-self: start;
+    width: var(--dot-size);
+    height: var(--dot-size);
+    border-radius: 999px;
+    background: var(--surface-base);
+    border: 2px solid var(--accent-600);
+    box-shadow: 0 0 0 4px var(--surface-base);
+    transition:
+      transform var(--dur-base) var(--ease-out-expo),
+      box-shadow var(--dur-base) var(--ease-out-expo);
+  }
+  .journey-item.is-current .journey-dot {
+    background: var(--accent-600);
+    box-shadow:
+      0 0 0 4px var(--surface-base),
+      0 0 0 6px color-mix(in oklab, var(--accent-600), transparent 70%);
+  }
+
+  .journey-dot-ping {
+    position: absolute;
+    inset: -4px;
+    border-radius: 999px;
+    border: 2px solid var(--accent-500);
+    opacity: 0;
+    animation: journey-ping 2.4s var(--ease-out-expo) infinite;
+  }
+
+  @keyframes journey-ping {
+    0%   { transform: scale(0.9); opacity: 0.7; }
+    80%  { transform: scale(2);   opacity: 0; }
+    100% { transform: scale(2);   opacity: 0; }
+  }
+
+  .journey-content {
+    grid-column: 2;
+  }
+  .journey-item:hover .journey-dot {
+    transform: scale(1.15);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .journey-item,
+    .journey-rail-fill {
+      opacity: 1 !important;
+      transform: none !important;
+      transition: none !important;
+    }
+    .journey-dot-ping {
+      animation: none;
+    }
+  }
+</style>
+
+<script>
+  const arm = () => {
+    const el = document.querySelector<HTMLElement>(".journey-timeline");
+    if (!el) return;
+    if (!("IntersectionObserver" in window)) {
+      el.classList.add("is-revealed");
+      return;
+    }
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const e of entries) {
+          if (e.isIntersecting) {
+            el.classList.add("is-revealed");
+            io.disconnect();
+            break;
+          }
+        }
+      },
+      { threshold: 0.2 },
+    );
+    io.observe(el);
+  };
+  arm();
+  document.addEventListener("astro:page-load", arm);
+</script>

@@ -1,0 +1,128 @@
+---
+/**
+ * Top-of-page chrome. Used on every page EXCEPT the homepage (which renders the
+ * nav inside its hero). At rest the header sits over the light page surface;
+ * once you scroll past 200px it becomes a fixed, blurred light bar.
+ */
+import PrimaryNavigation from "./PrimaryNavigation.astro";
+import SiteSearch from "./SiteSearch.astro";
+import { siteConfig } from "~/data/site";
+---
+
+<header id="site-header" class="site-header">
+  <div class="mx-auto max-w-7xl px-6 lg:px-12">
+    <div class="flex items-center justify-between gap-6 py-6">
+      <a
+        href="/"
+        class="font-ui font-semibold tracking-tight text-strong text-h4 link-underline"
+        aria-label="Home"
+      >
+        {siteConfig.fullName}
+      </a>
+
+      <div class="hidden lg:block">
+        <PrimaryNavigation tone="default" />
+      </div>
+
+      <div class="flex items-center gap-3">
+        <SiteSearch />
+        <a href="/contact/" class="btn btn-primary btn-sm hidden md:inline-flex">
+          <span>Say Hi 👋</span>
+        </a>
+        <button
+          id="mobile-menu-trigger"
+          class="btn btn-ghost btn-sm lg:hidden mobile-menu-trigger"
+          aria-label="Open menu"
+          type="button"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <line x1="3" y1="6" x2="21" y2="6" />
+            <line x1="3" y1="12" x2="21" y2="12" />
+            <line x1="3" y1="18" x2="21" y2="18" />
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div id="mobile-menu" class="mobile-menu" hidden>
+  <button
+    id="mobile-menu-close"
+    class="absolute top-6 right-6 text-3xl text-on-inverse"
+    aria-label="Close menu"
+    type="button"
+  >
+    ✕
+  </button>
+  <ul class="space-y-6 list-none text-2xl text-on-inverse">
+    <li><a href="/" class="link-underline">Home</a></li>
+    <li><a href="/blog/page/1/" class="link-underline">Essays</a></li>
+    <li><a href="/contact/" class="link-underline">Contact</a></li>
+    <li><a href="/contact/" class="btn btn-primary"><span>Say Hi 👋</span></a></li>
+  </ul>
+</div>
+
+<style>
+  .site-header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 50;
+    background: transparent;
+    transition: background-color var(--dur-normal) var(--ease-out-quad),
+                padding var(--dur-normal) var(--ease-out-quad),
+                box-shadow var(--dur-normal) var(--ease-out-quad);
+  }
+  .site-header.is-stuck {
+    position: fixed;
+    background: color-mix(in oklab, var(--surface-raised), transparent 8%);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border-default);
+    box-shadow: var(--shadow-sm);
+    animation: slidedown var(--dur-slow) var(--ease-out-expo) 1;
+  }
+  .site-header.is-stuck > div > div { padding-top: 14px; padding-bottom: 14px; }
+
+  .mobile-menu-trigger {
+    padding: 0.5rem;
+    line-height: 1;
+  }
+  .mobile-menu-trigger svg { display: block; }
+
+  .mobile-menu {
+    position: fixed;
+    inset: 0;
+    z-index: 60;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: var(--surface-inverse);
+    padding: var(--space-6);
+    text-align: center;
+  }
+  .mobile-menu[hidden] { display: none; }
+</style>
+
+<script>
+  const init = () => {
+    const header = document.getElementById("site-header");
+    const trigger = document.getElementById("mobile-menu-trigger");
+    const menu = document.getElementById("mobile-menu");
+    const close = document.getElementById("mobile-menu-close");
+
+    trigger?.addEventListener("click", () => menu?.removeAttribute("hidden"));
+    close?.addEventListener("click", () => menu?.setAttribute("hidden", ""));
+
+    const onScroll = () => {
+      if (!header) return;
+      header.classList.toggle("is-stuck", window.scrollY > 200);
+    };
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+  };
+  init();
+  document.addEventListener("astro:page-load", init);
+</script>

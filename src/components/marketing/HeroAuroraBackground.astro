@@ -1,0 +1,56 @@
+---
+/**
+ * Decorative animated radial-gradient background for the homepage hero.
+ * CSS-only. Falls back to a static gradient when the user prefers reduced
+ * motion (handled globally in tokens.css).
+ */
+---
+
+<div class="aurora" aria-hidden="true">
+  <span class="aurora-blob aurora-blob--a"></span>
+  <span class="aurora-blob aurora-blob--b"></span>
+  <span class="aurora-grid"></span>
+</div>
+
+<style>
+  .aurora {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    z-index: 0;
+    pointer-events: none;
+  }
+  .aurora-blob {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.55;
+    will-change: transform;
+    animation: auroradrift 14s var(--ease-in-out-cubic) infinite alternate;
+  }
+  .aurora-blob--a {
+    width: 540px;
+    height: 540px;
+    top: -120px;
+    left: -120px;
+    background: radial-gradient(closest-side, var(--accent-600), transparent 70%);
+  }
+  .aurora-blob--b {
+    width: 620px;
+    height: 620px;
+    bottom: -200px;
+    right: -160px;
+    background: radial-gradient(closest-side, #6366F1, transparent 70%);
+    animation-delay: -7s;
+    opacity: 0.4;
+  }
+  .aurora-grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(to right, color-mix(in oklab, white, transparent 96%) 1px, transparent 1px),
+      linear-gradient(to bottom, color-mix(in oklab, white, transparent 96%) 1px, transparent 1px);
+    background-size: 64px 64px;
+    mask-image: radial-gradient(ellipse at center, black 30%, transparent 75%);
+  }
+</style>

@@ -1,0 +1,78 @@
+// sharmaprakash-astro — zellij workspace
+//
+// Launch:
+//   pnpm cmux:up   # one cmux workspace, 2x2 grid: write · design · images · slides
+//   pnpm z         # zellij control panel: dev server, ops, cmux observer
+//
+// Division of labor:
+//   cmux   → all parallel Claude/Codex work (4-surface grid in one workspace)
+//   zellij → dev server, type-check, git, reference repo, cmux orchestration
+
+layout {
+    default_tab_template {
+        pane size=1 borderless=true {
+            plugin location="zellij:tab-bar"
+        }
+        children
+        pane size=2 borderless=true {
+            plugin location="zellij:status-bar"
+        }
+    }
+
+    // Tab 1 — dev: Astro dev server + repo shell
+    tab name="dev" focus=true {
+        pane split_direction="vertical" {
+            pane name="pnpm dev" command="pnpm" size="40%" {
+                args "dev"
+            }
+            pane name="shell"
+        }
+    }
+
+    // Tab 2 — ops: git, type-check, reference repo (read-only sibling)
+    tab name="ops" {
+        pane split_direction="horizontal" {
+            pane split_direction="vertical" {
+                pane name="git"
+                pane name="pnpm check"
+            }
+            pane name="reference (next.js)" {
+                cwd "../sharmaprakash.com.np"
+            }
+        }
+    }
+
+    // Tab 3 — slides: explicit Marp build subsystem (separate from pnpm build)
+    tab name="slides" {
+        pane split_direction="vertical" {
+            pane name="marp build"
+            pane name="marp check"
+        }
+    }
+
+    // Tab 4 — cmux: orchestrate the work workspace
+    //   list (auto)      — see all cmux workspaces refresh every 5s
+    //   read-screen      — peek into any surface of the work grid
+    //                       cmux read-screen --workspace name:sharmaprakash \
+    //                                        --surface surface:<N> --scrollback --lines 120
+    //   up / fanout      — pnpm cmux:up · pnpm cmux:reset · scripts/cmux-fanout.sh
+    //   send / send-key  — drive any surface
+    //                       cmux send --workspace name:sharmaprakash \
+    //                                 --surface surface:<N> '<text>'
+    //                       cmux send-key --workspace name:sharmaprakash \
+    //                                     --surface surface:<N> Enter
+    tab name="cmux" {
+        pane split_direction="horizontal" {
+            pane split_direction="vertical" {
+                pane name="list (auto)" command="sh" {
+                    args "-c" "while true; do clear; cmux list-workspaces; sleep 5; done"
+                }
+                pane name="read-screen"
+            }
+            pane split_direction="vertical" {
+                pane name="up / fanout"
+                pane name="send / send-key"
+            }
+        }
+    }
+}

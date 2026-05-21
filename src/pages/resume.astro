@@ -1,0 +1,186 @@
+---
+import SiteShell from "~/layouts/SiteShell.astro";
+import ScrollReveal from "~/components/motion/ScrollReveal.astro";
+import { headTitle } from "~/data/site";
+import { information } from "~/data/site";
+import {
+  skillGroups,
+  jobExperience,
+  educationalBackground,
+  selectedWork,
+} from "~/data/resume";
+---
+
+<SiteShell title={headTitle.resumeTitle} bodyClass="resume-page">
+  <section class="bg-surface-base pt-40 pb-12">
+    <div class="mx-auto max-w-5xl px-6 lg:px-12">
+      <div class="flex justify-between items-end flex-wrap gap-6">
+        <div class="max-w-2xl">
+          <p class="eyebrow mb-3">Résumé</p>
+          <h1 class="text-display-lg text-strong">Eleven years, programmer to product owner.</h1>
+        </div>
+        <button type="button" data-print-trigger class="btn btn-primary">
+          <span>Download PDF</span>
+        </button>
+      </div>
+      <p class="text-body-lg text-muted mt-6 max-w-2xl">
+        I've spent eleven years building software — first as a programmer, then as the
+        founder of a product engineering studio, and now as an Engineering Manager and
+        Product Owner at Varicon. I work best where engineering practice, product
+        thinking, and team craft overlap.
+      </p>
+    </div>
+  </section>
+
+  <section class="bg-surface-base pb-24">
+    <div class="mx-auto max-w-5xl px-6 lg:px-12">
+      <h2 class="text-h2 text-strong mb-8">Skills</h2>
+      <div class="grid sm:grid-cols-2 gap-x-12 gap-y-8">
+        {skillGroups.map((g) => (
+          <div>
+            <h3 class="text-h4 text-strong mb-3">{g.label}</h3>
+            <ul class="flex flex-wrap gap-2 list-none">
+              {g.items.map((item) => (
+                <li><span class="chip">{item}</span></li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-surface-sunken py-24">
+    <div class="mx-auto max-w-5xl px-6 lg:px-12 grid md:grid-cols-2 gap-16">
+      <ScrollReveal>
+        <h2 class="text-h2 text-strong mb-8">Experience</h2>
+        <ol class="border-l border-accent pl-6 space-y-10 list-none">
+          {jobExperience.map((j) => (
+            <li class="relative resume-item">
+              <span class="absolute -left-[31px] top-1.5 w-3 h-3 rounded-full bg-accent-600 border-2 border-surface-sunken"></span>
+              <h3 class="text-h3 text-strong">{j.title}</h3>
+              <span class="text-body-sm text-accent-700 block">{j.year}</span>
+              <span class="text-body text-muted">{j.meta}</span>
+              <ul class="list-disc pl-5 mt-3 space-y-1 text-body-sm text-muted">
+                {j.highlights.map((h) => (<li>{h}</li>))}
+              </ul>
+            </li>
+          ))}
+        </ol>
+      </ScrollReveal>
+      <ScrollReveal delay={120}>
+        <h2 class="text-h2 text-strong mb-8">Education</h2>
+        <ol class="border-l border-accent pl-6 space-y-8 list-none">
+          {educationalBackground.map((e) => (
+            <li class="relative resume-item">
+              <span class="absolute -left-[31px] top-1.5 w-3 h-3 rounded-full bg-accent-600 border-2 border-surface-sunken"></span>
+              <h3 class="text-h3 text-strong">{e.title}</h3>
+              <span class="text-body-sm text-accent-700 block">{e.year}</span>
+              <span class="text-body text-muted">{e.meta}</span>
+            </li>
+          ))}
+        </ol>
+      </ScrollReveal>
+    </div>
+  </section>
+
+  <section class="bg-surface-base py-24">
+    <div class="mx-auto max-w-5xl px-6 lg:px-12">
+      <h2 class="text-h2 text-strong mb-8">Selected work</h2>
+      <div class="grid sm:grid-cols-2 gap-6">
+        {selectedWork.map((w) => (
+          <a
+            href={w.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="card-interactive block p-6 rounded-md border border-default bg-surface-raised no-underline"
+          >
+            <h3 class="text-h4 text-strong mb-1">{w.title}</h3>
+            <span class="text-body-sm text-accent-700 block mb-2">{w.role}</span>
+            <p class="text-body-sm text-muted">{w.summary}</p>
+          </a>
+        ))}
+      </div>
+      <p class="text-body-sm text-muted mt-4">
+        More at <a href="/works/" class="link-underline text-accent-700">/works</a>.
+      </p>
+    </div>
+  </section>
+
+  <section class="bg-surface-sunken py-12 resume-contact">
+    <div class="mx-auto max-w-5xl px-6 lg:px-12 flex flex-wrap gap-x-8 gap-y-2 text-body-sm text-muted">
+      <span>{information.address}</span>
+      <a href={`mailto:${information.emailAddress[0]}`} class="link-underline">{information.emailAddress[0]}</a>
+      <a href={information.socialAddress.github} class="link-underline" target="_blank" rel="noopener noreferrer">GitHub</a>
+      <a href={information.socialAddress.linkedin} class="link-underline" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+    </div>
+  </section>
+</SiteShell>
+
+<script is:inline>
+  document.addEventListener("click", (e) => {
+    const t = e.target instanceof Element ? e.target.closest("[data-print-trigger]") : null;
+    if (!t) return;
+    e.preventDefault();
+    window.print();
+  });
+</script>
+
+<style is:global>
+  @media print {
+    @page { margin: 14mm; }
+
+    .site-header,
+    .site-footer,
+    [data-print-trigger] { display: none !important; }
+
+    html, body {
+      background: #fff !important;
+      color: #000 !important;
+    }
+
+    body.resume-page main > section {
+      padding-top: 12px !important;
+      padding-bottom: 12px !important;
+      background: #fff !important;
+    }
+
+    body.resume-page .text-strong,
+    body.resume-page h1,
+    body.resume-page h2,
+    body.resume-page h3,
+    body.resume-page h4 { color: #000 !important; }
+
+    body.resume-page .text-muted,
+    body.resume-page .text-default { color: #333 !important; }
+
+    body.resume-page .text-accent-700 { color: #444 !important; }
+
+    body.resume-page .chip {
+      background: transparent !important;
+      color: #000 !important;
+      border: 1px solid #999 !important;
+      padding: 2px 8px !important;
+    }
+
+    body.resume-page .resume-item,
+    body.resume-page .card-interactive { break-inside: avoid; }
+
+    body.resume-page .card-interactive {
+      border: 1px solid #bbb !important;
+      box-shadow: none !important;
+      transform: none !important;
+    }
+
+    body.resume-page .sr-reveal {
+      opacity: 1 !important;
+      transform: none !important;
+    }
+
+    body.resume-page .text-display-lg { font-size: 28px !important; line-height: 1.2 !important; }
+    body.resume-page .text-h2 { font-size: 18px !important; }
+    body.resume-page .text-h3 { font-size: 14px !important; }
+    body.resume-page .text-h4 { font-size: 13px !important; }
+    body.resume-page .pt-40 { padding-top: 0 !important; }
+  }
+</style>

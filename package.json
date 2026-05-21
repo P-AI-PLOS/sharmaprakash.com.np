@@ -1,0 +1,63 @@
+{
+  "name": "sharmaprakash-astro",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "@parcel/watcher",
+      "esbuild",
+      "sharp"
+    ]
+  },
+  "scripts": {
+    "dev": "astro dev --host",
+    "start": "astro dev --host",
+    "build": "astro build && pagefind --site dist",
+    "preview": "astro preview",
+    "search:index": "astro build && pagefind --site dist --output-path public/pagefind",
+    "check": "astro check",
+    "presentations:build": "node scripts/presentations/build-presentations.mjs",
+    "presentations:check": "node scripts/presentations/check-presentations.mjs",
+    "blog-image:render": "node scripts/images/render-blog-header.mjs",
+    "podcast:bundle": "node scripts/podcast/bundle.mjs",
+    "podcast:finalize": "scripts/podcast/finalize.sh",
+    "podcast:publish": "scripts/podcast/publish.sh",
+    "z": "zellij attach sharmaprakash 2>/dev/null || zellij -s sharmaprakash -n .zellij/layouts/default.kdl",
+    "cmux:up": "scripts/cmux-up.sh",
+    "cmux:reset": "scripts/cmux-up.sh --reset",
+    "cmux:recreate": "scripts/cmux-up.sh --recreate",
+    "cmux:down": "scripts/cmux-down.sh"
+  },
+  "dependencies": {
+    "@astrojs/check": "^0.9.9",
+    "@astrojs/mdx": "^5.0.6",
+    "@astrojs/react": "^5.0.5",
+    "@astrojs/sitemap": "^3.7.2",
+    "@iconify/react": "^6.0.2",
+    "@resvg/resvg-js": "^2.6.2",
+    "astro": "^6.3.5",
+    "gray-matter": "^4.0.3",
+    "react": "^19.2.6",
+    "react-dom": "^19.2.6",
+    "react-icons": "^5.6.0",
+    "rehype-pretty-code": "^0.14.3",
+    "satori": "^0.26.0",
+    "sharp": "^0.34.5",
+    "shiki": "^4.0.2",
+    "swiper": "^12.1.4"
+  },
+  "devDependencies": {
+    "@marp-team/marp-cli": "^4.4.0",
+    "@tailwindcss/postcss": "^4.3.0",
+    "@tailwindcss/vite": "^4.3.0",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "pagefind": "^1.5.2",
+    "postcss": "^8.5.14",
+    "qrcode": "^1.5.4",
+    "sass": "^1.99.0",
+    "tailwindcss": "^4.3.0",
+    "typescript": "^6.0.3"
+  }
+}

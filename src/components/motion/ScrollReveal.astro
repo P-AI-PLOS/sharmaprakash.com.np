@@ -1,0 +1,62 @@
+---
+/**
+ * Wraps children in a fade-up that triggers when the element scrolls into view.
+ * Respects prefers-reduced-motion (handled globally in tokens.css).
+ *
+ * Props:
+ *   delay (ms)   — stagger reveals in a list (e.g. delay={i * 80})
+ *   as           — element tag, defaults to <div>
+ *   class        — passthrough class for layout/spacing
+ */
+interface Props {
+  delay?: number;
+  as?: string;
+  class?: string;
+}
+const { delay = 0, as: Tag = "div", class: className = "" } = Astro.props;
+---
+
+<Tag class:list={["sr-reveal", className]} data-sr-delay={delay}>
+  <slot />
+</Tag>
+
+<style is:global>
+  .sr-reveal {
+    opacity: 0;
+    transform: translateY(16px);
+    transition:
+      opacity var(--dur-slow) var(--ease-out-expo),
+      transform var(--dur-slow) var(--ease-out-expo);
+    will-change: opacity, transform;
+  }
+  .sr-reveal.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+</style>
+
+<script>
+  const reveal = (root: ParentNode = document) => {
+    const els = root.querySelectorAll<HTMLElement>(".sr-reveal:not(.is-visible)");
+    if (!("IntersectionObserver" in window)) {
+      els.forEach((el) => el.classList.add("is-visible"));
+      return;
+    }
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const e of entries) {
+          if (!e.isIntersecting) continue;
+          const el = e.target as HTMLElement;
+          const delay = Number(el.dataset.srDelay ?? 0);
+          window.setTimeout(() => el.classList.add("is-visible"), delay);
+          io.unobserve(el);
+        }
+      },
+      { threshold: 0.15 },
+    );
+    els.forEach((el) => io.observe(el));
+  };
+  reveal();
+  // Re-run after Astro view transitions.
+  document.addEventListener("astro:page-load", () => reveal());
+</script>

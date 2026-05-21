@@ -1,0 +1,95 @@
+---
+import type { PodcastEpisode } from "~/data/podcast";
+
+interface Props {
+  episode: PodcastEpisode;
+  /** When true, render the compact variant (no summary, no post link). */
+  compact?: boolean;
+}
+
+const { episode, compact = false } = Astro.props;
+
+const minutes = Math.floor(episode.duration / 60);
+const seconds = String(episode.duration % 60).padStart(2, "0");
+const durationLabel = `${minutes}:${seconds}`;
+
+// Eagerly inline the transcript markdown so the <details> works without JS.
+let transcriptBody: string | null = null;
+if (episode.transcript) {
+  const modules = import.meta.glob<string>("/podcast/**/*.transcript.md", {
+    query: "?raw",
+    import: "default",
+    eager: true,
+  });
+  const key = `/${episode.transcript.replace(/^\/+/, "")}`;
+  transcriptBody = modules[key] ?? null;
+}
+---
+
+<figure class="podcast-player rounded-lg border border-default bg-surface-raised p-6 lg:p-8">
+  <figcaption class="flex flex-wrap items-baseline gap-x-3 gap-y-1 mb-4">
+    <span class="chip">Podcast</span>
+    <span class="text-caption text-faint">{durationLabel}</span>
+    {!compact && (
+      <a href={episode.postUrl} class="link-underline text-caption text-muted ml-auto">
+        Read the essay →
+      </a>
+    )}
+  </figcaption>
+
+  {!compact && (
+    <>
+      <h3 class="text-h4 text-strong mb-2">{episode.title}</h3>
+      <p class="text-body text-muted mb-5">{episode.summary}</p>
+    </>
+  )}
+
+  <audio
+    controls
+    preload="metadata"
+    src={episode.audioUrl}
+    class="podcast-audio w-full"
+  >
+    Your browser does not support audio playback.
+    <a href={episode.audioUrl} class="link-underline">Download the MP3</a>.
+  </audio>
+
+  <p class="podcast-mobile-notice hidden text-caption text-muted mt-3">
+    Mobile browsers on iOS can't stream this file because the host serves it as a
+    download. <a href={episode.audioUrl} class="link-underline">Download the MP3</a>
+    or open this page on desktop to listen in-browser.
+  </p>
+
+  <script is:inline>
+    (() => {
+      const ua = navigator.userAgent;
+      const isIOS =
+        /iPad|iPhone|iPod/.test(ua) ||
+        (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+      if (!isIOS) return;
+      for (const el of document.querySelectorAll(".podcast-audio")) {
+        el.classList.add("hidden");
+      }
+      for (const el of document.querySelectorAll(".podcast-mobile-notice")) {
+        el.classList.remove("hidden");
+      }
+    })();
+  </script>
+
+  {transcriptBody && (
+    <details class="podcast-transcript mt-5 border-t border-default pt-4">
+      <summary class="cursor-pointer text-caption text-muted link-underline">
+        Read transcript
+      </summary>
+      <div class="mt-4 text-body-sm text-muted whitespace-pre-wrap max-w-reading">
+        {transcriptBody}
+      </div>
+    </details>
+  )}
+</figure>
+
+<style>
+  .podcast-player audio {
+    height: 44px;
+  }
+</style>
