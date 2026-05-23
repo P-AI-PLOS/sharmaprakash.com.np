@@ -1,0 +1,11 @@
+Most of the rules in a real codebase contradict what the model learned from public code. Not because your codebase is weird — well, maybe a little — but because every codebase has its own history. Its own incidents. Its own *reasons*.
+
+A rule like "use the uuid package" is a fossil. A fossil of a specific bug, from a specific Tuesday, in some specific quarter. And the model has no access to that fossil.
+
+So when you correct the agent in chat — you're transferring a fossil from your head into the conversation. And then... the conversation ends. The session compacts. The teammate switches branches.
+
+The fossil evaporates.
+
+[short pause]
+
+This is why corrections decay. Not because the model is bad. Because the medium is wrong.

@@ -1,0 +1,17 @@
+Hey. I'm Prakash. This is Greenfield — engineering, AI, the businesses we build from scratch. Broadcasting from Kathmandu. And this is episode one.
+
+[short pause]
+
+I want to talk about a small, specific, annoying thing... and then I want to talk about the much larger thing it's actually a symptom of.
+
+The small thing is this: corrections to your coding agent decay. They don't stick.
+
+You tell it on Monday. It forgets by Wednesday. By Friday, you're typing the same sentence into the same chat window, watching the same diff come back wrong... in the same way.
+
+The larger thing is this: the rule lives in your head.
+
+And your head... is the worst possible place for a rule to live. Your head goes home at night. Your head has a Slack notification halfway through the thought. Your head, frankly, forgets things.
+
+Your head was never meant to be infrastructure.
+
+[short pause]

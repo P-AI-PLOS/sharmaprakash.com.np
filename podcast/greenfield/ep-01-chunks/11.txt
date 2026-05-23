@@ -1,0 +1,5 @@
+But the new teammate types a slash. The autocompleter pops up. And they see: `/migrate-list`. `/migrate-form`. `/de-barrel`. `/audit-rerenders`.
+
+*Oh*, they think. *That's how we do migrations here.*
+
+The skill is onboarding documentation that runs itself.

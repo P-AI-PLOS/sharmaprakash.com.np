@@ -104,7 +104,7 @@ const voice_settings = fm.voice_settings || {};
 // are dropped — they're narrative breaks, not spoken content), then by
 // paragraph within any oversize section. eleven_v3 hallucinates repeats when
 // a single chunk gets too dense, so we keep chunks well under the limit.
-const CHUNK_LIMIT = 1500;
+const CHUNK_LIMIT = 1000;
 const sections = text
   .split(/\n\n---\n\n/)
   .map((s) => s.trim())
@@ -149,8 +149,18 @@ mkdirSync(chunksDir, { recursive: true });
 const chunkPath = (i) => join(chunksDir, `${String(i + 1).padStart(2, "0")}.mp3`);
 const chunkTextPath = (i) => join(chunksDir, `${String(i + 1).padStart(2, "0")}.txt`);
 
-// Always (re)write the source text for each chunk so they stay in sync with the script.
-for (let i = 0; i < chunks.length; i++) writeFileSync(chunkTextPath(i), chunks[i] + "\n");
+// Cache invalidation: if the chunk's source text changed, the cached MP3 is
+// stale (e.g. CHUNK_LIMIT was lowered). Compare current chunk text to what's
+// in the .txt sibling; if different, drop the MP3 so it gets re-rendered.
+for (let i = 0; i < chunks.length; i++) {
+  const txtPath = chunkTextPath(i);
+  const current = chunks[i] + "\n";
+  const cached = existsSync(txtPath) ? readFileSync(txtPath, "utf8") : null;
+  if (cached !== current) {
+    writeFileSync(txtPath, current);
+    if (existsSync(chunkPath(i))) unlinkSync(chunkPath(i));
+  }
+}
 
 const url = `https://api.elevenlabs.io/v1/text-to-speech/${voice.id}`;
 const supportsContext = !model_id.includes("v3");
@@ -186,16 +196,18 @@ for (let i = 0; i < chunks.length; i++) {
   writeFileSync(path, Buffer.from(await res.arrayBuffer()));
 }
 
-// Stitch: concatenate all chunk MP3s in order. Fails loudly if any are missing.
-const audioParts = [];
+// Stitch: concatenate all chunk MP3s in order. Skip stitching if any are
+// missing (e.g. partial --chunk run for verification); the user can re-run
+// without --chunk once all chunks exist.
+const missing = [];
 for (let i = 0; i < chunks.length; i++) {
-  const path = chunkPath(i);
-  if (!existsSync(path)) {
-    console.error(`missing ${path} — run without --chunk to render all`);
-    process.exit(1);
-  }
-  audioParts.push(readFileSync(path));
+  if (!existsSync(chunkPath(i))) missing.push(i + 1);
 }
+if (missing.length > 0) {
+  console.log(`skipped stitching: ${missing.length} chunk(s) missing (${missing.join(",")}). Listen to rendered chunks in ${chunksDir}, then re-run without --chunk to fill in the rest.`);
+  process.exit(0);
+}
+const audioParts = chunks.map((_, i) => readFileSync(chunkPath(i)));
 const merged = Buffer.concat(audioParts);
 writeFileSync(rawOut, merged);
 console.log(`stitched ${audioParts.length} chunk(s) → ${rawOut}  (${(merged.length / 1024).toFixed(1)} KB)`);

@@ -15,3 +15,4 @@ podcast/**/ep-*-raw.*
 podcast/**/ep-*.mp3
 podcast/**/ep-*.wav
 podcast/**/ep-*.m4a
+podcast/**/ep-*-chunks/*.mp3

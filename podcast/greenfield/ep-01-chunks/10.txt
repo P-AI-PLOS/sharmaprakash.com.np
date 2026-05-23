@@ -1,0 +1,13 @@
+Two of these in production gives you a different kind of repo. A repo where every PR can be reviewed before it's even opened. Where every module can be audited on a weekly cadence... by something that doesn't get tired.
+
+But — and this matters — subagents cost tokens. They're not free like hooks. So you reach for them when the question genuinely needs a brain. Not before.
+
+**Trigger four. The skill.**
+
+The skill is the thin one. The skill is the slash command.
+
+A teammate types `/migrate-list Orders` — and a twelve-line prompt fires. Loading the right doc. Naming the right reference module. Delegating to the right subagent. Finishing with the right validation.
+
+The user typed eight words. The skill did the workflow.
+
+This is the visibility layer. Without skills, your hooks are invisible — they live in `settings.json`. Your subagents are invisible — they live in `.claude/agents/`. Your prompts are invisible — they live in `docs/prompts/`. The new teammate doesn't know any of it exists.

@@ -1,0 +1,5 @@
+So this episode is about the four places a rule can live so it stops decaying. I call it the four-trigger model — not because it's a framework I'm trying to sell you, but because once you see it laid out... you cannot un-see it.
+
+Four triggers. Four artifacts. One repo.
+
+But first — let me tell you why the barrel import thing actually matters. Because if it sounds petty... *who cares, it's a barrel import*... you're missing the shape.

@@ -1,0 +1,13 @@
+Here's the shape.
+
+Every codebase I've worked in for the last decade has had this dynamic — a small number of rules that everyone on the team agrees on... that nobody on the team consistently follows.
+
+Use the named export, not the default. Don't import from the deprecated directory. Don't write `crypto.randomUUID()` — because we ship to enterprise customers on Safari builds older than my niece, and `randomUUID` is undefined in non-secure contexts, and the page just... silently breaks.
+
+That last one. `crypto.randomUUID`. That actually happened.
+
+Production. Staging environment. Older Safari.
+
+The agent wrote it because every blog post on the internet says that's the modern, correct way to make a UUID. The agent was, in some narrow sense, right. The agent was also wrong — because the codebase has a constraint the internet doesn't know about. We use the `uuid` package. There's a note in `CLAUDE.md`. The agent read it once... and forgot it.
+
+This is the thing.

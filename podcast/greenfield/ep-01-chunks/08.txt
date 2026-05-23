@@ -1,0 +1,13 @@
+When the agent tries to write `import Button from 'components/atoms'`... the hook reads the diff, greps for the pattern, sees the bare-barrel import, and rejects the write with a message: *no barrel imports. Use the specific path.* The agent gets the rejection. Reads the message. Writes it correctly the second time.
+
+This is the moment everything clicks for me about agentic infrastructure.
+
+Because the hook isn't an LLM. The hook is twenty lines of bash. It's deterministic. It runs in milliseconds. It costs nothing. And it catches the exact failure that the prompt was supposed to prevent... but didn't. Because the prompt is a suggestion. And the hook is a wall.
+
+Same rule. Two layers. The prompt explains *why*. The hook enforces *what*. They're not redundant — they're a belt and suspenders. And you want both.
+
+The `crypto.randomUUID` thing? Hook. Twelve lines of bash. The agent has not written `crypto.randomUUID` in our repo since the day I wrote that hook.
+
+Not once.
+
+[short pause]

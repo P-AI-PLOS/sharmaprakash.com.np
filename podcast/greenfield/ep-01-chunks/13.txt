@@ -1,0 +1,15 @@
+I want to close on the thing I actually believe. Which is the unglamorous part.
+
+Building this stack is not exciting.
+
+It's not the part of AI engineering that gets you a conference talk. Nobody is going to retweet your shell script that blocks `crypto.randomUUID`. Nobody is going to be impressed that you finally got the agent to stop writing barrel imports.
+
+But... the second you build it... your relationship to the agent changes.
+
+You stop being its tutor. You start being its colleague.
+
+You stop typing the same correction forty times a month. You start trusting the diff. You start opening pull requests that the agent wrote and merging them in under three minutes — because the only thing left to look at... is the twenty percent of the work that actually needed your judgement.
+
+That's the prize.
+
+Not "agent does everything." Just — "agent does the eighty percent it's good at. Perfectly. Every time. Because the rules don't live in my head anymore."

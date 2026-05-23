@@ -1,0 +1,15 @@
+Okay. So if the chat window is the wrong medium... what's the right one?
+
+This is where the four-trigger model comes in. Four places a rule can live. Each one fires at a different moment in the agent's lifecycle. Each one is good at a different kind of rule.
+
+Let me walk you through them in the order they actually fire — because I think that's the order that makes them stick.
+
+[short pause]
+
+**Trigger one. The prompt.**
+
+This is the simplest. A prompt is a document. A markdown file in your repo, in a folder called `docs/prompts/`.
+
+The agent reads it at the start of a task. It says: *here is how we migrate a list page in this codebase. Step by step. With the rules. With the reference implementation. With the verification checklist.*
+
+A good task prompt is not a vibe document. It's not "follow best practices, write clean code, be respectful of the code." No. It's a numbered list of decisions.
