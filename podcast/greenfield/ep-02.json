@@ -1,0 +1,10 @@
+{
+  "series": "greenfield",
+  "order": 2,
+  "raw": "ep-02-raw.mp3",
+  "audio": "ep-02.mp3",
+  "mix": "intro+outro",
+  "durationSeconds": 829,
+  "sizeBytes": 9950157,
+  "sha256": "f37f5ca192a5dc3f58a06fedb6398eb612f1d865b1decebea2079abf1b803260"
+}

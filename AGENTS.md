@@ -3,6 +3,7 @@
 > If you're an agent about to touch this codebase: start here.
 > Visual decisions → [`design.md`](./design.md).
 > Task recipes ("how do I add a blog post / image / page?") → [`docs/agents/recipes.md`](./docs/agents/recipes.md).
+> Podcast production (NotebookLM / ElevenLabs paths) → [`docs/agents/podcast.md`](./docs/agents/podcast.md) + [`podcast/README.md`](./podcast/README.md).
 > Parallel cmux fan-out → [`docs/agents/cmux.md`](./docs/agents/cmux.md).
 
 ## What this is
