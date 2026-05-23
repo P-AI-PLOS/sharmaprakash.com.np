@@ -1,0 +1,68 @@
+---
+import SiteShell from "~/layouts/SiteShell.astro";
+import ScrollReveal from "~/components/motion/ScrollReveal.astro";
+import { workshopRegistry } from "~/data/workshops";
+
+const workshops = Object.entries(workshopRegistry).map(([slug, meta]) => ({
+  slug,
+  title: meta.title,
+  description: meta.description,
+  cover: meta.cover,
+  durationLabel: meta.durationLabel,
+  chapterCount: meta.chapters.length,
+}));
+---
+
+<SiteShell
+  title="Workshops · Prakash Poudel Sharma"
+  description="Hands-on workshops you can finish in an afternoon. Built from blog posts that already taught the concept — now turned into labs."
+>
+  <section class="bg-surface-base pt-40 pb-12">
+    <div class="mx-auto max-w-7xl px-6 lg:px-12">
+      <p class="eyebrow mb-3">Workshops</p>
+      <h1 class="text-display-lg text-strong max-w-2xl">
+        Short, hands-on labs. Built to finish in one sitting.
+      </h1>
+      <p class="mt-5 text-body-lg text-muted max-w-reading">
+        Workshops are the concept essays turned into something you can run. Clone a starter, follow the labs, ship the artifact. Free and self-paced.
+      </p>
+    </div>
+  </section>
+
+  <section class="pb-24">
+    <div class="mx-auto max-w-7xl px-6 lg:px-12">
+      {workshops.length === 0 ? (
+        <p class="text-muted">No workshops yet.</p>
+      ) : (
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {workshops.map((w, i) => (
+            <ScrollReveal delay={Math.min(i, 4) * 80}>
+              <a
+                href={`/workshop/${w.slug}/`}
+                class="card-interactive group flex h-full flex-col bg-surface-raised rounded-lg overflow-hidden shadow-md"
+              >
+                <figure class="aspect-[16/10] overflow-hidden bg-ink-100">
+                  <img
+                    src={w.cover}
+                    alt={w.title}
+                    class="h-full w-full object-cover transition-transform duration-slow ease-out-quad group-hover:scale-[1.04]"
+                  />
+                </figure>
+                <div class="p-6 flex-1 flex flex-col gap-3">
+                  <p class="eyebrow">Workshop{w.durationLabel ? ` · ${w.durationLabel}` : ""}</p>
+                  <h2 class="text-h3 text-strong leading-snug group-hover:text-accent-700 transition-colors">
+                    {w.title}
+                  </h2>
+                  <p class="text-body text-muted line-clamp-3">{w.description}</p>
+                  <span class="mt-auto pt-2 text-accent-700 font-semibold link-underline">
+                    Start the workshop →
+                  </span>
+                </div>
+              </a>
+            </ScrollReveal>
+          ))}
+        </div>
+      )}
+    </div>
+  </section>
+</SiteShell>

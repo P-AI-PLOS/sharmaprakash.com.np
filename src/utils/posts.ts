@@ -31,8 +31,10 @@ export const getRecentBlogPosts = async (limit = 5): Promise<Post[]> => {
   return all.slice(0, limit);
 };
 
+// Category helpers operate on the blog stream only — workshop chapters are
+// indexed under /workshop/ and intentionally absent from /category/ pages.
 export const getAllCategories = async (): Promise<string[]> => {
-  const all = await getAllPostsSorted();
+  const all = await getBlogPosts();
   return all.flatMap((p) => p.data.category ?? []);
 };
 
@@ -43,7 +45,7 @@ export const getUniqueCategories = async (): Promise<string[]> => {
 export const getPostsByCategorySlug = async (
   categorySlug: string,
 ): Promise<Post[]> => {
-  const all = await getAllPostsSorted();
+  const all = await getBlogPosts();
   return all.filter((p) =>
     (p.data.category ?? []).map((c) => createSlug(c)).includes(categorySlug),
   );

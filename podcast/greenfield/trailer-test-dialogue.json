@@ -1,0 +1,106 @@
+{
+  "model_id": "eleven_v3",
+  "inputs": [
+    {
+      "text": "Three times this week, Prakash.",
+      "voice_id": "Xb7hH8MSUJpSbSDYk0k2",
+      "voice_settings": {
+        "stability": 0.4,
+        "similarity_boost": 0.75,
+        "style": 0.6,
+        "use_speaker_boost": true
+      }
+    },
+    {
+      "text": "Three times what?",
+      "voice_id": "7a94qxTnWOxNUMLOxXGR",
+      "voice_settings": {
+        "stability": 0.35,
+        "similarity_boost": 0.75,
+        "style": 0.65,
+        "use_speaker_boost": true
+      }
+    },
+    {
+      "text": "Same bug. Three different files. You typed the exact same correction into chat — three times.",
+      "voice_id": "Xb7hH8MSUJpSbSDYk0k2",
+      "voice_settings": {
+        "stability": 0.4,
+        "similarity_boost": 0.75,
+        "style": 0.6,
+        "use_speaker_boost": true
+      }
+    },
+    {
+      "text": "[laughs] Okay, fair.",
+      "voice_id": "7a94qxTnWOxNUMLOxXGR",
+      "voice_settings": {
+        "stability": 0.35,
+        "similarity_boost": 0.75,
+        "style": 0.65,
+        "use_speaker_boost": true
+      }
+    },
+    {
+      "text": "So the rule lives in your head.",
+      "voice_id": "Xb7hH8MSUJpSbSDYk0k2",
+      "voice_settings": {
+        "stability": 0.4,
+        "similarity_boost": 0.75,
+        "style": 0.6,
+        "use_speaker_boost": true
+      }
+    },
+    {
+      "text": "[excited] Until I write it down!",
+      "voice_id": "7a94qxTnWOxNUMLOxXGR",
+      "voice_settings": {
+        "stability": 0.35,
+        "similarity_boost": 0.75,
+        "style": 0.65,
+        "use_speaker_boost": true
+      }
+    },
+    {
+      "text": "And then?",
+      "voice_id": "Xb7hH8MSUJpSbSDYk0k2",
+      "voice_settings": {
+        "stability": 0.4,
+        "similarity_boost": 0.75,
+        "style": 0.6,
+        "use_speaker_boost": true
+      }
+    },
+    {
+      "text": "A hook blocks the diff. A subagent finds the rest. A skill calls the whole thing.",
+      "voice_id": "7a94qxTnWOxNUMLOxXGR",
+      "voice_settings": {
+        "stability": 0.35,
+        "similarity_boost": 0.75,
+        "style": 0.65,
+        "use_speaker_boost": true
+      }
+    },
+    {
+      "text": "Prompt, hook, subagent, skill. Greenfield, episode one.",
+      "voice_id": "Xb7hH8MSUJpSbSDYk0k2",
+      "voice_settings": {
+        "stability": 0.4,
+        "similarity_boost": 0.75,
+        "style": 0.6,
+        "use_speaker_boost": true
+      }
+    }
+  ],
+  "_speakers": [
+    "Eisha",
+    "Prakash",
+    "Eisha",
+    "Prakash",
+    "Eisha",
+    "Prakash",
+    "Eisha",
+    "Prakash",
+    "Eisha"
+  ]
+}

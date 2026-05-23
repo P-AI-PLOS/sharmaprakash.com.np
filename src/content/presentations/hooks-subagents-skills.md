@@ -7,7 +7,7 @@ title: "Hooks · Subagents · Skills"
 description: "A three-layer agent-ready stack for React codebases — hooks enforce rules, subagents review work, skills are how the team invokes them. Workshop-flavoured talk."
 author: "Prakash Poudel Sharma"
 date: 2026-05-26
-qr: https://sharmaprakash.com.np/course/hooks-subagents-skills/
+qr: https://sharmaprakash.com.np/workshop/hooks-subagents-skills/
 ---
 
 <!-- _class: lead -->
@@ -287,7 +287,7 @@ Starter repo. One planted bug. Three labs.
 - [Subagents That Catch What Hooks Can't](https://sharmaprakash.com.np/ai/subagents-that-catch-what-hooks-cant/)
 - [Skills: The User-Facing Workflow Layer](https://sharmaprakash.com.np/ai/skills-the-user-facing-workflow-layer/)
 
-Workshop: [sharmaprakash.com.np/course/hooks-subagents-skills/](https://sharmaprakash.com.np/course/hooks-subagents-skills/)
+Workshop: [sharmaprakash.com.np/workshop/hooks-subagents-skills/](https://sharmaprakash.com.np/workshop/hooks-subagents-skills/)
 
 ---
 

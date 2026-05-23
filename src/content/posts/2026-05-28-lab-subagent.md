@@ -1,5 +1,5 @@
 ---
-title: "Workshop · Lab 2: A Subagent That Audits the Codebase"
+title: "Workshop · Lab 3: A Subagent That Audits the Codebase"
 date: "2026-05-28T10:00:00+05:45"
 category: ["Workshop"]
 categories: ["workshop"]
@@ -9,12 +9,10 @@ cover: "/images/blog/hooks-subagents-skills-workshop/lab-subagent/cover.png"
 thumb: "/images/blog/hooks-subagents-skills-workshop/lab-subagent/thumb.png"
 last_modified_at: "2026-05-28T10:00:00+05:45"
 use_featured_image: true
-series: hooks-subagents-skills-workshop
-seriesOrder: 3
 tags: ["ai", "claude-code", "subagents", "workshop"]
 ---
 
-> **Workshop chapter 3 of 5.** [Setup](/workshop/setup/) → [Lab 1](/workshop/lab-hook/) → **Lab 2 (you are here)** → [Lab 3](/workshop/lab-skill/) → [Capstone](/workshop/capstone/).
+> **Workshop chapter 4 of 6.** [Setup](/workshop/setup/) → [Lab 1](/workshop/lab-prompt/) → [Lab 2](/workshop/lab-hook/) → **Lab 3 (you are here)** → [Lab 4](/workshop/lab-skill/) → [Capstone](/workshop/capstone/).
 
 **Recap in 30 seconds.** A subagent is a `.md` file in `.claude/agents/` that defines a specialist worker — restricted tool surface, scoped responsibility, pinned output format. The main agent delegates a task; the subagent reads the code, forms an opinion, returns a structured report. Deep dive: [Subagents That Catch What Hooks Can't](/ai/subagents-that-catch-what-hooks-cant/).
 

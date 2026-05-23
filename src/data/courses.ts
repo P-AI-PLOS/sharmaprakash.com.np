@@ -33,61 +33,6 @@ export interface CourseMeta {
 }
 
 export const courseRegistry: Record<string, CourseMeta> = {
-  "hooks-subagents-skills": {
-    title: "Hooks · Subagents · Skills",
-    description:
-      "A hands-on workshop that turns the three-layer agent-ready stack into muscle memory: one hook, one subagent, one skill, against a planted bug in a starter repo.",
-    intro:
-      "Nine chapters. The first four are the trilogy of concept essays — hooks lifecycle, audit-to-enforcement, subagents, skills. The next five are labs: clone a starter repo with a planted barrel-import bug, then build the hook that blocks it, the subagent that audits its siblings, and the skill that wires both into a single slash command. Plan for ~90 minutes if you do the labs cold; ~65 minutes if you've already read the trilogy. The capstone is a 10-minute worksheet that lets you design the same triple for a rule you keep repeating in your own codebase.",
-    cover: "/images/blog/series/agent-ready-react.png",
-    chapters: [
-      {
-        slug: "hooks-lifecycle-primer",
-        label: "The Claude hooks lifecycle",
-        postId: "claude-hooks-lifecycle-primer",
-      },
-      {
-        slug: "audit-to-hook",
-        label: "From audit to hook enforcement",
-        postId: "from-audit-to-hook-enforcement",
-      },
-      {
-        slug: "subagents",
-        label: "Subagents that catch what hooks can't",
-        postId: "subagents-that-catch-what-hooks-cant",
-      },
-      {
-        slug: "skills",
-        label: "Skills: the user-facing workflow layer",
-        postId: "skills-the-user-facing-workflow-layer",
-      },
-      {
-        slug: "setup",
-        label: "Lab setup: clone and plant the bug",
-        postId: "setup",
-      },
-      {
-        slug: "lab-hook",
-        label: "Lab 1 — Hook",
-        postId: "lab-hook",
-      },
-      {
-        slug: "lab-subagent",
-        label: "Lab 2 — Subagent",
-        postId: "lab-subagent",
-      },
-      {
-        slug: "lab-skill",
-        label: "Lab 3 — Skill",
-        postId: "lab-skill",
-      },
-      {
-        slug: "capstone",
-        label: "Capstone: design your own triple",
-        postId: "capstone",
-      },
-    ],
-  },
   "ai-podcast-index": {
     title: "Build an AI Podcast Index",
     description:

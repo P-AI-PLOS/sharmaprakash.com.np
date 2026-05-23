@@ -21,6 +21,8 @@
     "presentations:check": "node scripts/presentations/check-presentations.mjs",
     "blog-image:render": "node scripts/images/render-blog-header.mjs",
     "podcast:bundle": "node scripts/podcast/bundle.mjs",
+    "podcast:dialogue": "node scripts/podcast/dialogue.mjs",
+    "podcast:monologue": "node scripts/podcast/monologue.mjs",
     "podcast:finalize": "scripts/podcast/finalize.sh",
     "podcast:publish": "scripts/podcast/publish.sh",
     "z": "zellij attach sharmaprakash 2>/dev/null || zellij -s sharmaprakash -n .zellij/layouts/default.kdl",

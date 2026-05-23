@@ -1,0 +1,205 @@
+{
+  "model_id": "eleven_v3",
+  "inputs": [
+    {
+      "text": "You corrected your agent the same way three times this week, Prakash.",
+      "voice_id": "Xb7hH8MSUJpSbSDYk0k2",
+      "voice_settings": {
+        "stability": 0.4,
+        "similarity_boost": 0.75,
+        "style": 0.6,
+        "use_speaker_boost": true
+      }
+    },
+    {
+      "text": "Three times?",
+      "voice_id": "7a94qxTnWOxNUMLOxXGR",
+      "voice_settings": {
+        "stability": 0.35,
+        "similarity_boost": 0.75,
+        "style": 0.65,
+        "use_speaker_boost": true
+      }
+    },
+    {
+      "text": "The barrel import that breaks tree-shaking. The test file that sneaks an \"any\" through. The migration that ships without a backfill.",
+      "voice_id": "Xb7hH8MSUJpSbSDYk0k2",
+      "voice_settings": {
+        "stability": 0.4,
+        "similarity_boost": 0.75,
+        "style": 0.6,
+        "use_speaker_boost": true
+      }
+    },
+    {
+      "text": "[sighs] Same correction. Different file.",
+      "voice_id": "7a94qxTnWOxNUMLOxXGR",
+      "voice_settings": {
+        "stability": 0.35,
+        "similarity_boost": 0.75,
+        "style": 0.65,
+        "use_speaker_boost": true
+      }
+    },
+    {
+      "text": "So the rule lives in your head.",
+      "voice_id": "Xb7hH8MSUJpSbSDYk0k2",
+      "voice_settings": {
+        "stability": 0.4,
+        "similarity_boost": 0.75,
+        "style": 0.6,
+        "use_speaker_boost": true
+      }
+    },
+    {
+      "text": "[excited] Until I encode it.",
+      "voice_id": "7a94qxTnWOxNUMLOxXGR",
+      "voice_settings": {
+        "stability": 0.35,
+        "similarity_boost": 0.75,
+        "style": 0.65,
+        "use_speaker_boost": true
+      }
+    },
+    {
+      "text": "How?",
+      "voice_id": "Xb7hH8MSUJpSbSDYk0k2",
+      "voice_settings": {
+        "stability": 0.4,
+        "similarity_boost": 0.75,
+        "style": 0.6,
+        "use_speaker_boost": true
+      }
+    },
+    {
+      "text": "Four layers. Start with a prompt — write the rule down once, structured, in dot-claude slash prompts. The source of truth.",
+      "voice_id": "7a94qxTnWOxNUMLOxXGR",
+      "voice_settings": {
+        "stability": 0.35,
+        "similarity_boost": 0.75,
+        "style": 0.65,
+        "use_speaker_boost": true
+      }
+    },
+    {
+      "text": "And then?",
+      "voice_id": "Xb7hH8MSUJpSbSDYk0k2",
+      "voice_settings": {
+        "stability": 0.4,
+        "similarity_boost": 0.75,
+        "style": 0.6,
+        "use_speaker_boost": true
+      }
+    },
+    {
+      "text": "A hook to block the diff deterministically. A subagent to audit the rest of the repo. A skill to call the whole workflow by name.",
+      "voice_id": "7a94qxTnWOxNUMLOxXGR",
+      "voice_settings": {
+        "stability": 0.35,
+        "similarity_boost": 0.75,
+        "style": 0.65,
+        "use_speaker_boost": true
+      }
+    },
+    {
+      "text": "Prompt, hook, subagent, skill.",
+      "voice_id": "Xb7hH8MSUJpSbSDYk0k2",
+      "voice_settings": {
+        "stability": 0.4,
+        "similarity_boost": 0.75,
+        "style": 0.6,
+        "use_speaker_boost": true
+      }
+    },
+    {
+      "text": "Source of truth. Guardrail. Auditor. Handle.",
+      "voice_id": "7a94qxTnWOxNUMLOxXGR",
+      "voice_settings": {
+        "stability": 0.35,
+        "similarity_boost": 0.75,
+        "style": 0.65,
+        "use_speaker_boost": true
+      }
+    },
+    {
+      "text": "And this workshop ships all four?",
+      "voice_id": "Xb7hH8MSUJpSbSDYk0k2",
+      "voice_settings": {
+        "stability": 0.4,
+        "similarity_boost": 0.75,
+        "style": 0.6,
+        "use_speaker_boost": true
+      }
+    },
+    {
+      "text": "One starter repo. One planted bug. Four artifacts you keep. About a hundred minutes.",
+      "voice_id": "7a94qxTnWOxNUMLOxXGR",
+      "voice_settings": {
+        "stability": 0.35,
+        "similarity_boost": 0.75,
+        "style": 0.65,
+        "use_speaker_boost": true
+      }
+    },
+    {
+      "text": "And the capstone?",
+      "voice_id": "Xb7hH8MSUJpSbSDYk0k2",
+      "voice_settings": {
+        "stability": 0.4,
+        "similarity_boost": 0.75,
+        "style": 0.6,
+        "use_speaker_boost": true
+      }
+    },
+    {
+      "text": "You port the pattern to a rule you actually repeat. Whatever's been in your PR comments three times this month — that becomes your next stack.",
+      "voice_id": "7a94qxTnWOxNUMLOxXGR",
+      "voice_settings": {
+        "stability": 0.35,
+        "similarity_boost": 0.75,
+        "style": 0.65,
+        "use_speaker_boost": true
+      }
+    },
+    {
+      "text": "Prompts, hooks, subagents, skills. Greenfield, episode one. Find it at sharmaprakash dot com dot N-P, slash workshop.",
+      "voice_id": "Xb7hH8MSUJpSbSDYk0k2",
+      "voice_settings": {
+        "stability": 0.4,
+        "similarity_boost": 0.75,
+        "style": 0.6,
+        "use_speaker_boost": true
+      }
+    },
+    {
+      "text": "Bring a terminal and the rule you're tired of repeating.",
+      "voice_id": "7a94qxTnWOxNUMLOxXGR",
+      "voice_settings": {
+        "stability": 0.35,
+        "similarity_boost": 0.75,
+        "style": 0.65,
+        "use_speaker_boost": true
+      }
+    }
+  ],
+  "_speakers": [
+    "Eisha",
+    "Prakash",
+    "Eisha",
+    "Prakash",
+    "Eisha",
+    "Prakash",
+    "Eisha",
+    "Prakash",
+    "Eisha",
+    "Prakash",
+    "Eisha",
+    "Prakash",
+    "Eisha",
+    "Prakash",
+    "Eisha",
+    "Prakash",
+    "Eisha",
+    "Prakash"
+  ]
+}

@@ -10,11 +10,14 @@ interface Props {
   totalChapters: number;
   /** Override per-chapter link target. Defaults to the canonical /course/ URL. */
   chapterHref?: (chapter: ResolvedChapter) => string;
+  /** Override the overview link (back-to-overview after completion). */
+  overviewHref?: string;
 }
 
-const { courseSlug, current, prev, next, totalChapters, chapterHref } = Astro.props;
+const { courseSlug, current, prev, next, totalChapters, chapterHref, overviewHref } = Astro.props;
 const linkFor = (ch: ResolvedChapter) =>
   chapterHref ? chapterHref(ch) : chapterUrl(courseSlug, ch.slug);
+const overviewUrl = overviewHref ?? courseUrl(courseSlug);
 ---
 
 <nav
@@ -23,7 +26,7 @@ const linkFor = (ch: ResolvedChapter) =>
   data-chapter-slug={current.slug}
   data-next-slug={next?.slug ?? ""}
   data-next-url={next ? linkFor(next) : ""}
-  data-course-url={courseUrl(courseSlug)}
+  data-course-url={overviewUrl}
   data-total-chapters={totalChapters}
 >
   <div

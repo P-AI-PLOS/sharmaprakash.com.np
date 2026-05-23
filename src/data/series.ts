@@ -14,12 +14,6 @@ export interface SeriesMeta {
 }
 
 export const seriesRegistry: Record<string, SeriesMeta> = {
-  "hooks-subagents-skills-workshop": {
-    title: "Workshop · Hooks · Subagents · Skills",
-    description:
-      "A five-part hands-on workshop: clone a starter repo with a planted barrel-import bug, then build the hook that blocks it, the subagent that audits its siblings, and the skill that wires both into a single slash command. Ends with a 10-minute capstone worksheet.",
-    cover: "/images/blog/hooks-subagents-skills-workshop/setup/cover.png",
-  },
   "agent-ready-react": {
     title: "Agent-ready React",
     description:

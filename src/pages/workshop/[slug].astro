@@ -6,39 +6,53 @@ import ReadingProgressBar from "~/components/blog/ReadingProgressBar.astro";
 import CodeBlockEnhancements from "~/components/blog/CodeBlockEnhancements.astro";
 import CourseSidebar from "~/components/course/CourseSidebar.astro";
 import CourseChapterNav from "~/components/course/CourseChapterNav.astro";
-import { getCourse, courseUrl } from "~/utils/courses";
+import { getWorkshop, workshopUrl, workshopChapterUrl } from "~/utils/workshops";
+import { workshopRegistry } from "~/data/workshops";
 import { estimateReadMinutes, postCoverImage } from "~/utils/posts";
 
-// All workshop chapters live inside the hooks-subagents-skills course.
-// /workshop/<slug>/ renders the chapter with course chrome.
-// Note: Astro isolates getStaticPaths from module scope, so the course slug
-// is inlined inside it rather than read from a module constant.
-const WORKSHOP_COURSE_SLUG = "hooks-subagents-skills";
+// The hooks-subagents-skills workshop is the only workshop today. When a
+// second ships, hoist this into a [...workshop]/[chapter] route.
+const WORKSHOP_SLUG = "hooks-subagents-skills";
 
 export const getStaticPaths = (async () => {
-  const courseSlug = "hooks-subagents-skills";
-  const course = await getCourse(courseSlug);
-  if (!course) return [];
-  return course.chapters
-    .filter((ch) => ch.post.data.directory === "workshop")
-    .map((ch) => ({ params: { slug: ch.slug } }));
+  const slug = "hooks-subagents-skills";
+  const meta = workshopRegistry[slug];
+  if (!meta) return [];
+  return meta.chapters.map((ch) => ({ params: { slug: ch.slug } }));
 }) satisfies GetStaticPaths;
 
 const { slug } = Astro.params as { slug: string };
-const course = await getCourse(WORKSHOP_COURSE_SLUG);
-if (!course) throw new Error(`Workshop course not found: ${WORKSHOP_COURSE_SLUG}`);
-const current = course.chapters.find((c) => c.slug === slug);
+const workshop = await getWorkshop(WORKSHOP_SLUG);
+if (!workshop) throw new Error(`Workshop not found: ${WORKSHOP_SLUG}`);
+const current = workshop.chapters.find((c) => c.slug === slug);
 if (!current) throw new Error(`Workshop chapter not found: ${slug}`);
-const prev = course.chapters[current.index - 1];
-const next = course.chapters[current.index + 1];
+const prev = workshop.chapters[current.index - 1];
+const next = workshop.chapters[current.index + 1];
 
 const { Content } = await render(current.post);
 const minutes = estimateReadMinutes(current.post.body);
 const pad = (n: number) => String(n + 1).padStart(2, "0");
+
+// Shape the workshop into a CourseContext-compatible object so the existing
+// CourseSidebar / CourseChapterNav components can render it without changes.
+const courseLike = {
+  slug: WORKSHOP_SLUG,
+  meta: {
+    title: workshop.meta.title,
+    description: workshop.meta.description,
+    intro: workshop.meta.problem,
+    cover: workshop.meta.cover,
+    chapters: workshop.meta.chapters,
+  },
+  chapters: workshop.chapters,
+};
+
+const chapterHref = (ch: { slug: string }) => workshopChapterUrl(ch.slug);
+const reading = workshop.meta.relatedReading ?? [];
 ---
 
 <SiteShell
-  title={`${current.label} · ${course.meta.title}`}
+  title={`${current.label} · ${workshop.meta.title}`}
   description={current.post.data.excerpt}
   image={postCoverImage(current.post)}
   ogType="article"
@@ -48,21 +62,37 @@ const pad = (n: number) => String(n + 1).padStart(2, "0");
   <article class="bg-surface-base pt-32 pb-20">
     <div class="mx-auto max-w-7xl px-6 lg:px-12">
       <nav class="mb-8 text-caption text-muted">
-        <a href="/course/" class="link-underline">Courses</a>
+        <a href="/workshop/" class="link-underline">Workshops</a>
         <span class="mx-2 text-faint">/</span>
-        <a href={courseUrl(WORKSHOP_COURSE_SLUG)} class="link-underline">{course.meta.title}</a>
+        <a href={workshopUrl(WORKSHOP_SLUG)} class="link-underline">{workshop.meta.title}</a>
       </nav>
 
       <div class="grid lg:grid-cols-[260px_1fr] gap-10 lg:gap-14 items-start">
-        <CourseSidebar
-          course={course}
-          currentSlug={slug}
-          chapterHref={(ch) =>
-            ch.post.data.directory === "workshop"
-              ? `/workshop/${ch.slug}/`
-              : `/course/${WORKSHOP_COURSE_SLUG}/${ch.slug}/`
-          }
-        />
+        <aside class="space-y-8">
+          <CourseSidebar
+            course={courseLike as any}
+            currentSlug={slug}
+            chapterHref={chapterHref}
+          />
+
+          {reading.length > 0 && (
+            <section class="ws-aside-block">
+              <p class="eyebrow mb-3">Concept reading</p>
+              <ul class="space-y-3">
+                {reading.map((r) => (
+                  <li>
+                    <a href={r.href} class="ws-aside-link group">
+                      <span class="text-body-sm text-default group-hover:text-accent-700 transition-colors">
+                        {r.label}
+                      </span>
+                      <span class="block text-caption text-faint mt-0.5">Essay · /ai/</span>
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          )}
+        </aside>
 
         <div class="min-w-0 max-w-reading">
           <header class="mb-8">
@@ -80,19 +110,32 @@ const pad = (n: number) => String(n + 1).padStart(2, "0");
           <CodeBlockEnhancements />
 
           <CourseChapterNav
-            courseSlug={WORKSHOP_COURSE_SLUG}
-            current={current}
-            prev={prev}
-            next={next}
-            totalChapters={course.chapters.length}
-            chapterHref={(ch) =>
-            ch.post.data.directory === "workshop"
-              ? `/workshop/${ch.slug}/`
-              : `/course/${WORKSHOP_COURSE_SLUG}/${ch.slug}/`
-          }
+            courseSlug={WORKSHOP_SLUG}
+            current={current as any}
+            prev={prev as any}
+            next={next as any}
+            totalChapters={workshop.chapters.length}
+            chapterHref={chapterHref}
+            overviewHref={workshopUrl(WORKSHOP_SLUG)}
           />
         </div>
       </div>
     </div>
   </article>
 </SiteShell>
+
+<style>
+  .ws-aside-block {
+    border-top: 1px solid var(--border-default);
+    padding-top: 16px;
+  }
+  .ws-aside-link {
+    display: block;
+    padding: 8px 10px;
+    border-radius: var(--radius-sm);
+    transition: background-color var(--dur-fast, 150ms) var(--ease-out-quad);
+  }
+  .ws-aside-link:hover {
+    background: var(--surface-sunken);
+  }
+</style>
