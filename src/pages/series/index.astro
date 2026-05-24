@@ -1,0 +1,75 @@
+---
+import SiteShell from "~/layouts/SiteShell.astro";
+import SeriesCatalogCard from "~/components/blog/SeriesCatalogCard.astro";
+import ScrollReveal from "~/components/motion/ScrollReveal.astro";
+import { headTitle } from "~/data/site";
+import { seriesRegistry } from "~/data/series";
+import { getSeriesPosts, type Post } from "~/utils/posts";
+
+interface SeriesEntry {
+  slug: string;
+  title: string;
+  description: string;
+  parts: Post[];
+  partCount: number;
+  cover: string;
+  latestDate: number;
+}
+
+const entries: SeriesEntry[] = await Promise.all(
+  Object.entries(seriesRegistry).map(async ([slug, meta]) => {
+    const parts = await getSeriesPosts(slug);
+    const latestDate = parts.reduce(
+      (max, p) => Math.max(max, new Date(p.data.date).getTime()),
+      0,
+    );
+    return {
+      slug,
+      title: meta.title,
+      description: meta.description,
+      parts,
+      partCount: parts.length,
+      cover: meta.cover,
+      latestDate,
+    };
+  }),
+);
+
+entries.sort((a, b) => b.latestDate - a.latestDate);
+---
+
+<SiteShell title={`Series · ${headTitle.blogsTitle}`}>
+  <section class="bg-surface-base pt-40 pb-12">
+    <div class="mx-auto max-w-7xl px-6 lg:px-12">
+      <p class="eyebrow mb-3">The reading list · Series</p>
+      <h1 class="text-display-lg text-strong max-w-2xl">
+        Multi-part essays, read in order.
+      </h1>
+      <p class="mt-5 text-body-lg text-muted max-w-reading">
+        Long-form threads that grew past a single post. Each series builds on the one before it — start with part one or jump to whichever part scratches your itch.
+      </p>
+    </div>
+  </section>
+
+  <section class="pb-24">
+    <div class="mx-auto max-w-7xl px-6 lg:px-12">
+      {entries.length === 0 ? (
+        <p class="text-muted">No series yet.</p>
+      ) : (
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {entries.map((entry, i) => (
+            <ScrollReveal delay={80 * i}>
+              <SeriesCatalogCard
+                slug={entry.slug}
+                title={entry.title}
+                description={entry.description}
+                partCount={entry.partCount}
+                cover={entry.cover}
+              />
+            </ScrollReveal>
+          ))}
+        </div>
+      )}
+    </div>
+  </section>
+</SiteShell>

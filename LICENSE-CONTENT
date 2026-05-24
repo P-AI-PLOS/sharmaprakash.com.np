@@ -1,0 +1,26 @@
+Content License — All Rights Reserved
+
+Copyright (c) 2026 Prakash Poudel Sharma. All rights reserved.
+
+This license governs the WRITTEN AND VISUAL CONTENT in this repository, which
+includes (but is not limited to):
+
+  - All blog posts, essays, and notes under `src/content/`
+  - All copy and text in `src/data/` (resume, reviews, portfolios, now, etc.)
+  - Any images, photos, illustrations, audio, video, or other media under
+    `public/`, `src/`, or anywhere else in the repository
+  - Any personal information, biography, project descriptions, testimonials,
+    or other authored prose
+
+You MAY NOT copy, republish, redistribute, repost, translate, adapt, or create
+derivative works from this content, in whole or in part, in any medium,
+without prior written permission from the author.
+
+Short, attributed quotations for the purposes of commentary, criticism, news
+reporting, teaching, or research (i.e. fair use / fair dealing) are permitted.
+
+The CODE, DESIGN, STYLES, and CONFIGURATION in this repository are licensed
+separately under the MIT License — see `LICENSE`. You are free to reuse those
+for your own site, but you must replace the content with your own.
+
+For permissions or questions, contact: prakash.poudel@varicon.com.au

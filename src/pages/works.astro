@@ -1,0 +1,71 @@
+---
+import SiteShell from "~/layouts/SiteShell.astro";
+import ScrollReveal from "~/components/motion/ScrollReveal.astro";
+import { headTitle } from "~/data/site";
+import { portfolios, portfolioFilters } from "~/data/portfolios";
+---
+
+<SiteShell title={headTitle.worksTitle}>
+  <section class="bg-surface-base pt-40 pb-12">
+    <div class="mx-auto max-w-7xl px-6 lg:px-12">
+      <p class="eyebrow mb-3">Works</p>
+      <h1 class="text-display-lg text-strong max-w-2xl">A selection of recent projects.</h1>
+    </div>
+  </section>
+
+  <section class="bg-surface-base pb-24">
+    <div class="mx-auto max-w-7xl px-6 lg:px-12">
+      <div class="flex flex-wrap gap-2 mb-10" id="portfolio-filter" role="tablist">
+        <button type="button" data-filter="all" class="chip is-active" role="tab">All</button>
+        {portfolioFilters.map((f) => (
+          <button type="button" data-filter={f.value} class="chip" role="tab">{f.title}</button>
+        ))}
+      </div>
+
+      <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3" id="portfolio-grid">
+        {portfolios.map((p, i) => (
+          <ScrollReveal delay={50 * (i % 6)}>
+            <article
+              class="portfolio-item card-interactive rounded-lg overflow-hidden bg-surface-raised shadow-md h-full flex flex-col"
+              data-filters={p.filters.join(" ")}
+            >
+              <figure class="aspect-[4/3] overflow-hidden">
+                <img src={p.coverimage} alt={p.title} class="h-full w-full object-cover transition-transform duration-slow ease-out-quad hover:scale-[1.03]" />
+              </figure>
+              <div class="p-5 flex-1 flex flex-col">
+                <h3 class="text-h3 text-strong">{p.title}</h3>
+                <p class="text-body-sm text-muted mt-1">{p.subtitle}</p>
+                {p.url && (
+                  <a href={p.url} target="_blank" rel="noopener" class="mt-auto pt-4 link-underline text-accent-700 font-semibold">View →</a>
+                )}
+              </div>
+            </article>
+          </ScrollReveal>
+        ))}
+      </div>
+    </div>
+  </section>
+</SiteShell>
+
+<script>
+  const init = () => {
+    const grid = document.getElementById("portfolio-grid");
+    const buttons = document.querySelectorAll<HTMLButtonElement>("#portfolio-filter button");
+    if (!grid || !buttons.length) return;
+    const setActive = (active: HTMLButtonElement) => {
+      buttons.forEach((b) => b.classList.toggle("is-active", b === active));
+    };
+    buttons.forEach((btn) =>
+      btn.addEventListener("click", () => {
+        setActive(btn);
+        const f = btn.dataset.filter;
+        grid.querySelectorAll<HTMLElement>(".portfolio-item").forEach((item) => {
+          const filters = (item.dataset.filters ?? "").split(" ");
+          item.style.display = f === "all" || filters.includes(f ?? "") ? "" : "none";
+        });
+      }),
+    );
+  };
+  init();
+  document.addEventListener("astro:page-load", init);
+</script>

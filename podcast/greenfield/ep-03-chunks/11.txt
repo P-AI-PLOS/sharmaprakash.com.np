@@ -1,0 +1,5 @@
+Isolated attention. That's what subagents are for.
+
+The import-organizer was the wrong job for a subagent. The deprecated-migrator was exactly the right job.
+
+The artifact shape is the same. The fit is what differs.

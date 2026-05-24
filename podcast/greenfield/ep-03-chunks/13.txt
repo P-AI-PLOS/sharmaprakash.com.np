@@ -1,0 +1,9 @@
+The agent stack is a series of layers of increasing cost and capability. And your job is to land each rule... on the cheapest layer that holds it.
+
+Five categories. Four questions. One Prettier config that should not be a subagent.
+
+That's the field guide.
+
+Memorize the categories. Ask the four questions before you commit any new file in .claude/. And give yourself permission to delete the things that aren't earning their tokens.
+
+The import-organizer deletion was the best commit I made that month.

@@ -1,0 +1,32 @@
+export const clientReview = [
+  {
+    id: 1,
+    name: "Brent Holland",
+    designation: "CEO, Leapfrog",
+    meta: "Client - Intelliante.com",
+    givenreview: 5.0,
+    image: "/images/client/brent.jpeg",
+    featuredText: "Prakash and the Truemark team stand above every engineering team I've worked with over the last 25 years. If you can partner with Prakash, you will not regret it.",
+    text: "Prakash is a magnificent engineer, entrepreneur, and business partner. Over the last 1.5 years, he and his team built the infrastructure for an HR Tech startup. We have established an excellent working relationship during this time due to his commitment to honesty, transparency, and follow-through. Prakash and the Truemark team stand above every engineering team I've worked with over the last 25 years. If you can partner with Prakash, you will not regret it. I highly recommend him.",
+  },
+  {
+    id: 2,
+    name: "Ojash Dahal",
+    designation: "CEO, Leapfrog",
+    meta: "Software Engineer & Photography Enthusiast",
+    givenreview: 4.2,
+    image: "/images/client/ojash.jpeg",
+    featuredText: "I have seen him progress from Trainee to Technical Project Manager. He is an excellent software developer, very enthusiastic, a quick learner, and someone with excellent problem solving skills.",
+    text: "I had worked with Prakash from the start of his Career at Leapfrog Technology. During that time I have seen him progress from Trainee to a Technical Project Manager. He is an excellent software developer, very enthusiastic person and a quick learner. During my time with him he was involved in project with different technologies and different languages, regardless of the technological differences he was able perform very well in every one of them. He also proved his excellence in his people skills by leading and managing a team of developers.<br/> In one sentence I would describe him as a charming and ambitious person with excellent problem solving skills and without a doubt a great friend. He would be a great addition to any team.",
+  },
+  {
+    id: 3,
+    name: "Anton Huges",
+    designation: "CEO, Leapfrog",
+    meta: "Owner - Price Insight",
+    givenreview: 4.2,
+    image: "/images/client/anton.jpg",
+    featuredText: "Prakash is really easy to work with, and has a good understanding of react-native and javascript. I hope to work with him again one day.",
+    text: "Prakash is really easy to work with, and has a good understanding of react-native and javascript. I hope to work with him again one day.",
+  },
+];

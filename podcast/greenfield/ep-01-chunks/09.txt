@@ -1,0 +1,13 @@
+But hooks have a limit. Hooks can only catch what grep can catch. Which brings us to...
+
+Trigger three. The subagent.
+
+A subagent is a specialist. It's a small markdown file in .claude/agents/ with a system prompt that says: you are a read-only type-safety auditor. Scan this module. Look for any usage. Missing return types. Untyped API responses. Return a report.
+
+The parent agent — the one you're chatting with — delegates to it. The subagent runs in its own context window. Reads thirty files. Comes back with a two-hundred-word report.
+
+The parent never had to load those thirty files. The user never had to manage that context.
+
+What hooks can't do... subagents can. Hooks grep. Subagents reason.
+
+Is this any here actually necessary? Or did the agent give up? A hook can't tell you. A subagent can.

@@ -1,0 +1,17 @@
+Deterministic. Free per run. Catches what grep can catch.
+
+Four. The subagent.
+
+A markdown file in .claude/agents/ with a system prompt for a specialist worker. The parent agent delegates. The subagent runs in its own context window. It returns a report.
+
+Reads code. Forms an opinion. Costs tokens.
+
+Five. The skill.
+
+A markdown file in .claude/commands/. A slash command. The user-facing surface.
+
+The teammate types /migrate-list Orders, and the right workflow fires. Loads the right prompt. Invokes the right subagent. Runs the right checks.
+
+[short pause]
+
+Five categories. Each one shaped for a specific kind of job.

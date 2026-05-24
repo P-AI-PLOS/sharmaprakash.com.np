@@ -1,0 +1,17 @@
+It's a Tuesday afternoon. I'm reviewing a pull request from my own agent... and there it is again.
+
+Line forty-two.
+
+import Button from 'components/atoms'.
+
+A barrel import. The third time this week.
+
+[sighs]
+
+I'd told it. I'd told it on Monday. I'd told it on the Friday before. I'd written it in CLAUDE md — no barrel imports, use the specific path — in bold, with an example, with a counter-example, with a little ASCII arrow pointing at the right shape.
+
+And here we are again. Line forty-two. Same import. Same agent. Same correction I'd typed... maybe forty times that month, if you counted across every session and every teammate.
+
+That was the moment, I think.
+
+The moment I stopped pretending the problem was the model.

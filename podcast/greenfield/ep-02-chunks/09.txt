@@ -1,0 +1,11 @@
+That's not a job for a prompt. That's not a job for a hook. That is, specifically and exactly... the job a subagent is shaped for.
+
+[short pause]
+
+The other thing subagents are uniquely good at — isolated context.
+
+The subagent reads thirty files. The parent sees only the report. You preserve the parent's context window for the actual user-facing work.
+
+Without subagents, every audit pollutes the main thread with thirty file reads and the agent's working notes. And pretty soon... the parent has no room left to think.
+
+Subagents are how you keep the main conversation small.

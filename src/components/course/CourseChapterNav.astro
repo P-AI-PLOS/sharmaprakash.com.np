@@ -1,0 +1,119 @@
+---
+import type { ResolvedChapter } from "~/utils/courses";
+import { chapterUrl, courseUrl } from "~/utils/courses";
+
+interface Props {
+  courseSlug: string;
+  current: ResolvedChapter;
+  prev?: ResolvedChapter;
+  next?: ResolvedChapter;
+  totalChapters: number;
+  /** Override per-chapter link target. Defaults to the canonical /course/ URL. */
+  chapterHref?: (chapter: ResolvedChapter) => string;
+  /** Override the overview link (back-to-overview after completion). */
+  overviewHref?: string;
+}
+
+const { courseSlug, current, prev, next, totalChapters, chapterHref, overviewHref } = Astro.props;
+const linkFor = (ch: ResolvedChapter) =>
+  chapterHref ? chapterHref(ch) : chapterUrl(courseSlug, ch.slug);
+const overviewUrl = overviewHref ?? courseUrl(courseSlug);
+---
+
+<nav
+  class="course-chapter-nav mt-12 border-t border-divider pt-8"
+  data-course-slug={courseSlug}
+  data-chapter-slug={current.slug}
+  data-next-slug={next?.slug ?? ""}
+  data-next-url={next ? linkFor(next) : ""}
+  data-course-url={overviewUrl}
+  data-total-chapters={totalChapters}
+>
+  <div
+    class="course-complete-banner hidden mb-6 rounded-lg border border-accent-600 bg-accent-50 px-5 py-4 text-strong"
+    data-course-complete-banner
+    role="status"
+    aria-live="polite"
+  >
+    <p class="text-h5 font-semibold">🎉 Course complete</p>
+    <p class="mt-1 text-body text-muted">
+      You finished every chapter. <a class="link-underline" data-course-overview>Back to course overview →</a>
+    </p>
+  </div>
+
+  <div class="flex flex-col sm:flex-row gap-4 items-stretch sm:items-center justify-between">
+    {prev ? (
+      <a href={linkFor(prev)} class="btn btn-ghost flex-1 sm:flex-none">
+        <span>← {prev.label}</span>
+      </a>
+    ) : <span class="flex-1 sm:flex-none" />}
+
+    <button
+      type="button"
+      class="btn btn-primary"
+      data-course-complete-toggle
+    >
+      <span data-label-incomplete>{next ? "Mark complete & continue" : "Mark complete"}</span>
+      <span data-label-complete class="hidden">✓ Completed</span>
+    </button>
+
+    {next ? (
+      <a href={linkFor(next)} class="btn btn-ghost flex-1 sm:flex-none text-right">
+        <span>{next.label} →</span>
+      </a>
+    ) : <span class="flex-1 sm:flex-none" />}
+  </div>
+</nav>
+
+<script>
+  import { readProgress, toggleComplete, onProgressChange } from "~/scripts/course-progress";
+
+  const wire = () => {
+    document.querySelectorAll<HTMLElement>(".course-chapter-nav").forEach((nav) => {
+      if (nav.dataset.wired === "1") return;
+      const courseSlug = nav.dataset.courseSlug;
+      const chapterSlug = nav.dataset.chapterSlug;
+      const nextUrl = nav.dataset.nextUrl || "";
+      const courseHref = nav.dataset.courseUrl || "";
+      const total = Number(nav.dataset.totalChapters || "0");
+      const btn = nav.querySelector<HTMLButtonElement>("[data-course-complete-toggle]");
+      const banner = nav.querySelector<HTMLElement>("[data-course-complete-banner]");
+      const overviewLink = nav.querySelector<HTMLAnchorElement>("[data-course-overview]");
+      if (!courseSlug || !chapterSlug || !btn) return;
+      if (overviewLink && courseHref) overviewLink.href = courseHref;
+      nav.dataset.wired = "1";
+
+      const sync = () => {
+        const done = readProgress(courseSlug).includes(chapterSlug);
+        btn.querySelector<HTMLElement>("[data-label-incomplete]")?.classList.toggle("hidden", done);
+        btn.querySelector<HTMLElement>("[data-label-complete]")?.classList.toggle("hidden", !done);
+        btn.setAttribute("aria-pressed", done ? "true" : "false");
+
+        const completed = readProgress(courseSlug).length;
+        const allDone = total > 0 && completed >= total;
+        banner?.classList.toggle("hidden", !allDone);
+      };
+
+      btn.addEventListener("click", () => {
+        const before = readProgress(courseSlug).includes(chapterSlug);
+        toggleComplete(courseSlug, chapterSlug);
+        const after = readProgress(courseSlug).includes(chapterSlug);
+        // Auto-advance when newly marking complete and a next chapter exists.
+        if (!before && after && nextUrl) {
+          window.location.href = nextUrl;
+          return;
+        }
+        sync();
+      });
+
+      onProgressChange((detail) => {
+        if (detail.slug === courseSlug) sync();
+      });
+
+      sync();
+    });
+  };
+
+  wire();
+  document.addEventListener("astro:page-load", wire);
+</script>

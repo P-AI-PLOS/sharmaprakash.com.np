@@ -1,0 +1,257 @@
+/* @theme sharmaprakash
+ *
+ * Marp theme for sharmaprakash.com.np presentation decks.
+ *
+ * Mirrors the site design tokens. Editable copies live in src/styles/tokens.css —
+ * if you change a token there, mirror the relevant ones in the :root block below
+ * (Marp CSS is rendered standalone and can't import the site stylesheet).
+ */
+
+:root {
+  --ink-50: #F8FAFC;
+  --ink-100: #F1F5F9;
+  --ink-200: #E2E8F0;
+  --ink-500: #64748B;
+  --ink-700: #334155;
+  --ink-900: #0F172A;
+
+  --accent-500: #F59E0B;
+  --accent-600: #D97706;
+  --accent-700: #B45309;
+
+  --font-ui: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-serif: "Source Serif 4", Georgia, "Times New Roman", serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+section {
+  width: 1280px;
+  height: 720px;
+  padding: 80px 96px;
+  font-family: var(--font-ui);
+  font-size: 28px;
+  line-height: 1.5;
+  color: var(--ink-700);
+  background: var(--ink-50);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+section.lead {
+  justify-content: center;
+  text-align: left;
+  background: var(--ink-900);
+  color: var(--ink-50);
+}
+
+section.lead h1 {
+  font-size: 72px;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  color: var(--ink-50);
+  margin-bottom: 16px;
+}
+
+section.lead h2,
+section.lead p {
+  color: var(--ink-200);
+}
+
+section.lead strong { color: var(--ink-50); }
+section.lead a { color: var(--accent-500); }
+
+section h1 {
+  font-size: 56px;
+  line-height: 1.1;
+  letter-spacing: -0.015em;
+  color: var(--ink-900);
+  margin: 0 0 24px;
+}
+
+section h2 {
+  font-size: 36px;
+  line-height: 1.2;
+  color: var(--ink-900);
+  margin: 0 0 16px;
+}
+
+section h3 {
+  font-size: 28px;
+  color: var(--ink-900);
+  margin: 0 0 12px;
+}
+
+section p,
+section li {
+  font-size: 28px;
+  margin: 0 0 12px;
+}
+
+section strong { color: var(--ink-900); }
+section em { color: var(--accent-700); font-style: normal; }
+
+section a {
+  color: var(--accent-700);
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 4px;
+}
+
+section ul,
+section ol {
+  padding-left: 1.25em;
+  margin: 0 0 16px;
+}
+
+section ul li::marker { color: var(--accent-600); }
+
+section blockquote {
+  border-left: 4px solid var(--accent-600);
+  padding-left: 20px;
+  font-family: var(--font-serif);
+  font-style: italic;
+  color: var(--ink-700);
+  margin: 0 0 16px;
+}
+
+section code {
+  font-family: var(--font-mono);
+  font-size: 0.85em;
+  background: var(--ink-100);
+  color: var(--ink-900);
+  padding: 0.1em 0.35em;
+  border-radius: 4px;
+}
+
+section pre {
+  background: var(--ink-900);
+  color: var(--ink-100);
+  padding: 20px 24px;
+  border-radius: 8px;
+  font-family: var(--font-mono);
+  font-size: 22px;
+  line-height: 1.5;
+  overflow: hidden;
+  margin: 0 0 16px;
+}
+
+section pre code {
+  background: transparent;
+  color: inherit;
+  padding: 0;
+  font-size: inherit;
+}
+
+section hr {
+  border: none;
+  border-top: 1px solid var(--ink-200);
+  margin: 24px 0;
+}
+
+section table {
+  border-collapse: collapse;
+  font-size: 24px;
+}
+
+section th,
+section td {
+  border-bottom: 1px solid var(--ink-200);
+  padding: 8px 16px;
+  text-align: left;
+}
+
+section th { color: var(--ink-900); }
+
+section::after {
+  font-family: var(--font-ui);
+  color: var(--ink-500);
+  font-size: 16px;
+}
+
+section footer {
+  font-size: 14px;
+  color: var(--ink-500);
+}
+
+section header {
+  font-size: 14px;
+  color: var(--ink-500);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+/* A subtle accent rule under titles on non-lead slides. */
+section:not(.lead) h1::after,
+section:not(.lead) h2::after {
+  content: "";
+  display: block;
+  width: 64px;
+  height: 3px;
+  background: var(--accent-600);
+  margin-top: 12px;
+}
+
+/* View Transitions API — tighter timing than Marp's ~500ms default. */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 280ms;
+  animation-timing-function: cubic-bezier(0.2, 0, 0, 1);
+}
+
+/* Per-element transitions. Names must be unique in the live DOM, so we
+ * scope them to the currently-visible slide (bespoke adds .bespoke-marp-active).
+ * Result: titles morph between slides, code/tables crossfade on their own
+ * timing instead of smearing as part of the whole-slide snapshot. */
+section.bespoke-marp-active h1 { view-transition-name: deck-title; }
+section.bespoke-marp-active h2 { view-transition-name: deck-heading; }
+section.bespoke-marp-active pre { view-transition-name: deck-code; }
+section.bespoke-marp-active table { view-transition-name: deck-table; }
+section.bespoke-marp-active blockquote { view-transition-name: deck-quote; }
+
+/* Heading morph: snappier than body; same easing. */
+::view-transition-old(deck-title),
+::view-transition-new(deck-title),
+::view-transition-old(deck-heading),
+::view-transition-new(deck-heading) {
+  animation-duration: 240ms;
+  animation-timing-function: cubic-bezier(0.2, 0, 0, 1);
+}
+
+/* Code blocks: linear crossfade so monospace stays legible mid-transition. */
+::view-transition-old(deck-code),
+::view-transition-new(deck-code) {
+  animation-duration: 200ms;
+  animation-timing-function: linear;
+}
+
+/* Tables: slightly slower fade so rows don't smear. */
+::view-transition-old(deck-table),
+::view-transition-new(deck-table) {
+  animation-duration: 320ms;
+  animation-timing-function: cubic-bezier(0.2, 0, 0, 1);
+}
+
+/* Blockquotes: ease-out for a calmer settle. */
+::view-transition-old(deck-quote),
+::view-transition-new(deck-quote) {
+  animation-duration: 280ms;
+  animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important; }
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
+  }
+  /* Drop per-element names too so the API doesn't pair-morph. */
+  section.bespoke-marp-active h1,
+  section.bespoke-marp-active h2,
+  section.bespoke-marp-active pre,
+  section.bespoke-marp-active table,
+  section.bespoke-marp-active blockquote {
+    view-transition-name: none;
+  }
+}

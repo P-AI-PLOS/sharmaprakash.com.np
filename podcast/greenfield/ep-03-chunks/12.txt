@@ -1,0 +1,17 @@
+[short pause]
+
+I think the broader lesson — the one I want to leave you with — is something like this.
+
+The mistake we make, when we get excited about a new layer in the stack... is treating that layer as a hammer. And looking for nails.
+
+New subagent system? Suddenly every recurring task feels like it deserves a subagent.
+
+New skills system? Suddenly we want a slash command for everything.
+
+New hook system? You'll write a hook for the same rule you've already put in CLAUDE md, and in a path-scoped rule, and in a task prompt — four layers deep — and the only one actually catching anything... is the hook.
+
+[short pause]
+
+The discipline is: pick the lightest layer that catches the rule.
+
+If CLAUDE md catches it ninety percent of the time, that might be enough. If it's not — add the hook. But don't also write a subagent for the same rule. If a regular dev tool catches it for free, that's the right layer.

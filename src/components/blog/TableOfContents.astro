@@ -1,0 +1,77 @@
+---
+/**
+ * Sticky right-column outline. Receives Astro's `getHeadings()` output.
+ * Renders H2 + H3 only. Hides itself if fewer than 3 such headings.
+ * Scroll-spy adds .is-current to the link whose target is closest to the
+ * viewport top.
+ */
+interface Heading { depth: number; slug: string; text: string }
+interface Props { headings: Heading[] }
+const { headings } = Astro.props;
+const items = headings.filter((h) => h.depth === 2 || h.depth === 3);
+const visible = items.length >= 3;
+---
+
+{visible && (
+  <>
+    <nav class="toc hidden lg:block" aria-label="Table of contents">
+      <p class="toc-title">On this page</p>
+      <ol class="list-none">
+        {items.map((h) => (
+          <li class:list={["toc-item", { "is-h3": h.depth === 3 }]}>
+            <a href={`#${h.slug}`} class="toc-link" data-toc-target={h.slug}>
+              {h.text}
+            </a>
+          </li>
+        ))}
+      </ol>
+    </nav>
+
+    <details class="toc toc-mobile lg:hidden">
+      <summary>On this page</summary>
+      <ol class="list-none mt-3">
+        {items.map((h) => (
+          <li class:list={["toc-item", { "is-h3": h.depth === 3 }]}>
+            <a href={`#${h.slug}`} class="toc-link">{h.text}</a>
+          </li>
+        ))}
+      </ol>
+    </details>
+
+    <script>
+      const init = () => {
+        const links = document.querySelectorAll<HTMLAnchorElement>(".toc-link[data-toc-target]");
+        if (!links.length) return;
+        const linkBySlug = new Map<string, HTMLAnchorElement>();
+        links.forEach((a) => linkBySlug.set(a.dataset.tocTarget!, a));
+        const targets = Array.from(linkBySlug.keys())
+          .map((slug) => document.getElementById(slug))
+          .filter((el): el is HTMLElement => !!el);
+        if (!targets.length) return;
+
+        const setCurrent = (slug: string | null) => {
+          links.forEach((a) => a.classList.remove("is-current"));
+          if (slug) linkBySlug.get(slug)?.classList.add("is-current");
+        };
+
+        const io = new IntersectionObserver(
+          (entries) => {
+            const visible = entries
+              .filter((e) => e.isIntersecting)
+              .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
+            if (visible.length) {
+              setCurrent(visible[0].target.id);
+            }
+          },
+          {
+            rootMargin: "-96px 0px -65% 0px",
+            threshold: 0,
+          },
+        );
+        targets.forEach((t) => io.observe(t));
+      };
+      init();
+      document.addEventListener("astro:page-load", init);
+    </script>
+  </>
+)}

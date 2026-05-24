@@ -1,0 +1,557 @@
+---
+import SiteShell from "~/layouts/SiteShell.astro";
+import HeroAuroraBackground from "~/components/marketing/HeroAuroraBackground.astro";
+import PrimaryNavigation from "~/components/chrome/PrimaryNavigation.astro";
+import ScrollReveal from "~/components/motion/ScrollReveal.astro";
+import { getWorkshop, workshopChapterUrl } from "~/utils/workshops";
+import { estimateReadMinutes } from "~/utils/posts";
+import { siteConfig } from "~/data/site";
+
+const WORKSHOP_SLUG = "hooks-subagents-skills";
+const workshop = await getWorkshop(WORKSHOP_SLUG);
+if (!workshop) throw new Error(`Workshop not found: ${WORKSHOP_SLUG}`);
+const { meta, chapters: labChapters } = workshop;
+const COURSE_SLUG = WORKSHOP_SLUG;
+
+const first = labChapters[0];
+const firstUrl = first ? workshopChapterUrl(first.slug) : "/workshop/";
+const pad = (n: number) => String(n + 1).padStart(2, "0");
+
+const codeFilename = (kicker: string) => {
+  if (kicker.includes("Prompt")) return ".claude/prompts/no-barrel-imports.md";
+  if (kicker.includes("Hook")) return ".claude/hooks/no-barrel-imports.sh";
+  if (kicker.includes("Subagent")) return ".claude/agents/barrel-auditor.md";
+  if (kicker.includes("Skill")) return ".claude/skills/fix-barrels.md";
+  return "snippet";
+};
+---
+
+<SiteShell
+  title={`${meta.title} · Workshop`}
+  description={meta.description}
+  image={meta.cover}
+  hideHeader
+>
+  {/* HERO */}
+  <section
+    class="ws-hero relative overflow-hidden bg-surface-inverse text-on-inverse"
+    data-course-hero
+    data-course-slug={COURSE_SLUG}
+    data-total-chapters={labChapters.length}
+  >
+    <HeroAuroraBackground />
+
+    <div class="relative z-10 mx-auto max-w-7xl px-6 lg:px-12 pt-10 lg:pt-12">
+      <header class="flex items-center justify-between gap-6">
+        <a href="/" class="font-semibold tracking-tight text-h4 text-on-inverse">{siteConfig.fullName}</a>
+        <div class="hidden lg:block">
+          <PrimaryNavigation tone="inverse" />
+        </div>
+        <a href="/workshop/" class="btn btn-secondary-inverse btn-sm hidden md:inline-flex">
+          <span>All workshops</span>
+        </a>
+      </header>
+    </div>
+
+    <div class="relative z-10 mx-auto max-w-7xl px-6 lg:px-12 pt-16 pb-20 lg:pt-24 lg:pb-28 grid lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+      <div class="lg:col-span-7">
+        <ScrollReveal>
+          <p class="eyebrow text-accent-500">
+            Workshop · {labChapters.length} chapters · {meta.durationLabel} · free, self-paced
+          </p>
+        </ScrollReveal>
+        <ScrollReveal delay={80}>
+          <h1 class="text-display-lg lg:text-display-xl text-on-inverse mt-5 tracking-tight">
+            {meta.tagline ?? meta.title}
+          </h1>
+        </ScrollReveal>
+        <ScrollReveal delay={160}>
+          <p class="mt-6 text-body-lg text-on-inverse-muted max-w-xl">
+            Encode the rule once. A <span class="text-accent-500 font-semibold">prompt</span> to write it down.
+            A <span class="text-accent-500 font-semibold">hook</span> to block the diff.
+            A <span class="text-accent-500 font-semibold">subagent</span> to audit the rest of the repo.
+            A <span class="text-accent-500 font-semibold">skill</span> to name the workflow.
+            By the end you've shipped all four against a planted bug — and ported the pattern to a rule you actually repeat.
+          </p>
+        </ScrollReveal>
+
+        <ScrollReveal delay={240} class="mt-10 flex flex-wrap items-center gap-4">
+          <a
+            href={firstUrl}
+            class="btn btn-primary btn-lg"
+            data-course-start-link
+            data-first-url={firstUrl}
+          >
+            <span data-course-start-label>Start the workshop →</span>
+          </a>
+          <a href="#syllabus" class="btn btn-secondary-inverse">
+            <span>See the syllabus</span>
+          </a>
+        </ScrollReveal>
+
+        <ScrollReveal delay={320} class="mt-12 max-w-md">
+          <div class="flex items-center justify-between gap-3 mb-2 text-caption text-on-inverse-muted">
+            <span data-course-progress-label>0 of {labChapters.length} complete</span>
+            <span data-course-progress-percent class="font-mono">0%</span>
+          </div>
+          <div class="ws-bar h-1.5 w-full overflow-hidden rounded-full" aria-hidden="true">
+            <div
+              class="h-full bg-accent-500 transition-[width] duration-300"
+              data-course-progress-fill
+              style="width: 0%"
+            ></div>
+          </div>
+          <button
+            type="button"
+            class="btn btn-secondary-inverse btn-sm hidden mt-4"
+            data-course-reset
+          >
+            Reset progress
+          </button>
+        </ScrollReveal>
+      </div>
+
+      {meta.cover && (
+        <ScrollReveal delay={200} class="lg:col-span-5">
+          <figure class="ws-hero-cover aspect-[4/3] overflow-hidden rounded-xl">
+            <img src={meta.cover} alt={meta.title} class="h-full w-full object-cover" />
+          </figure>
+        </ScrollReveal>
+      )}
+    </div>
+  </section>
+
+  {/* PROBLEM */}
+  {meta.problem && (
+    <section class="bg-surface-base py-24 lg:py-28">
+      <div class="mx-auto max-w-3xl px-6 lg:px-12">
+        <ScrollReveal>
+          <p class="eyebrow mb-5">The pattern this fixes</p>
+          <p class="text-h2 text-strong leading-snug font-semibold">
+            {meta.problem}
+          </p>
+        </ScrollReveal>
+      </div>
+    </section>
+  )}
+
+  {/* WHAT YOU'LL BUILD */}
+  {meta.build && (
+    <section class="bg-surface-sunken py-24 lg:py-28 border-t border-default">
+      <div class="mx-auto max-w-7xl px-6 lg:px-12">
+        <ScrollReveal>
+          <p class="eyebrow mb-3">What you'll build</p>
+          <h2 class="text-h1 text-strong max-w-2xl tracking-tight">
+            Four artifacts. One bug. One workflow.
+          </h2>
+          <p class="mt-4 text-body-lg text-muted max-w-reading">
+            Each lab ends with a working snippet you can paste into your own repo. These are the four you'll ship.
+          </p>
+        </ScrollReveal>
+
+        <div class="mt-14 grid grid-cols-1 lg:grid-cols-3 gap-6">
+          {meta.build.map((item, i) => (
+            <ScrollReveal delay={Math.min(i, 4) * 80}>
+              <article class="ws-build-card h-full flex flex-col bg-surface-base rounded-xl border border-default overflow-hidden">
+                <div class="p-6 lg:p-7 flex-1 flex flex-col">
+                  <p class="eyebrow text-accent-700">{item.kicker}</p>
+                  <h3 class="mt-3 text-h3 text-strong">{item.title}</h3>
+                  <p class="mt-3 text-body text-muted">{item.outcome}</p>
+                </div>
+                <div class="ws-code">
+                  <div class="ws-code-head">
+                    <span class="ws-code-dot" aria-hidden="true"></span>
+                    <span class="ws-code-dot" aria-hidden="true"></span>
+                    <span class="ws-code-dot" aria-hidden="true"></span>
+                    <span class="ws-code-name font-mono">{codeFilename(item.kicker)}</span>
+                  </div>
+                  <pre class="ws-code-body font-mono"><code>{item.code}</code></pre>
+                </div>
+              </article>
+            </ScrollReveal>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  {/* SYLLABUS */}
+  <section id="syllabus" class="bg-surface-base py-24 lg:py-28 border-t border-default">
+    <div class="mx-auto max-w-4xl px-6 lg:px-12">
+      <ScrollReveal>
+        <p class="eyebrow mb-3">Syllabus</p>
+        <h2 class="text-h1 text-strong tracking-tight">
+          Six chapters. Build forward.
+        </h2>
+        <p class="mt-4 text-body-lg text-muted max-w-reading">
+          Each chapter is a written lab with a working snippet at the end. Your progress is stored in this browser — resume any time.
+        </p>
+      </ScrollReveal>
+
+      <ol
+        class="list-none mt-14 grid grid-cols-1 gap-3"
+        data-course-chapter-list
+        data-course-slug={COURSE_SLUG}
+      >
+        {labChapters.map((ch, i) => {
+          const minutes = estimateReadMinutes(ch.post.body);
+          return (
+            <ScrollReveal delay={Math.min(i, 4) * 40} as="li">
+              <a
+                href={`/workshop/${ch.slug}/`}
+                data-chapter-slug={ch.slug}
+                class="card-interactive group block bg-surface-raised rounded-lg p-5 lg:p-6 border border-default"
+              >
+                <div class="grid grid-cols-[auto_1fr_auto] gap-5 items-center">
+                  <span class="text-h2 font-bold text-accent-700 leading-none course-num">{pad(i)}</span>
+                  <div class="min-w-0">
+                    <h3 class="text-h4 text-strong group-hover:text-accent-700 transition-colors">
+                      {ch.label}
+                    </h3>
+                    {ch.post.data.excerpt && (
+                      <p class="mt-2 text-body text-muted line-clamp-2 max-w-reading">{ch.post.data.excerpt}</p>
+                    )}
+                    <div class="mt-2 text-caption text-faint">
+                      {minutes} min
+                    </div>
+                  </div>
+                  <span class="course-check text-accent-600 text-h3 hidden" aria-hidden="true">✓</span>
+                </div>
+              </a>
+            </ScrollReveal>
+          );
+        })}
+      </ol>
+    </div>
+  </section>
+
+  {/* WHO IT'S FOR / NOT FOR */}
+  {meta.audience && (
+    <section class="bg-surface-sunken py-24 lg:py-28 border-t border-default">
+      <div class="mx-auto max-w-5xl px-6 lg:px-12">
+        <ScrollReveal>
+          <p class="eyebrow mb-3">Audience check</p>
+          <h2 class="text-h1 text-strong tracking-tight">Is this for you?</h2>
+        </ScrollReveal>
+        <div class="mt-14 grid md:grid-cols-2 gap-10 lg:gap-16">
+          <ScrollReveal>
+            <p class="eyebrow text-accent-700 mb-5">Yes if</p>
+            <ul class="space-y-5">
+              {meta.audience.for.map((line) => (
+                <li class="flex gap-3 text-body text-default">
+                  <span class="text-accent-600 font-bold leading-tight pt-0.5 shrink-0" aria-hidden="true">→</span>
+                  <span>{line}</span>
+                </li>
+              ))}
+            </ul>
+          </ScrollReveal>
+          <ScrollReveal delay={120}>
+            <p class="eyebrow text-muted mb-5">Probably not if</p>
+            <ul class="space-y-5">
+              {meta.audience.notFor.map((line) => (
+                <li class="flex gap-3 text-body text-muted">
+                  <span class="text-faint font-bold leading-tight pt-0.5 shrink-0" aria-hidden="true">✕</span>
+                  <span>{line}</span>
+                </li>
+              ))}
+            </ul>
+          </ScrollReveal>
+        </div>
+      </div>
+    </section>
+  )}
+
+  {/* PREREQS */}
+  {meta.prereqs && (
+    <section class="bg-surface-base py-24 lg:py-28 border-t border-default">
+      <div class="mx-auto max-w-4xl px-6 lg:px-12">
+        <ScrollReveal>
+          <p class="eyebrow mb-3">Before you start</p>
+          <h2 class="text-h1 text-strong tracking-tight">Prerequisites</h2>
+        </ScrollReveal>
+        <dl class="mt-14 grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-10">
+          {meta.prereqs.map((item, i) => (
+            <ScrollReveal delay={Math.min(i, 4) * 40}>
+              <dt class="text-h4 text-strong">{item.title}</dt>
+              <dd class="mt-2 text-body text-muted">{item.why}</dd>
+            </ScrollReveal>
+          ))}
+        </dl>
+      </div>
+    </section>
+  )}
+
+  {/* FAQ */}
+  {meta.faq && (
+    <section class="bg-surface-sunken py-24 lg:py-28 border-t border-default">
+      <div class="mx-auto max-w-3xl px-6 lg:px-12">
+        <ScrollReveal>
+          <p class="eyebrow mb-3">Questions</p>
+          <h2 class="text-h1 text-strong tracking-tight">FAQ</h2>
+        </ScrollReveal>
+        <div class="ws-faq mt-12">
+          {meta.faq.map((item, i) => (
+            <ScrollReveal delay={Math.min(i, 4) * 40}>
+              <details class="ws-faq-item group">
+                <summary class="ws-faq-summary">
+                  <span class="text-h4 text-strong">{item.q}</span>
+                  <span class="ws-faq-icon" aria-hidden="true">+</span>
+                </summary>
+                <p class="mt-3 text-body text-muted max-w-reading">{item.a}</p>
+              </details>
+            </ScrollReveal>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  {/* RELATED READING (links into the blog) */}
+  {meta.relatedReading && meta.relatedReading.length > 0 && (
+    <section class="bg-surface-base py-24 lg:py-28 border-t border-default">
+      <div class="mx-auto max-w-4xl px-6 lg:px-12">
+        <ScrollReveal>
+          <p class="eyebrow mb-3">Concept reading</p>
+          <h2 class="text-h1 text-strong tracking-tight">The essays behind the labs</h2>
+          <p class="mt-4 text-body-lg text-muted max-w-reading">
+            The trilogy that explains each layer in depth — read whichever you want to ground first. They live on the blog; the workshop turns them into reps.
+          </p>
+        </ScrollReveal>
+        <ul class="mt-12 grid grid-cols-1 sm:grid-cols-2 gap-4">
+          {meta.relatedReading.map((item, i) => (
+            <ScrollReveal delay={Math.min(i, 4) * 40} as="li">
+              <a
+                href={item.href}
+                class="card-interactive group block bg-surface-raised border border-default rounded-lg p-5 lg:p-6 h-full"
+              >
+                <p class="text-h4 text-strong group-hover:text-accent-700 transition-colors">
+                  {item.label}
+                </p>
+                {item.blurb && (
+                  <p class="mt-2 text-body text-muted">{item.blurb}</p>
+                )}
+                <p class="mt-3 text-caption text-accent-700 font-semibold link-underline inline-block">
+                  Read the essay →
+                </p>
+              </a>
+            </ScrollReveal>
+          ))}
+        </ul>
+      </div>
+    </section>
+  )}
+
+  {/* FINAL CTA */}
+  <section class="relative overflow-hidden bg-surface-inverse text-on-inverse py-24 lg:py-32">
+    <HeroAuroraBackground />
+    <div class="relative z-10 mx-auto max-w-3xl px-6 lg:px-12 text-center">
+      <ScrollReveal>
+        <p class="eyebrow text-accent-500 mb-4">Your turn</p>
+        <h2 class="text-display-lg lg:text-display-xl text-on-inverse tracking-tight">
+          Ready to encode the rule?
+        </h2>
+        <p class="mt-6 text-body-lg text-on-inverse-muted max-w-reading mx-auto">
+          ~90 minutes from clone to capstone. Bring a terminal and the rule you keep repeating.
+        </p>
+        <div class="mt-10 flex justify-center">
+          <a
+            href={firstUrl}
+            class="btn btn-primary btn-lg"
+            data-course-start-link
+            data-first-url={firstUrl}
+          >
+            <span data-course-start-label>Start the workshop →</span>
+          </a>
+        </div>
+      </ScrollReveal>
+    </div>
+  </section>
+</SiteShell>
+
+<style>
+  .ws-hero {
+    isolation: isolate;
+  }
+  .ws-hero-cover {
+    background: var(--ink-800);
+    box-shadow: var(--shadow-lg, 0 20px 50px rgba(0, 0, 0, 0.35));
+    border: 1px solid color-mix(in oklab, white, transparent 92%);
+  }
+  .ws-bar {
+    background: color-mix(in oklab, white, transparent 88%);
+  }
+
+  .ws-build-card {
+    transition: transform var(--dur-slow) var(--ease-out-expo),
+                box-shadow var(--dur-slow) var(--ease-out-expo);
+  }
+  .ws-build-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md, 0 8px 24px rgba(15, 23, 42, 0.08));
+  }
+
+  .ws-code {
+    background: var(--code-bg, var(--ink-900));
+    color: var(--code-fg, var(--ink-100));
+    border-top: 1px solid color-mix(in oklab, white, transparent 92%);
+  }
+  .ws-code-head {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 14px;
+    background: var(--code-bg-raised, var(--ink-800));
+    border-bottom: 1px solid color-mix(in oklab, white, transparent 92%);
+  }
+  .ws-code-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 999px;
+    background: color-mix(in oklab, white, transparent 80%);
+  }
+  .ws-code-dot:nth-child(1) { background: #ff5f57; }
+  .ws-code-dot:nth-child(2) { background: #febc2e; }
+  .ws-code-dot:nth-child(3) { background: #28c840; }
+  .ws-code-name {
+    margin-left: 8px;
+    font-size: 12px;
+    color: color-mix(in oklab, white, transparent 40%);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .ws-code-body {
+    margin: 0;
+    padding: 16px 18px;
+    font-size: 12.5px;
+    line-height: 1.65;
+    overflow-x: auto;
+    white-space: pre;
+  }
+
+  .ws-faq {
+    border-top: 1px solid var(--border-default);
+  }
+  .ws-faq-item {
+    border-bottom: 1px solid var(--border-default);
+  }
+  .ws-faq-summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 20px 0;
+    cursor: pointer;
+    list-style: none;
+  }
+  .ws-faq-summary::-webkit-details-marker {
+    display: none;
+  }
+  .ws-faq-icon {
+    color: var(--accent-600);
+    font-size: 22px;
+    line-height: 1;
+    transition: transform 200ms var(--ease-out-expo);
+  }
+  .ws-faq-item[open] .ws-faq-icon {
+    transform: rotate(45deg);
+  }
+  .ws-faq-item > p {
+    padding-bottom: 20px;
+  }
+</style>
+
+<script>
+  import { readProgress, resetProgress, onProgressChange } from "~/scripts/course-progress";
+
+  const findNextChapter = (list: HTMLElement, completed: string[]): HTMLElement | null => {
+    const items = Array.from(list.querySelectorAll<HTMLElement>("[data-chapter-slug]"));
+    return items.find((item) => {
+      const s = item.dataset.chapterSlug;
+      return s && !completed.includes(s);
+    }) ?? null;
+  };
+
+  const apply = () => {
+    const list = document.querySelector<HTMLElement>("[data-course-chapter-list]");
+    const courseSlug = list?.dataset.courseSlug;
+    if (!list || !courseSlug) return;
+    const validSlugs = new Set(
+      Array.from(list.querySelectorAll<HTMLElement>("[data-chapter-slug]")).map((el) => el.dataset.chapterSlug),
+    );
+    const total = validSlugs.size;
+    const done = readProgress(courseSlug);
+    const valid = done.filter((s) => validSlugs.has(s));
+    const count = valid.length;
+    const pct = total > 0 ? Math.round((count / total) * 100) : 0;
+    const allDone = count >= total && total > 0;
+
+    list.querySelectorAll<HTMLElement>("[data-chapter-slug]").forEach((item) => {
+      const checked = valid.includes(item.dataset.chapterSlug ?? "");
+      item.querySelector<HTMLElement>(".course-check")?.classList.toggle("hidden", !checked);
+      item.querySelector<HTMLElement>(".course-num")?.classList.toggle("opacity-40", checked);
+    });
+
+    document.querySelectorAll<HTMLElement>("[data-course-hero]").forEach((hero) => {
+      hero.querySelectorAll<HTMLElement>("[data-course-progress-label]").forEach((el) => {
+        el.textContent = `${count} of ${total} complete`;
+      });
+      hero.querySelectorAll<HTMLElement>("[data-course-progress-percent]").forEach((el) => {
+        el.textContent = `${pct}%`;
+      });
+      hero.querySelectorAll<HTMLElement>("[data-course-progress-fill]").forEach((el) => {
+        el.style.width = `${pct}%`;
+      });
+      hero.querySelectorAll<HTMLButtonElement>("[data-course-reset]").forEach((btn) => {
+        btn.classList.toggle("hidden", count === 0);
+      });
+    });
+
+    document.querySelectorAll<HTMLAnchorElement>("[data-course-start-link]").forEach((startLink) => {
+      const startLabel = startLink.querySelector<HTMLElement>("[data-course-start-label]");
+      const firstUrl = startLink.dataset.firstUrl || startLink.getAttribute("href") || "";
+      if (!startLabel) return;
+      if (count === 0) {
+        startLink.href = firstUrl;
+        startLabel.textContent = "Start the workshop →";
+      } else if (allDone) {
+        startLink.href = firstUrl;
+        startLabel.textContent = "Review from the start →";
+      } else {
+        const next = findNextChapter(list, valid);
+        startLink.href = next?.getAttribute("href") || firstUrl;
+        startLabel.textContent = "Resume the workshop →";
+      }
+    });
+  };
+
+  const bindReset = () => {
+    document.querySelectorAll<HTMLButtonElement>("[data-course-reset]").forEach((btn) => {
+      if (btn.dataset.wired === "1") return;
+      btn.dataset.wired = "1";
+      btn.addEventListener("click", () => {
+        const hero = btn.closest<HTMLElement>("[data-course-hero]");
+        const slug = hero?.dataset.courseSlug;
+        if (!slug) return;
+        if (!confirm("Reset your progress for this workshop?")) return;
+        resetProgress(slug);
+      });
+    });
+  };
+
+  let bound = false;
+  const init = () => {
+    apply();
+    bindReset();
+    if (!bound) {
+      onProgressChange(() => apply());
+      bound = true;
+    }
+  };
+
+  init();
+  document.addEventListener("astro:page-load", () => {
+    apply();
+    bindReset();
+  });
+</script>

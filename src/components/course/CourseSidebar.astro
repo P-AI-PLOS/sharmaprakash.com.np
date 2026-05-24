@@ -1,0 +1,129 @@
+---
+import type { CourseContext, ResolvedChapter } from "~/utils/courses";
+import { chapterUrl } from "~/utils/courses";
+
+interface Props {
+  course: CourseContext;
+  /** Slug of the currently active chapter, if any. */
+  currentSlug?: string;
+  /** Override per-chapter link target. Defaults to the canonical /course/ URL. */
+  chapterHref?: (chapter: ResolvedChapter) => string;
+}
+
+const { course, currentSlug, chapterHref } = Astro.props;
+const linkFor = (ch: ResolvedChapter) =>
+  chapterHref ? chapterHref(ch) : chapterUrl(course.slug, ch.slug);
+const pad = (n: number) => String(n + 1).padStart(2, "0");
+---
+
+<aside
+  class="course-sidebar lg:sticky lg:top-28 lg:max-h-[calc(100vh-8rem)] lg:overflow-y-auto"
+  data-course-slug={course.slug}
+  data-total-chapters={course.chapters.length}
+>
+  <p class="eyebrow mb-2">Chapters</p>
+  <p
+    class="text-caption text-muted mb-2"
+    data-course-progress-label
+  >
+    {course.chapters.length} total
+  </p>
+  <div
+    class="course-sidebar-progress mb-5 h-1 w-full overflow-hidden rounded-full bg-surface-raised"
+    aria-hidden="true"
+  >
+    <div
+      class="course-sidebar-progress-fill h-full bg-accent-600 transition-[width] duration-300"
+      data-course-progress-fill
+      style="width: 0%"
+    ></div>
+  </div>
+  <ol class="course-sidebar-list list-none">
+    {course.chapters.map((ch) => {
+      const isCurrent = ch.slug === currentSlug;
+      return (
+        <li>
+          <a
+            href={linkFor(ch)}
+            data-chapter-slug={ch.slug}
+            class:list={[
+              "course-sidebar-item group block py-2.5 pl-4 pr-2 text-sm leading-snug transition-colors",
+              isCurrent
+                ? "is-current text-strong font-medium"
+                : "text-muted hover:text-strong",
+            ]}
+            aria-current={isCurrent ? "step" : undefined}
+          >
+            <span class="course-sidebar-num font-mono text-[11px] tracking-wide text-faint mr-2">{pad(ch.index)}</span>
+            <span class="course-sidebar-label">{ch.label}</span>
+            <span class="course-sidebar-check text-accent-600 ml-1 hidden" aria-hidden="true">✓</span>
+          </a>
+        </li>
+      );
+    })}
+  </ol>
+</aside>
+
+<style>
+  .course-sidebar-list {
+    border-left: 1px solid var(--border-default);
+  }
+  .course-sidebar-item {
+    margin-left: -1px;
+    border-left: 2px solid transparent;
+  }
+  .course-sidebar-item:hover {
+    border-left-color: var(--border-strong);
+  }
+  .course-sidebar-item.is-current {
+    border-left-color: var(--accent-600);
+  }
+  .course-sidebar-item.is-current .course-sidebar-num {
+    color: var(--accent-600);
+  }
+</style>
+
+<script>
+  import { readProgress, onProgressChange } from "~/scripts/course-progress";
+
+  const apply = () => {
+    document.querySelectorAll<HTMLElement>(".course-sidebar").forEach((el) => {
+      const slug = el.dataset.courseSlug;
+      if (!slug) return;
+      const total = Number(el.dataset.totalChapters || "0");
+      const done = readProgress(slug);
+      const items = el.querySelectorAll<HTMLElement>("[data-chapter-slug]");
+      let valid = 0;
+      items.forEach((item) => {
+        const chSlug = item.dataset.chapterSlug;
+        const checked = !!chSlug && done.includes(chSlug);
+        item.querySelector<HTMLElement>(".course-sidebar-check")?.classList.toggle("hidden", !checked);
+        item.querySelector<HTMLElement>(".course-sidebar-num")?.classList.toggle("opacity-40", checked);
+        if (checked) valid += 1;
+      });
+      const label = el.querySelector<HTMLElement>("[data-course-progress-label]");
+      if (label) {
+        label.textContent = valid > 0
+          ? `${valid} of ${total} complete`
+          : `${total} chapters`;
+      }
+      const fill = el.querySelector<HTMLElement>("[data-course-progress-fill]");
+      if (fill) {
+        const pct = total > 0 ? Math.round((valid / total) * 100) : 0;
+        fill.style.width = `${pct}%`;
+      }
+    });
+  };
+
+  let bound = false;
+  const init = () => {
+    apply();
+    if (!bound) {
+      onProgressChange(() => apply());
+      bound = true;
+    }
+  };
+
+  init();
+  document.addEventListener("astro:page-load", apply);
+</script>

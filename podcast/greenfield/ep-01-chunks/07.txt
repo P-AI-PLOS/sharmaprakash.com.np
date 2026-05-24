@@ -1,0 +1,13 @@
+Twenty rules. Each one testable by grep. Each one with a yes example and a no example. Each one with a folder tree drawn in ASCII.
+
+I've seen prompts cut migration time from two hours of back-and-forth down to twenty minutes of pure mechanical work. Eighty percent of UI work is mechanical. Mechanical work is what prompts handle.
+
+You're not writing a poem. You're filling in a form. And the prompt is the form.
+
+So the rule — "no barrel imports" — lives in the prompt. In a numbered rule. With a yes-and-no code block. The agent reads the prompt before it touches a file.
+
+That handles the first read. But the agent still drifts mid-task. Which is why we need...
+
+Trigger two. The hook.
+
+A hook is a shell script. It fires at a lifecycle event — before a tool runs, after a tool runs, when the agent stops — and it can block, or allow, what the agent is about to do.

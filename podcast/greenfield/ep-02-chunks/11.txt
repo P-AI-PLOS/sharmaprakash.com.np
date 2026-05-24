@@ -1,0 +1,7 @@
+I once wrote a prompt for a code-review task. Here are the conventions. Here is what good code looks like. Please review this diff.
+
+It failed.
+
+Because code review is not the application of rules. It's the reading of code with rules in mind. The agent followed the prompt and produced very confident, very generic reviews that missed the actual problems.
+
+The job was a subagent's job. I rewrote it as a subagent. And the next review... caught three real bugs that had slipped past me.

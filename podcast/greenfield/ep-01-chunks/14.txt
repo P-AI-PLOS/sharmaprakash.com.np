@@ -1,0 +1,11 @@
+The rule lives in the repo. The repo remembers. Your head gets to think about something else.
+
+[short pause]
+
+Next episode — I want to dig into the sharpest line in this model. The line between prompts and subagents. Static and dynamic. When each one wins.
+
+Because I keep seeing teams reach for the wrong one. And the cost of that mistake... is bigger than people realize.
+
+I'm Prakash. From Kathmandu.
+
+This was Greenfield. Talk soon.

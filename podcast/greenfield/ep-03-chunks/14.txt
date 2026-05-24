@@ -1,0 +1,17 @@
+I want to close on this.
+
+The way you tell whether someone's agent-ready repo is mature... is not by counting how many subagents are in it.
+
+It's by looking at what each one does. And asking — could a hook have done this? Could a prompt have done this? Could Prettier have done this?
+
+A mature setup is not the one with the most artifacts.
+
+It's the one where every artifact is in the right place. Where the hooks do hook things. The subagents do subagent things. The prompts do prompt things. And there is no import-organizer quietly burning money in the background... while Prettier is already installed.
+
+[short pause]
+
+If you want the longer, written version of the import-organizer story — the four questions, the deletion, the minus-one-hundred-and-forty-lines commit — I wrote it up on the site. It's called The Subagent I Deleted. Same arc, with the actual config snippets.
+
+[short pause]
+
+That wraps the first three episodes.

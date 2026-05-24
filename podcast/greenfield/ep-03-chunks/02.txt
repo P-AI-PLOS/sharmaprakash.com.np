@@ -1,0 +1,9 @@
+The subagent was firing. I'd invoke it. It would whir. It would rearrange the imports. It would return a report. It was working.
+
+But every time I looked at the diff it produced, I felt a small, specific irritation. The same irritation I get when I see someone use a moving truck... to deliver a single envelope.
+
+The subagent was costing me tokens. In real money. Every single time. To do something Prettier already does. With a config file. For free. Locally. In milliseconds. Without an LLM.
+
+[short pause]
+
+I deleted the subagent. I wrote three lines of Prettier config. I never thought about import ordering again.

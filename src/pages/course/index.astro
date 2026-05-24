@@ -1,0 +1,62 @@
+---
+import SiteShell from "~/layouts/SiteShell.astro";
+import ScrollReveal from "~/components/motion/ScrollReveal.astro";
+import { headTitle } from "~/data/site";
+import { courseRegistry } from "~/data/courses";
+import { courseUrl } from "~/utils/courses";
+
+const entries = Object.entries(courseRegistry).map(([slug, meta]) => ({
+  slug,
+  meta,
+}));
+---
+
+<SiteShell title={`Courses · ${headTitle.blogsTitle}`}>
+  <section class="bg-surface-base pt-40 pb-12">
+    <div class="mx-auto max-w-7xl px-6 lg:px-12">
+      <p class="eyebrow mb-3">Step-wise · Courses</p>
+      <h1 class="text-display-lg text-strong max-w-2xl">
+        Build something, one chapter at a time.
+      </h1>
+      <p class="mt-5 text-body-lg text-muted max-w-reading">
+        Project-based courses with ordered chapters, progress tracking, and (soon) audio lessons. Pick one up where you left it — your progress lives in your browser.
+      </p>
+    </div>
+  </section>
+
+  <section class="pb-24">
+    <div class="mx-auto max-w-7xl px-6 lg:px-12">
+      {entries.length === 0 ? (
+        <p class="text-muted">No courses yet.</p>
+      ) : (
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {entries.map((entry, i) => (
+            <ScrollReveal delay={Math.min(i, 4) * 80}>
+              <a
+                href={courseUrl(entry.slug)}
+                class="card-interactive group block bg-surface-raised rounded-lg overflow-hidden"
+              >
+                {entry.meta.cover && (
+                  <figure class="aspect-[16/9] overflow-hidden bg-ink-100">
+                    <img
+                      src={entry.meta.cover}
+                      alt={entry.meta.title}
+                      class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    />
+                  </figure>
+                )}
+                <div class="p-6">
+                  <p class="eyebrow mb-2">{entry.meta.chapters.length} chapters</p>
+                  <h2 class="text-h3 text-strong group-hover:text-accent-700 transition-colors">
+                    {entry.meta.title}
+                  </h2>
+                  <p class="mt-3 text-body text-muted line-clamp-3">{entry.meta.description}</p>
+                </div>
+              </a>
+            </ScrollReveal>
+          ))}
+        </div>
+      )}
+    </div>
+  </section>
+</SiteShell>

@@ -1,0 +1,9 @@
+Prompt, hook, subagent, skill — the four-trigger model. Static and dynamic — the line between prompts and subagents. And today, the taxonomy — five categories. Four questions. When not to delegate.
+
+Build the artifacts. Pick the right layer. Delete the ones that don't earn their keep.
+
+The rule lives in the repo. Not in your head.
+
+I'm Prakash. From Kathmandu.
+
+This was Greenfield. Talk soon.

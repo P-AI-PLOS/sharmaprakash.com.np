@@ -1,0 +1,216 @@
+---
+import type { GetStaticPaths } from "astro";
+import SiteShell from "~/layouts/SiteShell.astro";
+import ScrollReveal from "~/components/motion/ScrollReveal.astro";
+import { courseRegistry } from "~/data/courses";
+import { getCourse, chapterUrl } from "~/utils/courses";
+import { estimateReadMinutes } from "~/utils/posts";
+
+export const getStaticPaths = (async () => {
+  return Object.keys(courseRegistry).map((slug) => ({ params: { slug } }));
+}) satisfies GetStaticPaths;
+
+const { slug } = Astro.params as { slug: string };
+const course = await getCourse(slug);
+if (!course) throw new Error(`Course not found: ${slug}`);
+const { meta, chapters } = course;
+const first = chapters[0];
+const pad = (n: number) => String(n + 1).padStart(2, "0");
+---
+
+<SiteShell title={`${meta.title} · Course`} description={meta.description}>
+  <section class="bg-surface-base pt-40 pb-12" data-course-hero data-course-slug={slug} data-total-chapters={chapters.length}>
+    <div class="mx-auto max-w-7xl px-6 lg:px-12 grid lg:grid-cols-12 gap-12 items-center">
+      <div class="lg:col-span-7">
+        <p class="eyebrow mb-3">Course · {chapters.length} chapters</p>
+        <h1 class="text-display-lg text-strong">{meta.title}</h1>
+        <p class="mt-5 text-body-lg text-muted max-w-reading">{meta.intro}</p>
+
+        <div
+          class="course-complete-banner hidden mt-6 max-w-reading rounded-lg border border-accent-600 bg-accent-50 px-5 py-4"
+          data-course-complete-banner
+          role="status"
+          aria-live="polite"
+        >
+          <p class="text-h5 font-semibold text-strong">🎉 Course complete</p>
+          <p class="mt-1 text-body text-muted">
+            Nicely done — every chapter is marked off.
+          </p>
+        </div>
+
+        <div class="mt-7 max-w-reading">
+          <div class="flex items-center justify-between gap-3 mb-2 text-caption text-muted">
+            <span data-course-progress-label>0 of {chapters.length} complete</span>
+            <span data-course-progress-percent class="font-mono">0%</span>
+          </div>
+          <div class="h-1.5 w-full overflow-hidden rounded-full bg-surface-raised" aria-hidden="true">
+            <div
+              class="h-full bg-accent-600 transition-[width] duration-300"
+              data-course-progress-fill
+              style="width: 0%"
+            ></div>
+          </div>
+        </div>
+
+        {first && (
+          <div class="mt-8 flex flex-wrap items-center gap-4">
+            <a
+              href={chapterUrl(slug, first.slug)}
+              class="btn btn-primary"
+              data-course-start-link
+              data-first-url={chapterUrl(slug, first.slug)}
+            >
+              <span data-course-start-label>Start chapter 1 →</span>
+            </a>
+            <button
+              type="button"
+              class="btn btn-ghost hidden"
+              data-course-reset
+            >
+              Reset progress
+            </button>
+          </div>
+        )}
+      </div>
+      {meta.cover && (
+        <figure class="lg:col-span-5 aspect-[21/9] lg:aspect-[4/3] overflow-hidden rounded-xl bg-ink-100 shadow-md">
+          <img src={meta.cover} alt={meta.title} class="h-full w-full object-cover" />
+        </figure>
+      )}
+    </div>
+  </section>
+
+  <section class="pb-24">
+    <div class="mx-auto max-w-4xl px-6 lg:px-12">
+      <ol class="list-none grid grid-cols-1 gap-3" data-course-chapter-list data-course-slug={slug}>
+        {chapters.map((ch, i) => {
+          const minutes = estimateReadMinutes(ch.post.body);
+          return (
+            <ScrollReveal delay={Math.min(i, 4) * 40} as="li">
+              <a
+                href={chapterUrl(slug, ch.slug)}
+                data-chapter-slug={ch.slug}
+                class="card-interactive group block bg-surface-raised rounded-lg p-5 lg:p-6"
+              >
+                <div class="grid grid-cols-[auto_1fr_auto] gap-5 items-center">
+                  <span class="text-h2 font-bold text-accent-700 leading-none course-num">{pad(i)}</span>
+                  <div>
+                    <h2 class="text-h4 text-strong group-hover:text-accent-700 transition-colors">
+                      {ch.label}
+                    </h2>
+                    {ch.post.data.excerpt && (
+                      <p class="mt-2 text-body text-muted line-clamp-2 max-w-reading">{ch.post.data.excerpt}</p>
+                    )}
+                    <div class="mt-2 text-caption text-faint">
+                      {minutes} min{ch.audio && <> · audio available</>}
+                    </div>
+                  </div>
+                  <span class="course-check text-accent-600 text-h3 hidden" aria-hidden="true">✓</span>
+                </div>
+              </a>
+            </ScrollReveal>
+          );
+        })}
+      </ol>
+    </div>
+  </section>
+</SiteShell>
+
+<script>
+  import { readProgress, resetProgress, onProgressChange } from "~/scripts/course-progress";
+
+  const findNextChapter = (list: HTMLElement, completed: string[]): HTMLElement | null => {
+    const items = Array.from(list.querySelectorAll<HTMLElement>("[data-chapter-slug]"));
+    return items.find((item) => {
+      const s = item.dataset.chapterSlug;
+      return s && !completed.includes(s);
+    }) ?? null;
+  };
+
+  const apply = () => {
+    document.querySelectorAll<HTMLElement>("[data-course-chapter-list]").forEach((list) => {
+      const slug = list.dataset.courseSlug;
+      if (!slug) return;
+      const done = readProgress(slug);
+      list.querySelectorAll<HTMLElement>("[data-chapter-slug]").forEach((item) => {
+        const checked = done.includes(item.dataset.chapterSlug ?? "");
+        item.querySelector<HTMLElement>(".course-check")?.classList.toggle("hidden", !checked);
+        item.querySelector<HTMLElement>(".course-num")?.classList.toggle("opacity-40", checked);
+      });
+    });
+
+    document.querySelectorAll<HTMLElement>("[data-course-hero]").forEach((hero) => {
+      const slug = hero.dataset.courseSlug;
+      const total = Number(hero.dataset.totalChapters || "0");
+      if (!slug || total <= 0) return;
+      const done = readProgress(slug);
+      // Only count slugs that match real chapters on this page.
+      const list = document.querySelector<HTMLElement>(`[data-course-chapter-list][data-course-slug="${slug}"]`);
+      const validSlugs = list
+        ? new Set(Array.from(list.querySelectorAll<HTMLElement>("[data-chapter-slug]")).map((el) => el.dataset.chapterSlug))
+        : null;
+      const valid = validSlugs ? done.filter((s) => validSlugs.has(s)) : done;
+      const count = valid.length;
+      const pct = Math.round((count / total) * 100);
+
+      hero.querySelector<HTMLElement>("[data-course-progress-label]")!.textContent =
+        `${count} of ${total} complete`;
+      hero.querySelector<HTMLElement>("[data-course-progress-percent]")!.textContent = `${pct}%`;
+      const fill = hero.querySelector<HTMLElement>("[data-course-progress-fill]");
+      if (fill) fill.style.width = `${pct}%`;
+
+      const allDone = count >= total;
+      hero.querySelector<HTMLElement>("[data-course-complete-banner]")?.classList.toggle("hidden", !allDone);
+
+      const reset = hero.querySelector<HTMLButtonElement>("[data-course-reset]");
+      if (reset) reset.classList.toggle("hidden", count === 0);
+
+      const startLink = hero.querySelector<HTMLAnchorElement>("[data-course-start-link]");
+      const startLabel = hero.querySelector<HTMLElement>("[data-course-start-label]");
+      if (startLink && startLabel) {
+        const firstUrl = startLink.dataset.firstUrl || startLink.getAttribute("href") || "";
+        if (count === 0) {
+          startLink.href = firstUrl;
+          startLabel.textContent = "Start chapter 1 →";
+        } else if (allDone) {
+          startLink.href = firstUrl;
+          startLabel.textContent = "Review from the start →";
+        } else if (list) {
+          const nextItem = findNextChapter(list, valid);
+          startLink.href = nextItem?.getAttribute("href") || firstUrl;
+          startLabel.textContent = "Resume course →";
+        }
+      }
+    });
+  };
+
+  const bindReset = () => {
+    document.querySelectorAll<HTMLButtonElement>("[data-course-reset]").forEach((btn) => {
+      if (btn.dataset.wired === "1") return;
+      btn.dataset.wired = "1";
+      btn.addEventListener("click", () => {
+        const hero = btn.closest<HTMLElement>("[data-course-hero]");
+        const slug = hero?.dataset.courseSlug;
+        if (!slug) return;
+        if (!confirm("Reset your progress for this course?")) return;
+        resetProgress(slug);
+      });
+    });
+  };
+
+  let bound = false;
+  const init = () => {
+    apply();
+    bindReset();
+    if (!bound) {
+      onProgressChange(() => apply());
+      bound = true;
+    }
+  };
+
+  init();
+  document.addEventListener("astro:page-load", () => {
+    apply();
+    bindReset();
+  });
+</script>

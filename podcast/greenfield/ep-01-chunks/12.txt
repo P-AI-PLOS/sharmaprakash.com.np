@@ -1,0 +1,19 @@
+So that's the four-trigger model.
+
+Prompt. Hook. Subagent. Skill.
+
+Here's why I think you should care about all four — and not just the one that sounds easiest.
+
+Each one catches what the others can't.
+
+The prompt tells the agent the rule... but the agent drifts. The hook enforces the rule... but it can only see patterns. Not intent. The subagent sees intent... but it doesn't fire automatically. The skill fires the workflow on demand... but it doesn't enforce anything on its own.
+
+Pick any one of the four in isolation, and you'll write the same rule into the wrong place.
+
+I'll just put it in CLAUDE md — no, the agent drifts.
+
+I'll just write a hook — no, the new teammate doesn't know why the hook is blocking them.
+
+I'll just write a subagent — no, the subagent only fires when someone remembers to invoke it.
+
+The leverage is in the stack. Each layer covers the seam in the layer below.

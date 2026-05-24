@@ -1,0 +1,26 @@
+pre-commit:
+  parallel: true
+  commands:
+    astro-check:
+      glob: "src/**/*.{astro,ts,tsx,mts}"
+      run: pnpm exec astro check
+    gitleaks:
+      glob: "{.env*,**/credentials*,**/*.pem,**/*.key,src/data/**,podcast/**}"
+      run: gitleaks detect --staged --no-banner --redact --verbose
+    post-frontmatter:
+      glob: "src/content/posts/**/*.{md,mdx}"
+      run: |
+        fail=0
+        for f in {staged_files}; do
+          if ! rg -q '^directory:\s*\S' "$f"; then
+            echo "✗ $f is missing a non-empty 'directory:' frontmatter field."
+            echo "  Without it the post routes to /<slug>/ instead of /<category>/<slug>/."
+            fail=1
+          fi
+        done
+        exit $fail
+
+pre-push:
+  commands:
+    build:
+      run: pnpm build

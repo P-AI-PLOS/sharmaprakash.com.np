@@ -1,0 +1,36 @@
+---
+import type { AdjacentPosts } from "~/utils/posts";
+import { postUrl } from "~/utils/posts";
+import { Icon } from "@iconify/react";
+
+interface Props { adjacent: AdjacentPosts }
+const { adjacent } = Astro.props;
+const { prev, next } = adjacent;
+---
+
+{(prev || next) && (
+  <nav class="prev-next-grid" aria-label="Adjacent posts">
+    {prev ? (
+      <a href={postUrl(prev)} class="prev-next-card card-interactive is-prev">
+        <span class="text-caption text-faint flex items-center gap-2">
+          <Icon icon="ri:arrow-left-line" client:load /> Older
+        </span>
+        {prev.data.category?.[0] && (
+          <span class="chip mt-2">{prev.data.category[0]}</span>
+        )}
+        <span class="block text-h4 text-strong mt-2 line-clamp-2">{prev.data.title}</span>
+      </a>
+    ) : <span />}
+    {next ? (
+      <a href={postUrl(next)} class="prev-next-card card-interactive is-next">
+        <span class="text-caption text-faint flex items-center justify-end gap-2">
+          Newer <Icon icon="ri:arrow-right-line" client:load />
+        </span>
+        {next.data.category?.[0] && (
+          <span class="chip mt-2 ml-auto">{next.data.category[0]}</span>
+        )}
+        <span class="block text-h4 text-strong mt-2 text-right line-clamp-2">{next.data.title}</span>
+      </a>
+    ) : <span />}
+  </nav>
+)}

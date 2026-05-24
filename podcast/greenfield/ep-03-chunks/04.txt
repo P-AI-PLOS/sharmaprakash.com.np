@@ -1,0 +1,23 @@
+Five things live in a healthy agent-ready repo. They are not interchangeable.
+
+Here they are. From heaviest to lightest.
+
+[short pause]
+
+One. The persistent context document.
+
+Usually CLAUDE md. The agent reads it at the start of every session. It holds the things that are true about your codebase, no matter what task is in front of you.
+
+We use pnpm. We don't import barrels. We ship to enterprise customers on older Safari.
+
+This is the standing brief. The agent reads it once per session, and carries it forward.
+
+Two. The task prompt.
+
+A markdown file in docs/prompts/ for a specific repeatable task. How we migrate a list page. How we add an audit log.
+
+The agent reads it when you tell it to. And it shapes one specific session's work. Static. Deterministic. Costs nothing per invocation after the read.
+
+Three. The hook.
+
+A shell script in .claude/hooks/ wired to a lifecycle event. Fires automatically. Blocks bad edits. Formats files. Reminds the agent of pre-handoff checks.

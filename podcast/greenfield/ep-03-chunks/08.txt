@@ -1,0 +1,5 @@
+Subagents are separate processes. They cost a fresh context. A fresh system prompt. Fresh tool budget.
+
+You write a subagent when you genuinely need the isolation. Usually because the parent shouldn't see the noise. Or because the worker needs a restricted tool surface.
+
+If you don't need the isolation... the job can just be the parent agent following a prompt. One LLM. Not two.

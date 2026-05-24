@@ -1,0 +1,21 @@
+There's a prompt in one of my repos... that's nine hundred lines long.
+
+Nine. Hundred. Lines.
+
+I remember the moment I finished writing it. Sitting at my desk in Kathmandu. Leaning back. Looking at this enormous markdown file. Thinking: no one is going to read this.
+
+Not me. Not the next person who joins the team. Certainly not the agent.
+
+Nine hundred lines. Twenty-one numbered rules. Three reference implementations. A verification checklist with thirty-eight items.
+
+I shipped it anyway.
+
+And the next morning, I gave the agent a scope — migrate the Customers list page — and a pointer at the prompt. And I watched it produce, in about twenty minutes... a working list page that passed typecheck on the first try.
+
+Twenty minutes.
+
+The previous migration on the same codebase — done with no prompt, and lots of chat back-and-forth — had taken me two hours. Two hours. By hand. With me steering.
+
+The prompt did it in twenty minutes. With me getting coffee.
+
+[short pause]

@@ -1,0 +1,15 @@
+The prompt would have told the parent agent: open each file, swap the imports, fix the props, run typecheck. And the parent would have done it. And the parent's context would have filled up around file forty. And the agent would have lost the thread. And I would have spent the next three hours babysitting.
+
+I wrote a subagent instead.
+
+deprecated-migrator. Tools: Read, Glob, Grep, Edit, Bash. System prompt: find every file using the deprecated path. Swap to the canonical path. Adjust prop name changes. Run typecheck. Loop until clean or stuck.
+
+I ran it.
+
+Forty-five minutes later, it came back with a report. Two hundred and three files migrated. Typecheck clean. I reviewed the diff in fifteen minutes. Merged it.
+
+[short pause]
+
+That was a subagent's job.
+
+Not because it required deep reasoning. But because it required its own context window. The parent could not have held two hundred files in its head. The subagent didn't have to — it loaded ten at a time. Made the edits. Moved on.

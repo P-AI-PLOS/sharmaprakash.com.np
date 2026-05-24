@@ -1,0 +1,67 @@
+---
+import { Icon } from "@iconify/react";
+import ScrollReveal from "~/components/motion/ScrollReveal.astro";
+import { nowItems } from "~/data/now";
+---
+
+<section class="bg-surface-sunken py-8 lg:py-32">
+  <div class="mx-auto max-w-7xl px-6 lg:px-12">
+    <ScrollReveal class="flex items-end justify-between gap-6 mb-8 flex-wrap">
+      <div>
+        <p class="eyebrow mb-3">Now</p>
+        <h2 class="text-h1 text-strong max-w-2xl">What I'm focused on this season.</h2>
+      </div>
+      <p class="text-body-sm text-faint">
+        Updated regularly · inspired by <a href="https://nownownow.com" target="_blank" rel="noopener" class="link-underline">nownownow</a>
+      </p>
+    </ScrollReveal>
+
+    <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+      {nowItems.map((item, i) => {
+        const inner = (
+          <>
+            <span class="now-icon">
+              <Icon icon={item.iconName} width="28" height="28" client:load />
+            </span>
+            <h3 class="text-h4 text-strong mt-5">{item.title}</h3>
+            <p class="text-body text-muted mt-2 flex-1">{item.body}</p>
+            <p class="text-caption text-faint mt-6">Updated {item.updated}</p>
+          </>
+        );
+        const baseClass =
+          "now-card flex h-full flex-col p-6 lg:p-8 rounded-lg bg-surface-raised border border-default shadow-sm";
+        return (
+          <ScrollReveal delay={80 * i}>
+            {item.href ? (
+              <a href={item.href} class:list={[baseClass, "card-interactive"]}>
+                {inner}
+              </a>
+            ) : (
+              <div class={baseClass}>{inner}</div>
+            )}
+          </ScrollReveal>
+        );
+      })}
+    </div>
+  </div>
+</section>
+
+<style>
+  .now-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    border-radius: var(--radius-md);
+    background: color-mix(in oklab, var(--accent-600), transparent 88%);
+    color: var(--accent-700);
+  }
+  a.now-card:hover .now-icon {
+    background: var(--accent-600);
+    color: #fff;
+    transition:
+      background-color var(--dur-fast) var(--ease-out-quad),
+      color var(--dur-fast) var(--ease-out-quad);
+  }
+</style>

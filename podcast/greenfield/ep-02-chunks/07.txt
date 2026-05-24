@@ -1,0 +1,7 @@
+A nine-hundred-line prompt is a one-time investment that runs every time someone does the task. The first migration pays the writing cost. The second migration is free. The tenth migration is free.
+
+By the fiftieth migration... you have rewritten the economics of that whole class of work.
+
+I have seen a single well-written prompt save more engineering hours than entire AI features I've shipped. I'm not exaggerating.
+
+It is not the glamorous part of this job. It is the part that pays.

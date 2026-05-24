@@ -1,0 +1,77 @@
+/* -----------------------------------------------------------------
+ * Pagefind default-UI overrides. Pagefind's library exposes CSS
+ * variables under .pagefind-ui — overriding them recolors and
+ * re-sizes the widget. The drawer layout is forced two-column via
+ * !important attribute selectors because Pagefind's stock styles
+ * wrap to single-column when the filter labels grow wide.
+ * -----------------------------------------------------------------*/
+.search-ui .pagefind-ui {
+  --pagefind-ui-primary: var(--accent-600);
+  --pagefind-ui-text: var(--text-default);
+  --pagefind-ui-background: var(--surface-raised);
+  --pagefind-ui-border: var(--border-default);
+  --pagefind-ui-tag: var(--surface-sunken);
+  --pagefind-ui-border-width: 1px;
+  --pagefind-ui-border-radius: var(--radius-md);
+  --pagefind-ui-font: var(--font-ui);
+  --pagefind-ui-scale: 1;
+}
+.search-ui .pagefind-ui__search-input {
+  font-family: var(--font-ui);
+  font-size: 15px;
+  font-weight: 400;
+  height: 44px;
+  border-color: var(--border-default);
+}
+.search-ui .pagefind-ui__search-input:focus {
+  border-color: var(--accent-500);
+  outline: 2px solid var(--accent-200);
+  outline-offset: 0;
+}
+.search-ui .pagefind-ui__result-link {
+  color: var(--text-strong);
+  font-family: var(--font-ui);
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.4;
+  text-decoration: none;
+}
+.search-ui .pagefind-ui__result-link:hover { color: var(--accent-700); }
+.search-ui .pagefind-ui__result-excerpt {
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--text-default);
+}
+.search-ui .pagefind-ui__result-excerpt mark {
+  background: var(--accent-100);
+  color: var(--accent-700);
+  padding: 0 2px;
+  border-radius: 2px;
+}
+.search-ui .pagefind-ui__message {
+  font-size: 13px;
+  color: var(--text-muted);
+}
+.search-ui .pagefind-ui__filter-name,
+.search-ui .pagefind-ui__filter-label {
+  font-size: 13px;
+}
+.search-ui .pagefind-ui__filter-name { font-weight: 600; }
+
+/* Force two-column drawer (filter sidebar + results) regardless of
+ * label length. */
+.search-ui [class*="pagefind-ui__drawer"] {
+  flex-wrap: nowrap !important;
+  gap: var(--space-6) !important;
+}
+.search-ui [class*="pagefind-ui__filter-panel"] {
+  flex: 0 0 180px !important;
+  min-width: 0 !important;
+}
+.search-ui [class*="pagefind-ui__results-area"] {
+  flex: 1 1 auto !important;
+  min-width: 0 !important;
+}
+.search-ui [class*="pagefind-ui__filter-block"] {
+  width: 100%;
+}

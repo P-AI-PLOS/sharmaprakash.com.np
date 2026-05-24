@@ -1,0 +1,15 @@
+The mistake I see most often... is teams reaching for a subagent when a prompt would do.
+
+Picture it.
+
+The team has decided their list pages need to follow a specific architecture. So someone — usually the most enthusiastic person on the team — writes a subagent called list-page-builder. The subagent's system prompt is, essentially: "build a list page following our conventions."
+
+You invoke it. It runs. It produces a list page.
+
+It works! Mostly. Sometimes. The first time.
+
+The fifth time... the agent has drifted. Maybe it picked up a slightly different convention from a file it happened to grep. Maybe the model is just having an off day.
+
+Output varies. Output costs tokens. Output requires review.
+
+The same job — done by a prompt — would have been deterministic.

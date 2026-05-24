@@ -1,0 +1,15 @@
+Now. The other direction.
+
+When does a subagent win? When does a prompt fail?
+
+The subagent wins the moment the work needs reading and forming an opinion. Not pattern-matching to rules. Reading code. Holding several files in mind at once. And concluding something.
+
+Type-safety auditing is the classic example.
+
+You can't write a rule that says "don't use any unless it's necessary." What does "necessary" mean? It's a judgement call. It depends on the surrounding code. The upstream type. Whether there's a reasonable narrower alternative.
+
+A grep finds the any. A grep cannot tell you whether the any is okay.
+
+A subagent can.
+
+You give it a scope — scan this module — and a list of things to look for, and a pinned output format. It reads thirty files. Holds them in context. Decides which any uses are real findings, and which are noise. It produces a report. File paths. Line numbers. Suggested fixes. Ranked by impact.

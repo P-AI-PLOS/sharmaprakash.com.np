@@ -1,0 +1,19 @@
+The trap I fell into with import-organizer is what I think of as the wrong-layer trap.
+
+The job was real — keep imports tidy. The category I picked was the most expensive layer in the stack. Five times too heavy.
+
+And the right answer? Was not even in the agent stack at all. It was a regular development tool... that has existed for years.
+
+[short pause]
+
+So here's the test I now run before I write any new artifact. I call it the four questions.
+
+Question one. Is this a rule? Or is it a workflow?
+
+A rule is a constraint. Don't do X. A workflow is a sequence. To do this thing, first do A. Then B. Then C.
+
+Rules go in CLAUDE md or in hooks. Workflows go in prompts, subagents, or skills.
+
+If you find yourself writing a hook that has to know about a sequence of steps... you're trying to encode a workflow into the rules layer. And you'll feel the pain within a week.
+
+Question two. Does this need to be automatic? Or on-demand?

@@ -1,0 +1,21 @@
+So. The test.
+
+If the question can be answered by applying rules — write a prompt. If the question requires reading code and reasoning — write a subagent.
+
+If the work is mechanical with a handful of judgement calls — write a prompt.
+
+If the work is a judgement call from start to finish — write a subagent.
+
+If the same person could do it from a checklist — write a prompt.
+
+If the same person needs to read the code first, and then think — write a subagent.
+
+[short pause]
+
+I keep this rule in my head when I'm tempted to write the wrong one.
+
+Because I have written the wrong one. More than once.
+
+I wrote a subagent for a job that was actually a prompt. Ran it for a month. Watched it cost real money in tokens. And finally rewrote the subagent's system prompt as a docs-folder prompt — and the work got more consistent... and cheaper... at the same time.
+
+Going the other direction is rarer. But also a trap.

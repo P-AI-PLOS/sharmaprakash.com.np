@@ -1,0 +1,9 @@
+[short pause]
+
+Next episode... I want to tell you about the subagent I wrote and then deleted.
+
+Because the lesson there is the inverse of this one. When not to reach for a subagent. And the broader thing it taught me — about the taxonomy of these little agent-side artifacts piling up in our repos.
+
+I'm Prakash. From Kathmandu.
+
+This was Greenfield. Talk soon.

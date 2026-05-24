@@ -1,0 +1,73 @@
+---
+import type { PostSeriesContext } from "~/utils/posts";
+import { postUrl } from "~/utils/posts";
+import { getSeriesMeta } from "~/data/series";
+import { Icon } from "@iconify/react";
+
+interface Props { context: PostSeriesContext }
+const { context } = Astro.props;
+const meta = getSeriesMeta(context.slug);
+const title = meta?.title ?? context.slug;
+---
+
+<section class="series-continue-card">
+  <div class="series-continue-card-inner">
+    <header class="mb-6">
+      <p class="eyebrow mb-1">{title}</p>
+      <h2 class="text-h2 text-strong">{context.parts.length} parts in this series.</h2>
+      {meta?.description && (
+        <p class="mt-2 text-body text-muted">{meta.description}</p>
+      )}
+    </header>
+
+    {(context.prev || context.next) && (
+      <div class="grid sm:grid-cols-2 gap-4 mb-8">
+        {context.prev ? (
+          <a href={postUrl(context.prev)} class="series-continue-nav is-prev card-interactive">
+            <span class="text-caption text-faint flex items-center gap-2">
+              <Icon icon="ri:arrow-left-line" client:load /> Previous
+            </span>
+            <span class="block text-h4 text-strong mt-1">
+              Part {context.index}: {context.prev.data.title}
+            </span>
+          </a>
+        ) : <span />}
+        {context.next ? (
+          <a href={postUrl(context.next)} class="series-continue-nav is-next card-interactive">
+            <span class="text-caption text-faint flex items-center justify-end gap-2">
+              Next <Icon icon="ri:arrow-right-line" client:load />
+            </span>
+            <span class="block text-h4 text-strong mt-1 text-right">
+              Part {context.index + 2}: {context.next.data.title}
+            </span>
+          </a>
+        ) : <span />}
+      </div>
+    )}
+
+    <ol class="series-list list-none">
+      {context.parts.map((p, i) => {
+        const isCurrent = i === context.index;
+        const isPrev = i === context.index - 1;
+        const isNext = i === context.index + 1;
+        const num = String(i + 1).padStart(2, "0");
+        const inner = (
+          <>
+            <span class="series-list-num">{num}</span>
+            <span class="series-list-title">{p.data.title}</span>
+            {isCurrent && <span class="series-list-tag">← you are here</span>}
+            {isPrev && <span class="series-list-tag is-prev">previous</span>}
+            {isNext && <span class="series-list-tag is-next">up next</span>}
+          </>
+        );
+        return (
+          <li class:list={["series-list-item", { "is-current": isCurrent }]}>
+            {isCurrent ? <span class="series-list-link">{inner}</span> : (
+              <a href={postUrl(p)} class="series-list-link">{inner}</a>
+            )}
+          </li>
+        );
+      })}
+    </ol>
+  </div>
+</section>

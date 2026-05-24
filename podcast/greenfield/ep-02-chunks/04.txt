@@ -1,0 +1,25 @@
+A prompt is static.
+
+It's a document. The agent reads it. Nothing happens to the document. The document doesn't think. The document doesn't decide. The document is — and I mean this as a compliment — a piece of paper.
+
+A really, really detailed piece of paper.
+
+When you point the agent at a prompt, you are saying: here are the rules. Apply them. Verbatim. To the work in front of you. The agent does the thinking. The prompt is the constraint.
+
+A subagent is dynamic.
+
+It's a process. The parent agent delegates to it. The subagent gets a fresh context window. Runs its own tools. Reads files. Forms an opinion. Returns a report.
+
+The subagent thinks. The subagent costs tokens. The subagent can come back with different answers on different runs.
+
+[short pause]
+
+Static. And dynamic.
+
+Page. Versus process.
+
+Rules. Versus reasoning.
+
+That's the line.
+
+And here's why it matters.

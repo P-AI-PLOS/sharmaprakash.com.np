@@ -1,0 +1,13 @@
+Hey. I'm Prakash. This is Greenfield. Episode three.
+
+[short pause]
+
+I think the most important skill in this whole agentic-engineering thing is not knowing when to reach for a subagent.
+
+It's knowing when not to.
+
+And I think the reason that's hard... is that we don't have a good map of what kinds of things actually live in a mature agent-ready repo. We just have a vague sense of "AI stuff." A folder called .claude/. And a slowly growing pile of files in it.
+
+So I want to do, on this episode, what the import-organizer taught me to do.
+
+I want to lay out the taxonomy. Five different categories of agent-side artifact. And then I want to talk about how to pick the right one — and especially, how to recognize when none of them is the right one... and the answer is just a Prettier config and a deep breath.

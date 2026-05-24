@@ -1,0 +1,13 @@
+If you're starting out — if you have one repo, one team, and you're trying to figure out where to invest first — write the prompts.
+
+Always.
+
+Prompts are the cheaper investment. Prompts are the higher leverage. Prompts are the layer that turns repetitive work from "creative writing" into "filling in a form." And that's where most engineering time actually goes.
+
+Write your first list-page prompt this afternoon.
+
+Do the task once by hand. Cleanly. Codify what you did. Hand it to the agent. Watch what breaks. Fix the prompt. Run it again.
+
+Within a week, you'll have two or three prompts covering the patterns you do most. Within a month, the team is faster than it has ever been... and you are doing none of the boring parts.
+
+The subagents can come later.

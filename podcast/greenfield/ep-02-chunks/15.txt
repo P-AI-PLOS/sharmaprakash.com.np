@@ -1,0 +1,3 @@
+The subagents are the layer that wins when you've already automated the mechanical work and you're starting to feel the next bottleneck — the review bottleneck. The audit bottleneck. That bottleneck shows up around month three of a serious agentic setup.
+
+When you feel it — write the subagent. Until then, the answer is almost always... the prompt.

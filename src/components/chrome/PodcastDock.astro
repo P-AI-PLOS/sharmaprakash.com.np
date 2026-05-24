@@ -1,0 +1,289 @@
+---
+/**
+ * Persistent docked mini-player. Lives in SiteShell so it survives every
+ * navigation via transition:persist.
+ *
+ * Behavior: when a user starts playback on an inline <audio class="podcast-audio">,
+ * the dock takes ownership (copies src + currentTime), shows itself, and hides
+ * the inline player. On subsequent navigations, audio keeps playing. If the
+ * user returns to a page that contains the same inline player, the inline UI
+ * is replaced with a "Playing in dock" stub.
+ */
+---
+
+<div
+  id="podcast-dock"
+  data-state="empty"
+  class="podcast-dock"
+  aria-label="Podcast mini player"
+  transition:persist="podcast-dock"
+>
+  <audio id="podcast-dock-audio" preload="metadata"></audio>
+
+  <button
+    type="button"
+    class="podcast-dock-toggle"
+    data-role="toggle"
+    aria-label="Play"
+  >
+    <span data-role="icon-play" aria-hidden="true">▶</span>
+    <span data-role="icon-pause" aria-hidden="true" hidden>⏸</span>
+  </button>
+
+  <div class="podcast-dock-body">
+    <div class="podcast-dock-title" data-role="title">—</div>
+    <div class="podcast-dock-row">
+      <span data-role="current" class="podcast-dock-time">0:00</span>
+      <input
+        type="range"
+        data-role="scrub"
+        class="podcast-dock-scrub"
+        min="0"
+        max="100"
+        step="0.1"
+        value="0"
+        aria-label="Seek"
+      />
+      <span data-role="duration" class="podcast-dock-time">0:00</span>
+    </div>
+  </div>
+
+  <button
+    type="button"
+    class="podcast-dock-close"
+    data-role="close"
+    aria-label="Close player"
+  >×</button>
+</div>
+
+<script is:inline>
+  (() => {
+    if (window.__podcastDockInit) return;
+    window.__podcastDockInit = true;
+
+    const dock = document.getElementById("podcast-dock");
+    if (!dock) return;
+    const audio = /** @type {HTMLAudioElement} */ (document.getElementById("podcast-dock-audio"));
+    const titleEl = dock.querySelector('[data-role="title"]');
+    const toggleBtn = dock.querySelector('[data-role="toggle"]');
+    const iconPlay = dock.querySelector('[data-role="icon-play"]');
+    const iconPause = dock.querySelector('[data-role="icon-pause"]');
+    const scrub = /** @type {HTMLInputElement} */ (dock.querySelector('[data-role="scrub"]'));
+    const curEl = dock.querySelector('[data-role="current"]');
+    const durEl = dock.querySelector('[data-role="duration"]');
+    const closeBtn = dock.querySelector('[data-role="close"]');
+
+    const fmt = (s) => {
+      if (!isFinite(s) || s < 0) s = 0;
+      const m = Math.floor(s / 60);
+      const r = Math.floor(s % 60);
+      return `${m}:${String(r).padStart(2, "0")}`;
+    };
+
+    const setPlayingUI = (playing) => {
+      iconPlay.hidden = playing;
+      iconPause.hidden = !playing;
+      toggleBtn.setAttribute("aria-label", playing ? "Pause" : "Play");
+    };
+
+    const show = () => {
+      dock.dataset.state = "active";
+    };
+    const hide = () => {
+      dock.dataset.state = "empty";
+      audio.pause();
+      audio.removeAttribute("src");
+      audio.load();
+      setPlayingUI(false);
+    };
+
+    // Replace inline players that match the docked src with a stub.
+    const decorateInlinePlayers = () => {
+      const src = audio.currentSrc || audio.src;
+      if (!src) return;
+      const players = document.querySelectorAll("audio.podcast-audio");
+      for (const el of players) {
+        if (el.dataset.dockHandled === "1") continue;
+        if (el.src === src || el.currentSrc === src) {
+          el.dataset.dockHandled = "1";
+          el.classList.add("hidden");
+          // Inject a stub if not already present.
+          const fig = el.closest(".podcast-player");
+          if (fig && !fig.querySelector(".podcast-dock-stub")) {
+            const stub = document.createElement("p");
+            stub.className =
+              "podcast-dock-stub text-caption text-muted mt-3";
+            stub.textContent = "Playing in the dock below ↓";
+            el.after(stub);
+          }
+        }
+      }
+    };
+
+    // Wire inline players: first play promotes into the dock.
+    const wireInlinePlayers = () => {
+      const players = document.querySelectorAll("audio.podcast-audio");
+      for (const el of players) {
+        if (el.dataset.dockWired === "1") continue;
+        el.dataset.dockWired = "1";
+        el.addEventListener("play", () => {
+          const src = el.currentSrc || el.src;
+          if (!src) return;
+          // Already docked with this src? Just keep dock authoritative.
+          if ((audio.currentSrc || audio.src) === src && !audio.paused) {
+            el.pause();
+            return;
+          }
+          const t = el.currentTime || 0;
+          const title = el.dataset.episodeTitle || "Now playing";
+          el.pause();
+          audio.src = src;
+          titleEl.textContent = title;
+          audio.currentTime = t;
+          audio.play().catch(() => {});
+          show();
+          decorateInlinePlayers();
+        });
+      }
+    };
+
+    audio.addEventListener("play", () => setPlayingUI(true));
+    audio.addEventListener("pause", () => setPlayingUI(false));
+    audio.addEventListener("ended", () => setPlayingUI(false));
+    audio.addEventListener("timeupdate", () => {
+      curEl.textContent = fmt(audio.currentTime);
+      if (audio.duration && isFinite(audio.duration)) {
+        scrub.value = String((audio.currentTime / audio.duration) * 100);
+      }
+    });
+    audio.addEventListener("loadedmetadata", () => {
+      durEl.textContent = fmt(audio.duration);
+    });
+
+    toggleBtn.addEventListener("click", () => {
+      if (!audio.src) return;
+      if (audio.paused) audio.play().catch(() => {});
+      else audio.pause();
+    });
+
+    scrub.addEventListener("input", () => {
+      if (audio.duration && isFinite(audio.duration)) {
+        audio.currentTime = (Number(scrub.value) / 100) * audio.duration;
+      }
+    });
+
+    closeBtn.addEventListener("click", () => {
+      // Restore any inline players we'd hidden.
+      for (const el of document.querySelectorAll('audio.podcast-audio[data-dock-handled="1"]')) {
+        el.classList.remove("hidden");
+        el.dataset.dockHandled = "0";
+      }
+      for (const stub of document.querySelectorAll(".podcast-dock-stub")) {
+        stub.remove();
+      }
+      hide();
+    });
+
+    const onPageLoad = () => {
+      wireInlinePlayers();
+      decorateInlinePlayers();
+    };
+    document.addEventListener("astro:page-load", onPageLoad);
+    onPageLoad();
+  })();
+</script>
+
+<style>
+  .podcast-dock {
+    view-transition-name: podcast-dock;
+    position: fixed;
+    left: 50%;
+    bottom: 16px;
+    transform: translateX(-50%);
+    z-index: 60;
+    display: none;
+    align-items: center;
+    gap: 12px;
+    width: min(720px, calc(100vw - 24px));
+    padding: 10px 12px;
+    border-radius: 12px;
+    border: 1px solid var(--color-border-default, rgba(255, 255, 255, 0.1));
+    background: var(--color-surface-raised, #0f172a);
+    box-shadow: 0 18px 48px rgba(0, 0, 0, 0.35);
+    backdrop-filter: saturate(1.1);
+  }
+  .podcast-dock[data-state="active"] {
+    display: flex;
+  }
+  .podcast-dock-toggle,
+  .podcast-dock-close {
+    appearance: none;
+    background: transparent;
+    border: 1px solid var(--color-border-default, rgba(255, 255, 255, 0.12));
+    color: var(--color-text-default, inherit);
+    border-radius: 999px;
+    cursor: pointer;
+    flex: none;
+  }
+  .podcast-dock-toggle {
+    width: 36px;
+    height: 36px;
+    font-size: 14px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .podcast-dock-close {
+    width: 28px;
+    height: 28px;
+    font-size: 16px;
+    line-height: 1;
+  }
+  .podcast-dock-body {
+    flex: 1;
+    min-width: 0;
+  }
+  .podcast-dock-title {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--color-text-strong, inherit);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-bottom: 4px;
+  }
+  .podcast-dock-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .podcast-dock-time {
+    font-variant-numeric: tabular-nums;
+    font-size: 11px;
+    color: var(--color-text-muted, inherit);
+    flex: none;
+  }
+  .podcast-dock-scrub {
+    flex: 1;
+    accent-color: var(--accent-600, currentColor);
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .podcast-dock[data-state="active"] {
+      animation: podcast-dock-in 240ms ease-out;
+    }
+  }
+  @keyframes podcast-dock-in {
+    from { opacity: 0; transform: translate(-50%, 12px); }
+    to { opacity: 1; transform: translate(-50%, 0); }
+  }
+</style>
+
+<style is:global>
+  /* Keep the dock visible during view transitions instead of cross-fading
+     a snapshot in/out of view. */
+  ::view-transition-group(podcast-dock),
+  ::view-transition-old(podcast-dock),
+  ::view-transition-new(podcast-dock) {
+    animation: none !important;
+  }
+</style>

@@ -1,0 +1,17 @@
+I want to tell you about a subagent I wrote... and then deleted.
+
+I wrote it on a Sunday afternoon.
+
+I remember because I was feeling clever. That very specific kind of clever you feel when you've just discovered a new tool — and every problem in your repo starts to look like the shape of that tool.
+
+I had recently understood subagents. Really understood them. And I was making a list of all the things I could delegate.
+
+The subagent's name was import-organizer.
+
+Its job was to look at a TypeScript file after the agent had edited it... and reorganize the imports. Group them. Third-party packages first. Then absolute paths from src/. Then relative paths. Alphabetize within each group. Insert a blank line between groups.
+
+I gave it a beautiful system prompt. I gave it a Read and Edit tool. I wrote a small skill so I could invoke it on demand. I committed it. I felt very smart.
+
+[sighs]
+
+Within about ten days... I noticed something.

@@ -1,0 +1,31 @@
+---
+import SiteShell from "~/layouts/SiteShell.astro";
+import SlideDeck from "~/components/blog/SlideDeck.astro";
+
+const slides = [
+  { image: "/images/blog/blog1.png", caption: "Slide 1 — Intro" },
+  { image: "/images/blog/blog2.png", caption: "Slide 2 — The problem" },
+  { image: "/images/blog/blog3.png", caption: "Slide 3 — The approach" },
+  { image: "/images/blog/blog4.png", caption: "Slide 4 — Takeaways" },
+];
+---
+
+<SiteShell title="Slide Deck demo">
+  <section class="bg-surface-base pt-40 pb-24">
+    <div class="mx-auto max-w-3xl px-6 lg:px-12">
+      <p class="eyebrow mb-3">Demo</p>
+      <h1 class="text-display-lg text-strong mb-6">SlideDeck component</h1>
+      <p class="text-body-lg text-muted mb-10">
+        Preview of <code>src/components/blog/SlideDeck.astro</code> rendered in a
+        standalone Astro page.
+      </p>
+
+      <SlideDeck slides={slides} label="Talk slides" />
+    </div>
+  </section>
+</SiteShell>
+
+<script>
+  import { register } from "swiper/element/bundle";
+  register();
+</script>

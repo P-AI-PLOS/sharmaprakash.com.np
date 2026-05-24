@@ -1,0 +1,42 @@
+---
+import SiteShell from "~/layouts/SiteShell.astro";
+import ScrollReveal from "~/components/motion/ScrollReveal.astro";
+import UsageDashboard from "~/components/marketing/UsageDashboard";
+import monthlyRaw from "~/data/ccusage-monthly.json";
+
+const monthly = monthlyRaw.monthly;
+
+const lastPeriod = monthly.at(-1)?.period ?? "";
+const [y, m] = lastPeriod.split("-");
+const lastUpdated = new Date(Number(y), Number(m) - 1).toLocaleString("en", {
+  month: "long",
+  year: "numeric",
+});
+---
+
+<SiteShell
+  title="AI Usage — Prakash Poudel Sharma"
+  description="Real ccusage data: token volume, harness breakdown, model evolution, and cache efficiency across Claude Code, Codex, OpenCode, and Hermes."
+>
+  <section class="bg-surface-base pt-40 pb-24">
+    <div class="mx-auto max-w-6xl px-6 lg:px-12">
+      <ScrollReveal>
+        <p class="eyebrow mb-3">Data</p>
+        <h1 class="text-display-lg text-strong mb-4">
+          My AI usage, in the open
+        </h1>
+        <p class="text-body-lg text-muted max-w-2xl mb-2">
+          Token volume, harness breakdown, model evolution, and cache efficiency — snapshotted from
+          <a href="https://github.com/ryoppippi/ccusage" class="underline underline-offset-2 hover:text-accent-500 transition-colors">ccusage</a>
+          at the end of each month. I'm on a flat Team subscription, so the API-equivalent dollar values
+          are hypothetical — but the token counts and patterns are real.
+        </p>
+        <p class="text-sm text-muted">Last updated: {lastUpdated}</p>
+      </ScrollReveal>
+
+      <ScrollReveal delay={80} class="mt-12">
+        <UsageDashboard monthly={monthly} client:load />
+      </ScrollReveal>
+    </div>
+  </section>
+</SiteShell>

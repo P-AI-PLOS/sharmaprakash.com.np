@@ -1,0 +1,68 @@
+---
+interface Props {
+  currentPage: number;
+  totalPages: number;
+  buildUrl: (page: number) => string;
+}
+const { currentPage, totalPages, buildUrl } = Astro.props;
+
+// Build the list of page slots: numbers or "…" gaps
+function pageSlots(current: number, total: number): (number | "…")[] {
+  if (total <= 9) return Array.from({ length: total }, (_, i) => i + 1);
+  const show = new Set<number>();
+  // Always include edges
+  [1, 2, total - 1, total].forEach((n) => show.add(n));
+  // Include a window around current
+  for (let d = -3; d <= 3; d++) {
+    const n = current + d;
+    if (n >= 1 && n <= total) show.add(n);
+  }
+  const sorted = [...show].sort((a, b) => a - b);
+  const result: (number | "…")[] = [];
+  for (let i = 0; i < sorted.length; i++) {
+    if (i > 0 && sorted[i] - sorted[i - 1] > 1) result.push("…");
+    result.push(sorted[i]);
+  }
+  return result;
+}
+
+const slots = pageSlots(currentPage, totalPages);
+---
+
+<nav class="mt-12 flex flex-wrap items-center justify-center gap-1" aria-label="Pagination">
+  {currentPage > 1 ? (
+    <a
+      href={buildUrl(currentPage - 1)}
+      class="btn btn-ghost px-3 py-2 text-body-sm"
+      aria-label="Newer posts"
+    >← Newer</a>
+  ) : (
+    <span class="px-3 py-2 text-body-sm text-faint cursor-not-allowed">← Newer</span>
+  )}
+
+  {slots.map((slot) =>
+    slot === "…" ? (
+      <span class="px-2 py-2 text-body-sm text-faint select-none">…</span>
+    ) : slot === currentPage ? (
+      <span
+        class="min-w-[2.25rem] px-3 py-2 text-body-sm text-center rounded-lg bg-accent-600 text-on-inverse font-medium"
+        aria-current="page"
+      >{slot}</span>
+    ) : (
+      <a
+        href={buildUrl(slot)}
+        class="min-w-[2.25rem] px-3 py-2 text-body-sm text-center rounded-lg text-muted hover:text-default hover:bg-surface-sunken transition-colors"
+      >{slot}</a>
+    )
+  )}
+
+  {currentPage < totalPages ? (
+    <a
+      href={buildUrl(currentPage + 1)}
+      class="btn btn-ghost px-3 py-2 text-body-sm"
+      aria-label="Older posts"
+    >Older →</a>
+  ) : (
+    <span class="px-3 py-2 text-body-sm text-faint cursor-not-allowed">Older →</span>
+  )}
+</nav>

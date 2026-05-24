@@ -1,0 +1,23 @@
+[
+    {
+        "id": 1,
+        "title": "CTO",
+        "meta": "Intelliante Inc.",
+        "text": "",
+        "year": "2022 - Present"
+    },
+    {
+        "id": 2,
+        "title": "CTO",
+        "meta": "Truemark Technology.",
+        "text": "",
+        "year": "2017 - Present"
+    },
+    {
+        "id": 3,
+        "title": "Full Stack Developer",
+        "meta": "Leapfrog Technology.",
+        "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed consectetur donec gravida ullamcorper cum id. Sit viverra donec in ornare euismod.",
+        "year": "2014 - 2017"
+    }
+]

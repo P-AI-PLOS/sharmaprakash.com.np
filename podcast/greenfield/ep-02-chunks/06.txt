@@ -1,0 +1,15 @@
+The prompt is twenty-one rules. The rules don't have a bad day. The rules say: folder name matches the exported component name. Always. Here is the ASCII tree. The agent that reads the prompt and writes the list page is doing essentially the same work every time. Because the work is mostly mechanical. And the prompt has nailed down the mechanical parts.
+
+The rule for when a prompt wins:
+
+When the work is mostly mechanical. And consistency matters more than judgement.
+
+Eighty-fifteen, roughly. Eighty-five percent of the lines are predictable from the pattern. Fifteen percent require domain knowledge — which Zod schema, which API endpoint, which column definitions.
+
+The prompt handles the eighty-five. The agent's intelligence handles the fifteen. You get consistency and good judgement at the same time.
+
+That's the trade. Prompts give you determinism — in exchange for upfront writing effort.
+
+[short pause]
+
+A nine-hundred-line prompt is not over-engineered.

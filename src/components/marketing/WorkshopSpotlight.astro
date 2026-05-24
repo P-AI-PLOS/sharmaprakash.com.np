@@ -1,0 +1,114 @@
+---
+import ScrollReveal from "~/components/motion/ScrollReveal.astro";
+import { workshopRegistry } from "~/data/workshops";
+
+const WORKSHOP_SLUG = "hooks-subagents-skills";
+const meta = workshopRegistry[WORKSHOP_SLUG];
+if (!meta) throw new Error(`Workshop spotlight: workshop not found: ${WORKSHOP_SLUG}`);
+
+const chapterCount = meta.chapters.length;
+
+const highlights = [
+  { label: "Hook", body: "Block the diff before the agent finishes." },
+  { label: "Subagent", body: "Audit the rest of the repo for siblings." },
+  { label: "Skill", body: "Name the workflow so you can call it." },
+];
+
+const href = `/workshop/${WORKSHOP_SLUG}/`;
+---
+
+<section class="ws-spot relative overflow-hidden bg-surface-inverse text-on-inverse py-20 lg:py-28">
+  <div class="ws-spot-bg" aria-hidden="true">
+    <span class="ws-spot-blob ws-spot-blob--a"></span>
+    <span class="ws-spot-blob ws-spot-blob--b"></span>
+  </div>
+
+  <div class="relative z-10 mx-auto max-w-7xl px-6 lg:px-12 grid lg:grid-cols-12 gap-10 lg:gap-16 items-center">
+    <div class="lg:col-span-7">
+      <ScrollReveal>
+        <p class="eyebrow text-accent-500">New workshop · free, self-paced</p>
+      </ScrollReveal>
+      <ScrollReveal delay={80}>
+        <h2 class="mt-4 text-display-lg lg:text-display-xl text-on-inverse tracking-tight">
+          {meta.tagline ?? meta.title}
+        </h2>
+      </ScrollReveal>
+      <ScrollReveal delay={160}>
+        <p class="mt-5 text-body-lg text-on-inverse-muted max-w-xl">
+          {meta.description}
+        </p>
+      </ScrollReveal>
+
+      <ScrollReveal delay={240} class="mt-8 grid grid-cols-1 sm:grid-cols-3 gap-3 max-w-2xl">
+        {highlights.map((h) => (
+          <div class="ws-spot-pill">
+            <p class="eyebrow text-accent-500">{h.label}</p>
+            <p class="mt-1 text-body text-on-inverse">{h.body}</p>
+          </div>
+        ))}
+      </ScrollReveal>
+
+      <ScrollReveal delay={320} class="mt-10 flex flex-wrap items-center gap-4">
+        <a href={href} class="btn btn-primary btn-lg">
+          <span>Open the workshop →</span>
+        </a>
+        <span class="text-caption text-on-inverse-muted">
+          {chapterCount} chapters · {meta.durationLabel}
+        </span>
+      </ScrollReveal>
+    </div>
+
+    {meta.cover && (
+      <ScrollReveal delay={180} class="lg:col-span-5">
+        <a href={href} class="ws-spot-cover-link block">
+          <figure class="ws-spot-cover aspect-[4/3] overflow-hidden rounded-xl">
+            <img src={meta.cover} alt={meta.title} class="h-full w-full object-cover" />
+          </figure>
+        </a>
+      </ScrollReveal>
+    )}
+  </div>
+</section>
+
+<style>
+  .ws-spot { isolation: isolate; }
+  .ws-spot-bg {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+  }
+  .ws-spot-blob {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(90px);
+    will-change: transform;
+  }
+  .ws-spot-blob--a {
+    width: 520px; height: 520px;
+    top: -140px; left: -100px;
+    background: radial-gradient(closest-side, var(--accent-600), transparent 70%);
+    opacity: 0.45;
+  }
+  .ws-spot-blob--b {
+    width: 580px; height: 580px;
+    bottom: -180px; right: -120px;
+    background: radial-gradient(closest-side, #6366F1, transparent 70%);
+    opacity: 0.35;
+  }
+  .ws-spot-pill {
+    padding: 14px 16px;
+    background: color-mix(in oklab, white, transparent 92%);
+    border: 1px solid color-mix(in oklab, white, transparent 88%);
+    border-radius: var(--radius-md);
+  }
+  .ws-spot-cover {
+    background: var(--ink-800);
+    box-shadow: var(--shadow-lg, 0 24px 50px rgba(0, 0, 0, 0.4));
+    border: 1px solid color-mix(in oklab, white, transparent 90%);
+    transition: transform var(--dur-slow) var(--ease-out-expo);
+  }
+  .ws-spot-cover-link:hover .ws-spot-cover {
+    transform: translateY(-3px);
+  }
+</style>

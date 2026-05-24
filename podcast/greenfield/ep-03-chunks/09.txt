@@ -1,0 +1,11 @@
+Let me give you the inverse story too. The subagent that was actually correct.
+
+A few weeks after I deleted import-organizer, I had a different problem.
+
+I had a module with — I'm not exaggerating — over two hundred files. Imports from a deprecated component directory. Every component import in that module pointed at a deprecated path. The codebase had a hook blocking new imports from that path. But the existing ones were grandfathered.
+
+I needed to swap every one of them.
+
+Two hundred files. Multiple imports per file. Some of them needed prop renaming. Some had been wrapped in higher-order components that no longer existed in the new module. Every file needed to be opened. Read. Edited. Run through typecheck.
+
+I thought about writing a prompt.

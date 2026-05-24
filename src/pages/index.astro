@@ -1,0 +1,27 @@
+---
+import SiteShell from "~/layouts/SiteShell.astro";
+import HomepageHero from "~/components/marketing/HomepageHero.astro";
+import CurrentRoleStrip from "~/components/marketing/CurrentRoleStrip.astro";
+import NowFocus from "~/components/marketing/NowFocus.astro";
+import RecentEssaysList from "~/components/marketing/RecentEssaysList.astro";
+import WorkshopSpotlight from "~/components/marketing/WorkshopSpotlight.astro";
+import LatestPodcast from "~/components/marketing/LatestPodcast.astro";
+import RecentTechnicalPostsCarousel from "~/components/marketing/RecentTechnicalPostsCarousel.astro";
+import SeriesShowcase from "~/components/blog/SeriesShowcase.astro";
+import ClientTestimonialsCarousel from "~/components/marketing/ClientTestimonialsCarousel.astro";
+import NewsletterSignup from "~/components/marketing/NewsletterSignup.astro";
+import { headTitle } from "~/data/site";
+---
+
+<SiteShell title={headTitle.homeTitle} hideHeader>
+  <HomepageHero />
+  <CurrentRoleStrip />
+  <NowFocus />
+  <RecentEssaysList />
+  <WorkshopSpotlight />
+  <LatestPodcast />
+  <SeriesShowcase />
+  <RecentTechnicalPostsCarousel />
+  <ClientTestimonialsCarousel />
+  <NewsletterSignup />
+</SiteShell>

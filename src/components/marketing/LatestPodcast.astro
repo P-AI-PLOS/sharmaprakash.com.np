@@ -1,0 +1,31 @@
+---
+import ScrollReveal from "~/components/motion/ScrollReveal.astro";
+import PodcastPlayer from "~/components/blog/PodcastPlayer.astro";
+import { podcastEpisodes } from "~/data/podcast";
+
+// Latest by publishedAt. If none, the section renders nothing.
+const latest = [...podcastEpisodes].sort(
+  (a, b) => Date.parse(b.publishedAt) - Date.parse(a.publishedAt),
+)[0];
+---
+
+{latest && (
+  <section class="py-8 lg:py-32">
+    <div class="mx-auto max-w-7xl px-6 lg:px-12">
+      <ScrollReveal class="flex items-end justify-between gap-6 mb-8 flex-wrap">
+        <div>
+          <p class="eyebrow mb-3">Listen</p>
+          <h2 class="text-h1 text-strong max-w-2xl">Latest essay, in your ears.</h2>
+        </div>
+        <p class="text-body-sm text-faint max-w-sm">
+          Audio companions to selected essays. Generated, then loudness-normalized
+          and published as a GitHub release.
+        </p>
+      </ScrollReveal>
+
+      <ScrollReveal delay={80}>
+        <PodcastPlayer episode={latest} />
+      </ScrollReveal>
+    </div>
+  </section>
+)}

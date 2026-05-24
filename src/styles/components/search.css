@@ -1,0 +1,155 @@
+/* --- Site search ------------------------------------------------
+ * The trigger button (header) opens a centered <dialog> containing
+ * Pagefind's default UI. Pagefind-specific selector overrides live
+ * in src/styles/vendor/pagefind.css.
+ * --------------------------------------------------------------- */
+.search-trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  height: 36px;
+  padding: 0 10px 0 12px;
+  background: var(--surface-raised);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-md);
+  color: var(--text-muted);
+  font-size: 13px;
+  font-family: var(--font-ui);
+  cursor: pointer;
+  transition:
+    color var(--dur-fast) var(--ease-out-quad),
+    border-color var(--dur-fast) var(--ease-out-quad),
+    background-color var(--dur-fast) var(--ease-out-quad);
+}
+.search-trigger:hover {
+  color: var(--accent-700);
+  border-color: var(--accent-300);
+  background: var(--accent-50);
+}
+.search-trigger svg { flex-shrink: 0; }
+.search-trigger-label { display: none; }
+@media (min-width: 640px) {
+  .search-trigger-label { display: inline; }
+}
+.search-trigger-kbd {
+  display: none;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-muted);
+  background: var(--surface-sunken);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-sm);
+  padding: 1px 5px;
+  letter-spacing: 0.04em;
+}
+@media (min-width: 768px) {
+  .search-trigger-kbd { display: inline-flex; align-items: center; }
+}
+.search-trigger-kbd-pc { display: none; }
+.search-trigger-kbd-mac { display: inline; }
+
+.search-dialog {
+  width: min(960px, 92vw);
+  max-height: 80vh;
+  padding: 0;
+  border: 1px solid var(--accent-200);
+  border-radius: var(--radius-xl, 14px);
+  background: var(--surface-raised);
+  color: var(--text-default);
+  box-shadow: var(--shadow-lg);
+  overflow: hidden;
+  /* Tailwind preflight zeroes the UA margins on <dialog>; restore
+   * auto margins so showModal() centers the dialog. */
+  margin: auto;
+  inset: 0;
+}
+.search-dialog::backdrop {
+  background: color-mix(in oklab, var(--surface-inverse), transparent 30%);
+  backdrop-filter: blur(4px);
+}
+.search-dialog[open] {
+  animation: search-dialog-in var(--dur-normal) var(--ease-out-quad);
+}
+@keyframes search-dialog-in {
+  from { transform: translateY(-6px); opacity: 0; }
+  to   { transform: translateY(0);    opacity: 1; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .search-dialog[open] { animation: none; }
+}
+
+.search-dialog-inner {
+  display: flex;
+  flex-direction: column;
+  max-height: 80vh;
+  padding: var(--space-5);
+  gap: var(--space-4);
+}
+.search-dialog-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+}
+.search-close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  background: transparent;
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-md);
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: color var(--dur-fast) var(--ease-out-quad),
+              border-color var(--dur-fast) var(--ease-out-quad);
+}
+.search-close:hover {
+  color: var(--accent-700);
+  border-color: var(--accent-300);
+}
+
+.search-ui {
+  min-height: 200px;
+  overflow-y: auto;
+  flex: 1;
+}
+.search-unavailable {
+  font-size: 13px;
+  color: var(--text-muted);
+  margin: 0;
+}
+.search-unavailable code {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  background: var(--surface-sunken);
+  padding: 2px 6px;
+  border-radius: var(--radius-sm);
+}
+.search-hint {
+  margin: 0;
+  font-size: 12px;
+  color: var(--text-muted);
+}
+.search-hint-chip {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  background: var(--surface-sunken);
+  color: var(--text-default);
+  padding: 2px 8px;
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-pill);
+  margin: 0 2px;
+  cursor: pointer;
+  transition:
+    color var(--dur-fast) var(--ease-out-quad),
+    background-color var(--dur-fast) var(--ease-out-quad),
+    border-color var(--dur-fast) var(--ease-out-quad);
+}
+.search-hint-chip:hover {
+  color: var(--accent-700);
+  background: var(--accent-50);
+  border-color: var(--accent-300);
+}

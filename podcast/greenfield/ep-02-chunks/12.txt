@@ -1,0 +1,19 @@
+There's a deeper version of this distinction that I think is worth landing on.
+
+Prompts compress knowledge.
+
+Subagents compress attention.
+
+[short pause]
+
+When you write a prompt, you're taking the knowledge that lived in your head — here is how we do list pages — and you're crystallizing it into a document. The document is the knowledge. The agent borrows the knowledge to do the work.
+
+When you write a subagent, you're taking your attention. The act of focusing on one specific aspect of code. Looking only at type safety. Or only at re-render patterns. Or only at security. And you're delegating that attention to a worker.
+
+The subagent isn't smarter than the parent agent. The subagent is just looking at one thing.
+
+This is why the cost equations are different.
+
+Knowledge, once written, is free to reapply. Attention, every time, costs the tokens to look.
+
+That's why prompts amortize beautifully. And subagents stay expensive.

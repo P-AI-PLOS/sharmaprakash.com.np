@@ -1,0 +1,19 @@
+Hey. I'm Prakash. This is Greenfield. Episode two.
+
+[short pause]
+
+Last episode I laid out the four-trigger model. Prompts. Hooks. Subagents. Skills.
+
+Today, I want to zoom in on just two of those four — because the line between them is, I think, the sharpest and most misunderstood line in this whole conversation.
+
+Prompts. And subagents.
+
+They look similar from a distance. Both are markdown files. Both shape how the agent works. Both live in your repo. Both get versioned in git. Both feel like configuration.
+
+They are not the same tool. They are not interchangeable.
+
+And the cost of treating them as interchangeable is, in my experience... the single most common way teams end up with an agentic setup that costs money but doesn't deliver.
+
+[short pause]
+
+Let me draw the line.

@@ -1,0 +1,17 @@
+Hooks are automatic — they fire every time the lifecycle event fires. Skills are on-demand — they fire when a user types the slash. Subagents are usually invoked by the parent, often through a skill. Prompts are read when pointed at.
+
+If the answer to "when should this fire" is every time the agent edits a file — it's a hook. If the answer is when the user explicitly asks — it's a skill.
+
+Mixing these up is how you get noisy enforcement.
+
+Question three. Does this need an LLM at all?
+
+This is the question I missed with import-organizer.
+
+The honest test: can a regular tool — Prettier, ESLint, Renovate, a precommit hook, a TypeScript compiler flag — do this job?
+
+If yes... use the regular tool.
+
+The agent stack is for things regular tools can't do. Don't pay LLM prices to do work that has had a --fix flag since 2018.
+
+**Question four. If it does need an LLM... does it need a separate LLM?**
