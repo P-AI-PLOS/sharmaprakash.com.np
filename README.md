@@ -2,7 +2,7 @@
 
 Personal site of Prakash Poudel Sharma — homepage, essays, about, contact, works.
 
-Built with Astro 6, Tailwind v3, and a small handful of React islands.
+Built with Astro 7, Tailwind v4, and a small handful of React islands.
 
 ## Run it
 
@@ -25,10 +25,11 @@ pnpm check    # astro check
 
 ## Stack
 
-- Astro 6 (static SSG, View Transitions enabled)
-- Tailwind v3 wired to CSS variables in `src/styles/tokens.css`
+- Astro 7 (static SSG, View Transitions enabled)
+- Tailwind v4 wired to CSS variables in `src/styles/tokens.css`
 - React 19 (only as islands for `@iconify/react`)
-- Swiper Element for carousels
+- Swiper 14 for carousels
+- TypeScript 6
 - Inter + Source Serif 4 fonts
 
 ## License
@@ -46,4 +47,4 @@ the writing in `src/content/`, the copy in `src/data/`, or any of the images and
 media. If you reuse the design, strip the content and replace it with your own.
 
 If you want to quote or adapt a post, short attributed quotations are fine under
-fair use; for anything beyond that, ask first: prakash.poudel@varicon.com.au.
+fair use; for anything beyond that, ask first: prakash@tremark.com.np.

@@ -52,7 +52,7 @@ export const information = {
     linkedin: "https://linkedin.com/in/poudelprakash",
   },
   phoneNumbers: ["+977-9803572935"],
-  emailAddress: ["prakash.poudel@varicon.com.au"],
+  emailAddress: ["prakash@tremark.com.np"],
   companyName: "Varicon",
 } as const;
 

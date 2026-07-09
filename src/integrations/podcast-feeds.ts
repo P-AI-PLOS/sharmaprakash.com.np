@@ -6,7 +6,7 @@ import { podcastEpisodes } from "../data/podcast";
 import { seriesRegistry } from "../data/series";
 import { information } from "../data/site";
 
-const OWNER_EMAIL = "prakash.poudel@varicon.com.au";
+const OWNER_EMAIL = "prakash@tremark.com.np";
 
 const escape = (s: string) =>
   s
