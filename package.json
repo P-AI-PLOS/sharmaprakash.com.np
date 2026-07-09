@@ -3,13 +3,6 @@
   "version": "1.0.0",
   "private": true,
   "type": "module",
-  "pnpm": {
-    "onlyBuiltDependencies": [
-      "@parcel/watcher",
-      "esbuild",
-      "sharp"
-    ]
-  },
   "scripts": {
     "dev": "astro dev --host",
     "start": "astro dev --host",
@@ -34,33 +27,34 @@
   "dependencies": {
     "@astrojs/check": "^0.9.9",
     "@astrojs/mdx": "^5.0.6",
-    "@astrojs/react": "^5.0.5",
-    "@astrojs/sitemap": "^3.7.2",
+    "@astrojs/react": "^5.0.7",
+    "@astrojs/sitemap": "^3.7.3",
     "@iconify/react": "^6.0.2",
     "@resvg/resvg-js": "^2.6.2",
-    "astro": "^6.3.5",
+    "astro": "^6.4.8",
     "gray-matter": "^4.0.3",
-    "react": "^19.2.6",
-    "react-dom": "^19.2.6",
-    "react-icons": "^5.6.0",
-    "recharts": "^3.8.1",
-    "rehype-pretty-code": "^0.14.3",
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7",
+    "react-icons": "^5.7.0",
+    "recharts": "^3.9.2",
+    "rehype-pretty-code": "^0.14.4",
     "satori": "^0.26.0",
-    "sharp": "^0.34.5",
-    "shiki": "^4.0.2",
-    "swiper": "^12.1.4"
+    "sharp": "^0.35.3",
+    "shiki": "^4.3.1",
+    "swiper": "^14.0.2"
   },
   "devDependencies": {
-    "@marp-team/marp-cli": "^4.4.0",
-    "@tailwindcss/postcss": "^4.3.0",
-    "@tailwindcss/vite": "^4.3.0",
-    "@types/react": "^19.2.14",
+    "@marp-team/marp-cli": "^4.4.1",
+    "@tailwindcss/postcss": "^4.3.2",
+    "@tailwindcss/vite": "^4.3.2",
+    "@types/react": "^19.2.17",
     "@types/react-dom": "^19.2.3",
     "pagefind": "^1.5.2",
-    "postcss": "^8.5.14",
+    "postcss": "^8.5.16",
     "qrcode": "^1.5.4",
-    "sass": "^1.99.0",
-    "tailwindcss": "^4.3.0",
-    "typescript": "^6.0.3"
+    "sass": "^1.101.0",
+    "tailwindcss": "^4.3.2",
+    "typescript": "^6.0.3",
+    "vite": "^7.3.6"
   }
 }
