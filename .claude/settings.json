@@ -1,14 +1,27 @@
 {
   "enabledPlugins": {
-    "pm-toolkit@pm-skills": false,
-    "pm-product-strategy@pm-skills": false,
-    "pm-product-discovery@pm-skills": false,
-    "pm-market-research@pm-skills": false,
     "pm-data-analytics@pm-skills": false,
-    "pm-marketing-growth@pm-skills": false,
-    "pm-go-to-market@pm-skills": false,
     "pm-execution@pm-skills": false,
+    "pm-go-to-market@pm-skills": false,
+    "pm-market-research@pm-skills": false,
+    "pm-marketing-growth@pm-skills": false,
+    "pm-product-discovery@pm-skills": false,
+    "pm-product-strategy@pm-skills": false,
+    "pm-toolkit@pm-skills": false,
     "ruby-lsp@claude-plugins-official": false,
     "swift-lsp@claude-plugins-official": false
+  },
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "command": "bd prime --hook-json",
+            "type": "command"
+          }
+        ],
+        "matcher": ""
+      }
+    ]
   }
 }

@@ -16,3 +16,9 @@ podcast/**/ep-*.mp3
 podcast/**/ep-*.wav
 podcast/**/ep-*.m4a
 podcast/**/ep-*-chunks/*.mp3
+
+# Beads / Dolt files (added by bd init)
+.dolt/
+*.db
+.beads-credential-key
+.beads/proxieddb/
