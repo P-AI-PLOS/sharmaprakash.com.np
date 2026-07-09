@@ -135,4 +135,4 @@ The fix is the next layer.
 
 ## What's next
 
-The hook blocks new barrels. The subagent finds existing ones. Nothing has *rewritten* anything yet. [**Lab 3 — Skill**](/workshop/lab-skill/) wires both into `/de-barrel` — a single slash command that runs the auditor, walks the rows, and lets the hook guard each edit.
+The hook blocks new barrels. The subagent finds existing ones. Nothing has *rewritten* anything yet. [**Lab 4 — Command + Skill**](/workshop/lab-skill/) wires both together: a thin command wrapper routes to a detailed skill that runs the auditor, walks the rows, and lets the hook guard each edit — all invoked by a single slash command `/de-barrel`.

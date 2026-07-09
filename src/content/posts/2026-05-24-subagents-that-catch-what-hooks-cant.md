@@ -21,15 +21,16 @@ That's a subagent.
 
 ---
 
-## The split: hooks vs subagents vs skills
+## The split: hooks vs subagents vs commands vs skills
 
-A quick map of the three enforcement layers, since they're easy to confuse:
+A quick map of the four enforcement layers, since they're easy to confuse:
 
 | Layer       | Triggered by       | Cost per run          | What it's for                                  |
 | ----------- | ------------------ | --------------------- | ---------------------------------------------- |
 | **Hook**    | Lifecycle event    | Milliseconds          | Mechanical rules — block or warn at write-time |
 | **Subagent**| Parent agent delegates | Tokens (a real LLM call) | Judgement calls — read, reason, report     |
-| **Skill**   | User types `/name` | Tokens (LLM-driven workflow) | Repeatable workflows — scaffolding, migrations |
+| **Command** | User types `/name` | Milliseconds (thin wrapper) | Entry point that routes to a skill             |
+| **Skill**   | Command delegates  | Tokens (LLM-driven workflow) | Repeatable workflows — scaffolding, migrations |
 
 Hooks are deterministic and free. Subagents are non-deterministic and cost tokens. Reach for a subagent only when the question can't be answered by a grep — that's the dividing line.
 
@@ -258,13 +259,14 @@ The `model:` field in the frontmatter pins this. If you don't pin it, the subage
 
 ## What's next
 
-The fourth and final post in this enforcement-layer thread covers **skills** — the user-facing slash commands that wrap workflows. The relationship is:
+The fourth and final post in this enforcement-layer thread covers **commands and skills** — the user-facing layer. The relationship is:
 
-- A **skill** (`/migrate-list`) is what the user invokes.
-- The skill loads a workflow prompt that delegates to **subagents** (`module-scaffolder`, `deprecated-migrator`).
+- A **command** (`/migrate-list`) is what the user invokes — a thin 2–3 line wrapper in `.claude/commands/`.
+- The command delegates to a **skill** (in `.claude/skills/`) which loads the workflow prompt.
+- The skill can delegate to **subagents** (`module-scaffolder`, `deprecated-migrator`).
 - The subagents run inside a session that's already gated by **hooks** (no barrel imports, no deprecated paths).
 
-Three layers, one stack. Hooks at the bottom, subagents in the middle, skills at the top. The next post walks through a real `.claude/commands/` directory — twelve real slash commands that wire the whole thing together.
+Four layers, one stack. Hooks at the bottom, subagents in the middle, commands route to skills at the top. The next post walks through a real `.claude/commands/` and `.claude/skills/` directory — the command wrappers and skills that wire the whole thing together.
 
 ---
 

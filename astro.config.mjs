@@ -4,6 +4,8 @@ import react from "@astrojs/react";
 import mdx from "@astrojs/mdx";
 import rehypePrettyCode from "rehype-pretty-code";
 import tailwindcss from "@tailwindcss/vite";
+import { unified } from "@astrojs/markdown-remark";
+import { podcastFeeds } from "./src/integrations/podcast-feeds.ts";
 
 const site = (process.env.WEBSITE_URL?.trim()) || "https://www.sharmaprakash.com.np/";
 
@@ -25,13 +27,15 @@ export default defineConfig({
     react(),
     mdx({
       syntaxHighlight: false,
-      rehypePlugins: [[rehypePrettyCode, prettyCodeOptions]],
     }),
     sitemap(),
+    podcastFeeds(),
   ],
   markdown: {
     syntaxHighlight: false,
-    rehypePlugins: [[rehypePrettyCode, prettyCodeOptions]],
+    processor: unified({
+      rehypePlugins: [[rehypePrettyCode, prettyCodeOptions]],
+    }),
   },
   redirects: {
     "/javascript/ie-alternative-to-inludes/": "/javascript/ie-alternative-to-includes/",

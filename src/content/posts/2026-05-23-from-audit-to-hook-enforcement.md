@@ -370,10 +370,10 @@ The mechanical version, if you're starting from scratch:
 
 ## What's next in the series
 
-The next two posts in this series go after the layer *above* hooks:
+The next two posts in this series go after the layers *above* hooks:
 
 - **Subagents that catch what hooks can't** — code review, architecture compliance, the judgement calls.
-- **Skills as the user-facing surface** — `/create-module`, `/migrate-table`, the slash commands that wrap workflows.
+- **Commands and skills as the user-facing surface** — thin command wrappers (`/create-module`, `/migrate-table`) that delegate to detailed skills encoding workflows.
 
 Hooks are enforcement. Subagents are review. Skills are user-facing entry points. Together they're the spine of an agent-ready repo.
 

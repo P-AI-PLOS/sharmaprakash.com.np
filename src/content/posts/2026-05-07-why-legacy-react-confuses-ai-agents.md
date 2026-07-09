@@ -83,17 +83,18 @@ Look at your `components/` directory right now. How many of these do you have?
 
 Three or more of these and your agent has no canonical answer to "where do I put a button?". I've seen codebases with **five parallel hierarchies** in `components/`, each containing its own `Drawer`, `Select`, and `Modal`. Every one of them is a `from 'components/Drawer'` away from being imported.
 
-### Pattern 2: Form fields scattered across four directories
+### Pattern 2: Form fields scattered across several directories
 
-In one repo I audited (a Chakra UI app that had partially migrated to a homegrown design system):
+In one repo I audited (a Chakra UI app that had partially migrated to a homegrown design system), I found four competing implementations:
 
-- `FormTextField` in `molecules/` **and** in `__legacy__/`
-- `FormCheckbox` in `molecules/` **and** `FormCheckBox` (different casing!) in `__legacy__/`
-- `FormSelectField` **only** in `__legacy__/` — banned dir, but the only implementation
-- Radio buttons in `atoms/`, radio groups in `molecules/`
-- Form-control primitive deep in `components/base/`
+1. `FormTextField` in `molecules/` **and** in `__legacy__/`
+2. `FormCheckbox` in `molecules/` **and** `FormCheckBox` (different casing!) in `__legacy__/`
+3. `FormSelectField` **only** in `__legacy__/` — banned dir, but the only implementation
+4. Radio buttons scattered across `atoms/`, radio groups in `molecules/`, form-control primitive in `components/base/`
 
-The migration guide told agents "use `molecules`" and then **directly instructed imports from `__legacy__/FormSelectField`** because there was no canonical replacement. The repo's authoritative agent prompt was pointing at the dir the rules banned.
+Watch what happens when an agent tries to build a form field. The rules say: "use `molecules/`." The agent reads the guide and sees an example importing `FormSelectField`. It checks `molecules/` — empty. It searches the codebase, finds `FormSelectField` only in `__legacy__/`, and imports it anyway. The agent did exactly what the guide told it to do. It also violated the rules.
+
+The migration guide told agents "use `molecules`" and then **directly instructed imports from `__legacy__/FormSelectField`** because there was no canonical replacement. The repo's rules and its docs were in open conflict, and they were both trying to guide the same action. The agent had no way to know which instruction to follow.
 
 ### Pattern 3: Design tokens that mean the opposite of their name
 
