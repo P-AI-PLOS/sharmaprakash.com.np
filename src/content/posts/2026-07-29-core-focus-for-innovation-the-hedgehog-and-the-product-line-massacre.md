@@ -1,6 +1,6 @@
 ---
 title: "Core Focus for Innovation: The Hedgehog and the Product-Line Massacre"
-date: "2026-07-29T10:00:00+05:45"
+date: "2026-06-30T10:00:00+05:45"
 category: ["Product"]
 categories: ["product-management"]
 directory: product-management

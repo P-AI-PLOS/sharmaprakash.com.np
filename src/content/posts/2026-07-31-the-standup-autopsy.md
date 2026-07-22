@@ -1,6 +1,6 @@
 ---
 title: "The Standup Autopsy"
-date: "2026-08-14T10:00:00+05:45"
+date: "2026-07-23T10:00:00+05:45"
 category: ["Product"]
 categories: ["product-management"]
 directory: product-management
@@ -72,6 +72,6 @@ The [Healthcare.gov rescue](/product-management/healthcare-gov-the-rescue-that-i
 
 ## Further reading
 
-- Jason Yip, *It's Not Just Standing Up: Patterns for Daily Standup Meetings* (martinfowler.com) — the definitive catalog of standup failure modes and repairs, including walking the board; most of what teams painfully rediscover is already written down here.
-- Ken Schwaber & Jeff Sutherland, *The Scrum Guide* — read the daily scrum section in its actual wording: it's for the developers, it's a planning event, and there is no mandated yesterday/today/blockers script. Most of the liturgy isn't in the source text.
-- Kent Beck, *Extreme Programming Explained* — the stand-up meeting in its original habitat, embedded in a system of practices (pairing, shared space, continuous integration) that quietly did most of the synchronizing.
+- Jason Yip, [*It's Not Just Standing Up: Patterns for Daily Standup Meetings*](https://martinfowler.com/articles/itsNotJustStandingUp.html) (martinfowler.com) — the definitive catalog of standup failure modes and repairs, including walking the board; most of what teams painfully rediscover is already written down here.
+- Ken Schwaber & Jeff Sutherland, [*The Scrum Guide*](https://scrumguides.org/) — read the daily scrum section in its actual wording: it's for the developers, it's a planning event, and there is no mandated yesterday/today/blockers script. Most of the liturgy isn't in the source text.
+- Kent Beck, [*Extreme Programming Explained*](https://www.amazon.com/s?k=extreme+programming+explained+kent+beck) — the stand-up meeting in its original habitat, embedded in a system of practices (pairing, shared space, continuous integration) that quietly did most of the synchronizing.

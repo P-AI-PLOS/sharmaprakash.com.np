@@ -1,6 +1,6 @@
 ---
 title: "The Deadline That Moved Three Times: Cyberpunk 2077"
-date: "2026-08-08T10:00:00+05:45"
+date: "2026-07-10T10:00:00+05:45"
 category: ["Product"]
 categories: ["product-management"]
 directory: product-management
@@ -52,6 +52,6 @@ Notice what none of these stories contains: a framework. Sentinel wasn't saved b
 
 ## Further reading
 
-- Jason Schreier's Bloomberg reporting on Cyberpunk 2077's development — the primary account of the crunch, the broken promise, and the internal warnings; the standard for games-industry journalism on how organizations actually ship.
-- Jason Schreier, *Blood, Sweat, and Pixels* and *Press Reset* — the wider evidence base: crunch as the industry's default resolution of the scope-quality-date triangle, and what it costs the people inside it.
+- Jason Schreier, ["Inside Cyberpunk 2077's Disastrous Rollout"](https://www.bloomberg.com/news/articles/2021-01-16/cyberpunk-2077-what-caused-the-video-game-s-disastrous-rollout) (Bloomberg, 2021) — the primary account of the crunch, the broken promise, and the internal warnings; the standard for games-industry journalism on how organizations actually ship.
+- Jason Schreier, [*Blood, Sweat, and Pixels*](https://www.amazon.com/s?k=blood+sweat+and+pixels+jason+schreier) and [*Press Reset*](https://www.amazon.com/s?k=press+reset+jason+schreier) — the wider evidence base: crunch as the industry's default resolution of the scope-quality-date triangle, and what it costs the people inside it.
 - [The Agile Manifesto and its twelve principles](https://agilemanifesto.org/) (2001) — read the eighth and tenth principles again after this story; *indefinitely* and *the amount of work not done* stop sounding like poster language.

@@ -1,6 +1,6 @@
 ---
 title: "The Issues List for Innovation: Surfacing Bad News at Line Speed"
-date: "2026-08-01T10:00:00+05:45"
+date: "2026-07-03T10:00:00+05:45"
 category: ["Product"]
 categories: ["product-management"]
 directory: product-management

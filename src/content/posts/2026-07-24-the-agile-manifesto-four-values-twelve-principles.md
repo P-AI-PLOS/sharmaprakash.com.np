@@ -1,6 +1,6 @@
 ---
 title: "The Agile Manifesto, Reread: Four Values, Twelve Principles"
-date: "2026-08-03T10:00:00+05:45"
+date: "2026-07-05T10:00:00+05:45"
 category: ["Product"]
 categories: ["product-management"]
 directory: product-management
@@ -59,6 +59,6 @@ The recovery move isn't to run the ceremonies harder, and it isn't to burn them 
 ## Further reading
 
 - [The Agile Manifesto and its twelve principles](https://agilemanifesto.org/) (2001) — the primary source; shorter than most blog posts written about it, including this one.
-- Kent Beck, *Extreme Programming Explained* — the clearest pre-manifesto articulation of the values-then-practices structure, from the author who insisted values come first.
-- Martin Fowler, "The New Methodology" — the essay-length case for adaptive over predictive processes, from a Snowbird signatory, and the best account of what the manifesto was reacting against.
-- Alistair Cockburn, *Agile Software Development: The Cooperative Game* — the deepest treatment of the people cluster; software as a cooperative game of invention and communication rather than an engineering process to be controlled.
+- Kent Beck, [*Extreme Programming Explained*](https://www.amazon.com/s?k=extreme+programming+explained+kent+beck) — the clearest pre-manifesto articulation of the values-then-practices structure, from the author who insisted values come first.
+- Martin Fowler, ["The New Methodology"](https://martinfowler.com/articles/newMethodology.html) (martinfowler.com) — the essay-length case for adaptive over predictive processes, from a Snowbird signatory, and the best account of what the manifesto was reacting against.
+- Alistair Cockburn, [*Agile Software Development: The Cooperative Game*](https://www.amazon.com/s?k=agile+software+development+the+cooperative+game+cockburn) — the deepest treatment of the people cluster; software as a cooperative game of invention and communication rather than an engineering process to be controlled.

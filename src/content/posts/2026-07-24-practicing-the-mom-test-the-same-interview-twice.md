@@ -1,6 +1,6 @@
 ---
 title: "Practicing the Mom Test: The Same Interview, Twice"
-date: "2026-08-03T09:00:00+05:45"
+date: "2026-07-04T10:00:00+05:45"
 category: ["Product"]
 categories: ["product-management"]
 directory: product-management

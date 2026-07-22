@@ -1,6 +1,6 @@
 ---
 title: "The Roadmap in the Sales Room: Selling the Present"
-date: "2026-07-26T10:00:00+05:45"
+date: "2026-06-25T10:00:00+05:45"
 category: ["Product"]
 categories: ["product-management"]
 directory: product-management
@@ -48,7 +48,7 @@ The failure modes are the story in generalized form: **the feature-promise tread
 
 ## Further reading
 
-- April Dunford, *Sales Pitch* — positioning translated into an actual sales narrative structure; the best treatment of selling the present product honestly.
-- Rob Fitzpatrick, *The Mom Test* — the discovery-questioning discipline, and it applies to sales calls even more than user interviews, because the incentives to hear yes are stronger. I've annotated [a worked example of the same interview run twice](/product-management/practicing-the-mom-test-the-same-interview-twice/).
-- Pete Kazanjy, *Founding Sales* — early-stage selling mechanics, including how product truth and sales motion stay aligned before there's a sales org.
-- Bruce McCarthy et al., *Product Roadmaps Relaunched* — the external-audience roadmap views, including what to show buyers without handing procurement a contract.
+- April Dunford, [*Sales Pitch*](https://www.amazon.com/s?k=sales+pitch+april+dunford) — positioning translated into an actual sales narrative structure; the best treatment of selling the present product honestly.
+- Rob Fitzpatrick, [*The Mom Test*](https://www.amazon.com/s?k=the+mom+test+rob+fitzpatrick) — the discovery-questioning discipline, and it applies to sales calls even more than user interviews, because the incentives to hear yes are stronger. I've annotated [a worked example of the same interview run twice](/product-management/practicing-the-mom-test-the-same-interview-twice/).
+- Pete Kazanjy, [*Founding Sales*](https://www.amazon.com/s?k=founding+sales+pete+kazanjy) — early-stage selling mechanics, including how product truth and sales motion stay aligned before there's a sales org.
+- Bruce McCarthy et al., [*Product Roadmaps Relaunched*](https://www.amazon.com/s?k=product+roadmaps+relaunched+mccarthy) — the external-audience roadmap views, including what to show buyers without handing procurement a contract.

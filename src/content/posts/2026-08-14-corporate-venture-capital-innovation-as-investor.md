@@ -1,6 +1,6 @@
 ---
 title: "Corporate Venture Capital: Innovation as Investor"
-date: "2026-08-14T10:00:00+05:45"
+date: "2026-07-24T10:00:00+05:45"
 category: ["Product"]
 categories: ["product-management"]
 directory: product-management
@@ -78,7 +78,7 @@ But notice the assumption buried in everything above: that the companies you bac
 
 ## Further reading
 
-- Henry Chesbrough, "Making Sense of Corporate Venture Capital" (Harvard Business Review, 2002) — the 2x2, plus the post-dot-com carnage that motivated it.
-- Paul Gompers & Josh Lerner, "The Determinants of Corporate Venture Capital Success" (NBER, 1998) — the evidence that strategically aligned corporate investments perform as well as independent VC, and misaligned ones don't.
-- Fred Wilson at CB Insights' Future of Fintech (2016) — the "corporate investing is dumb" remarks, worth watching in full rather than in quote-tweet form.
-- CB Insights, *State of CVC* reports — the running census of the fourth wave, including corporate participation rates in global venture deals.
+- Henry Chesbrough, ["Making Sense of Corporate Venture Capital"](https://hbr.org/2002/03/making-sense-of-corporate-venture-capital) (Harvard Business Review, 2002) — the 2x2, plus the post-dot-com carnage that motivated it.
+- Paul Gompers & Josh Lerner, ["The Determinants of Corporate Venture Capital Success"](https://www.nber.org/papers/w6725) (NBER, 1998) — the evidence that strategically aligned corporate investments perform as well as independent VC, and misaligned ones don't.
+- [Fred Wilson at CB Insights' Future of Fintech (2016)](https://www.cbinsights.com/research/team-blog/fred-wilson-startups-corporate-money-doing-business-devil/) — the "corporate investing is dumb" remarks, worth watching in full rather than in quote-tweet form.
+- CB Insights, [*State of CVC* reports](https://www.cbinsights.com/research/report/corporate-venture-capital-trends-q1-2025/) — the running census of the fourth wave, including corporate participation rates in global venture deals.

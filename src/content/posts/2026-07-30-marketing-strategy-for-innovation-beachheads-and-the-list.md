@@ -1,6 +1,6 @@
 ---
 title: "Marketing Strategy for Innovation: Beachheads and The List"
-date: "2026-07-30T10:00:00+05:45"
+date: "2026-07-01T10:00:00+05:45"
 category: ["Product"]
 categories: ["product-management"]
 directory: product-management

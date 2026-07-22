@@ -1,6 +1,6 @@
 ---
 title: "Org Design & Measurement: Closing the Strategy Loop"
-date: "2026-07-18T10:00:00+05:45"
+date: "2026-06-15T10:00:00+05:45"
 category: ["Product"]
 categories: ["product-management"]
 directory: product-management

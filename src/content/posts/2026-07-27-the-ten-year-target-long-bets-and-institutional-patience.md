@@ -1,6 +1,6 @@
 ---
 title: "The Ten-Year Target: Long Bets and Institutional Patience"
-date: "2026-07-27T10:00:00+05:45"
+date: "2026-06-28T10:00:00+05:45"
 category: ["Product"]
 categories: ["product-management"]
 directory: product-management

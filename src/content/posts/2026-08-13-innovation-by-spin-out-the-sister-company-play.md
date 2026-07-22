@@ -1,6 +1,6 @@
 ---
 title: "Innovation by Spin-Out: The Sister-Company Play"
-date: "2026-08-13T10:00:00+05:45"
+date: "2026-07-22T10:00:00+05:45"
 category: ["Product"]
 categories: ["product-management"]
 directory: product-management
@@ -78,7 +78,7 @@ The spin-out is the last structural move available for a bet you intend to *own*
 
 ## Further reading
 
-- Christensen & Overdorf, "Meeting the Challenge of Disruptive Change" (HBR, 2000) — the RPV fit chart that tells you when to spin out rather than incubate.
-- Kashani & Miller, "Innovation and Renovation: The Nespresso Story" (IMD case) — the standard account of the exile, the near-death, and the Gaillard pivot.
-- Alphabet's 10-K filings, segment reporting — the primary source on Other Bets economics; read the numbers, not the keynotes.
-- "Cisco's 'spin-in' strategy" coverage in Fortune and The Register (2013–2016) on Insieme and the MPLS team — the mechanics and the resentment, both on the record.
+- Christensen & Overdorf, ["Meeting the Challenge of Disruptive Change"](https://hbr.org/2000/03/meeting-the-challenge-of-disruptive-change) (HBR, 2000) — the RPV fit chart that tells you when to spin out rather than incubate.
+- Kashani & Miller, ["Innovation and Renovation: The Nespresso Story"](https://imd.org/research-knowledge/marketing/case-studies/innovation-and-renovation-the-nespresso-story-revised/) (IMD case) — the standard account of the exile, the near-death, and the Gaillard pivot.
+- [Alphabet's 10-K filings, segment reporting](https://abc.xyz/investor/sec-filings/) — the primary source on Other Bets economics; read the numbers, not the keynotes.
+- ["Cisco's 'spin-in' strategy"](https://fortune.com/2013/12/05/ciscos-space-cowboys) coverage in Fortune (2013–2016) on Insieme and the MPLS team — the mechanics and the resentment, both on the record.

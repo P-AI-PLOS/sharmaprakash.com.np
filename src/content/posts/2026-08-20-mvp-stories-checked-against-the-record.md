@@ -1,6 +1,6 @@
 ---
 title: "The MVP Canon, Checked Against the Record: Buffer, Zappos, Dropbox, ChatGPT"
-date: "2026-08-20T10:00:00+05:45"
+date: "2026-08-08T10:00:00+05:45"
 category: ["Product"]
 categories: ["product-management"]
 directory: product-management
@@ -61,6 +61,6 @@ But that's also why the sloppy retelling grates on me more here than it would an
 ## Further reading
 
 - Joel Gascoigne, "[Idea to Paying Customers in 7 Weeks: How We Did It](https://buffer.com/resources/idea-to-paying-customers-in-7-weeks-how-we-did-it/)" — the contemporaneous Buffer write-up, and the gold standard for what a documented MVP story looks like. Read it before you cite any of the others.
-- Drew Houston's own tellings of the Dropbox video story, in his talks and interviews — worth reading as the primary account they are, noting where the two videos and the waitlist figure attach, and where the record depends entirely on his recollection.
+- [Drew Houston, "On Starting and Scaling Dropbox"](https://www.ycombinator.com/library/6S-on-starting-and-scaling-dropbox-yc-w07) (Y Combinator Startup Library) — his own telling of the demo-video story, worth reading as the primary account it is, noting where the two videos and the waitlist figure attach, and where the record depends entirely on his recollection.
 - Eric Ries, [*The Lean Startup*](https://www.amazon.com/s?k=the+lean+startup+ries) — the book that canonized the Dropbox and Zappos stories and retroactively supplied the "MVP" label the Zappos experiment now wears; useful both for the framework and as an artifact of how the canon got assembled.
 - [The UBS analysis of ChatGPT's early growth](https://www.reuters.com/technology/chatgpt-sets-record-fastest-growing-user-base-analyst-note-2023-02-01/), built on Similarweb traffic data — the actual origin of the "100 million MAU" figure. Cite it as what it is: a well-constructed estimate, not a disclosure.

@@ -1,6 +1,6 @@
 ---
 title: "Healthcare.gov: The Rescue That Invented a Playbook"
-date: "2026-08-13T10:00:00+05:45"
+date: "2026-07-19T10:00:00+05:45"
 category: ["Product"]
 categories: ["product-management"]
 directory: product-management
@@ -52,6 +52,6 @@ That trajectory — emergency improvisation, then codified practice — is worth
 
 ## Further reading
 
-- Steven Brill, "Obama's Trauma Team" (Time, 2014) — the definitive inside account of the surge: the war room, the punch list, the twice-daily meetings, and the people in the room; the primary narrative source for the rescue.
-- The Digital Services Playbook (playbook.cio.gov) — the thirteen plays the rescue produced; read it as scar tissue, with October 2013 in mind, and every play snaps into focus.
-- U.S. Government Accountability Office — the Healthcare.gov report series on the launch failures: testing, integration, requirements churn, and oversight; the sober forensic record of how the fire started.
+- Steven Brill, ["Obama's Trauma Team"](https://content.time.com/time/printout/0,8816,2166770,00.html) (Time, 2014) — the definitive inside account of the surge: the war room, the punch list, the twice-daily meetings, and the people in the room; the primary narrative source for the rescue.
+- [The Digital Services Playbook](https://playbook.cio.gov/) (playbook.cio.gov) — the thirteen plays the rescue produced; read it as scar tissue, with October 2013 in mind, and every play snaps into focus.
+- U.S. Government Accountability Office — the [Healthcare.gov report series](https://www.gao.gov/products/gao-14-694) on the launch failures: testing, integration, requirements churn, and oversight; the sober forensic record of how the fire started.

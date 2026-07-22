@@ -1,6 +1,6 @@
 ---
 title: "Blockbuster Didn't Laugh: The Netflix Story the Record Actually Supports"
-date: "2026-08-09T10:00:00+05:45"
+date: "2026-07-11T10:00:00+05:45"
 category: ["Product"]
 categories: ["product-management"]
 directory: product-management

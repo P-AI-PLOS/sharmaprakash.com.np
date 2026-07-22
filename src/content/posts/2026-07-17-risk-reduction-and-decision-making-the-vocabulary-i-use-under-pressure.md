@@ -1,6 +1,6 @@
 ---
 title: "Risk Reduction: The Vocabulary I Use Under Pressure"
-date: "2026-07-17T10:00:00+05:45"
+date: "2026-06-14T10:00:00+05:45"
 category: ["Product"]
 categories: ["product-management"]
 directory: product-management

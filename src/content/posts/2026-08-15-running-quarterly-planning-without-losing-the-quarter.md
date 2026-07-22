@@ -1,6 +1,6 @@
 ---
 title: "Running Quarterly Planning Without Losing the Quarter"
-date: "2026-08-15T10:00:00+05:45"
+date: "2026-07-30T10:00:00+05:45"
 category: ["Product"]
 categories: ["product-management"]
 directory: product-management
@@ -101,7 +101,7 @@ The retro's output feeds directly into the next cycle's four documents. That clo
 
 ## Further reading
 
-- Richard Rumelt, *Good Strategy Bad Strategy* — the kernel that should exist above any quarter; a plan selecting from strategy beats a plan inventing one, every time.
-- Ryan Singer, *Shape It* — Basecamp's betting-table language; the cycle length differs, but the framing of funded work as bets with appetites maps almost directly onto the 30% bucket.
-- Christina Wodtke, *Radical Focus* — the narrative case for fewer commitments and a real cadence of check-ins; the Friday/Monday rhythm is a finer-grained cousin of the monthly plan-check.
-- Donald Reinertsen, *The Principles of Product Development Flow* — the queueing-theory argument for why capacity planned to 100% guarantees delay; the mathematical spine under the slack rule.
+- Richard Rumelt, [*Good Strategy Bad Strategy*](https://www.amazon.com/s?k=good+strategy+bad+strategy+rumelt) — the kernel that should exist above any quarter; a plan selecting from strategy beats a plan inventing one, every time.
+- Ryan Singer, [*Shape Up*](https://basecamp.com/shapeup) — Basecamp's betting-table language; the cycle length differs, but the framing of funded work as bets with appetites maps almost directly onto the 30% bucket.
+- Christina Wodtke, [*Radical Focus*](https://www.amazon.com/s?k=radical+focus+wodtke) — the narrative case for fewer commitments and a real cadence of check-ins; the Friday/Monday rhythm is a finer-grained cousin of the monthly plan-check.
+- Donald Reinertsen, [*The Principles of Product Development Flow*](https://www.amazon.com/s?k=principles+of+product+development+flow+reinertsen) — the queueing-theory argument for why capacity planned to 100% guarantees delay; the mathematical spine under the slack rule.

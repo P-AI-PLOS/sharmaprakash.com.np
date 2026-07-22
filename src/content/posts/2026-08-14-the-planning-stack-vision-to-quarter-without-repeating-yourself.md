@@ -1,6 +1,6 @@
 ---
 title: "The Planning Stack: Vision to Quarter Without Repeating Yourself"
-date: "2026-08-14T10:00:00+05:45"
+date: "2026-07-25T10:00:00+05:45"
 category: ["Product"]
 categories: ["product-management"]
 directory: product-management
@@ -108,7 +108,7 @@ The next post in this series goes one level down and stays there: how to actuall
 
 ## Further reading
 
-- Richard Rumelt, *Good Strategy Bad Strategy* — the diagnosis discipline that keeps the upper layers honest; I've written about [applying the kernel](/product-management/strategy-formation-how-to-tell-a-real-strategy-from-a-wish/) already.
-- Geoffrey Moore, *Zone to Win* — the sharpest treatment I know of why long-payback capability bets lose annual budget fights, and the governance that protects them.
-- A.G. Lafley & Roger Martin, *Playing to Win* — the where-to-play/how-to-win vocabulary the 5-year layer is written in.
-- Melissa Perri, *Escaping the Build Trap* — on the difference between a company that plans outcomes at every horizon and one that plans output at five zoom levels.
+- Richard Rumelt, [*Good Strategy Bad Strategy*](https://www.amazon.com/s?k=good+strategy+bad+strategy+rumelt) — the diagnosis discipline that keeps the upper layers honest; I've written about [applying the kernel](/product-management/strategy-formation-how-to-tell-a-real-strategy-from-a-wish/) already.
+- Geoffrey Moore, [*Zone to Win*](https://www.amazon.com/s?k=zone+to+win+moore) — the sharpest treatment I know of why long-payback capability bets lose annual budget fights, and the governance that protects them.
+- A.G. Lafley & Roger Martin, [*Playing to Win*](https://www.amazon.com/s?k=playing+to+win+lafley+martin) — the where-to-play/how-to-win vocabulary the 5-year layer is written in.
+- Melissa Perri, [*Escaping the Build Trap*](https://www.amazon.com/s?k=escaping+the+build+trap+perri) — on the difference between a company that plans outcomes at every horizon and one that plans output at five zoom levels.

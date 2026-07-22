@@ -1,6 +1,6 @@
 ---
 title: "Presenting the Roadmap to Investors: Milestones, Not Features"
-date: "2026-07-25T10:00:00+05:45"
+date: "2026-06-23T10:00:00+05:45"
 category: ["Product"]
 categories: ["product-management"]
 directory: product-management
@@ -49,7 +49,7 @@ The failure modes, compressed: **the feature Gantt** (answers a question nobody 
 
 ## Further reading
 
-- Scott Kupor, *Secrets of Sand Hill Road* — how venture investors actually evaluate rounds and risk; the milestone-to-round logic from the other side of the table.
-- Colin Bryar & Bill Carr, *Working Backwards* — the PR/FAQ as pitch backbone; the hostile FAQ is the best Q&A prep format I know.
-- April Dunford, *Obviously Awesome* — the competitive-threat answer lives here, not in your velocity.
-- Bruce McCarthy et al., *Product Roadmaps Relaunched* — the chapter on stakeholder-specific roadmap views is exactly this post's move, generalized.
+- Scott Kupor, [*Secrets of Sand Hill Road*](https://www.amazon.com/s?k=secrets+of+sand+hill+road+kupor) — how venture investors actually evaluate rounds and risk; the milestone-to-round logic from the other side of the table.
+- Colin Bryar & Bill Carr, [*Working Backwards*](https://www.amazon.com/s?k=working+backwards+bryar+carr) — the PR/FAQ as pitch backbone; the hostile FAQ is the best Q&A prep format I know.
+- April Dunford, [*Obviously Awesome*](https://www.amazon.com/s?k=obviously+awesome+dunford) — the competitive-threat answer lives here, not in your velocity.
+- Bruce McCarthy et al., [*Product Roadmaps Relaunched*](https://www.amazon.com/s?k=product+roadmaps+relaunched+mccarthy) — the chapter on stakeholder-specific roadmap views is exactly this post's move, generalized.

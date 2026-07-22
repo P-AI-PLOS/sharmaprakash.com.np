@@ -1,6 +1,6 @@
 ---
 title: "Avoiding AI Slop: Writing User Stories a Team Will Actually Build"
-date: "2026-08-29T10:00:00+05:45"
+date: "2026-08-15T10:00:00+05:45"
 category: ["Product"]
 categories: ["product-management"]
 directory: product-management

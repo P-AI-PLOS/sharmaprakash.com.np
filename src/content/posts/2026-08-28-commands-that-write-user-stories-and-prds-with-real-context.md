@@ -1,6 +1,6 @@
 ---
 title: "Commands That Write User Stories and PRDs with Real Context"
-date: "2026-08-28T10:00:00+05:45"
+date: "2026-08-14T10:00:00+05:45"
 category: ["Product"]
 categories: ["product-management"]
 directory: product-management

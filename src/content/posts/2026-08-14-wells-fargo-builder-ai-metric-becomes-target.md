@@ -1,6 +1,6 @@
 ---
 title: "When the Metric Becomes the Target: Wells Fargo, Zynga, Builder.ai"
-date: "2026-08-14T10:00:00+05:45"
+date: "2026-07-26T10:00:00+05:45"
 category: ["Product"]
 categories: ["product-management"]
 directory: product-management

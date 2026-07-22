@@ -1,6 +1,6 @@
 ---
 title: "How to Run an Innovation Lab: Build a School, Not a Showroom"
-date: "2026-07-24T10:00:00+05:45"
+date: "2026-06-22T10:00:00+05:45"
 category: ["Product"]
 categories: ["product-management"]
 directory: product-management

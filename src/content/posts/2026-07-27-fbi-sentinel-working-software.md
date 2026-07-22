@@ -1,6 +1,6 @@
 ---
 title: "FBI's Sentinel: Green Status Reports vs. Working Software"
-date: "2026-08-06T10:00:00+05:45"
+date: "2026-07-08T10:00:00+05:45"
 category: ["Product"]
 categories: ["product-management"]
 directory: product-management
@@ -68,6 +68,6 @@ None of this weakens the core lesson. It sharpens it: the feedback loop is neces
 
 ## Further reading
 
-- Jeff Sutherland, *Scrum: The Art of Doing Twice the Work in Half the Time* — the Sentinel chapter is the insider retelling of the basement effort; enthusiastic, but the numbers hold up against the audits.
-- U.S. Department of Justice, Office of the Inspector General — the Sentinel audit report series, tracking cost, schedule, and delivery from the Lockheed years through the 2012 deployment; the primary source, and drier than fiction but more damning.
-- Robert N. Charette, "Why Software Fails" (IEEE Spectrum, 2005) — the classic survey of large-scale software failure written the year VCF died, with VCF among its examples; the pattern language for everything above.
+- Jeff Sutherland, [*Scrum: The Art of Doing Twice the Work in Half the Time*](https://www.amazon.com/s?k=scrum+the+art+of+doing+twice+the+work+in+half+the+time+sutherland) — the Sentinel chapter is the insider retelling of the basement effort; enthusiastic, but the numbers hold up against the audits.
+- U.S. Department of Justice, [Office of the Inspector General — Sentinel Audit reports](https://oig.justice.gov/reports/sentinel-audit-v-status-federal-bureau-investigations-case-management-system-redacted) — the audit report series, tracking cost, schedule, and delivery from the Lockheed years through the 2012 deployment; the primary source, and drier than fiction but more damning.
+- Robert N. Charette, ["Why Software Fails"](https://spectrum.ieee.org/why-software-fails) (IEEE Spectrum, 2005) — the classic survey of large-scale software failure written the year VCF died, with VCF among its examples; the pattern language for everything above.

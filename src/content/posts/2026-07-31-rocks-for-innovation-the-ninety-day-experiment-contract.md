@@ -1,6 +1,6 @@
 ---
 title: "Rocks for Innovation: The Ninety-Day Experiment Contract"
-date: "2026-07-31T10:00:00+05:45"
+date: "2026-07-02T10:00:00+05:45"
 category: ["Product"]
 categories: ["product-management"]
 directory: product-management

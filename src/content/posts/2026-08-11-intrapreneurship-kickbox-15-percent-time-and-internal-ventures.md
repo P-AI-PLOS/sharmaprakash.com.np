@@ -1,6 +1,6 @@
 ---
 title: "Intrapreneurship: Kickbox, 15% Time, and the Myth of the Corporate Rebel"
-date: "2026-08-11T10:00:00+05:45"
+date: "2026-07-15T10:00:00+05:45"
 category: ["Product"]
 categories: ["product-management"]
 directory: product-management
@@ -76,6 +76,6 @@ And every one of these mechanisms dies the same death: annual budgeting. 20% tim
 
 ## Further reading
 
-- Gifford Pinchot III, *Intrapreneuring* (1985) — read past the rebel quotes for the institutional operating manual everyone forgot.
-- Adobe's open-sourced Kickbox kit — the complete six-level curriculum and the reasoning behind the $1,000 card, free to run in your own company.
-- Eric Ries, *The Startup Way* (2017) — the FastWorks and enterprise-deployment account from the inside; read it against GE's subsequent history for the full lesson about methods versus funding systems.
+- Gifford Pinchot III, [*Intrapreneuring*](https://www.amazon.com/s?k=intrapreneuring+pinchot) (1985) — read past the rebel quotes for the institutional operating manual everyone forgot.
+- [Adobe's open-sourced Kickbox kit](https://kickbox.org/) — the complete six-level curriculum and the reasoning behind the $1,000 card, free to run in your own company.
+- Eric Ries, [*The Startup Way*](https://www.amazon.com/s?k=the+startup+way+eric+ries) (2017) — the FastWorks and enterprise-deployment account from the inside; read it against GE's subsequent history for the full lesson about methods versus funding systems.

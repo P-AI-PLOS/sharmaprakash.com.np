@@ -1,6 +1,6 @@
 ---
 title: "40 Million Daily Users vs 5,000: What a North Star Is Actually For"
-date: "2026-08-13T10:00:00+05:45"
+date: "2026-07-20T10:00:00+05:45"
 category: ["Product"]
 categories: ["product-management"]
 directory: product-management

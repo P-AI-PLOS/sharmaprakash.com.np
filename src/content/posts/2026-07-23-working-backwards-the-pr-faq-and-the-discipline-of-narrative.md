@@ -1,6 +1,6 @@
 ---
 title: "Working Backwards: The PR/FAQ and the Discipline of Narrative"
-date: "2026-07-23T10:00:00+05:45"
+date: "2026-06-20T10:00:00+05:45"
 category: ["Product"]
 categories: ["product-management"]
 directory: product-management

@@ -1,6 +1,6 @@
 ---
 title: "Backlog Cleanup: How to Actually Do It"
-date: "2026-08-05T10:00:00+05:45"
+date: "2026-07-07T10:00:00+05:45"
 category: ["Product"]
 categories: ["product-management"]
 directory: product-management
@@ -74,7 +74,7 @@ To know whether any of this is working, three measurements beat gut feel: the **
 
 ## Further reading
 
-- Ryan Singer, *Shape Up* — the "no backlogs" chapter is the purest version of the argument: important ideas come back, so stop paying to store them.
-- Donald Reinertsen, *The Principles of Product Development Flow* — the economics of queues; why a long backlog isn't free storage but a cost you pay in delay and decision fatigue.
-- Jeff Patton, *User Story Mapping* — for what to do with the survivors once the list is small enough to structure.
-- Annie Duke, *Quit* — a book about stopping things well; the psychology of why closing a ticket feels like a loss when it's actually a decision.
+- Ryan Singer, [*Shape Up*](https://basecamp.com/shapeup) (Basecamp) — the "no backlogs" chapter is the purest version of the argument: important ideas come back, so stop paying to store them.
+- Donald Reinertsen, [*The Principles of Product Development Flow*](https://www.amazon.com/s?k=the+principles+of+product+development+flow+reinertsen) — the economics of queues; why a long backlog isn't free storage but a cost you pay in delay and decision fatigue.
+- Jeff Patton, [*User Story Mapping*](https://www.amazon.com/s?k=user+story+mapping+jeff+patton) — for what to do with the survivors once the list is small enough to structure.
+- Annie Duke, [*Quit*](https://www.amazon.com/s?k=quit+annie+duke) — a book about stopping things well; the psychology of why closing a ticket feels like a loss when it's actually a decision.

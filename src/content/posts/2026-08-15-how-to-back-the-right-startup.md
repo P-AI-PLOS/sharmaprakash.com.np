@@ -1,6 +1,6 @@
 ---
 title: "How to Back the Right Startup: Picking in a Power-Law World"
-date: "2026-08-15T10:00:00+05:45"
+date: "2026-07-28T10:00:00+05:45"
 category: ["Product"]
 categories: ["product-management"]
 directory: product-management
@@ -68,9 +68,9 @@ None of this picking craft matters if the venture dies of the two ordinary cause
 
 ## Further reading
 
-- Peter Thiel, *Zero to One* (2014) — the "Follow the Money" chapter is the cleanest statement of power-law portfolio logic in print.
-- Benedict Evans, "In praise of failure" — the Horsley Bridge data on hit rates, loss rates, and why the best funds strike out more.
-- Bill Gross, "The single biggest reason why start-ups succeed" (TED, 2015) — the Idealab timing analysis; watch it for the Z.com/YouTube pairing.
-- Kaplan, Sensoy & Strömberg, "Should Investors Bet on the Jockey or the Horse?" (Journal of Finance, 2009) — the horse persists; the jockeys change.
-- Gompers, Gornall, Kaplan & Strebulaev, "How Do Venture Capitalists Make Decisions?" (Journal of Financial Economics, 2020) — what nearly nine hundred VCs say they do.
-- Bessemer Venture Partners, "The Anti-Portfolio" — the public list of great passes, and a discipline worth stealing whole.
+- Peter Thiel, [*Zero to One*](https://www.amazon.com/s?k=zero+to+one+thiel) (2014) — the "Follow the Money" chapter is the cleanest statement of power-law portfolio logic in print.
+- Benedict Evans, ["In praise of failure"](https://www.ben-evans.com/benedictevans/2016/4/28/winning-and-losing) — the Horsley Bridge data on hit rates, loss rates, and why the best funds strike out more.
+- Bill Gross, ["The single biggest reason why start-ups succeed"](https://www.ted.com/talks/bill_gross_the_single_biggest_reason_why_start_ups_succeed) (TED, 2015) — the Idealab timing analysis; watch it for the Z.com/YouTube pairing.
+- Kaplan, Sensoy & Strömberg, ["Should Investors Bet on the Jockey or the Horse?"](https://onlinelibrary.wiley.com/doi/abs/10.1111/j.1540-6261.2008.01429.x) (Journal of Finance, 2009) — the horse persists; the jockeys change.
+- Gompers, Gornall, Kaplan & Strebulaev, ["How Do Venture Capitalists Make Decisions?"](https://www.nber.org/papers/w22587) (Journal of Financial Economics, 2020) — what nearly nine hundred VCs say they do.
+- Bessemer Venture Partners, ["The Anti-Portfolio"](https://www.bvp.com/anti-portfolio) — the public list of great passes, and a discipline worth stealing whole.

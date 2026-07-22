@@ -1,6 +1,6 @@
 ---
 title: "The Strategy Cascade: Frameworks I Actually Reach For"
-date: "2026-07-13T10:00:00+05:45"
+date: "2026-06-10T10:00:00+05:45"
 category: ["Product"]
 categories: ["product-management"]
 directory: product-management

@@ -1,6 +1,6 @@
 ---
 title: "The Spotify Model Spotify Doesn't Use"
-date: "2026-08-07T10:00:00+05:45"
+date: "2026-07-09T10:00:00+05:45"
 category: ["Product"]
 categories: ["product-management"]
 directory: product-management
@@ -54,6 +54,6 @@ There's one more thing the copying missed, and it's the part I'd most want to st
 
 ## Further reading
 
-- Henrik Kniberg & Anders Ivarsson, "Scaling Agile @ Spotify" (2012) — the original thirteen pages, worth reading precisely because it's more hedged and more honest than the industry it spawned.
-- Henrik Kniberg, "Spotify Engineering Culture" parts 1 & 2 (2014) — the videos that carried the model worldwide; watch for how often he says this is a snapshot and everything keeps changing.
-- Jeremiah Lee, "Spotify's Failed #SquadGoals" (2020) — the inside account of the gap between the model as marketed and as lived; read alongside the responses it drew for the full contested picture.
+- Henrik Kniberg & Anders Ivarsson, ["Scaling Agile @ Spotify"](https://blog.crisp.se/wp-content/uploads/2012/11/SpotifyScaling.pdf) (2012) — the original thirteen pages, worth reading precisely because it's more hedged and more honest than the industry it spawned.
+- Henrik Kniberg, "Spotify Engineering Culture" [part 1](https://www.youtube.com/watch?v=6I07j6MXnuM) & [part 2](https://www.youtube.com/watch?v=0tpCmSnEoKo) (2014) — the videos that carried the model worldwide; watch for how often he says this is a snapshot and everything keeps changing.
+- Jeremiah Lee, ["Spotify's Failed #SquadGoals"](https://www.jeremiahlee.com/posts/failed-squad-goals/) (2020) — the inside account of the gap between the model as marketed and as lived; read alongside the responses it drew for the full contested picture.

@@ -1,6 +1,6 @@
 ---
 title: "Discovery Frameworks That Actually Change What You Build"
-date: "2026-07-15T10:00:00+05:45"
+date: "2026-06-12T10:00:00+05:45"
 category: ["Product"]
 categories: ["product-management"]
 directory: product-management

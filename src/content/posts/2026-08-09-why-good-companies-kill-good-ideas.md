@@ -1,6 +1,6 @@
 ---
 title: "Why Good Companies Kill Good Ideas"
-date: "2026-08-09T10:00:00+05:45"
+date: "2026-07-12T10:00:00+05:45"
 category: ["Product"]
 categories: ["product-management"]
 directory: product-management
@@ -66,7 +66,7 @@ The dilemma doesn't dissolve. Kodak's managers and Blockbuster's board would rec
 
 ## Further reading
 
-- Clayton Christensen, *The Innovator's Dilemma* (1997) — read the disk-drive chapters, not just the summary; the method is the argument.
-- Christensen, Raynor & McDonald, "What Is Disruptive Innovation?" (HBR, 2015) — the authors' own correction of twenty years of misuse, including the Uber analysis.
-- Christensen & Overdorf, "Meeting the Challenge of Disruptive Change" (HBR, 2000) — the RPV framework, and the most practically useful twelve pages in the canon.
-- Willy Shih, "The Real Lessons From Kodak's Decline" (MIT Sloan Management Review, 2016) — the inside account from the man who ran Kodak's digital business.
+- Clayton Christensen, [*The Innovator's Dilemma*](https://www.amazon.com/s?k=innovators+dilemma+christensen) (1997) — read the disk-drive chapters, not just the summary; the method is the argument.
+- Christensen, Raynor & McDonald, ["What Is Disruptive Innovation?"](https://hbr.org/2015/12/what-is-disruptive-innovation) (HBR, 2015) — the authors' own correction of twenty years of misuse, including the Uber analysis.
+- Christensen & Overdorf, ["Meeting the Challenge of Disruptive Change"](https://hbr.org/2000/03/meeting-the-challenge-of-disruptive-change) (HBR, 2000) — the RPV framework, and the most practically useful twelve pages in the canon.
+- Willy Shih, ["The Real Lessons From Kodak's Decline"](https://sloanreview.mit.edu/article/the-real-lessons-from-kodaks-decline/) (MIT Sloan Management Review, 2016) — the inside account from the man who ran Kodak's digital business.

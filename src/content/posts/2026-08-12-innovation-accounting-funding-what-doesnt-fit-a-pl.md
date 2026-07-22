@@ -1,6 +1,6 @@
 ---
 title: "Innovation Accounting: Funding What Doesn't Fit a P&L"
-date: "2026-08-12T10:00:00+05:45"
+date: "2026-07-18T10:00:00+05:45"
 category: ["Product"]
 categories: ["product-management"]
 directory: product-management

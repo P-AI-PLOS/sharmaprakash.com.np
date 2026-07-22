@@ -1,6 +1,6 @@
 ---
 title: "Sonos Shipped the Date, Not the App"
-date: "2026-08-19T10:00:00+05:45"
+date: "2026-08-07T10:00:00+05:45"
 category: ["Product"]
 categories: ["product-management"]
 directory: product-management
@@ -55,6 +55,6 @@ And notice what Sonos actually shipped when it shipped the date: nothing. The da
 ## Further reading
 
 - [Sonos, fiscal Q4 2024 earnings press release](https://www.sec.gov/Archives/edgar/data/1314727/000131472724000023/final4q24earningspressrele.htm) (SEC EDGAR) — the primary document for the 16% revenue decline; the rare product-management case study with a regulatory filing attached.
-- Patrick Spence's July 2024 public apology letter — worth reading as an artifact: what a CEO admits, and doesn't, when the shipping decision has already been made and the bill is arriving.
+- [Patrick Spence's July 2024 public apology letter](https://en.community.sonos.com/product-updates/update-on-the-sonos-app-from-patrick-spence-6900501/index11.html) (Sonos Community, July 2024) — worth reading as an artifact: what a CEO admits, and doesn't, when the shipping decision has already been made and the bill is arriving.
 - [PolitiFact's verification of healthcare.gov's day-one enrollment figures](https://www.politifact.com/factchecks/2013/nov/03/jan-crawford/cbss-crawford-says-6-people-signed-obamacares-firs/) — the sourcing behind "six enrollments," and a model for how to check a too-good-to-be-true number before repeating it.
 - [The Agile Manifesto](https://agilemanifesto.org/) (2001) — reread the fourth value after this story; "responding to change over following a plan" is exactly the sentence both Sonos and healthcare.gov declined to act on.

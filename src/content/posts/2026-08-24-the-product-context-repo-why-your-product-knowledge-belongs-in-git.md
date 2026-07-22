@@ -1,6 +1,6 @@
 ---
 title: "The Product Context Repo: Why Your Product Knowledge Belongs in Git"
-date: "2026-08-24T10:00:00+05:45"
+date: "2026-08-10T10:00:00+05:45"
 category: ["Product"]
 categories: ["product-management"]
 directory: product-management

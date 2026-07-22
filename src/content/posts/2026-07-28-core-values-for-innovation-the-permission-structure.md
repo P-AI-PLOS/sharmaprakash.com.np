@@ -1,6 +1,6 @@
 ---
 title: "Core Values for Innovation: The Permission Structure"
-date: "2026-07-28T10:00:00+05:45"
+date: "2026-06-29T10:00:00+05:45"
 category: ["Product"]
 categories: ["product-management"]
 directory: product-management

@@ -1,6 +1,6 @@
 ---
 title: "Designing the Context Repo: a Structure Agents and Humans Can Navigate"
-date: "2026-08-25T10:00:00+05:45"
+date: "2026-08-11T10:00:00+05:45"
 category: ["Product"]
 categories: ["product-management"]
 directory: product-management

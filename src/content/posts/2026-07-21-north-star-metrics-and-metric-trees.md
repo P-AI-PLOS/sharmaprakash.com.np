@@ -1,6 +1,6 @@
 ---
 title: "North Star Metrics and Metric Trees: One Number Is Never Enough"
-date: "2026-07-21T10:00:00+05:45"
+date: "2026-06-18T10:00:00+05:45"
 category: ["Product"]
 categories: ["product-management"]
 directory: product-management

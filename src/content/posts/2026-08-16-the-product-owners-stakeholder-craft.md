@@ -1,6 +1,6 @@
 ---
 title: "The Product Owner's Stakeholder Craft: Run It as a System"
-date: "2026-08-16T10:00:00+05:45"
+date: "2026-08-02T10:00:00+05:45"
 category: ["Product"]
 categories: ["product-management"]
 directory: product-management
@@ -101,7 +101,7 @@ Next in the series: the rhythm's last movement — what all of this looks like c
 
 ## Further reading
 
-- Marty Cagan & Chris Jones, *Empowered* — the strongest published argument against the order-taker model, and what stakeholder collaboration looks like when the product team owns outcomes.
-- Jim Camp, *Start with No* — a negotiation book, but the best treatment I've found of why a respected no builds more trust than an unreliable yes.
-- Kim Scott, *Radical Candor* — the challenge-directly-care-personally frame maps almost exactly onto the bad-news-early deposit mechanics above.
+- Marty Cagan & Chris Jones, [*Empowered*](https://www.amazon.com/s?k=empowered+cagan+jones) — the strongest published argument against the order-taker model, and what stakeholder collaboration looks like when the product team owns outcomes.
+- Jim Camp, [*Start with No*](https://www.amazon.com/s?k=start+with+no+camp) — a negotiation book, but the best treatment I've found of why a respected no builds more trust than an unreliable yes.
+- Kim Scott, [*Radical Candor*](https://www.amazon.com/s?k=radical+candor+kim+scott) — the challenge-directly-care-personally frame maps almost exactly onto the bad-news-early deposit mechanics above.
 - The pre-wiring idea is old organizational craft — it shows up in Bezos-era Amazon lore and in every account of how experienced executives actually run decision meetings; the decision-log companion piece is the ADR practice from [the risk and decisions post](/product-management/risk-reduction-and-decision-making-the-vocabulary-i-use-under-pressure/).

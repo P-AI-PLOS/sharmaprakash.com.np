@@ -1,6 +1,6 @@
 ---
 title: "Handling Customer Requests: An Intake You Can Defend"
-date: "2026-08-13T10:00:00+05:45"
+date: "2026-07-21T10:00:00+05:45"
 category: ["Product"]
 categories: ["product-management"]
 directory: product-management
@@ -98,6 +98,6 @@ Three I've watched from close range:
 
 ## Further reading
 
-- Rob Fitzpatrick, *The Mom Test* — the interrogation discipline behind the five questions; the intake pipeline is essentially the Mom Test applied at the funnel instead of the interview.
-- Teresa Torres, *Continuous Discovery Habits* — the opportunity solution tree is the grown-up version of clustering by problem; her opportunity mapping is where a "feeds discovery" decision goes next.
-- Melissa Perri, *Escaping the Build Trap* — the book-length case against the feature factory this whole pipeline exists to prevent; especially sharp on why shipped-request-count is a vanity metric.
+- Rob Fitzpatrick, [*The Mom Test*](https://www.amazon.com/s?k=the+mom+test+fitzpatrick) — the interrogation discipline behind the five questions; the intake pipeline is essentially the Mom Test applied at the funnel instead of the interview.
+- Teresa Torres, [*Continuous Discovery Habits*](https://www.amazon.com/s?k=continuous+discovery+habits+torres) — the opportunity solution tree is the grown-up version of clustering by problem; her opportunity mapping is where a "feeds discovery" decision goes next.
+- Melissa Perri, [*Escaping the Build Trap*](https://www.amazon.com/s?k=escaping+the+build+trap+perri) — the book-length case against the feature factory this whole pipeline exists to prevent; especially sharp on why shipped-request-count is a vanity metric.

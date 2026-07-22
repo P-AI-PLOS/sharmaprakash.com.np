@@ -1,6 +1,6 @@
 ---
 title: "Three Horizons and the Ambidextrous Organization: Where New Bets Should Live"
-date: "2026-08-10T10:00:00+05:45"
+date: "2026-07-14T10:00:00+05:45"
 category: ["Product"]
 categories: ["product-management"]
 directory: product-management
@@ -74,7 +74,7 @@ So the structure is the beginning, not the end. The separated unit has to be [ru
 
 ## Further reading
 
-- Mehrdad Baghai, Steve Coley & David White, *The Alchemy of Growth* (1999) — the original Three Horizons text; notice how much of it is about differentiated management and how little about timelines.
-- Steve Blank, "McKinsey's Three Horizons Model Defeated Its Own Purpose," *Harvard Business Review* (2019) — the definitive takedown of the time-based reading.
-- Charles O'Reilly & Michael Tushman, "The Ambidextrous Organization," *Harvard Business Review* (2004) — the 35-project study; their later book *Lead and Disrupt* covers the IBM EBO case in depth.
-- James March, "Exploration and Exploitation in Organizational Learning," *Organization Science* (1991) — the theoretical root of the whole explore/exploit vocabulary; harder going, worth it.
+- Mehrdad Baghai, Steve Coley & David White, [*The Alchemy of Growth*](https://www.amazon.com/s?k=alchemy+of+growth+baghai+coley+white) (1999) — the original Three Horizons text; notice how much of it is about differentiated management and how little about timelines.
+- Steve Blank, ["McKinsey's Three Horizons Model Defeated Its Own Purpose,"](https://hbr.org/2019/02/mckinseys-three-horizons-model-defined-innovation-for-years-heres-why-it-no-longer-applies) *Harvard Business Review* (2019) — the definitive takedown of the time-based reading.
+- Charles O'Reilly & Michael Tushman, ["The Ambidextrous Organization,"](https://hbr.org/2004/04/the-ambidextrous-organization) *Harvard Business Review* (2004) — the 35-project study; their later book [*Lead and Disrupt*](https://www.amazon.com/s?k=lead+and+disrupt+oreilly+tushman) covers the IBM EBO case in depth.
+- James March, ["Exploration and Exploitation in Organizational Learning,"](https://pubsonline.informs.org/doi/10.1287/orsc.2.1.71) *Organization Science* (1991) — the theoretical root of the whole explore/exploit vocabulary; harder going, worth it.

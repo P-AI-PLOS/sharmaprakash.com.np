@@ -1,6 +1,6 @@
 ---
 title: "The Press Release That Kills Products: Amazon's PR/FAQ, As Amazon Tells It"
-date: "2026-08-17T10:00:00+05:45"
+date: "2026-08-03T10:00:00+05:45"
 category: ["Product"]
 categories: ["product-management"]
 directory: product-management

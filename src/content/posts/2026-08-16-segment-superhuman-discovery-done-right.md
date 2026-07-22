@@ -1,6 +1,6 @@
 ---
 title: "Watch What They Do: Segment, Superhuman, and Discovery That Worked"
-date: "2026-08-16T10:00:00+05:45"
+date: "2026-08-01T10:00:00+05:45"
 category: ["Product"]
 categories: ["product-management"]
 directory: product-management

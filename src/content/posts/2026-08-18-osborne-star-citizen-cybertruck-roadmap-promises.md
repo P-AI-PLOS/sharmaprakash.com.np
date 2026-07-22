@@ -1,6 +1,6 @@
 ---
 title: "The Roadmap Is a Promise: Osborne, Star Citizen, and the $39,900 Cybertruck"
-date: "2026-08-18T10:00:00+05:45"
+date: "2026-08-06T10:00:00+05:45"
 category: ["Product"]
 categories: ["product-management"]
 directory: product-management

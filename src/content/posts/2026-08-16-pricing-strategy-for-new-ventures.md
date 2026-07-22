@@ -1,6 +1,6 @@
 ---
 title: "Pricing Strategy for New Ventures: Price Before You Build"
-date: "2026-08-16T10:00:00+05:45"
+date: "2026-07-31T10:00:00+05:45"
 category: ["Product"]
 categories: ["product-management"]
 directory: product-management
@@ -64,7 +64,7 @@ Which sets up the last post in this series. The money you charge isn't just vali
 
 ## Further reading
 
-- Madhavan Ramanujam & Georg Tacke, *Monetizing Innovation* (2016) — the spine of this post; the four failure types and the case for the early WTP talk, from the firm that's seen more pricing data than anyone.
-- Peter Van Westendorp, "NSS Price Sensitivity Meter" (ESOMAR, 1976) — the original four-question method; read it alongside a modern critique so you use it as a rangefinder, not an oracle.
-- Rafi Mohammed, "The Good-Better-Best Approach to Pricing" (Harvard Business Review, 2018) — the practical case for tiered packaging.
-- Kyle Poyar's OpenView work on usage-based pricing — the best running qualitative account of the Snowflake/Twilio-style shift from seats to consumption.
+- Madhavan Ramanujam & Georg Tacke, [*Monetizing Innovation*](https://www.amazon.com/s?k=monetizing+innovation+ramanujam+tacke) (2016) — the spine of this post; the four failure types and the case for the early WTP talk, from the firm that's seen more pricing data than anyone.
+- Peter Van Westendorp, ["NSS Price Sensitivity Meter"](https://en.wikipedia.org/wiki/Van_Westendorp%27s_Price_Sensitivity_Meter) (ESOMAR, 1976) — the original four-question method; read it alongside a modern critique so you use it as a rangefinder, not an oracle.
+- Rafi Mohammed, ["The Good-Better-Best Approach to Pricing"](https://hbr.org/2018/09/the-good-better-best-approach-to-pricing) (Harvard Business Review, 2018) — the practical case for tiered packaging.
+- [Kyle Poyar's OpenView work on usage-based pricing](https://openviewpartners.com/blog/usage-based-pricing-2-0/) — the best running qualitative account of the Snowflake/Twilio-style shift from seats to consumption.

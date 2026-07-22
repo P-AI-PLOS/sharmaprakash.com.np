@@ -1,6 +1,6 @@
 ---
 title: "Cut Too Deep: Klarna, Duolingo, and the Cost of Borrowed Conviction"
-date: "2026-08-21T10:00:00+05:45"
+date: "2026-08-09T10:00:00+05:45"
 category: ["Product"]
 categories: ["product-management"]
 directory: product-management
@@ -57,6 +57,6 @@ The only durable move — the one thing every case above agrees on — is to rea
 ## Further reading
 
 - [Klarna's February 2024 press release on its AI assistant](https://www.klarna.com/international/press/klarna-ai-assistant-handles-two-thirds-of-customer-service-chats-in-its-first-month/) — the primary artifact, worth reading in full precisely because every number in it is self-reported; a masterclass in how an equivalence claim becomes a headline becomes an industry narrative.
-- Bloomberg's May 2025 interview with Sebastian Siemiatkowski — the "cut too deep" conversation, and notably *not* an abandonment of AI; the nuance the aggregators dropped.
-- Luis von Ahn's April 2025 AI-first memo and his subsequent public clarifications — read the original and the June 2025 walk-back side by side as a study in tone colliding with brand.
+- [Bloomberg's May 2025 interview with Sebastian Siemiatkowski](https://www.bloomberg.com/news/articles/2025-05-08/klarna-turns-from-ai-to-real-person-customer-service) (Bloomberg, May 2025) — the "cut too deep" conversation, and notably *not* an abandonment of AI; the nuance the aggregators dropped.
+- [Luis von Ahn's April 2025 AI-first memo](https://www.entrepreneur.com/business-news/duolingo-ceo-clarifies-ai-stance-after-backlash-read-memo/492141) and [his subsequent public clarifications](https://www.techbuzz.ai/articles/duolingo-ceo-walks-back-ai-first-memo-amid-job-fears) — read the original and the walk-back side by side as a study in tone colliding with brand.
 - [Jorge Mazal's account of Duolingo's growth model on Lenny's Newsletter](https://www.lennysnewsletter.com/p/how-duolingo-reignited-user-growth) (2023) — the practitioner's view of the streak machinery that explains exactly why the memo's tone was the expensive part.

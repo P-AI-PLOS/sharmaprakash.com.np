@@ -1,6 +1,6 @@
 ---
 title: "Figma vs Adobe XD: What Losing a Category Costs"
-date: "2026-08-12T10:00:00+05:45"
+date: "2026-07-17T10:00:00+05:45"
 category: ["Product"]
 categories: ["product-management"]
 directory: product-management

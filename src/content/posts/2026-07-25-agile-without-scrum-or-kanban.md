@@ -1,6 +1,6 @@
 ---
 title: "Running Fully Agile Without Scrum or Kanban"
-date: "2026-08-04T10:00:00+05:45"
+date: "2026-07-06T10:00:00+05:45"
 category: ["Product"]
 categories: ["product-management"]
 directory: product-management
@@ -76,7 +76,7 @@ So the choice was never framework versus no framework. It's defaults versus deri
 
 ## Further reading
 
-- Ryan Singer, *Shape Up* — the fullest worked example of a derived-from-scratch process, and refreshingly explicit about what it trades away.
-- Donald Reinertsen, *The Principles of Product Development Flow* — the constraints themselves (batch size, WIP, queues) with the economics attached; the book that makes "derive it yourself" rigorous instead of vibes.
-- Woody Zuill & Kevin Meadows, *Mob Programming* — pattern four from the people who stumbled into it, including the honest account of what stopped being necessary.
-- Henrik Kniberg, *Scrum and XP from the Trenches* — the best case *for* defaults: what a team gets from running the standard playbook well before deciding what to keep.
+- Ryan Singer, [*Shape Up*](https://basecamp.com/shapeup) (Basecamp) — the fullest worked example of a derived-from-scratch process, and refreshingly explicit about what it trades away.
+- Donald Reinertsen, [*The Principles of Product Development Flow*](https://www.amazon.com/s?k=the+principles+of+product+development+flow+reinertsen) — the constraints themselves (batch size, WIP, queues) with the economics attached; the book that makes "derive it yourself" rigorous instead of vibes.
+- Woody Zuill & Kevin Meadows, [*Mob Programming*](https://www.amazon.com/s?k=mob+programming+zuill+meadows) — pattern four from the people who stumbled into it, including the honest account of what stopped being necessary.
+- Henrik Kniberg, [*Scrum and XP from the Trenches*](https://www.infoq.com/minibooks/scrum-xp-from-the-trenches/) (InfoQ, free ebook) — the best case *for* defaults: what a team gets from running the standard playbook well before deciding what to keep.

@@ -1,6 +1,6 @@
 ---
 title: "Connecting the Tools: Tracker, Docs, and Chat Without Drowning in Integrations"
-date: "2026-08-27T10:00:00+05:45"
+date: "2026-08-13T10:00:00+05:45"
 category: ["Product"]
 categories: ["product-management"]
 directory: product-management

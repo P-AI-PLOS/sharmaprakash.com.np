@@ -1,6 +1,6 @@
 ---
 title: "Sales Sold It: The Recovery Playbook for Unplanned Commitments"
-date: "2026-08-17T10:00:00+05:45"
+date: "2026-08-05T10:00:00+05:45"
 category: ["Product"]
 categories: ["product-management"]
 directory: product-management
@@ -94,6 +94,6 @@ This closes the operating-rhythm series, and the arc was deliberate: an intake t
 
 ## Further reading
 
-- Chris Voss, *Never Split the Difference* — the renegotiation conversation in step three is a negotiation, and calibrated questions beat positions in it.
-- April Dunford, *Obviously Awesome* — when the recovery log says "positioning gap," this is the repair manual.
-- Kim Scott, *Radical Candor* — the blameless deal review is a feedback conversation at org scale; the care-personally/challenge-directly frame keeps it from becoming either a trial or a hug.
+- Chris Voss, [*Never Split the Difference*](https://www.amazon.com/s?k=never+split+the+difference+voss) — the renegotiation conversation in step three is a negotiation, and calibrated questions beat positions in it.
+- April Dunford, [*Obviously Awesome*](https://www.amazon.com/s?k=obviously+awesome+dunford) — when the recovery log says "positioning gap," this is the repair manual.
+- Kim Scott, [*Radical Candor*](https://www.amazon.com/s?k=radical+candor+kim+scott) — the blameless deal review is a feedback conversation at org scale; the care-personally/challenge-directly frame keeps it from becoming either a trial or a hug.

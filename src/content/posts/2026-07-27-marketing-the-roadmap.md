@@ -1,6 +1,6 @@
 ---
 title: "Marketing the Roadmap: Launch Tiers and Messaging"
-date: "2026-07-27T10:00:00+05:45"
+date: "2026-06-27T10:00:00+05:45"
 category: ["Product"]
 categories: ["product-management"]
 directory: product-management
@@ -44,7 +44,7 @@ The failure modes, compressed: **the launch-as-strategy** (a big bang covering f
 
 ## Further reading
 
-- April Dunford, *Obviously Awesome* — positioning as the upstream artifact; the messaging house is this book operationalized.
-- Colin Bryar & Bill Carr, *Working Backwards* — the PR/FAQ-to-launch reuse; the press release you argued over is the launch story you ship.
-- Geoffrey Moore, *Crossing the Chasm* — dated in its examples, durable in its core claim: segment-specific whole-product messaging beats broadcast, especially at Tier 1 moments.
-- Emily Kramer's MKT1 newsletter — the most concrete practitioner writing on launch tiers, marketing-as-function-of-product, and early-stage marketing sequencing.
+- April Dunford, [*Obviously Awesome*](https://www.amazon.com/s?k=obviously+awesome+april+dunford) — positioning as the upstream artifact; the messaging house is this book operationalized.
+- Colin Bryar & Bill Carr, [*Working Backwards*](https://www.amazon.com/s?k=working+backwards+colin+bryar+bill+carr) — the PR/FAQ-to-launch reuse; the press release you argued over is the launch story you ship.
+- Geoffrey Moore, [*Crossing the Chasm*](https://www.amazon.com/s?k=crossing+the+chasm+geoffrey+moore) — dated in its examples, durable in its core claim: segment-specific whole-product messaging beats broadcast, especially at Tier 1 moments.
+- [Emily Kramer's MKT1 newsletter](https://newsletter.mkt1.co/) — the most concrete practitioner writing on launch tiers, marketing-as-function-of-product, and early-stage marketing sequencing.

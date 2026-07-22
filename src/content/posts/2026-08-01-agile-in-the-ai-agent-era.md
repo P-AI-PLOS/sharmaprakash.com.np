@@ -1,6 +1,6 @@
 ---
 title: "Agile in the AI Agent Era: The Ceremonies Die, the Principles Don't"
-date: "2026-08-15T10:00:00+05:45"
+date: "2026-07-27T10:00:00+05:45"
 category: ["Product"]
 categories: ["product-management"]
 directory: product-management
@@ -73,6 +73,6 @@ That's the closing argument of this whole series, handed to us by the biggest co
 ## Further reading
 
 - [The Agile Manifesto and its twelve principles](https://agilemanifesto.org/) (2001) — reread it with agents in mind; notice how the values hold up and how many of the parameter choices ("a couple of weeks") quietly don't.
-- Donald Reinertsen, *The Principles of Product Development Flow* — queues, batch size, and the cost of invisible inventory; the math in this book is exactly what survives the era change, and it predicts the review-queue problem decades early.
+- Donald Reinertsen, [*The Principles of Product Development Flow*](https://www.amazon.com/s?k=the+principles+of+product+development+flow+reinertsen) — queues, batch size, and the cost of invisible inventory; the math in this book is exactly what survives the era change, and it predicts the review-queue problem decades early.
 - [OpenSpec: Write the Contract Before the Code](/ai/openspec-contract-before-code/) — the spec-first workflow behind most of the claims in this post, from the practitioner side.
 - [Beads: A Local-First Task Graph for Developers and AI Agents](/ai/beads-local-first-task-graph/) — what task tracking looks like once the tickets are contracts for agents rather than claims on developer-hours.

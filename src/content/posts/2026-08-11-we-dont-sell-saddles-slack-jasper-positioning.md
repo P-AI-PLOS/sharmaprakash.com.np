@@ -1,6 +1,6 @@
 ---
 title: "We Don't Sell Saddles: Positioning With a Moat, and Without One"
-date: "2026-08-11T10:00:00+05:45"
+date: "2026-07-16T10:00:00+05:45"
 category: ["Product"]
 categories: ["product-management"]
 directory: product-management

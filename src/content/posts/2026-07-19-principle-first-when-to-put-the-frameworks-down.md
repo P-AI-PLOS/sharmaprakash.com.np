@@ -1,6 +1,6 @@
 ---
 title: "Principle-First: When to Put the Frameworks Down"
-date: "2026-07-19T10:00:00+05:45"
+date: "2026-06-16T10:00:00+05:45"
 category: ["Product"]
 categories: ["product-management"]
 directory: product-management
