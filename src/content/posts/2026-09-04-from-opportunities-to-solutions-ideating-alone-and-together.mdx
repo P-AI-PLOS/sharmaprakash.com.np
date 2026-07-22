@@ -1,0 +1,198 @@
+---
+title: "From Opportunities to Solutions: Ideating Alone and Together"
+date: "2026-09-04T10:00:00+05:45"
+category: ["Product"]
+categories: ["product-management"]
+directory: product-management
+excerpt: "Your first idea is almost always a category cliché, and your team's first shared idea is usually whatever the most senior person said out loud. This module covers picking ONE target opportunity, generating real solution variety solo, and running two Liberating Structures — 1-2-4-All and 25/10 — that beat groupthink with facilitation scripts you can copy. Then you put three solutions on your own tree."
+use_featured_image: false
+series: continuous-discovery
+seriesOrder: 4
+---
+
+import TreeBuilder from "~/components/course/exercises/TreeBuilder.tsx";
+
+Maya booked a room, wrote the target opportunity at the top of the whiteboard — *"Half my follow-ups slip because I write them on sticky notes after calls"* — and said the word every product team says at this point: "Ideas?"
+
+Priya, tech lead, went first. "We already have the transcript. We could auto-draft the follow-up email from it. Review, edit, send." It's a good idea. It's also the *first* idea, from the most senior engineer in the room, said out loud before anyone else had formed one. Tom nodded. Maya wrote it down. Someone said "yeah, that's basically it, right?" Forty minutes later the whiteboard held Priya's idea, two decorative variations of Priya's idea, and a joke about donuts.
+
+Nobody was being lazy or political. This is just what unstructured group ideation does: **the first spoken idea becomes the anchor, and everything after it is a footnote.** Priya's idea might genuinely be the best one — and in this case it eventually survives on merit. But the trio doesn't know that yet, because they never generated real alternatives to test it against. An idea that wins by default teaches you nothing.
+
+This module is about generating solutions in a way that produces genuine variety — alone, and with a group — and then converging honestly on three to carry into [assumption testing](/product-management/assumption-mapping-experiments-that-test-the-riskiest-thing-first/). It's module 4 of the [continuous discovery course](/course/continuous-discovery/).
+
+## Pick one target opportunity before you ideate
+
+You don't ideate against the whole tree. The [opportunity space you mapped in module 2](/product-management/finding-opportunities-interviews-jtbd-and-the-opportunity-space/) probably holds a dozen opportunities; generating solutions against all of them at once is how teams end up with a feature wishlist instead of a focused bet. **Choose one target opportunity, ideate against only it, and leave the rest of the tree parked** — parked, not deleted. You'll come back.
+
+Torres suggests assessing candidate opportunities on a handful of practical dimensions rather than a fake-precise ROI formula. Three questions carry most of the weight:
+
+- **Sizing** — how often does this pain show up in your evidence, and how hot does it burn when it does? Frequency times intensity, judged from interview snapshots, not opinion.
+- **Company fit** — does solving this play to what your product already is and what the business needs? A real pain that drags you off-strategy is someone else's opportunity.
+- **Speed to learn** — how quickly could you run cheap tests against solutions here? Opportunities where every test requires a quarter of build time make bad first targets.
+
+The trio scored their three strongest candidates on a 1–3 scale per dimension. Ten minutes, no spreadsheet theater:
+
+```text
+Candidate opportunity                          Freq×Int  Fit  Speed  Total
+"Half my follow-ups slip — sticky notes           3       3     3      9
+ after calls"
+"I can never remember what we talked              3       2     2      7
+ about last time we met"
+"I don't trust the CRM's data enough to           2       2     2      6
+ send an email it wrote"
+```
+
+Follow-up slippage wins, and not narrowly. It appeared in eight of eleven interview snapshots, it sits dead center of Donut's "keep relationships warm without admin work" promise, and it points directly at the product outcome from [module 1](/product-management/opportunity-solution-trees-the-shape-of-good-discovery/): more workspaces sending a follow-up within 24 hours of a meeting. The trust opportunity scored lowest — but notice it doesn't disappear. It will come back with teeth in module 5, because any solution that writes emails for users has to survive it.
+
+Two cautions on the scoring. First, the numbers are a conversation device, not a truth machine — if the trio's gut disagreed with the total, the right move is to argue about *why*, not to obey the arithmetic. Second, score opportunities, never solutions. If you catch yourself scoring "auto-draft the email," you've skipped ahead, and you've skipped ahead *to the anchor*.
+
+### Your turn: score your candidates and pick one target
+
+Take the three or four leaf opportunities from your tree with the most evidence behind them. Score each 1–3 on frequency-times-intensity (count actual mentions in your snapshots), company fit, and speed to learn. Fifteen minutes. Pick one target. Write it somewhere you'll see it for the next two weeks — this single opportunity is what the rest of the course runs against.
+
+## Why your first idea is a category cliché
+
+Here's the uncomfortable pattern: ask any CRM team how to fix follow-up slippage and the first answer is "AI-drafted follow-up email." Ask any e-commerce team how to fix cart abandonment and the first answer is "reminder email with a discount." The first idea isn't *yours* — it's the category's. It's what every competitor already shipped or is currently shipping, which is precisely why it arrives so fluently.
+
+The research on ideation is blunt about the fix: **volume**. Studies of creative output going back decades — from Osborn's original brainstorming work through more recent research summarized well in the Design Thinking literature — keep finding the same shape: early ideas are conventional, originality climbs as you push past the obvious, and the practical winner usually comes from the back half of a long list. People asked to produce many ideas generate more good ones than people asked to produce good ideas. Quality is a selection problem; you can only select from what exists.
+
+This is why Torres's rule is **at least three solutions per target opportunity** — three *genuinely different* solutions, not one idea and two costumes. The rule isn't bureaucratic. One idea gives you a yes/no decision, and teams that frame decisions as yes/no talk themselves into yes. Three ideas give you a comparison, and comparison is where honest judgment lives. "Is this good?" is a question people answer with politics. "Which of these three is strongest against the evidence?" is a question people answer with reasons.
+
+## Solo ideation: quotas, categories, and productive theft
+
+Group sessions get the attention, but the highest-variety ideas usually come from individuals working alone first. Here's the craft, and it *is* craft — not waiting for inspiration.
+
+**Set a quota: 15 ideas in 20 minutes.** The quota matters more than the timer. Your first five ideas will be clichés — write them down anyway, they're clogging the pipe. Ideas six through ten get uncomfortable. Eleven through fifteen is where you'll surprise yourself, and where a few genuinely stupid ideas appear. Write those down too; stupid ideas are frequently sane ideas with one broken parameter.
+
+**Diverge across mechanism categories.** When you stall, don't push harder on the same mechanism — switch mechanisms. Five that cover most of the space:
+
+- **Automate it** — the product does the thing. (Auto-draft the email from the transcript.)
+- **Remind about it** — the product nags at the right moment. (Notification 30 minutes after the meeting ends: "Send Dana a follow-up?")
+- **Remove the step** — restructure so the follow-up doesn't need a separate act. (Recap email auto-CC'd to the attendee, so the recap *is* the follow-up.)
+- **Make someone else do it** — shift the work to another actor. (A weekly "follow-up concierge" digest an assistant or the founder's VA could clear.)
+- **Change the medium** — the follow-up doesn't have to be an email. (A voice memo captured in the car after the meeting, transcribed into a task.)
+
+Maya's solo list hit fifteen by cycling these. Most were mediocre. Three weren't, and two of the three came from categories Priya's anchor idea never touched.
+
+**Revisit over two or three sittings.** Ideation responds to incubation — the shower-thought effect is real and exploitable. Do a 20-minute sitting, close the doc, come back tomorrow and add five more. Second-sitting ideas are disproportionately good because your background processing has been chewing on the first list.
+
+**Steal from adjacent domains.** Follow-up slippage is not a CRM problem; it's a "commitment made verbally, forgotten before it reaches a system" problem. Who else solves that? Reminder apps solve it with location and time triggers. Executive assistants solve it by *attending the meeting* and owning the list. To-do tools solve it with capture speed — get it into the inbox in three seconds or lose it. Each of those is a mechanism you can transplant. The EA pattern is where Tom's eventual end-of-day-queue idea came from: an assistant doesn't ping you after every meeting, they hand you one tidy list at 5pm.
+
+### Your turn: 15 solution ideas in 20 minutes
+
+Against your target opportunity — the one you just picked, not the whole tree — set a 20-minute timer and write 15 solution ideas. Force at least two ideas from each mechanism category: automate, remind, remove the step, shift the actor, change the medium. No editing, no feasibility filter, no deleting the dumb ones. Tomorrow, reopen the list and add five more before reading what's there.
+
+## Group ideation that doesn't collapse into the loudest voice
+
+Brainstorming as usually practiced — everyone in a room, ideas shouted out, someone at the whiteboard — reliably underperforms the same people working alone. The failure modes are well documented: production blocking (only one person can talk at a time), evaluation apprehension (juniors self-censor), and anchoring (Priya speaks first, everyone iterates on Priya). The Donut trio's first session wasn't an anomaly. It was the default outcome of the format.
+
+**Liberating Structures** are the fix I keep coming back to. They're a set of 33 facilitation microstructures — developed by Henri Lipmanowicz and Keith McCandless — each a small, precisely-timed protocol that replaces "open discussion" with a shape that includes everyone and structurally blocks the dominance patterns. No workshop-guru energy required; each one fits on an index card. Two of them cover most ideation needs.
+
+### 1-2-4-All: silence first, then scale up
+
+The whole trick of 1-2-4-All is that **thinking starts in silence**, before anyone can anchor anyone else. Maya reran the ideation session with the trio plus two engineers and Ravi from support. The script:
+
+- **1 (2 minutes, silent, solo).** Prompt on the wall: *"How might we help a solo founder get a follow-up sent within 24 hours of a meeting?"* Everyone writes ideas alone, one per sticky. No talking. This is the step that defeats anchoring — Priya's idea and Ravi's idea are born simultaneously, with equal standing.
+- **2 (3 minutes, pairs).** Compare notes with one partner, build on each other, note the strongest.
+- **4 (5 minutes, foursomes).** Pairs merge. Each foursome surfaces its two or three most promising ideas — and specifically anything that appeared independently in both pairs.
+- **All (5 minutes).** Each foursome shares one idea the room hasn't heard yet. One. This forces novelty into the harvest instead of consensus.
+
+Fifteen minutes of structure, and the second session produced 31 distinct ideas where the first produced one. Ravi — who said nothing in the first session — contributed the observation that churned users mention *the moment right after the call* as where intentions die, which reframed two ideas on the spot.
+
+### 25/10 Crowd Sourcing: ranking without a HiPPO
+
+When you have lots of ideas and need the boldest few to surface, dot-voting is the usual move — and dot-voting has a conformity problem. Votes are visible and sequential, so people dot where dots already are, and everyone watches where the founder's dots land. **25/10 Crowd Sourcing keeps the scoring anonymous and repeated**, which is what makes it honest:
+
+1. Everyone writes their boldest idea on an index card (2 minutes, silent).
+2. Cards get passed around the group randomly — mill about, swap repeatedly, so nobody knows whose card they hold.
+3. Stop. Score the card in your hand 1–5. Write the score on the back. Pass again.
+4. Repeat for **five rounds** of passing and scoring.
+5. Sum the five scores. Maximum 25. Read out the top scorers.
+
+Nobody knows who wrote what until the end, so ideas get judged naked — no HiPPO effect, no charisma tax. When Sam the founder joined Donut's session, his card scored a 14 and nobody had to manage that moment, because nobody knew it was his until the reveal.
+
+Two more structures worth knowing, one sentence each: **Shift & Share** replaces death-by-presentation with small rotating groups visiting each idea's "station" for rapid feedback, and **TRIZ** inverts the question — "how would we *guarantee* every follow-up slips?" — then checks which of those sabotage behaviors your product currently commits.
+
+### Your turn: run 1-2-4-All this week
+
+If you have a team, book 45 minutes and run this agenda as written. Copy-paste it into the invite:
+
+```text
+Ideation: [target opportunity] — 45 min
+
+0:00  Frame (5 min). Read the target opportunity aloud, verbatim,
+      in the customer's words. Share 2–3 interview quotes behind it.
+      State the rule: we leave with at least 15 distinct ideas.
+0:05  1-2-4-All, round one (15 min).
+      - 2 min silent solo writing, one idea per sticky
+      - 3 min pairs: build, don't judge
+      - 5 min foursomes: surface top 2–3
+      - 5 min harvest: one NEW idea per group, round-robin
+0:20  Mechanism-category check (5 min). Map ideas to: automate /
+      remind / remove the step / shift the actor / change the
+      medium. Any empty category → 3 min silent solo burst on it.
+0:28  1-2-4-All, round two on the weakest category (10 min,
+      compressed timings).
+0:38  25/10 lightning (5 min): boldest idea on a card, 3 passing
+      rounds, read the top 3 aloud.
+0:43  Close (2 min). Photograph everything. Name who clusters the
+      ideas before converging — NOT in this meeting.
+```
+
+Working solo? You already ran your version: the 15-idea quota across multiple sittings is the solo equivalent, and the mechanism-category check works exactly the same on your own list.
+
+## Converge honestly: from 31 ideas to 3 solutions
+
+Convergence is a separate session on a separate day — converging in the same meeting that diverged quietly re-anchors everyone on whatever got the warmest laugh. The mechanics: **cluster** ideas that share a mechanism, **dedupe** the costumes (an email, a Slack message, and a push notification saying "send your follow-up" are one idea wearing three outfits), then pick three that are genuinely different bets against the opportunity — ideally different mechanisms entirely, because if all three fail the same way, you've tested one idea three times.
+
+Donut's three:
+
+- **(a) Auto-drafted follow-up email from the transcript** — Priya's original, now earned rather than defaulted: it kept winning in 25/10, and it leans on transcripts Donut already produces. This is the mechanism-category "automate," and it's the bet the case follows into experiments.
+- **(b) End-of-day follow-up queue** — one 5pm digest compiling every meeting from the day into a clear-the-list view. The EA-inspired "remove the step / batch it" bet, from Tom via adjacent-domain theft.
+- **(c) One-tap voice-memo-to-task capture** right after a call ends — attack the sticky-note moment itself, in the medium users already reach for. Born from Ravi's "intentions die right after the call" observation.
+
+The updated tree fragment:
+
+```text
+Outcome: increase the share of workspaces that send a
+follow-up within 24 hours of a meeting
+
+└── Opportunity: "Half my follow-ups slip because I write
+    them on sticky notes after calls"        [TARGET]
+    ├── Solution A: auto-drafted follow-up email from the
+    │               meeting transcript
+    ├── Solution B: end-of-day follow-up queue across all
+    │               of today's meetings
+    └── Solution C: one-tap voice-memo-to-task capture
+                    immediately after a call
+```
+
+Notice what three-under-one buys the trio: solution A can no longer win by being first. It has to beat B and C against evidence — and every one of the three is currently built on untested guesses. Solution A, in particular, is standing directly on top of that parked opportunity from the scoring table: *"I don't trust the CRM's data enough to send an email it wrote."*
+
+## Tools: whatever makes the tree cheap to change
+
+Keep this boring. **Co-located:** sticky notes and a whiteboard beat every app for divergence — physical stickies are faster to write, cluster, and kill. **Remote:** Miro or FigJam, specifically for their private mode / silent-sorting features, which let you replicate the silence-first property of 1-2-4-All and run anonymous voting instead of watching cursors follow the founder's cursor. **Keeping the OST alive between sessions:** a dedicated tree tool like Vistaly works, and so does a nested bullet list in any doc or a three-column spreadsheet — the trio uses a doc.
+
+The only rule that matters: **the tool must make the tree cheap to change, or the tree becomes a poster.** A tree you're reluctant to edit — because the diagram tool fights you, because it's embedded in a slide deck, because it looks too finished — stops being a thinking instrument and becomes an artifact you present. If updating your tree after an interview takes more than two minutes, you have the wrong tool, and the tree will be stale within a month.
+
+### Your turn: assemble your tree
+
+Time to put the pieces together in one place: your outcome from module 1 at the root, your opportunities from module 2 underneath, and — under the single target you picked above — at least three surviving solutions from your ideation list. Your tree persists in this browser across the rest of the course, so build it for real; module 5 works directly against what you put here.
+
+<TreeBuilder client:visible />
+
+## What you should have now
+
+- [ ] One target opportunity, chosen by scoring frequency-times-intensity, company fit, and speed to learn — with the runners-up parked, not deleted
+- [ ] A solo list of 15+ solution ideas spanning at least four mechanism categories, built over two or more sittings
+- [ ] If you have a team: a 1-2-4-All session run (or booked) using the 45-minute agenda
+- [ ] Three genuinely different solutions clustered, deduped, and placed under your target opportunity
+- [ ] Your tree assembled in the builder above: outcome, opportunities, three solutions
+
+All three of your solutions — like all three of Donut's — are currently stacks of guesses: that users want this, that they'll trust it, that you can build it, that it won't backfire. Next, you find the guess that kills the idea fastest if it's wrong, and [test that one first](/product-management/assumption-mapping-experiments-that-test-the-riskiest-thing-first/).
+
+## Further reading
+
+- [Continuous Discovery Habits — Teresa Torres](https://www.amazon.com/s?k=continuous+discovery+habits+teresa+torres) — chapters 8–9 cover assessing opportunities and effective ideation; this module's target-first and three-solutions rules come straight from there.
+- [The Surprising Power of Liberating Structures — Henri Lipmanowicz & Keith McCandless](https://www.amazon.com/s?k=the+surprising+power+of+liberating+structures+lipmanowicz+mccandless) — the field guide to all 33 structures, including full facilitation details for 1-2-4-All and 25/10.
+- [liberatingstructures.com](https://www.liberatingstructures.com/) — every structure's script is free online; start with the 1-2-4-All and 25/10 pages before your first session.

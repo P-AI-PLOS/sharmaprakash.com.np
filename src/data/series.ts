@@ -104,6 +104,18 @@ export const seriesRegistry: Record<string, SeriesMeta> = {
       "A six-part build-along: a git-based knowledge repo for product work, the structure that lets both agents and humans navigate it, a signal pipeline that turns support tickets, call transcripts, and CRM notes into structured evidence, MCP connections to your tracker, docs, and chat, commands that draft user stories and PRDs from the repo, and the editorial discipline that keeps AI slop out of your backlog.",
     cover: "/images/blog/series/pm-context-repo.png",
   },
+  "continuous-discovery": {
+    title: "Continuous Discovery, Hands-On",
+    description:
+      "A six-module hands-on course on opportunity solution trees and continuous discovery, run against one product end to end — Donut CRM, a relationship-first CRM for founders. Defining an outcome, mining interviews and JTBD for opportunities, recruiting and running discovery sessions (including the no-show playbook), ideating solutions alone and with a group using Liberating Structures, assumption mapping and experiments that test the riskiest thing first, and making discovery a weekly habit that coexists with Shape Up, OKRs, and the rest of your stack. Interactive exercises throughout — you leave with your own tree.",
+    cover: "/images/blog/series/continuous-discovery.png",
+  },
+  "continuous-discovery": {
+    title: "Continuous Discovery, Hands-On",
+    description:
+      "A six-module hands-on course on opportunity solution trees and continuous discovery, run against one product end to end — Donut CRM, a relationship-first CRM for founders. Defining an outcome, mining interviews and JTBD for opportunities, recruiting and running discovery sessions (including the no-show playbook), ideating solutions alone and with a group using Liberating Structures, assumption mapping and experiments that test the riskiest thing first, and making discovery a weekly habit that coexists with Shape Up, OKRs, and the rest of your stack. Interactive exercises throughout — you leave with your own tree.",
+    cover: "/images/blog/series/continuous-discovery.png",
+  },
   "operating-rhythm": {
     title: "The Product Operating Rhythm",
     description:

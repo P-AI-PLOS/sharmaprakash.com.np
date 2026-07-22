@@ -1,0 +1,245 @@
+---
+title: "Assumption Mapping: Experiments That Test the Riskiest Thing First"
+date: "2026-09-05T10:00:00+05:45"
+category: ["Product"]
+categories: ["product-management"]
+directory: product-management
+excerpt: "The auto-drafted follow-up email looked obviously good — which is exactly when a team stops asking questions. This module turns one build decision into a list of testable guesses: surfacing assumptions from the happy path, sorting them on the importance-vs-evidence 2×2, and running the smallest test that could change your mind. Two fully specified experiment cards included, plus what Donut CRM's concierge test actually found."
+use_featured_image: false
+series: continuous-discovery
+seriesOrder: 5
+---
+
+import AssumptionClassifier from "~/components/course/exercises/AssumptionClassifier.tsx";
+
+Priya was already sketching the pipeline on the whiteboard. Transcript comes out of the recording service, gets chunked, goes through the drafting model with the contact's timeline as context, draft lands on the contact page with a send button. Two sprints, maybe three. Tom had a rough layout open. The auto-drafted follow-up email had won the [ideation and story-mapping work](/product-management/from-opportunities-to-solutions-ideating-alone-and-together/) cleanly, it attacked the target opportunity directly, and everyone in the room could feel it working.
+
+Which is exactly the moment Maya distrusted. Not the idea — the feeling. The last time the team was this unanimous this fast, they shipped email sequences, and week-4 retention didn't move a pixel.
+
+So she asked the question that this whole module is about: "What has to be true for this to work?"
+
+Silence, then a flood. Users have to record their meetings in the first place. The transcript has to be good enough to draft from. The draft has to sound like the user, not like a bot. Users have to trust it enough to send it — and one of the loudest lines from the interviews was *"I don't trust the CRM's data enough to send an email it wrote."* Ten minutes later the whiteboard had stopped being a pipeline diagram and become a list of guesses. That's the move: one question turns a build decision into a set of testable assumptions, and testable is the thing a build decision never is.
+
+This is the fifth module of the [continuous discovery course](/course/continuous-discovery/), and it's where the bottom layer of the opportunity solution tree — assumption tests — finally gets built.
+
+## You test assumptions, not ideas
+
+You cannot test an idea. "Auto-drafted follow-up emails" is not falsifiable; you'd have to build the whole thing, ship it, and wait a quarter to find out, and even then a failure wouldn't tell you *which part* was wrong. Was it the drafting quality? The trust problem? Did users never open the contact page at the right moment?
+
+**An assumption is falsifiable. An idea is not.** "Users will review a drafted email before sending it" can be tested this week, for the cost of an afternoon. That's the whole argument for working at the assumption level, and it has three parts:
+
+- **Faster.** An assumption test takes days; validating an idea by shipping it takes months.
+- **Cheaper.** Most assumption tests need a prototype, a spreadsheet, or a human faking the feature — not four engineers.
+- **Comparable.** Ideas resist comparison ("which is better, drafted emails or a post-meeting checklist?" is a taste debate). Assumptions compare cleanly: which idea rests on the shakier load-bearing guess? That's answerable with evidence.
+
+The trap this protects you from has a shape: the team falls in love with a solution, builds it, and interprets every ambiguous signal afterward as validation. Testing assumptions before building is how you stay honest while you still can be.
+
+## Surfacing assumptions: walk the happy path
+
+Assumptions hide because the solution *feels* whole. The way to flush them out is to slow the solution down into its happy path — the step-by-step story where everything goes right — and interrogate each step: *what must be true for this step to happen?*
+
+Donut's happy path for the auto-draft:
+
+1. User finishes a meeting (that was recorded).
+2. Transcript processes and the draft is generated.
+3. The draft appears where the user will actually see it.
+4. User reviews and edits the draft.
+5. User sends it — within 24 hours of the meeting.
+
+Every step is load-bearing, and every step hides guesses. Step 1 assumes the meetings that matter are the recorded ones — but solo founders take half their calls from the car. Step 3 assumes users return to the contact page after a meeting, which nothing in the analytics currently confirms. Step 4 assumes review happens at all. Step 5 is the product outcome itself.
+
+The second surfacing tool is the **pre-mortem prompt**: "It's three months from now and this flopped. Why?" Run it as a round-robin, one failure reason per person, no rebuttals. It surfaces a different class of assumption than the happy-path walk — the walk finds mechanical gaps, the pre-mortem finds the fears people have been sitting on. Priya's pre-mortem answer at Donut: "Drafting costs per workspace ate the margin on the starter plan." Nobody had said that out loud before. It went on the list.
+
+## The five categories
+
+A raw list of assumptions is better than none, but categories make it complete — because when a category is empty, you know where you haven't looked. Torres uses five:
+
+- **Desirability** — do customers *want* this? Will they behave the way the solution needs?
+- **Viability** — does this work for the *business*? Costs, pricing, strategy, brand.
+- **Feasibility** — can we *build* it, with this team, in reasonable time?
+- **Usability** — can users find it, understand it, and operate it?
+- **Ethical** — is there potential harm here we'd be embarrassed to explain?
+
+Teams reliably over-generate desirability and feasibility assumptions and skip the other three. Viability gets skipped because the trio doesn't feel authorized to have business opinions (they should). Ethical gets skipped because nobody wants to be the person slowing the room down (it's usually the cheapest category to test and the most expensive to ignore).
+
+Here's Donut's full list for the auto-draft solution, after the happy-path walk and the pre-mortem:
+
+```text
+ASSUMPTIONS — auto-drafted follow-up email
+Solution: draft a follow-up from the meeting transcript,
+ready to review and send from the contact page.
+
+DESIRABILITY
+D1. Users want help writing follow-ups (vs. help remembering
+    to send them — a different problem).
+D2. Users will review and edit a draft rather than firing it
+    off blind — or ignoring it entirely.
+D3. Users will accept an AI-drafted email under their own name
+    going to a relationship they care about.
+D4. The meetings that matter to follow-up are the ones users
+    already record in Donut.
+
+VIABILITY
+V1. Per-workspace drafting costs fit inside starter-plan margin.
+V2. "AI writes your follow-ups" strengthens, not cheapens, the
+    relationship-first brand promise.
+
+FEASIBILITY
+F1. Transcript quality on real small-business calls (accents,
+    crosstalk, phone audio) is good enough to draft from.
+F2. We can generate a usable draft within ~10 minutes of the
+    meeting ending, at our infra budget.
+F3. The draft can pull correct facts from the contact timeline
+    without hallucinating names, numbers, or commitments.
+
+USABILITY
+U1. Users return to the contact page (or a notification) soon
+    enough after a meeting to see the draft inside 24 hours.
+U2. Users can tell instantly what the draft got from the
+    transcript vs. what it inferred, so editing feels safe.
+
+ETHICAL
+E1. Recipients aren't deceived: a machine-drafted email sent
+    as personal correspondence is fine IF the sender reviewed
+    and owns it — which loops back to D2.
+E2. Transcript content (other people's words) used for drafting
+    doesn't violate participants' reasonable expectations.
+```
+
+Twelve assumptions from one "obviously good" idea. That ratio is normal. If your list for a comparable solution has four, you stopped early.
+
+### Your turn: story-map your solution and list its assumptions
+
+Take the leading solution for your target opportunity from [module 4](/product-management/from-opportunities-to-solutions-ideating-alone-and-together/). Write its happy path as five to seven steps, then interrogate each step: what must be true? Run the pre-mortem prompt on yourself (or your trio). Sort everything into the five categories and don't stop before ten assumptions — if a category is empty, sit with it until it isn't. Twenty to thirty minutes.
+
+**Solo vs. group:** alone, the pre-mortem is where you'll get the most lift — write the failure story in prose, then mine it for assumptions. With a trio, do the happy-path walk together but generate pre-mortem reasons silently on stickies first; the feasibility and viability fears engineers and designers are carrying rarely survive being second in line behind a confident PM.
+
+Not every assumption on your list deserves a test — most deserve nothing. What matters next is spotting the one that's both load-bearing and weakly evidenced. Warm up on Donut's list first:
+
+<AssumptionClassifier client:visible />
+
+## The 2×2: importance versus evidence
+
+You can't test twelve assumptions, and you shouldn't. Assumption mapping is the prioritization step: a 2×2 with **importance** on one axis — how load-bearing is this? if it's false, does the idea collapse? — and **evidence** on the other — how much do we already have?
+
+Walk four of Donut's assumptions onto the grid:
+
+- **D4 — "the meetings that matter are recorded"** lands *important, strong evidence*: recording adoption data already exists, and it's decent among the retained cohort. Load-bearing, but the team isn't guessing. No test needed now; keep an eye on it.
+- **F2 — "draft within ~10 minutes at budget"** lands *important, moderate evidence*: Priya has run similar pipelines and is confident to a first approximation. Worth a spike later, not first.
+- **U2 — "users can tell what's inferred vs. transcribed"** lands *less important, weak evidence*: if it's false, the design changes, but the idea survives. Park it; usability testing will catch it.
+- **D2 — "reps will actually review the draft rather than firing it off blind"** lands hard in the *top-left: load-bearing, weak evidence*. If users fire drafts off blind, the ethical assumption E1 collapses with it and the product is sending robo-mail under human names to warm relationships — the exact opposite of the brand promise. And if users ignore drafts entirely, nothing ships. The only "evidence" is an interview quote pointing the *wrong* way: "I don't trust the CRM's data enough to send an email it wrote."
+
+**The riskiest assumption is the top-left quadrant: maximally load-bearing, minimally evidenced.** For Donut, that's D2, and it's not close. Notice what the map just did: the team's instinct was to test drafting quality first, because that's the part that's fun to build. The map says the make-or-break question is a *behavior* question, and it can be tested without writing a line of pipeline code.
+
+### Your turn: map yours and circle one
+
+Draw the 2×2 — importance across, evidence up. Place every assumption from your list. Be stingy with "we have evidence": an opinion held confidently is not evidence, and neither is one supportive interview quote. Circle the single top-left assumption you'd bet the idea's failure on. That circle is your next two weeks. Fifteen minutes.
+
+## Designing the test: simulate, then evaluate
+
+Every good assumption test has the same two-part shape. **Simulate:** put a real person in the real moment the assumption is about — not a hypothetical version of it. **Evaluate: measure what they do, not what they say.** Opinions about future behavior are nearly worthless; behavior in a simulated moment is the closest thing to truth you can buy before shipping.
+
+Two disciplines make the difference between an experiment and a demo:
+
+**Define success criteria before you run.** Who and how many (n), what threshold counts as validated, and a time box. Decided in advance, written down, in that order — because after the data arrives, any result can be argued into "encouraging." "3 of 5 users edited before sending" is a finding if you predicted the bar; it's a Rorschach test if you didn't. Small-n thresholds aren't statistics, and that's fine — you're not estimating a population parameter, you're checking whether reality is roughly where you assumed it was.
+
+**Run the smallest test that could change your mind.** Not the most rigorous test, not the most impressive one — the smallest one that, if it came back negative, would actually alter what you build. If no result would change the plan, you're not experimenting, you're decorating a decision that's already been made.
+
+## The assumption-test catalog
+
+Eight tests cover almost everything. For each: what it is, how Donut would use it, when to reach for it, and the trap.
+
+**Moderated prototype test.** Walk a user through a clickable prototype while you watch and probe. *Donut:* Tom's draft-review screen in Figma, five users, "your meeting with Dana just ended — show me what you'd do." *Use when:* the assumption is about comprehension or workflow. *Trap:* your presence is a helpdesk; users succeed at tasks they'd abandon alone.
+
+**Unmoderated test.** Same prototype, delivered through a tool (Maze-style), tasks completed without you. *Donut:* the same review screen, twenty trial users, misclick and drop-off data. *Use when:* you need n bigger than your calendar allows. *Trap:* you see *that* they failed, never *why* — pair it with a moderated round.
+
+**Fake door / smoke screen.** Ship the entry point for a feature that doesn't exist; measure who walks through. *Donut:* the team already knows this one — the "Import from LinkedIn" button from [the first module](/product-management/opportunity-solution-trees-the-shape-of-good-discovery/) was a fake door, and its click-through settled a demand debate in a week. *Use when:* the assumption is pure demand: "will anyone even want this?" *Trap:* burn users politely (explain, offer the waitlist) and sparingly — a product of fake doors trains people to stop clicking.
+
+**Concierge.** Deliver the outcome manually, visibly done by humans, before any automation exists. *Donut:* Maya hand-drafts follow-up emails for five workspaces for a week, working from their real meeting transcripts, and sends each rep their draft shortly after the call ends. *Use when:* the assumption is about whether the *outcome* is wanted and how people behave when they get it. *Trap:* it doesn't scale past a handful of users, and human-crafted quality can overstate what your model will deliver — flag that when evaluating.
+
+**Wizard of Oz.** Same as concierge, but the human is hidden behind what looks like a working product. *Donut:* the draft "appears" on the contact page; Priya is behind the curtain pasting it in. *Use when:* the assumption depends on users believing the machine did it — for D3 ("will they accept an AI draft under their name?"), Wizard of Oz beats concierge, because knowing Maya wrote it contaminates exactly the trust question you're testing. *Trap:* operationally brutal; time-box it hard.
+
+**Data mining.** Interrogate data you already have. *Donut:* the retention cohort analysis from module 1 — follow-up-within-24-hours as the strongest week-4 survival correlate — was a data-mining test of the outcome's importance, run before anyone called it a test. *Use when:* the assumption is about existing behavior. *Trap:* correlation cosplay. Fast follow-up may mark good operators rather than cause retention; treat mined results as strong hints, not verdicts.
+
+**Research spike.** A time-boxed engineering investigation, throwaway code allowed. *Donut:* Priya takes two days with ten gnarly real transcripts — phone audio, accents, crosstalk — and reports whether drafts clear a quality bar (F1/F3). *Use when:* the risky assumption is feasibility. *Trap:* spikes metastasize into secret version one. The deliverable is a *finding*, in writing; the code is compost.
+
+**One-question in-app survey.** A single question, in the product, at the exact relevant moment. *Donut:* on the contact page right after a meeting ends — "What's the one thing you want to do right now?" *Use when:* you need attitude-at-the-moment signal at scale. *Trap:* one question only, and even then it's stated preference — never let a survey outvote observed behavior.
+
+## Two experiment cards
+
+A test isn't designed until it's written down with its success criteria and its decision rule. Donut's two:
+
+```text
+EXPERIMENT CARD 1 — concierge
+Assumption:  D2 (+U1, E1) — reps will review and edit a drafted
+             follow-up rather than firing it off blind or
+             ignoring it. [desirability + usability]
+Test:        Concierge. Maya hand-drafts follow-up emails from
+             real meeting transcripts for active trial workspaces
+             and delivers each draft within ~30 min of the call.
+Who + n:     5 workspaces, recruited from this week's continuous
+             interviews. Every recorded meeting for 5 business days.
+What we do:  Deliver draft with a one-line note: "reply with edits
+             or send as-is." Track per draft: opened? edited
+             (lightly/heavily)? sent? within 24h of the meeting?
+Success:     ≥3 of 5 users engage with drafts on most meetings
+             AND, of sent drafts, ≥half show meaningful edits.
+Time box:    1 week of delivery + 2 days analysis.
+Decision:    Meets bar → proceed; review/edit becomes a designed
+             step. Users send everything untouched → escalate E1;
+             test disclosure before building. Users ignore drafts
+             → the delivery moment is wrong; test notification
+             timing before drafting quality.
+```
+
+```text
+EXPERIMENT CARD 2 — data mining
+Assumption:  U1 — users return to the contact page (or act on a
+             notification) soon enough after a meeting to see a
+             draft inside 24 hours. [usability; important,
+             weak-moderate evidence]
+Test:        Data mining on existing product analytics. No new
+             instrumentation, no users contacted.
+Who + n:     All workspaces with ≥3 recorded meetings in the last
+             60 days (~340 workspaces).
+What we do:  For each recorded meeting, measure time-to-next-visit
+             to that contact's page, and mobile push open rates in
+             the 4h post-meeting window.
+Success:     ≥40% of meetings are followed by a contact-page visit
+             OR notification open within 4 hours.
+Time box:    2 days, one analyst-engineer.
+Decision:    Meets bar → contact page is a viable surface. Misses →
+             the draft must travel to the user (email/push with the
+             draft inline), which reshapes Tom's design before a
+             pixel of the review screen is final.
+```
+
+What actually happened with card 1: three of the five users edited heavily and sent — one called the drafts "wrong in the details, right in the bones," which the trio decided was close to the ideal quote, because editing is the safety mechanism working. One user sent every draft untouched, including one with a misattributed number. One ignored the drafts completely; a short follow-up call revealed she never saw them until evening — a U1 hit, and exactly what card 2 existed to size.
+
+The decision: **proceed — but the review step is now the design's center of gravity, not an afterthought.** Before the concierge week, review was a formality between "generate" and "send." After it, the product question became: how does the interface make editing feel faster than firing blind, and make blind-firing feel slightly wrong? The blind-sender didn't kill the idea; she redefined what the idea has to be. That reframing — cheaper than one sprint, earned in one week — is what assumption testing buys.
+
+## Kill criteria, and celebrating the corpse
+
+The decision-rule line on the card has a hard edge worth naming: **decide in advance what result kills the idea.** Not "gives us pause" — kills. If fewer than two of five concierge users had engaged at all, the auto-draft was dead and the trio would have moved to the next solution on the [ideation shortlist](/product-management/from-opportunities-to-solutions-ideating-alone-and-together/). Written down before the data, that's a commitment; improvised after, it's a negotiation the idea's sponsors always win.
+
+Teams dodge kill criteria because a killed idea feels like failure. Run the accounting honestly: a solution killed by a one-week, zero-code test just saved two to three sprints of build, a launch, and a quarter of waiting to learn the same thing from a flat retention curve. That's the cheapest good decision available in product work. Say so out loud when it happens — the first time a trio celebrates a kill instead of mourning it, assumption testing stops being a compliance step and becomes how the team thinks. And your tree makes the kill cheap to absorb: the target opportunity still stands, the other solutions are still on the branch, and the evidence from the failed test usually sharpens the next one.
+
+### Your turn: write the card you'll actually run
+
+Take the assumption you circled on your 2×2. Pick the smallest test from the catalog that could change your mind about it, and write the full card: assumption, test, who + n, what you'll do, success criterion, time box, decision rule — including the kill line. The success criterion goes on paper *before* you recruit anyone. Then schedule the test for the next two weeks; a card without a date is a wish. Twenty minutes to write, and it's the highest-leverage twenty minutes in this course.
+
+## What you should have now
+
+- [ ] A happy-path story map for your leading solution
+- [ ] Ten or more assumptions, categorized across desirability, viability, feasibility, usability, and ethical
+- [ ] Your assumptions placed on the importance × evidence 2×2, with the riskiest one circled
+- [ ] One fully specified experiment card — success criterion and kill criterion written before running
+- [ ] A scheduled date to run it
+
+You've now run the full loop once: outcome, opportunity space, target opportunity, solutions, riskiest assumption, test. The [final module](/product-management/making-discovery-a-habit-cdh-alongside-shape-up-okrs-and-agile/) is about doing it every week without a course propping you up — and making it coexist with the Shape Up cycles, OKRs, and sprint rituals your organization already runs.
+
+## Further reading
+
+- [Continuous Discovery Habits — Teresa Torres](https://www.amazon.com/s?k=continuous+discovery+habits+teresa+torres) — chapters 11–13 are the source for assumption categories, mapping, and simulate-then-evaluate test design.
+- [Testing Business Ideas — David Bland & Alex Osterwalder](https://www.amazon.com/s?k=testing+business+ideas+david+bland+alex+osterwalder) — a field guide of 44 experiment types; the extended version of this module's catalog.
+- [The Lean Startup — Eric Ries](https://www.amazon.com/s?k=the+lean+startup+eric+ries) — the origin of build-measure-learn and the case for treating every plan as a stack of untested hypotheses.
