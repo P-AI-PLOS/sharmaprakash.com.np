@@ -11,11 +11,11 @@ seriesOrder: 3
 use_featured_image: false
 ---
 
-The third time I ran [1-2-4-All](/product-management/1-2-4-all-fast-group-ideation-for-a-new-pipeline-feature/) as a workshop opener, it was for a leave-balance product's approval-workflow revamp, and it taught me something the first two runs hadn't: the structure is just as useful when the room's problem isn't one dominant voice, but three *different* stakeholder groups who each have a completely different mental model of what "the approval workflow" even is, and no shared vocabulary to notice they're talking past each other.
+The third time I ran [1-2-4-All](/product-management/1-2-4-all-recap-crm-pipeline-feature/) as a workshop opener, it was for a leave-balance product's approval-workflow revamp, and it taught me something the first two runs hadn't: the structure is just as useful when the room's problem isn't one dominant voice, but three *different* stakeholder groups who each have a completely different mental model of what "the approval workflow" even is, and no shared vocabulary to notice they're talking past each other.
 
 ## The structure, quickly
 
-For readers new to this series: 1-2-4-All is a four-step cascade — one minute of silent individual writing on a single question, two minutes in pairs merging answers, four minutes as pairs combine into fours and converge again, then a whole-group share where each foursome contributes only its strongest idea. Twelve to fifteen minutes total regardless of room size. The [first post in this series](/product-management/1-2-4-all-fast-group-ideation-for-a-new-pipeline-feature/) has the full mechanics and a worked example; here I want to focus on what happens when the room's problem is fragmentation of perspective rather than domination by one voice.
+For readers new to this series: 1-2-4-All is a four-step cascade — one minute of silent individual writing on a single question, two minutes in pairs merging answers, four minutes as pairs combine into fours and converge again, then a whole-group share where each foursome contributes only its strongest idea. Twelve to fifteen minutes total regardless of room size. The [first post in this series](/product-management/1-2-4-all-recap-crm-pipeline-feature/) has the full mechanics and a worked example; here I want to focus on what happens when the room's problem is fragmentation of perspective rather than domination by one voice.
 
 ## Three rooms in one room
 
