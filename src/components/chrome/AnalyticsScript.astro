@@ -1,0 +1,42 @@
+---
+/**
+ * Analytics vendor loader + global event delegate. To swap vendors, edit the
+ * <script> tag below and the provider in ~/utils/analytics.ts — nothing else
+ * on the site needs to change.
+ *
+ * Custom events: add `data-track="event_name"` to any element (plus
+ * `data-track-foo="bar"` attributes for extra event data) and clicks are
+ * reported automatically. No per-component script wiring needed.
+ */
+---
+
+<script
+  is:inline
+  defer
+  src="https://analytics.allbrainy.com/script.js"
+  data-website-id="fc624fed-0bb9-4207-a6ab-2f99dcf7638b"
+></script>
+
+<script>
+  import { trackEvent } from "~/utils/analytics";
+
+  window.trackEvent = trackEvent;
+
+  document.addEventListener("click", (e) => {
+    const target =
+      e.target instanceof Element ? e.target.closest<HTMLElement>("[data-track]") : null;
+    if (!target) return;
+    const name = target.dataset.track;
+    if (!name) return;
+
+    const data: Record<string, string> = {};
+    for (const [key, value] of Object.entries(target.dataset)) {
+      if (key === "track" || !key.startsWith("track") || value === undefined) continue;
+      const eventKey = key.slice("track".length);
+      const camel = eventKey.charAt(0).toLowerCase() + eventKey.slice(1);
+      data[camel] = value;
+    }
+
+    trackEvent(name, data);
+  });
+</script>

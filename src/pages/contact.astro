@@ -27,7 +27,7 @@ import { headTitle, information, bookingUrl, bookingEmbedUrl } from "~/data/site
           <div>
             <p class="eyebrow mb-1">Email</p>
             {information.emailAddress.map((e) => (
-              <a href={`mailto:${e}`} class="link-underline text-default block">{e}</a>
+              <a href={`mailto:${e}`} data-track="contact_click" data-track-channel="email" class="link-underline text-default block">{e}</a>
             ))}
           </div>
         </div>
@@ -38,7 +38,7 @@ import { headTitle, information, bookingUrl, bookingEmbedUrl } from "~/data/site
           <div>
             <p class="eyebrow mb-1">Phone</p>
             {information.phoneNumbers.map((n) => (
-              <a href={`tel:${n.replaceAll("-", "")}`} class="link-underline text-default block">{n}</a>
+              <a href={`tel:${n.replaceAll("-", "")}`} data-track="contact_click" data-track-channel="phone" class="link-underline text-default block">{n}</a>
             ))}
           </div>
         </div>
@@ -60,7 +60,14 @@ import { headTitle, information, bookingUrl, bookingEmbedUrl } from "~/data/site
               <p class="eyebrow mb-1">Book a slot</p>
               <p class="text-default">45 minutes, video call. Pick a time that works.</p>
             </div>
-            <a href={bookingUrl} target="_blank" rel="noopener" class="btn btn-ghost btn-sm">
+            <a
+              href={bookingUrl}
+              target="_blank"
+              rel="noopener"
+              data-track="booking_click"
+              data-track-location="contact_page"
+              class="btn btn-ghost btn-sm"
+            >
               <span>Open in new tab</span>
               <Icon icon="ri:external-link-line" client:load />
             </a>

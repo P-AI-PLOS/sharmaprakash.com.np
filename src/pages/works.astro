@@ -36,7 +36,14 @@ import { portfolios, portfolioFilters } from "~/data/portfolios";
                 <h3 class="text-h3 text-strong">{p.title}</h3>
                 <p class="text-body-sm text-muted mt-1">{p.subtitle}</p>
                 {p.url && (
-                  <a href={p.url} target="_blank" rel="noopener" class="mt-auto pt-4 link-underline text-accent-700 font-semibold">View →</a>
+                  <a
+                    href={p.url}
+                    target="_blank"
+                    rel="noopener"
+                    data-track="portfolio_click"
+                    data-track-title={p.title}
+                    class="mt-auto pt-4 link-underline text-accent-700 font-semibold"
+                  >View →</a>
                 )}
               </div>
             </article>

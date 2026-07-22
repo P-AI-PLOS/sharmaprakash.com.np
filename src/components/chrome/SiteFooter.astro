@@ -23,6 +23,8 @@ const year = new Date().getFullYear();
         href={bookingUrl}
         target="_blank"
         rel="noopener"
+        data-track="booking_click"
+        data-track-location="footer"
         class="cta-btn btn btn-primary btn-lg"
       >
         <span>Say hello</span>
@@ -36,6 +38,8 @@ const year = new Date().getFullYear();
         <a
           href={information.socialAddress.facebook}
           aria-label="Facebook"
+          data-track="social_click"
+          data-track-network="facebook"
           class="iconwrap icon-morph"
         >
           <Icon icon="ri:facebook-fill" width="20" height="20" client:load />
@@ -43,6 +47,8 @@ const year = new Date().getFullYear();
         <a
           href={information.socialAddress.twitter}
           aria-label="Twitter"
+          data-track="social_click"
+          data-track-network="twitter"
           class="iconwrap icon-morph"
         >
           <Icon icon="ri:twitter-x-fill" width="20" height="20" client:load />
@@ -50,6 +56,8 @@ const year = new Date().getFullYear();
         <a
           href={information.socialAddress.linkedin}
           aria-label="LinkedIn"
+          data-track="social_click"
+          data-track-network="linkedin"
           class="iconwrap icon-morph"
         >
           <Icon icon="ri:linkedin-fill" width="20" height="20" client:load />
@@ -57,6 +65,8 @@ const year = new Date().getFullYear();
         <a
           href={information.socialAddress.github}
           aria-label="GitHub"
+          data-track="social_click"
+          data-track-network="github"
           class="iconwrap icon-morph"
         >
           <Icon icon="ri:github-fill" width="20" height="20" client:load />

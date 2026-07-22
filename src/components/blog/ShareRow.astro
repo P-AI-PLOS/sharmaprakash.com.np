@@ -11,15 +11,37 @@ const liIntent = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeUR
 ---
 
 <div class="share-row" data-share-url={url}>
-  <button type="button" class="share-chip share-copy" aria-label="Copy link">
+  <button
+    type="button"
+    class="share-chip share-copy"
+    aria-label="Copy link"
+    data-track="share_click"
+    data-track-channel="copy"
+  >
     <Icon icon="ri:link" client:load />
     <span class="share-copy-label">Copy link</span>
   </button>
-  <a class="share-chip" href={xIntent} target="_blank" rel="noopener noreferrer" aria-label="Share on X">
+  <a
+    class="share-chip"
+    href={xIntent}
+    target="_blank"
+    rel="noopener noreferrer"
+    aria-label="Share on X"
+    data-track="share_click"
+    data-track-channel="x"
+  >
     <Icon icon="ri:twitter-x-fill" client:load />
     <span>X</span>
   </a>
-  <a class="share-chip" href={liIntent} target="_blank" rel="noopener noreferrer" aria-label="Share on LinkedIn">
+  <a
+    class="share-chip"
+    href={liIntent}
+    target="_blank"
+    rel="noopener noreferrer"
+    aria-label="Share on LinkedIn"
+    data-track="share_click"
+    data-track-channel="linkedin"
+  >
     <Icon icon="ri:linkedin-fill" client:load />
     <span>LinkedIn</span>
   </a>

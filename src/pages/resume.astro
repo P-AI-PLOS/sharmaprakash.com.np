@@ -19,7 +19,12 @@ import {
           <p class="eyebrow mb-3">Résumé</p>
           <h1 class="text-display-lg text-strong">Eleven years, programmer to product owner.</h1>
         </div>
-        <button type="button" data-print-trigger class="btn btn-primary">
+        <button
+          type="button"
+          data-print-trigger
+          data-track="resume_download"
+          class="btn btn-primary"
+        >
           <span>Download PDF</span>
         </button>
       </div>
@@ -93,6 +98,8 @@ import {
             href={w.url}
             target="_blank"
             rel="noopener noreferrer"
+            data-track="portfolio_click"
+            data-track-title={w.title}
             class="card-interactive block p-6 rounded-md border border-default bg-surface-raised no-underline"
           >
             <h3 class="text-h4 text-strong mb-1">{w.title}</h3>
@@ -110,9 +117,9 @@ import {
   <section class="bg-surface-sunken py-12 resume-contact">
     <div class="mx-auto max-w-5xl px-6 lg:px-12 flex flex-wrap gap-x-8 gap-y-2 text-body-sm text-muted">
       <span>{information.address}</span>
-      <a href={`mailto:${information.emailAddress[0]}`} class="link-underline">{information.emailAddress[0]}</a>
-      <a href={information.socialAddress.github} class="link-underline" target="_blank" rel="noopener noreferrer">GitHub</a>
-      <a href={information.socialAddress.linkedin} class="link-underline" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+      <a href={`mailto:${information.emailAddress[0]}`} data-track="contact_click" data-track-channel="email" class="link-underline">{information.emailAddress[0]}</a>
+      <a href={information.socialAddress.github} data-track="social_click" data-track-network="github" class="link-underline" target="_blank" rel="noopener noreferrer">GitHub</a>
+      <a href={information.socialAddress.linkedin} data-track="social_click" data-track-network="linkedin" class="link-underline" target="_blank" rel="noopener noreferrer">LinkedIn</a>
     </div>
   </section>
 </SiteShell>
