@@ -6,8 +6,6 @@ categories: ["product-management"]
 directory: product-management
 excerpt: "Wells Fargo's 'eight is great' cross-sell target produced up to 3.5 million unauthorized accounts, roughly 5,300 firings, and a $3 billion resolution — $500 million of it from the SEC, because the ratio itself was the number sold to Wall Street. Builder.ai claimed roughly $220 million in revenue against about $55 million of reality and was insolvent within weeks of the discovery. Between them sits Zynga, an honestly metrics-driven company that lost 40% of its value in a day. Three escalating answers to the same question: what happens when the number stops describing the business and starts being the business?"
 use_featured_image: false
-series: product-stories
-seriesOrder: 6
 ---
 
 "Eight is great." That was the slogan inside Wells Fargo's community bank for years — eight products per customer household, a cross-sell target repeated in branch meetings, printed into incentive plans, and pushed down through a sales culture that measured employees on it daily. The average American household doesn't need eight banking products. It doesn't matter. The target existed, the pressure was real, and between 2002 and 2016 employees responded the way people under an unforgiving metric reliably respond: they made the number true by any means available. Up to 3.5 million accounts and cards were opened without customer authorization. Roughly 5,300 employees were fired over it. The bank paid $185 million in 2016, and then, on February 21, 2020, $3 billion to resolve the Department of Justice's criminal and civil investigations.

@@ -6,8 +6,6 @@ categories: ["product-management"]
 directory: product-management
 excerpt: "Quibi raised $1.75 billion and lasted about six months. Juicero raised $120 million for a value proposition that a reporter falsified with her bare hands in thirty seconds. Humane sold roughly a tenth of its Pin target and watched HP buy the wreckage for $116 million. Three eras, three categories, one identical discovery failure: each had 'validation' — surveys, investor enthusiasm, demo applause — and none had evidence of the kind a good interview or a behavioral test produces. The uncomfortable through-line is that money made it worse."
 use_featured_image: false
-series: product-stories
-seriesOrder: 7
 ---
 
 There's a question I've learned to ask whenever someone tells me an idea is validated: *validated by what, exactly?* Not as a gotcha — as an inventory. Because the answers sort cleanly into two piles. One pile is evidence: a specific person did a specific thing, recently, that they wouldn't have done if the problem weren't real. The other pile is enthusiasm: someone said yes to a survey, an investor wired money, an audience applauded a demo. The second pile *feels* like the first pile. It generates the same confidence, fills the same slide, and supports the same roadmap. It just doesn't predict anything.

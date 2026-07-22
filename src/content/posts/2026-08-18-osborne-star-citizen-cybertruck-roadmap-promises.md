@@ -6,8 +6,6 @@ categories: ["product-management"]
 directory: product-management
 excerpt: "In 1983, Osborne Computer pre-announced its next machine and was bankrupt within months — a story so scary it still governs release comms forty years later, even though it's only half true. In 2022, Star Citizen's developer deleted everything beyond the next quarter from its roadmap because 'players interpret anything on the release view as a promise.' And the Cybertruck that was announced at $39,900 arrived four years later at $60,990. Three eras, one mechanism: audiences do not perceive confidence intervals, so the only roadmap formats that survive are the ones that encode uncertainty structurally."
 use_featured_image: false
-series: product-stories
-seriesOrder: 10
 ---
 
 A publicly traded developer of an unfinished video game once explained, in writing, why it was deleting most of its own roadmap. Not because the plans had changed. Because of how the plans were being *read*. Cloud Imperium Games, the studio behind Star Citizen, had spent years publishing one of the most detailed open-development roadmaps in the industry — feature by feature, quarter by quarter, visible to every backer. In February 2022 they stripped it back to a single quarter, and the reason they gave is the most honest sentence I've ever seen a company write about this artifact: **players interpret anything on the release view as a promise.**

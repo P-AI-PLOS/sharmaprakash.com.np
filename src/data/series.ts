@@ -89,7 +89,7 @@ export const seriesRegistry: Record<string, SeriesMeta> = {
   "product-stories": {
     title: "Product Stories",
     description:
-      "A thirteen-part series of documented product stories — Blockbuster's counterattack, Nokia's write-off, Slack's saddles memo, Quibi, Wells Fargo, Sonos, Klarna — each one paired with the framework post it stress-tests, told from the record rather than the legend.",
+      "A two-part pair on discovery done right and wrong — Segment and Superhuman's evidence-driven pivots, set against Quibi, Juicero, and Humane's false validation, closing with Klarna and Duolingo's AI-first reversals — told from the record rather than the legend.",
     cover: "/images/blog/series/product-stories.png",
   },
   "leadership-frameworks": {
@@ -101,7 +101,7 @@ export const seriesRegistry: Record<string, SeriesMeta> = {
   "pm-context-repo": {
     title: "The Product Context Repo",
     description:
-      "A twelve-part tutorial in two arcs. Arc one builds the system: a git-based knowledge repo for product work, a signal pipeline that turns support tickets, call transcripts, and CRM notes into structured evidence, MCP connections to your tracker, docs, and chat, skills and hooks that automate the workflows, and the editorial discipline that keeps AI slop out of your backlog. Arc two is a senior product owner using it end to end — a PRD walkthrough, estimation when agents do the typing, assembling a quarterly roadmap from signals, tickets and acceptance criteria that survive the sprint, a test register tracing criteria to real tests, and verifying releases with Playwright MCP.",
+      "A six-part build-along: a git-based knowledge repo for product work, the structure that lets both agents and humans navigate it, a signal pipeline that turns support tickets, call transcripts, and CRM notes into structured evidence, MCP connections to your tracker, docs, and chat, commands that draft user stories and PRDs from the repo, and the editorial discipline that keeps AI slop out of your backlog.",
     cover: "/images/blog/series/pm-context-repo.png",
   },
   "operating-rhythm": {

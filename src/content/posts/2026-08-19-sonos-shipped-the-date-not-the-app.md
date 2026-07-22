@@ -6,8 +6,6 @@ categories: ["product-management"]
 directory: product-management
 excerpt: "In May 2024, Sonos replaced its app with a ground-up rewrite that shipped without alarms, sleep timers, and accessibility features, reportedly to hit the launch window for its first headphones. The invoice arrived on a schedule: a public CEO apology in July, around 100 layoffs and a $20–30 million remediation estimate in August, a 16% revenue drop in the SEC-filed fourth quarter, and the CEO's exit on January 13, 2025. The freshest, best-documented case of an organization shipping the deadline instead of the product."
 use_featured_image: false
-series: product-stories
-seriesOrder: 11
 ---
 
 In May 2024, Sonos pushed an update that turned its own customers into beta testers of a product they had already paid for. The new app was a ground-up rewrite of the software that controls every Sonos speaker in the world, and it shipped missing things nobody would call edge cases: alarms, sleep timers, local music library playback, and accessibility features that blind users depended on to operate hardware sitting in their own homes. Systems that had worked for years stopped working overnight. There was no opt-out and no rollback. If you owned Sonos speakers, you got the rewrite, ready or not, and the rewrite was not ready.

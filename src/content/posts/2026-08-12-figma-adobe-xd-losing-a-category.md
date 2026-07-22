@@ -6,8 +6,6 @@ categories: ["product-management"]
 directory: product-management
 excerpt: "Adobe launched XD in 2016 as a fast-follow with the best distribution in design software, and still lost the category so completely that its endgame was agreeing to pay $20 billion for Figma — a deal that died under EU and UK regulators in December 2023, costing Adobe a $1 billion breakup fee and XD its life. Then Figma IPO'd in July 2025, priced at $33 and closed at $115.50. The receipts for losing a category rarely come this itemized."
 use_featured_image: false
-series: product-stories
-seriesOrder: 4
 ---
 
 On December 18, 2023, Adobe paid $1 billion for nothing. That's the breakup fee it owed Figma when their $20 billion acquisition — agreed in September 2022, then ground down by EU and UK competition regulators for fifteen months — was finally called off. A month later, in January 2024, Adobe sunset Adobe XD, its own product in the category it had just tried to buy its way back into. And nineteen months after that, on July 31, 2025, Figma went public: priced at $33 a share, closed its first day at $115.50, a valuation around $68 billion.

@@ -6,8 +6,6 @@ categories: ["product-management"]
 directory: product-management
 excerpt: "Every product talk retells the same three MVP stories — Dropbox's video, Zappos's shoe photos, Buffer's landing page — usually with numbers nobody in the room has ever checked. So I checked. Buffer holds up on contemporaneous evidence; Zappos is real but retroactively labeled; Dropbox's famous waitlist figure is founder-self-reported and attached to the wrong video half the time; ChatGPT's 100M is an analyst estimate wearing a fact's clothing. The discipline survives the embellishment — but a PM quoting unverified numbers in a strategy deck is committing the exact sin the MVP exists to prevent."
 use_featured_image: false
-series: product-stories
-seriesOrder: 12
 ---
 
 I have sat through the Dropbox video slide maybe a dozen times. Different companies, different decks, same beats: Drew Houston couldn't build the product yet, so he made a screencast, and overnight the waitlist exploded. Then comes Zappos and the shoe store that didn't have shoes, then Buffer and the pricing page that didn't have a product behind it. The stories are told as settled fact, with numbers delivered in the confident tone people reserve for things they've never checked.

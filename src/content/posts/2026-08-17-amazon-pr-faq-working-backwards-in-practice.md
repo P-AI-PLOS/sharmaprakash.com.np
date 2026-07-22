@@ -6,8 +6,6 @@ categories: ["product-management"]
 directory: product-management
 excerpt: "Prime launched February 2, 2005 at $79 a year to a reception Amazon itself remembers as 'crazy and stupid.' The Kindle launched November 19, 2007 at $399 and sold out in under six hours. Amazon's insiders credit both to a document — the PR/FAQ — and the honest version of that story is more interesting than the legend: the mechanism's real product isn't the hits, it's the products that died on paper before anyone built them."
 use_featured_image: false
-series: product-stories
-seriesOrder: 9
 ---
 
 On February 2, 2005, Amazon announced a membership program: pay $79 a year, get unlimited two-day shipping. The reception, in the telling Amazon's own veterans give, was that the idea was crazy and stupid — a company with famously thin margins volunteering to eat its shipping economics for a flat fee. Two and a half years later, on November 19, 2007, the same company launched a $399 electronic book reader into a market that had already watched several e-readers die quietly. The Kindle sold out in under six hours.

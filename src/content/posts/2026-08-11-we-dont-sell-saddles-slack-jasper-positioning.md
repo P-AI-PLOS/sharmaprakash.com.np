@@ -6,8 +6,6 @@ categories: ["product-management"]
 directory: product-management
 excerpt: "In 2013, Slack refused to sell 'group chat' — a category littered with corpses — and positioned against email instead; 8,000 invite requests arrived in the first 24 hours of the preview, and the company eventually sold for $27.7 billion. Nine years later, Jasper raised $125 million at $1.5 billion as an 'AI writing assistant' — five weeks before ChatGPT gave the core of that position away for free. Same discipline, opposite outcomes, one lesson: positioning is a choice about what your differentiation is anchored to, and anchoring it to something you don't control is borrowing."
 use_featured_image: false
-series: product-stories
-seriesOrder: 3
 ---
 
 In November 2012, Stewart Butterfield shut down a game. Glitch — a whimsical, browser-based massively multiplayer world — died after roughly $17 million had been burned building it, and the company had almost nothing left except an internal chat tool the team had built to coordinate their own work. This is one of the most retold pivots in software, and the retelling usually skips the part that interests me most: the tool they had was, descriptively, a group chat product. And group chat, in 2012, was a dead category. IRC was decades old. Campfire and HipChat existed. Nobody was writing checks because the world lacked chat rooms. If Butterfield's team had positioned honestly-by-default — "we make workplace chat" — they'd have been a slightly nicer entry in a category the market had already priced at approximately zero.

@@ -6,8 +6,6 @@ categories: ["product-management"]
 directory: product-management
 excerpt: "In 2024, Duolingo filed a 40.5-million daily-active-user number with the SEC, up 51% in a year, with more than ten million people holding streaks over a year long. The same year, Rabbit sold roughly 100,000 R1 devices and its founder admitted about 5,000 people used one daily. Both companies had a big number to point at. Only one of the numbers measured value received — and the distance between those two kinds of number is the entire argument for choosing a North Star carefully."
 use_featured_image: false
-series: product-stories
-seriesOrder: 5
 ---
 
 In September 2024, the founder of Rabbit did something founders almost never do: he said the real number out loud. The R1 — the little orange AI gadget that had been one of the loudest launches of the year, roughly 100,000 units sold at $199 each — had, by Jesse Lyu's own admission, about 5,000 daily active users. Five thousand. Out of a hundred thousand. Around five percent of the people who had paid for the thing were using it on any given day, and the founder confirmed it himself, which is why I trust the figure enough to build a post on it.

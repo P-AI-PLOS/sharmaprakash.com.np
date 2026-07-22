@@ -6,15 +6,13 @@ categories: ["product-management"]
 directory: product-management
 excerpt: "In 2000, a cash-burning Netflix offered itself to Blockbuster for $50 million, and Blockbuster passed. That much of the legend is real. What the legend leaves out is that Blockbuster later built Total Access, a counterattack that by Antioco's account was beating Netflix — until a board fight, franchisee economics, and a billion dollars of debt killed the commitment behind it. The real lesson isn't about arrogance. It's about what happens to a coherent strategy when the organization stops paying for it."
 use_featured_image: false
-series: product-stories
-seriesOrder: 1
 ---
 
 Everyone in product knows the story. Netflix, small and scrappy, walks into Blockbuster's offices and offers a partnership. Blockbuster's executives — arrogant, complacent, drunk on late fees — laugh them out of the room. Ten years later Blockbuster is dead and Netflix is worth more than the GDP of a mid-sized country. The moral arrives pre-installed: incumbents that mock disruption deserve what they get.
 
 I've heard this story told from conference stages, in strategy offsites, in at least one board deck as a slide titled "Don't Be Blockbuster." And the frustrating thing is that the story is *almost* true. There was a meeting. There was an offer. Blockbuster did decline it, and Blockbuster did die. Every load-bearing beam of the legend checks out — except the moral. Because the record, once you actually read it, shows Blockbuster doing the one thing the legend says it never did: taking Netflix dead seriously, building a genuinely dangerous counterattack, and briefly winning. What killed Blockbuster wasn't a failure to see the threat. It was a failure to keep paying for the response.
 
-That gap — between the story as told and the story as documented — is what this series is about. The famous product stories we pass around are teaching tools, and most of them have been sanded down until the lesson is easy and the details are wrong. Retold from the record, they usually teach something harder and more useful. This one opens the series because it's the purest case I know: the legend teaches smugness, and the record teaches strategy.
+That gap — between the story as told and the story as documented — is worth dwelling on, because the famous product stories we pass around are teaching tools, and most of them have been sanded down until the lesson is easy and the details are wrong. Retold from the record, they usually teach something harder and more useful. This one is the purest case I know: the legend teaches smugness, and the record teaches strategy.
 
 ## The $50 million meeting that actually happened
 

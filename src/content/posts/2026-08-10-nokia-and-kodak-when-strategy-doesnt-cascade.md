@@ -6,8 +6,6 @@ categories: ["product-management"]
 directory: product-management
 excerpt: "On July 8, 2015, Microsoft wrote off $7.6 billion on a Nokia acquisition it had paid roughly $7.2–7.9 billion for — the write-off was bigger than the purchase price — and cut 7,800 jobs. Kodak invented the digital camera in 1975, invested billions in the technology, was roughly the #1 US digital camera seller around 2005, and still went bankrupt in January 2012. Two completely different diseases, one autopsy line: the strategy never cascaded into anything that could ship and make money."
 use_featured_image: false
-series: product-stories
-seriesOrder: 2
 ---
 
 On July 8, 2015, Microsoft filed the paperwork on the largest write-off in its history: a $7.6 billion impairment on the Nokia devices business it had acquired barely two years earlier for somewhere in the region of $7.2–7.9 billion. Sit with that for a second, because it's stranger than it sounds. The write-off was *bigger than the purchase price*. Microsoft didn't just lose the money it spent; the acquisition destroyed value beyond what it cost. Announced the same day: 7,800 layoffs, most of them in the phone business.
