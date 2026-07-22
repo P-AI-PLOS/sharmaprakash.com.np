@@ -1,0 +1,166 @@
+---
+title: "Making Discovery a Habit: CDH Alongside Shape Up, OKRs, and Agile"
+date: "2025-09-18T10:00:00+05:45"
+category: ["Product"]
+categories: ["product-management"]
+directory: product-management
+excerpt: "Six weeks in, Donut CRM's tree almost died — not from bad discovery, but from a launch crunch. The habit, not the artifact, is the product. This closing module builds the weekly cadence that survives a real delivery calendar, shows where JTBD, Lean Startup, OKRs, and dual-track agile plug into the tree, runs the honest CDH-versus-Shape-Up comparison, and ends with your first six weeks, week by week."
+use_featured_image: false
+series: continuous-discovery
+seriesOrder: 6
+---
+
+import TreeBuilder from "~/components/course/exercises/TreeBuilder.tsx";
+
+Six weeks after the Tuesday roadmap meeting where this started, Donut CRM's tree has earned its keep. The outcome at the root — *increase the share of workspaces that send a follow-up within 24 hours of a meeting* — moved from 22% to 26% after the auto-drafted follow-up shipped behind its "edit before send" framing. Sam stopped relitigating the Salesforce importer, because it's visibly parked on a branch nobody has prioritized. Ravi's support spreadsheet now feeds interview recruiting instead of the roadmap.
+
+And then the tree almost died. Not from a bad interview or a failed experiment — from a launch. The follow-up drafts feature had a date attached, a partner announcement tied to the date, and two of the four engineers pulled onto it full time. Week one of the crunch, Maya rescheduled the customer interview. Week two, she cancelled it. The Friday tree review became "we'll catch up after launch." By week three, the tree in the shared doc described a team that no longer existed: the opportunity rankings were stale, two assumption test results had never been added, and a new pattern Ravi was seeing in the support inbox — users asking whether the AI draft had actually sent — existed nowhere on it.
+
+Nobody decided to stop doing discovery. The calendar decided, one reasonable-sounding reschedule at a time. That's the failure mode that kills this practice in the wild — not skepticism, not bad technique, but delivery pressure quietly eating the habit. **The artifact is not the product. The habit is.** A gorgeous tree updated monthly is a poster; a scruffy tree touched weekly is an operating system.
+
+This last module is about making the loop survive contact with a real delivery calendar: the weekly cadence, the trio that runs it, where the other frameworks you already use plug in, and a straight comparison with Shape Up — then a capstone that finishes the tree you started in [module four](/product-management/from-opportunities-to-solutions-ideating-alone-and-together/). The full arc lives on [the course page](/course/continuous-discovery/).
+
+## The weekly cadence that makes it continuous
+
+"Continuous" is a scheduling claim, not a mood. Torres's practice reduces to three commitments a week, and Donut CRM's post-crunch rule set is a good template because it was written by people who had just watched the loop die.
+
+**The standing interview slot — never cancelled, only rescheduled within the same week.** One customer conversation per week is the floor. The distinction between cancel and reschedule sounds pedantic; it's the whole game. Cancelling is free and compounds — each cancelled week makes the next cancellation more normal, and three cancelled weeks later you're back to opinion wars. Rescheduling within the week keeps the cost visible: you have to find another hour, this week, and the [recruiting pipeline from module three](/product-management/running-discovery-sessions-recruiting-outreach-and-no-shows/) means there's always someone to talk to. During the crunch, the interviews were exactly where the team would have learned about the "did it actually send?" anxiety weeks earlier — the one insight that mattered most to the feature they were crunching on.
+
+**The weekly tree review — fifteen minutes, trio only.** Not a ceremony. Three moves: new evidence in (this week's [interview snapshot](/product-management/finding-opportunities-interviews-jtbd-and-the-opportunity-space/), test results, anything from Ravi's inbox worth promoting), opportunities re-ranked if the evidence moved anything, dead branches pruned. Pruning is the move teams skip, and skipping it is how trees rot into archives. A branch with no new evidence in six weeks and no one advocating for it comes off the active tree. It's not deleted — parked ideas keep their political value — but the working picture stays small enough to reason about.
+
+**Assumption tests as the sprint-sized unit of discovery work.** Discovery doesn't get its own project plan; it gets one [assumption test](/product-management/assumption-mapping-experiments-that-test-the-riskiest-thing-first/) in flight at a time, scoped to a week or less, with success criteria written before it runs. This is what makes discovery legible to the delivery side of the team: it produces a weekly result the same way sprints produce increments.
+
+Here's Donut's actual week, post-crunch:
+
+```text
+Donut CRM — trio discovery rhythm
+
+Mon   09:30  Trio: 15-min tree review
+             (evidence in, re-rank, prune)
+Tue   11:00  Customer interview — STANDING
+             (reschedule within week; never cancel)
+Tue   11:45  Snapshot written while it's warm (solo, PM)
+Wed          Assumption test in flight (async)
+Thu   16:00  Outreach batch: next week's interviews (solo, 20 min)
+Fri   14:00  Test results into the tree; define next test
+             (trio, 20 min)
+
+Total synchronous trio time: ~50 minutes/week.
+```
+
+Fifty synchronous minutes. That's the honest cost of "continuous," and it's why the crunch excuse doesn't survive scrutiny — no launch is so tight that it needs those minutes more than the team needs to keep learning whether the thing launching is right.
+
+### Your turn: put the cadence on the calendar
+
+Fifteen minutes, and it's the highest-leverage quarter hour in this course. Create three recurring events: a weekly interview slot (mark it "reschedule-only" in the title — make the rule visible), a 15-minute tree review with your trio (or with yourself, if you're solo — same agenda, out loud is optional), and a 20-minute Friday slot for test results and outreach. If you can't get your trio to commit to 50 minutes a week, that's not a scheduling problem, and it's better to find out now.
+
+## The trio is the unit, not the PM
+
+Continuous discovery done by the PM alone regresses to opinion wars with extra steps. The PM interviews, the PM interprets, the PM presents conclusions — and the rest of the team receives those conclusions exactly the way Maya's Tuesday meeting received feature requests: as compressed assertions to accept or fight. The evidence went in one person's head, so the argument still runs on trust.
+
+The trio — product, design, engineering doing discovery *together* — isn't a nicety. It's error correction. Two concrete moments from this course's own case:
+
+**Priya, in the [assumption mapping session](/product-management/assumption-mapping-experiments-that-test-the-riskiest-thing-first/):** when the trio mapped the auto-drafted follow-up, Maya's grid was heavy on desirability. Priya added the feasibility row Maya couldn't see — transcripts only exist for *recorded* meetings, and recording coverage across workspaces was far from universal. That single assumption reshaped the solution's addressable reach and produced a data-mining test that took an afternoon instead of a quarter of surprised engineering. A PM alone would have discovered it in sprint planning, as a fight.
+
+**Tom, in the [interview debriefs](/product-management/finding-opportunities-interviews-jtbd-and-the-opportunity-space/):** Maya heard "I don't trust the CRM's data enough to send an email it wrote" as a data-quality problem. Tom heard a *control* problem — the user wasn't asking for better data, they were refusing to be represented by a machine without review. That reframe became the "drafts you edit, never sends you approve after the fact" framing, which is the version of the feature that survived testing. Same sentence, different discipline listening, different product.
+
+The pattern generalizes: engineers hear infeasibility and cheap-test opportunities the PM can't; designers hear the need under the words. When all three are in the room for the evidence, the weekly tree review takes fifteen minutes because nobody is being briefed — they were there.
+
+## Solo versus group: the honest summary
+
+This course kept flagging where activities change shape alone versus with a team. Here's the consolidated answer, because pretending everything needs a workshop is how calendars kill discovery:
+
+| Genuinely better with a group | Fine — or better — solo |
+| --- | --- |
+| Ideation (module 4): diverge alone first, then converge together; use 1-2-4-All so the loudest idea doesn't win | Interview snapshots — write them yourself, within an hour of the call |
+| Assumption mapping (module 5): the grid exists to surface disagreement across disciplines | Outreach and recruiting (module 3): batch it, 20 minutes weekly |
+| Deciding the target opportunity: a trio decision, or it won't stick | Tree gardening: evidence filing, pruning candidates, re-rank proposals |
+| Interview debriefs: two listeners hear two different problems | Drafting the outcome statement (module 1) — propose solo, ratify together |
+
+The asymmetry has a rule inside it: **divergence and judgment benefit from a group; capture and maintenance don't.** Solo PMs can run the whole loop — this course assumed you might be — but the two group-marked activities on the left are where you should beg, borrow, or bribe colleagues into the room, even colleagues outside a formal trio. The [Liberating Structures from module four](/product-management/from-opportunities-to-solutions-ideating-alone-and-together/) exist precisely to make those sessions cheap to run.
+
+## Where the other frameworks plug into the tree
+
+Continuous discovery isn't a rival to the frameworks you already run. Most of them slot into a specific layer of the tree, and knowing where prevents the pointless "which methodology" debate.
+
+**Jobs-to-be-Done** frames the opportunity space. JTBD's switch interviews and forces-of-progress model are the sharpest tools available for the middle layer of the tree — they're how [module two](/product-management/finding-opportunities-interviews-jtbd-and-the-opportunity-space/) got from "improve retention" to opportunities phrased in the customer's own struggle. JTBD tells you what the opportunities *are*; the tree tells you how they relate and which one you're targeting.
+
+**Lean Startup** is the engine at the solution layer. Build-measure-learn, run at assumption granularity rather than whole-product granularity, is exactly what [module five's](/product-management/assumption-mapping-experiments-that-test-the-riskiest-thing-first/) test loop does. The tree adds what Lean Startup famously under-specifies: which hypothesis, of the hundreds you could test, is worth testing — the one under the solution, under the target opportunity, under the outcome.
+
+**Design sprints** are one branch of the tree, compressed into a week. A sprint takes a single opportunity through ideation, prototype, and customer test in five days — useful for a cold start or a genuinely big bet where you want concentrated momentum. What a sprint is not is a substitute for the habit: teams that sprint quarterly and interview never are doing discovery theater with better facilitation.
+
+**Story mapping** takes over where the tree hands off. Once a solution's risky assumptions have survived testing, Patton's story map turns it into a sliced, sequenced backlog. Keep the link: every story map should name the opportunity it serves, so six months later the "why" hasn't been compressed away — the exact failure the tree exists to prevent.
+
+**OKRs** set the root. A well-formed product outcome *is* a key result — "increase the share of workspaces sending a follow-up within 24 hours of a meeting, from 22% to 30%" is a KR any OKR coach would accept. The relationship is clean: OKRs decide what the root of the tree is and by how much it should move; the tree is how the team pursues it. Teams that struggle with "output KRs" ("ship the importer") are missing the tree's middle layers, not the OKR format.
+
+**Dual-track agile** is the org-chart view of everything above. Discovery track and delivery track are not two teams — they're the same trio on different days of the week, which is exactly what Donut's schedule block encodes. The tree is the discovery track's artifact the way the board is the delivery track's. Where dual-track goes wrong is when "track" becomes "department" and interviews get outsourced — more on that in the anti-patterns.
+
+## CDH versus Shape Up: the real comparison
+
+Shape Up is the framework people most often hold up next to continuous discovery, usually framed as a choice. It mostly isn't — they answer different questions — but the differences are substantive and worth stating plainly.
+
+| | Continuous Discovery (Torres) | Shape Up (Basecamp) |
+| --- | --- | --- |
+| Cadence | Continuous weekly loop, no cycles | 6-week build cycles + 2-week cooldown |
+| Who shapes the work | The trio discovers together, continuously | Senior people shape pitches, largely solo, ahead of the betting table |
+| Risk handling | Test riskiest assumptions before and while building | Appetite + fixed time box caps the downside of any bet |
+| Customer evidence | Mandatory weekly customer contact | No prescribed research practice |
+| Unit of commitment | One target opportunity; one assumption test at a time | One bet; one pitch, staffed for the cycle |
+| Where it breaks | Interview supply dies; tree becomes theater | Pitches built on unvalidated problems; betting table becomes opinion |
+
+The deep difference is where each framework spends its rigor. **CDH spends it before commitment**: the weekly loop exists so that by the time you build, the riskiest assumptions have already been tested against real customers. **Shape Up spends it at commitment**: appetite ("we'll spend six weeks on this, no more") and the circuit breaker cap how wrong you can be, and shaping produces a solved-enough pitch that a team can run with autonomously. Shape Up is genuinely excellent at protecting delivery — uninterrupted cycles, no runaway projects, no death-by-backlog. It is close to silent on how the shaper knows the problem is real. Read the book carefully and the evidence behind a pitch is whatever the shaper happened to know; there's no structural equivalent of the standing interview slot. Meanwhile CDH, honestly assessed, prescribes no delivery protection at all — nothing in Torres stops a validated solution from becoming a four-month build that eats the discovery habit that produced it. Donut's launch crunch was exactly that failure.
+
+Which points at the synthesis most teams actually want, because the failure modes are complementary:
+
+**Run CDH's loop continuously. When a solution's riskiest assumptions survive testing, write it up as a Shape Up-style pitch — problem, appetite, solved-enough solution sketch, rabbit holes, no-gos — and bet it at the table. Discovery feeds the betting table; the cycle protects delivery.** The pitch gets what Shape Up can't supply: named evidence, tested assumptions, an opportunity traceable to an outcome. The build gets what CDH doesn't supply: a fixed appetite, an uninterrupted team, and a circuit breaker. And the trio keeps its 50 discovery minutes a week *through* the cycle, which is the fix for the exact way Donut's tree almost died.
+
+## The ways this dies: an anti-patterns checklist
+
+Every one of these is common, and every one is survivable if you name it early.
+
+- **Tree as slideware.** The tree gets updated the night before stakeholder meetings and touched at no other time. Tell: the edit history clusters around review dates. Fix: the Monday fifteen minutes, and present the actual working tree, mess included.
+- **Interviews outsourced to research.** A research team interviews; the trio reads reports. Reports are compressed conclusions — the same compression that made Maya's Tuesday meeting useless. Researchers are invaluable for method and rigor; they can't be the trio's ears. At least one trio member in every interview.
+- **Opportunity space frozen after month one.** The tree's middle layer was built once, in a workshop, and new evidence only ever re-ranks existing branches. If no opportunity has been added or rephrased in six weeks of interviewing, you've stopped listening and started confirming.
+- **Assumption tests that only ever confirm.** Every test passes; the record shows no killed solutions. Real discovery kills ideas — Donut killed one of its three solutions inside two weeks. A perfect pass rate means success criteria are being written after the results, or the tests aren't touching the risky assumptions.
+- **Discovery theater.** "We talked to customers" appears in every update, and no decision has changed in a quarter. The test for the whole practice, applied ruthlessly: *what did we decide differently this month because of something a customer said?* If the answer is nothing, the loop is decorative, whatever the calendar says.
+
+### Your turn: run the audit
+
+Twenty minutes, brutally honest. Score your team against all five anti-patterns: for each, write "clear," "at risk," or "active," with one sentence of evidence. Then take the single worst one and attach the smallest fix from this module — a standing slot, a trio member in the next interview, a pruning pass. One fix, this week. Auditing all five and fixing none is itself discovery theater.
+
+## Capstone: your first six weeks
+
+Here's the whole course as a runnable plan. Each week is a few hours of focused work, not a job change.
+
+- **Week 1 — outcome and tree v0.** Do the [module one](/product-management/opportunity-solution-trees-the-shape-of-good-discovery/) analysis: find the week-one behavior that correlates with your retention or growth problem, write the product outcome statement, sketch the tree with what you already believe. Label it v0 — it's a draft of your ignorance, and that's fine.
+- **Week 2 — three interviews, three snapshots.** Use the [outreach templates from module three](/product-management/running-discovery-sessions-recruiting-outreach-and-no-shows/) to book them; run story-based questions from [module two](/product-management/finding-opportunities-interviews-jtbd-and-the-opportunity-space/); snapshot each within an hour.
+- **Week 3 — opportunity space and target.** Rebuild the tree's middle layer from the interviews, in customer words, parent to child. Pick one target opportunity with your trio. Book next week's interviews (the standing slot exists now).
+- **Week 4 — ideation.** Diverge solo, converge together — [module four's](/product-management/from-opportunities-to-solutions-ideating-alone-and-together/) structures. Land at least three solutions attached to the target opportunity.
+- **Week 5 — assumption map and first test.** Map assumptions across desirability, viability, feasibility, usability, ethics for your leading solution; pick the riskiest; run the [smallest test from module five](/product-management/assumption-mapping-experiments-that-test-the-riskiest-thing-first/) with success criteria written first.
+- **Week 6 — results, prune, repeat.** Evidence into the tree, re-rank, prune, define the next test. This week looks exactly like every week after it. That's the point — week six isn't the end of a project, it's the first ordinary week of a habit.
+
+### Your turn: finish your tree
+
+The tree you started building in module four is below — same tool, same data, still where you left it. Finish it now: outcome at the root, the opportunity space in your customers' words, your target marked, at least three solutions on the target branch, and the first assumption test you'll run. Then export the Markdown and put it somewhere your team will trip over it weekly — the wiki page linked from your sprint board, the channel topic, the doc your Monday agenda opens. A tree nobody sees on a schedule is already slideware.
+
+<TreeBuilder client:visible />
+
+## What you should have now
+
+The whole course, as artifacts:
+
+- [ ] A product outcome statement — behavior, baseline, business outcome it serves ([module 1](/product-management/opportunity-solution-trees-the-shape-of-good-discovery/))
+- [ ] Interview snapshots from story-based customer interviews ([module 2](/product-management/finding-opportunities-interviews-jtbd-and-the-opportunity-space/))
+- [ ] A recruiting pipeline: outreach templates, a source list, a standing weekly slot ([module 3](/product-management/running-discovery-sessions-recruiting-outreach-and-no-shows/))
+- [ ] An opportunity space in customer words, one target chosen, ≥3 solutions attached ([module 4](/product-management/from-opportunities-to-solutions-ideating-alone-and-together/))
+- [ ] An assumption map and at least one test run with pre-written success criteria ([module 5](/product-management/assumption-mapping-experiments-that-test-the-riskiest-thing-first/))
+- [ ] A finished, exported tree and three recurring calendar events that keep it alive (this module)
+
+The artifacts will all be wrong within a month — rankings will shift, branches will die, the outcome baseline will move. Good. The tree was never the deliverable. The deliverable is a team that, every single week, talks to a customer, changes its picture, and can say what it decided differently because of it.
+
+## Further reading
+
+- [Continuous Discovery Habits — Teresa Torres](https://www.amazon.com/s?k=continuous+discovery+habits+teresa+torres) — the source for everything in this course; read it cover to cover now that you've run the loop once.
+- [Shape Up — Ryan Singer](https://basecamp.com/shapeup) — free online; read it for the delivery half of the synthesis above, especially the chapters on appetite and betting.
+- [Inspired — Marty Cagan](https://www.amazon.com/s?k=inspired+marty+cagan) — the wider case for empowered product teams that the trio model sits inside.
+- [User Story Mapping — Jeff Patton](https://www.amazon.com/s?k=user+story+mapping+jeff+patton) — the handoff from validated solution to backlog without losing the why.

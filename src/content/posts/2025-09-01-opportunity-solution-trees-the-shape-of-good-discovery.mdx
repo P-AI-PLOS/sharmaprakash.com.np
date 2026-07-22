@@ -1,0 +1,167 @@
+---
+title: "Opportunity Solution Trees: The Shape of Good Discovery"
+date: "2025-09-01T10:00:00+05:45"
+category: ["Product"]
+categories: ["product-management"]
+directory: product-management
+excerpt: "A roadmap meeting where the loudest request wins is not prioritization — it's an auction. This module introduces the opportunity solution tree: one outcome at the root, customer needs in the middle, solutions and experiments below, so every priority argument happens on a shared picture instead of in the air. You'll leave with your own product outcome written and your last five feature requests decompressed into the needs underneath them."
+use_featured_image: false
+series: continuous-discovery
+seriesOrder: 1
+---
+
+import OpportunitySorter from "~/components/course/exercises/OpportunitySorter.tsx";
+
+Maya walks into the Tuesday roadmap meeting at Donut CRM with a board mandate — "improve retention" — and walks into a wall of everyone else's certainty. Sam, the founder, wants the Salesforce importer, because two prospects asked for it on calls last week. Ravi, who runs the support inbox, has a spreadsheet of forty-one requests sorted by frequency; the top row says "Zapier integration (x9)." Priya, the tech lead, wants two weeks for the enrichment pipeline, which keeps flagging job changes for people who haven't changed jobs. Tom has a redesigned onboarding flow he's quietly convinced is the real answer.
+
+Every one of these people is smart, close to customers, and arguing in good faith. And the meeting still goes nowhere, because there is no shared structure to argue *inside*. Each request arrives as a finished conclusion — build this — with the reasoning compressed away. The only way to compare them is volume: who asked, how many times, how recently, how loudly. When Maya says "I don't think the importer moves retention," she has nothing to point at. It's her hunch against Sam's calls. Hunch loses.
+
+What's missing isn't a better prioritization framework or a scoring spreadsheet. It's an artifact: a picture of what the team is trying to change, what customer needs could change it, and which ideas serve which need. That artifact is the **opportunity solution tree**, and building Donut CRM's — from the outcome at the root down to the first experiments — is what this course does.
+
+This is the first of six modules; the series builds one running case from outcome to tested solution — [the full arc is on the course page](/course/continuous-discovery/). Everything here comes from Teresa Torres's continuous discovery practice; the point of the course is to actually do it on your own product, so each module ends with artifacts you've produced, not just concepts you've read.
+
+## The anatomy of the tree
+
+An opportunity solution tree has four layers, and the order is the whole discipline:
+
+1. **Outcome** — one measurable change in customer behavior the team is driving, sitting alone at the root. Not a feature list, not a revenue number. A behavior.
+2. **Opportunity space** — customer needs, pain points, and desires, phrased in the customer's words, arranged parent-to-child so big fuzzy needs break down into specific addressable ones. This layer is discovered through interviews, not brainstormed in a conference room.
+3. **Solutions** — ideas that address a specific opportunity. They attach to opportunities, never directly to the outcome. Torres's rule of thumb: at least three per target opportunity, because your first idea is rarely your best and a single idea turns discovery into confirmation.
+4. **Assumption tests** — small, fast experiments that test the riskiest assumptions underneath a solution, rather than building the whole thing to find out.
+
+Why a tree, and not a list or a spreadsheet? Three reasons that matter in rooms like Maya's Tuesday meeting.
+
+**A tree is a visual argument.** When someone proposes the Salesforce importer, the question is no longer "is this a good idea?" — it's "where does this attach?" If it hangs off an opportunity you've decided to target, it competes with the other solutions there. If it attaches to an opportunity nobody has prioritized, or to no opportunity at all, that's visible to everyone at once. The structure does the arguing.
+
+**A tree keeps solutions tied to needs.** Solutions attach to opportunities, opportunities ladder up to the outcome. Any idea that can't trace a path to the root is exposed as a pet project, however shiny. This is the connective tissue most roadmaps lack: they list what we're building without preserving *why*, so six months later nobody can say which customer need a shipped feature was for.
+
+**A tree makes "no" explainable.** This is the underrated one. Saying no to a founder's feature request with "it's not a priority" starts a fight. Saying "it serves this opportunity, which we've parked because the evidence points harder at this one — here's the tree" starts a conversation about evidence. The request isn't rejected; it's *placed*. Parked ideas stay on the tree, visibly, which turns out to matter enormously for the politics of discovery.
+
+One more rule that looks minor and isn't: **you target one opportunity at a time.** The tree can be broad, but the trio's active work drills into a single branch until it's addressed or abandoned. Spreading across branches feels responsive and produces nothing.
+
+## Getting the outcome right
+
+The root of the tree carries everything above a load-bearing distinction Torres draws that most teams blur: **business outcomes, product outcomes, and traction metrics are different things, and product teams should be given product outcomes.**
+
+- A **business outcome** measures business health: revenue, retention, churn, margin. "Improve week-4 retention" is a business outcome. It's what boards talk about, and it's a terrible working target for a product trio, because dozens of things move it — pricing, support quality, sales targeting, the product — and most of them are outside the trio's reach. A team measured on it can't see its own effect.
+- A **product outcome** measures a change in *customer behavior within the product* that the team believes drives the business outcome. It's the translation layer: close enough to the business to matter, close enough to the product for the team to actually move it.
+- A **traction metric** measures usage of a specific feature: recap opens, tasks created via the composer, sequences sent. Useful for a mature feature you're optimizing; too narrow to steer discovery, because it presumes the feature is the answer.
+
+The hard work is the translation from business outcome to product outcome, and it's analytical, not creative. Maya and Priya spent two days in Donut's data asking one question: *what do workspaces that survive to week 4 do in week 1 that churned workspaces don't?* Trial length didn't separate them. Contact volume didn't. Number of features touched barely did. The signal that jumped out: **workspaces that sent a follow-up within 24 hours of a recorded meeting during week 1 retained at nearly three times the rate of those that didn't.** The product's promise is "keep every relationship warm without admin work" — and the users who experience that promise once, concretely, in their first week are the ones who stay. That's a correlation, not proven causation, and the team says so out loud. But it's the strongest behavioral correlate they have, and it's a behavior the product can plausibly influence.
+
+So the root of Donut's tree became:
+
+```text
+Product outcome:
+Increase the share of active workspaces that send a follow-up
+within 24 hours of a meeting.
+
+Baseline: 22% of workspaces with ≥1 recorded meeting per week.
+Serves business outcome: improve week-4 retention of new workspaces.
+```
+
+Just as instructive are the candidates they rejected:
+
+- **"Increase weekly active workspaces."** A vanity direction at this stage — activity without a shape. A workspace can be "active" while getting nothing from the product; the churned user who told Ravi *"your tool asked me for more than it gave back"* was active right up until she left for a spreadsheet.
+- **"Ship AI recap improvements by end of quarter."** An output, not an outcome. It names a deliverable and says nothing about whether any customer behaves differently afterward. If you can complete it without a customer noticing, it's not an outcome.
+- **"Reduce churn caused by poor data quality."** A real problem — *"I don't trust the CRM's data enough to send an email it wrote"* came up in interviews — but as stated it's not something the trio can influence on a weekly cadence or measure without months of lagging churn data. It survives as an opportunity on the tree instead, which is where it belongs.
+
+The rejects illustrate the three-test check every product outcome should pass: **outcome, not output** (customer behavior changes, not something ships); **the team can influence it** (mostly within the product's walls, not hostage to pricing or sales); **measurable on roughly a weekly cadence** (so discovery gets feedback in days, not quarters).
+
+### Your turn: write your product outcome
+
+Take your team's current top-level goal — the thing your board, founder, or leadership actually asked for. It's probably a business outcome. In 15–30 minutes:
+
+1. Write it down verbatim.
+2. List three candidate product outcomes: customer behaviors *within your product* that plausibly drive it. If you have data, look for the behavioral correlate the way Maya did; if you don't, write your best hypothesis and mark it as one.
+3. Run each through the three tests: outcome not output, influenceable by your team, measurable weekly-ish.
+4. Keep the strongest. Phrase it as "increase/decrease the share of [customers] who [specific behavior]," and note the baseline if you know it.
+
+**Solo vs. with a team:** alone, do the exercise and then show your draft to whoever owns the business outcome — the outcome only works if they'd accept it as a proxy. With a trio, draft candidates independently first, then compare; if PM, design, and engineering independently converge on the same behavior, that's signal. If you diverge wildly, the disagreement is the most valuable thing in the room — resolve it now, not three months into building.
+
+## Opportunities, solutions, experiments — the distinction everything rests on
+
+Here's the drill that has to become reflex, because every artifact in the next five modules depends on it.
+
+An **opportunity** is a need, pain point, or desire that lives in the *customer's* world. It would exist even if your product didn't. It's best captured in the customer's own words. *"Half my follow-ups slip because I write them on sticky notes after calls"* is an opportunity — that sentence was true before Donut CRM existed and will be true after.
+
+A **solution** lives in the *product's* world. It's a thing you could build to address an opportunity: auto-draft a follow-up email from the meeting transcript. Delete the product and the solution evaporates; the sticky notes remain.
+
+An **experiment** (an assumption test, properly) is neither. It's an activity that generates evidence about whether a solution's riskiest assumptions hold — showing five users a fake "review draft follow-up" button before any drafting exists, and watching whether they click. Experiments are cheap, fast, and disposable by design.
+
+The tell for which is which: ask *whose world does this sentence live in?* If it names your product or a feature, it's a solution. If a customer could have said it to a friend at dinner, it's an opportunity. If it has a success criterion and an end date, it's an experiment.
+
+The reason this distinction gets drilled so hard: **feature requests are compressed opportunities.** When a customer — or your founder — asks for a Zapier integration, they've done you the disservice of solving their own problem and handing you only the answer. Somewhere underneath is a need, and the customer's proposed solution is rarely the best one; they know their problem intimately and your product's possibility space barely at all. Your job is to decompress: *"what would that let you do?"* Asked once or twice, the request unfolds.
+
+Watch it work on Donut's inbox:
+
+- **"Add a Zapier integration" (x9).** What would that let you do? For six of the nine: get meeting notes and follow-up tasks out of other tools and into one place, because *"I can never remember what we talked about the last time we met."* The opportunity is *my relationship context is scattered across tools* — and a Zapier integration is one of many possible solutions to it, most of them better.
+- **"Let me export my contacts to CSV."** What would that let you do? The user wanted to build a weekly "who am I neglecting?" review in a spreadsheet. Opportunity: *I want to notice which relationships are going cold before they're gone.* An export feature would have satisfied the request and sent her to a spreadsheet — the exact churn path Donut already lost one user to.
+- **"Make the AI recap editable before it saves."** Decompressed: *"I don't trust the CRM's data enough to send an email it wrote."* The opportunity is about trust in machine-written content, not text editing. That reframing matters enormously once the team starts designing the auto-drafted follow-up in [module four](/product-management/from-opportunities-to-solutions-ideating-alone-and-together/).
+
+Notice that decompression doesn't mean dismissal. The request goes on the tree, parked under the opportunity it serves. The customer was heard. The team just refuses to let the customer's first solution end the conversation.
+
+### Your turn: sort the cards
+
+Before you decompress your own backlog, calibrate on someone else's. Below are statements from Donut CRM's discovery notes — sort each into opportunity, solution, or experiment. The borderline ones are the point.
+
+<OpportunitySorter client:visible />
+
+If you misclassified any, re-run the tell: whose world does the sentence live in? Solutions masquerade as opportunities constantly — "users need a reminder feature" is a solution wearing an opportunity's clothes. The unfailing symptom is that the sentence stops being true if your product disappears.
+
+## Donut CRM's tree, v0
+
+With the outcome set and the distinction sharp, Maya drafts the first tree. The opportunities come from real interview evidence — the sticky-notes quote, the can't-remember quote, the trust quote, the "honestly, I winged it" prep confession, the churned spreadsheet user. The solutions are the ones people brought to that Tuesday meeting, now deliberately *parked* under the opportunities they'd serve rather than deleted or debated.
+
+```text
+OUTCOME: Increase the share of workspaces that send a follow-up
+         within 24 hours of a meeting.
+│
+├─ OPPORTUNITY: "I can't remember what we talked about last time
+│  we met."
+│     └─ (parked solution: Salesforce importer — brings in history,
+│        doesn't surface it when it's needed)
+│
+├─ OPPORTUNITY: "Half my follow-ups slip because I write them on
+│  sticky notes after calls."
+│     ├─ (parked solution: auto-draft follow-up email from the
+│     │  meeting transcript)
+│     └─ (parked solution: Zapier integration — pipe tasks in from
+│        other tools)
+│
+├─ OPPORTUNITY: "I don't trust the CRM's data enough to send an
+│  email it wrote."
+│
+├─ OPPORTUNITY: "Honestly, I winged it." — walking into calls with
+│  no prep, so nothing concrete to follow up on
+│
+└─ OPPORTUNITY: "Your tool asked me for more than it gave back."
+   — the effort-to-value ledger runs negative in week 1
+```
+
+Three things about this v0. First, it's thin, and that's honest — five opportunities from a handful of interviews, no children yet, no target chosen. A tree drafted in an afternoon from a brainstorm would be fuller and worthless; this one only contains what customers actually said. Second, the parked solutions are doing political work: Sam's importer and Ravi's Zapier request are *on the tree*, attached to the needs they'd serve, which is why parking them didn't start a fight. Third, the tree immediately generates the next question — which opportunity do we target? — and exposes that the team can't answer it well yet. Five quotes is not an opportunity space. Growing this layer properly, through weekly interviews and experience mapping, is the entire subject of [module two](/product-management/finding-opportunities-interviews-jtbd-and-the-opportunity-space/), and the unglamorous machinery of actually getting customers to show up for those interviews is [module three](/product-management/running-discovery-sessions-recruiting-outreach-and-no-shows/).
+
+### Your turn: decompress your last five feature requests
+
+Open your support inbox, your sales channel, or wherever requests accumulate. Take the five most recent. For each, in a table or plain list:
+
+1. Write the request verbatim.
+2. Write the decompression question you'd ask: *"what would that let you do?"* — and if you can reach the requester, actually ask it. If you can't, write your best-evidence guess and flag it as a guess.
+3. Write the opportunity underneath, in words the customer could have said, with no product nouns in it.
+4. Note whether the opportunity plausibly ladders up to the product outcome you wrote earlier. Some won't — that's information, not failure.
+
+Expect at least one request to decompress into something surprising, and at least two to share the same underlying opportunity. That convergence — nine requests, six of them the same need in different costumes — is the first taste of what the opportunity space gives you that a ranked request list never can.
+
+## What you should have now
+
+- [ ] A product outcome statement, derived from your business outcome and passed through the three-test check (outcome not output / team can influence / measurable weekly-ish)
+- [ ] The sorter completed, with the opportunity/solution/experiment tell internalized
+- [ ] Your last five feature requests decompressed into the opportunities underneath them
+
+That's a root and the first raw material for an opportunity space. Next, the part most teams skip and then wonder why their tree is fiction: [finding opportunities through continuous interviewing, jobs-to-be-done, and experience mapping](/product-management/finding-opportunities-interviews-jtbd-and-the-opportunity-space/).
+
+## Further reading
+
+- [Continuous Discovery Habits — Teresa Torres](https://www.amazon.com/s?k=continuous+discovery+habits+teresa+torres) — the source for the opportunity solution tree and everything this course practices
+- [Escaping the Build Trap — Melissa Perri](https://www.amazon.com/s?k=escaping+the+build+trap+melissa+perri) — why outputs masquerade as outcomes, and how organizations end up in Maya's Tuesday meeting
+- [Product Talk](https://www.producttalk.org/) — Torres's blog; the OST articles there are the best free companion to this course
