@@ -21,6 +21,13 @@ const {
   showCanonical = false,
 } = Astro.props;
 
+// Long post excerpts stay full-length on cards; meta/OG descriptions get
+// truncated at a word boundary to stay inside the ~160-char SERP window.
+const metaDescription =
+  description.length > 160
+    ? `${description.slice(0, 157).replace(/\s+\S*$/, "")}…`
+    : description;
+
 const siteUrl = Astro.site?.toString().replace(/\/$/, "") ?? "";
 const canonical = `${siteUrl}${Astro.url.pathname}`;
 const fullImage = image.startsWith("http") ? image : `${siteUrl}${image}`;
@@ -28,13 +35,13 @@ const fullTitle = `${title} — ${siteConfig.fullName}`;
 ---
 
 <title>{fullTitle}</title>
-<meta name="description" content={description} />
+<meta name="description" content={metaDescription} />
 <meta name="author" content={siteConfig.fullName} />
 
 <meta property="og:locale" content="en_US" />
 <meta property="og:site_name" content={siteConfig.firstName} />
 <meta property="og:title" content={title} />
-<meta property="og:description" content={description} />
+<meta property="og:description" content={metaDescription} />
 <meta property="og:image" content={fullImage} />
 <meta property="og:url" content={canonical} />
 <meta property="og:type" content={ogType} />
@@ -42,7 +49,7 @@ const fullTitle = `${title} — ${siteConfig.fullName}`;
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:site" content={siteConfig.twitterUsername} />
 <meta name="twitter:title" content={title} />
-<meta name="twitter:description" content={description} />
+<meta name="twitter:description" content={metaDescription} />
 <meta name="twitter:image" content={fullImage} />
 <meta name="twitter:url" content={canonical} />
 

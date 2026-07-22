@@ -2,9 +2,9 @@
   "decks": {
     "hooks-subagents-skills": {
       "source": "src/content/presentations/hooks-subagents-skills.md",
-      "sha256": "fbe98f8ef03daecafc0617d85dee3934436c4ec749caf7d43616f857de09ad9a",
-      "builtAt": "2026-05-22T07:35:40.283Z",
-      "qrUrl": "https://sharmaprakash.com.np/course/hooks-subagents-skills/",
+      "sha256": "cb8c3a28a67c64eb5e989f2a76cdfefb6bed77bddb1ddc4f8f6005d39ff3a782",
+      "builtAt": "2026-07-22T22:00:34.696Z",
+      "qrUrl": "https://sharmaprakash.com.np/workshop/hooks-subagents-skills/",
       "artifacts": {
         "html": true,
         "pdf": true,
@@ -15,8 +15,20 @@
     "parallel-developer": {
       "source": "src/content/presentations/parallel-developer.md",
       "sha256": "994d049237895a4f9424c03c61e164a051ad703605ca2aa609bbb9e8edae613b",
-      "builtAt": "2026-05-22T07:35:46.078Z",
+      "builtAt": "2026-07-22T22:00:41.651Z",
       "qrUrl": "https://sharmaprakash.com.np/presentations/parallel-developer/",
+      "artifacts": {
+        "html": true,
+        "pdf": true,
+        "thumb": "thumb.png",
+        "qr": "qr.png"
+      }
+    },
+    "pm-context-repo": {
+      "source": "src/content/presentations/pm-context-repo.md",
+      "sha256": "2c2ac4a91ffcda4c17a2f2c0757890b8ea12b6b7c523ea8d66794c98545c4d10",
+      "builtAt": "2026-07-22T22:00:49.280Z",
+      "qrUrl": "https://sharmaprakash.com.np/product-management/the-product-context-repo-why-your-product-knowledge-belongs-in-git/",
       "artifacts": {
         "html": true,
         "pdf": true,

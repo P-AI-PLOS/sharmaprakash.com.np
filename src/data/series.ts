@@ -68,6 +68,48 @@ export const seriesRegistry: Record<string, SeriesMeta> = {
       "An eight-part build-along: a locally-running tool that ingests a YouTube podcast channel, extracts guests and topics, lets you clip-search by intent, and generates questions for future episodes — using uv, FastAPI, Vite + React, and a provider-switchable LLM client.",
     cover: "/images/blog/series/clipdex.png",
   },
+  "agile-first-principles": {
+    title: "Agile from First Principles",
+    description:
+      "A nine-part series on agile as reasoning rather than ritual — rereading the manifesto's four values and twelve principles as engineering advice, running fully agile without Scrum or Kanban, cleaning up a rotten backlog, documented product stories (the FBI's Sentinel, the Spotify model, Cyberpunk 2077, Healthcare.gov) that show the principles doing actual work, a full autopsy of the daily standup, and what agile's constraints become when AI agents make implementation cheap.",
+    cover: "/images/blog/series/agile-first-principles.png",
+  },
+  "innovation-from-within": {
+    title: "Innovation From Within",
+    description:
+      "A ten-part series on how innovation actually happens inside big companies — why good management rationally kills new ideas (the Innovator's Dilemma), where new bets should live (Three Horizons, the ambidextrous organization), labs that compound, real intrapreneurship (Kickbox, 15% time), innovation accounting, and then the outside game: spin-outs and sister companies, corporate venture capital, backing the right startups in a power-law world, pricing new ventures, and managing runway.",
+    cover: "/images/blog/series/innovation-from-within.png",
+  },
+  "innovation-vto": {
+    title: "The Innovation V/TO",
+    description:
+      "An eight-part series running Traction's full Vision/Traction Organizer as an innovation strategy stack, ordered by V/TO section — core values as the permission structure, core focus as the hedgehog, the ten-year target as a long bet held with institutional patience, marketing strategy as beachheads, the three-year picture as a steerable portfolio, the one-year plan as metered money, rocks as ninety-day experiment contracts, and the issues list as the machine that surfaces bad news. Referenced stories throughout: IBM's EBOs, Tesla's master plan, AWS, ASML's EUV, Apple's 1997 product cull, LEGO's near-death, the Challenger, and the Concorde fallacy.",
+    cover: "/images/blog/series/innovation-vto.png",
+  },
+  "product-stories": {
+    title: "Product Stories",
+    description:
+      "A thirteen-part series of documented product stories — Blockbuster's counterattack, Nokia's write-off, Slack's saddles memo, Quibi, Wells Fargo, Sonos, Klarna — each one paired with the framework post it stress-tests, told from the record rather than the legend.",
+    cover: "/images/blog/series/product-stories.png",
+  },
+  "leadership-frameworks": {
+    title: "The Strategy Cascade",
+    description:
+      "A seven-part series on the product and engineering leadership frameworks that actually earn their keep — organized by the layer of work each one serves, from strategy formation down to org design, with when-to-use guidance and real failure modes for each, closing with the case for principle-first thinking over framework collecting.",
+    cover: "/images/blog/series/leadership-frameworks.png",
+  },
+  "pm-context-repo": {
+    title: "The Product Context Repo",
+    description:
+      "A twelve-part tutorial in two arcs. Arc one builds the system: a git-based knowledge repo for product work, a signal pipeline that turns support tickets, call transcripts, and CRM notes into structured evidence, MCP connections to your tracker, docs, and chat, skills and hooks that automate the workflows, and the editorial discipline that keeps AI slop out of your backlog. Arc two is a senior product owner using it end to end — a PRD walkthrough, estimation when agents do the typing, assembling a quarterly roadmap from signals, tickets and acceptance criteria that survive the sprint, a test register tracing criteria to real tests, and verifying releases with Playwright MCP.",
+    cover: "/images/blog/series/pm-context-repo.png",
+  },
+  "operating-rhythm": {
+    title: "The Product Operating Rhythm",
+    description:
+      "A five-part series on the work between strategy and shipping — a customer-request intake you can defend, the planning stack from undated vision through 5-year, 3-year, yearly, and quarterly plans without repeating yourself, the quarterly planning ritual as a runbook, stakeholder management as a system a product owner runs, and the recovery playbook for when sales sells a feature that was never on the roadmap.",
+    cover: "/images/blog/series/operating-rhythm.png",
+  },
 };
 
 export const getSeriesMeta = (slug: string | undefined): SeriesMeta | null =>

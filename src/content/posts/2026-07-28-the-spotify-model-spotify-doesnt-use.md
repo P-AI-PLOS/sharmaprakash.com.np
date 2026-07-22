@@ -1,0 +1,59 @@
+---
+title: "The Spotify Model Spotify Doesn't Use"
+date: "2026-08-07T10:00:00+05:45"
+category: ["Product"]
+categories: ["product-management"]
+directory: product-management
+excerpt: "The most copied agile framework of the 2010s was a 13-page snapshot of one company at one moment — a company that kept changing, whose authors spent years telling everyone not to copy it, and whose own employees later reported it didn't work as marketed. The story isn't that Spotify lied. It's that thousands of organizations bought the org chart and skipped the reasoning."
+use_featured_image: false
+series: agile-first-principles
+seriesOrder: 5
+---
+
+I've sat in two separate "squadification" kickoffs, years and industries apart, and they opened with the same slide: the diagram of squads, tribes, chapters, and guilds from [a whitepaper written in 2012](https://blog.crisp.se/wp-content/uploads/2012/11/SpotifyScaling.pdf) about a Swedish music company. In both rooms, someone asked how Spotify was doing with it these days. In both rooms, nobody knew — and nobody thought the question mattered. The diagram had stopped being a description of a company and become a product in its own right, and we were buying it.
+
+Here's the punchline both rooms were missing: by the time most of the world adopted the Spotify model, Spotify wasn't running it — and the people who wrote it down had spent years saying so. That's not a scandal. It's the cleanest case study I know of what happens when an industry copies the output of someone else's derivation without rerunning the derivation, and it's [the framework-as-vendor-of-defaults thesis](/product-management/agile-without-scrum-or-kanban/) from earlier in this series playing out at the scale of entire banks.
+
+## What the whitepaper actually was
+
+In 2012, Henrik Kniberg and Anders Ivarsson published "Scaling Agile @ Spotify" — an internal document that went public, thirteen pages describing how Spotify was organizing a few hundred engineers at that moment. Squads: small, autonomous, cross-functional teams, each owning a slice of the product end to end. Tribes: collections of squads in a related area. Chapters: people with the same skill across squads, sharing a line manager. Guilds: voluntary communities of interest cutting across everything. Two years later, Kniberg's pair of "Spotify engineering culture" videos put the ideas in front of the whole industry, with a vocabulary — "autonomy and alignment," "loosely coupled, tightly aligned" — that was genuinely better than anything the scaled-agile world had produced.
+
+And it deserved the attention, read as what it was. The document is a team honestly describing how a handful of principles — small teams, real autonomy, alignment through context rather than control, minimizing the coupling between teams so each can ship independently — were serving *their* constraints at *their* moment: a fast-growing company, one consumer product, an engineering culture with unusually high trust. It's a good document. I'd rather a team read it than most of what's been written about scaling since.
+
+What it never claimed to be was a framework. The caveats are not something the authors added later under pressure — they're present from the start, and they were widely ignored. The paper was a snapshot of one company at one point in time, aspirational in places, describing where Spotify was trying to go as much as where it was. Kniberg said repeatedly, in the years after, that Spotify kept changing and that copying the model missed the point. Agile coaches who actually worked there — Joakim Sundén among them — eventually said it as plainly as it can be said: Spotify doesn't use the Spotify model.
+
+## The inside view, eventually
+
+For years, the strongest counter-evidence was the authors' own disclaimers, which the market treated as modesty. Then in 2020, Jeremiah Lee — a Spotify employee from 2017 to 2019 — published "Spotify's Failed #SquadGoals," reporting from inside the building, and the gap between the model as marketed and the model as lived got a first-person account.
+
+Lee's report, in short: the matrix structure created accountability gaps — chapter leads managed people whose work they didn't direct, and squad-level work had no manager close enough to own its outcomes. Autonomy without sufficient alignment fragmented the organization; squads optimizing locally produced collisions and duplication that no ceremony existed to catch. The famous nouns were real, but the operating reality underneath them was messier, more contested, and further from the videos than the industry assumed. His account is one person's, from one era, and parts of it are contested — but its central claim rhymes exactly with what Kniberg and Sundén had been saying from the other side: the thing you bought is not the thing we live in.
+
+Notice what this does and doesn't establish. It doesn't establish that the 2012 paper was dishonest — a snapshot of an aspiration, labeled as such, is not a lie. What it establishes is that even at the origin, the model was a moment in an ongoing negotiation between principles and constraints, not a solved equilibrium. Spotify's constraints kept moving — headcount, product surface, market — and so its structure kept moving. **The continuous restructuring was the agile part.** "At regular intervals, the team reflects on how to become more effective, then tunes and adjusts its behavior accordingly" — [the twelfth principle](/product-management/the-agile-manifesto-four-values-twelve-principles/), applied to the org chart itself. The companies that froze Spotify's 2012 output into a target operating model were, with no irony detected, using an artifact of continuous adaptation as a reason to stop adapting.
+
+## Meanwhile, in every bank
+
+While Spotify moved on, the snapshot went multinational. Through the mid-and-late 2010s, banks, telcos, and insurers — frequently guided by consultancies selling "agile transformation" with the Spotify diagram on the cover — reorganized thousands of people at a time into squads and tribes. ING's squadification was the reported flagship case; dozens of others followed, some publicized, most not. An entire transformation industry grew up around thirteen pages describing a company that no longer existed in that form.
+
+And the adoption pattern was almost perfectly inverted from the source. Spotify's structure was downstream of its principles: autonomy was the goal, and squads were that quarter's best mechanism for it. The adopters ran it backwards — the structure *was* the transformation. Rename teams to squads, departments to tribes, managers to chapter leads, declare victory. The renaming is cheap and visible; the trust, the loose coupling, the willingness to let teams ship without a release train — the load-bearing parts — are expensive and invisible, so they were quietly left out. A command-and-control organization with Spotify's nouns is a command-and-control organization, and in my experience the people inside it can tell by about week six.
+
+This is the decay pattern this series keeps finding — ritual severed from principle — at its largest documented scale. The framework outlived its own origin. It kept being sold, taught, and certified years after its source company had disclaimed it and moved on, because by then the model's success no longer depended on Spotify at all. It had customers.
+
+## Owning your process versus renting someone else's
+
+The lesson is not "the Spotify model is bad," and it is emphatically not "Spotify lied." Read the whitepaper today and it holds up — as an existence proof, one company's honest answer at one moment, exactly like [the five minimal shapes](/product-management/agile-without-scrum-or-kanban/) I catalogued earlier in this series. Existence proofs are valuable. They show you what's possible and hand you vocabulary. What they can't do is transfer, because the answer was derived from constraints you don't have: Spotify's product surface, Spotify's trust level, Spotify's 2012 headcount.
+
+The failure was downstream, in the adopting organizations, and it was a specific and recognizable failure: **adopting the output of someone else's derivation without rerunning it against your own constraints.** A retail bank has regulators, decades of coupled legacy systems, and a risk culture built on approval chains — constraints Spotify's 2012 answer was never solving for. Rerun the derivation honestly against those constraints and you might still end up with small, autonomous, loosely coupled teams — the principles travel fine. But you'd get there having answered the hard questions the diagram lets you skip: what are we actually willing to let a team decide alone? Which couplings are we actually going to break, and what does that cost? Skip the derivation and you get the org chart without the answers, which is how you get squads that can't ship without four external sign-offs.
+
+There's one more thing the copying missed, and it's the part I'd most want to steal. Spotify's real practice — the one Kniberg kept pointing at while everyone photographed the diagram — was that the process itself was a product: versioned, revised, sometimes rolled back, never finished. The 2012 paper was a release note, not a specification. An organization that copies the release note gets a frozen version of someone else's process with no upgrade path. An organization that copies the *practice* — continuously rederiving its own structure from its own constraints, [principles first](/product-management/principle-first-when-to-put-the-frameworks-down/) — never needs the diagram at all. That's what owning your process means, and it's the only version of the Spotify model Spotify ever actually used.
+
+## Put it to work
+
+1. **Find the snapshot you're currently running.** Somewhere in your process is a structure copied from a company you're not — a Spotify diagram, a Shape Up cycle, an SAFe train. Trace it to its source and ask the two questions the squadification kickoffs skipped: what constraints was the original solving for, and does the source still run it? If you can't answer either, you've adopted a snapshot, and it's time to rerun the derivation against your own constraints.
+2. **Write down what a team in your org is actually allowed to decide alone.** Not the aspiration — the reality: deploys, tool choices, scope cuts, hiring. If the honest list is short, no renaming exercise will make your teams autonomous, and any squad-shaped reorg will fail for the same reason the bank versions did. Expanding that list is the transformation; the nouns are decoration.
+3. **Version your own process in writing.** One page: here's how we work this quarter and why — each structural choice tied to a constraint, in the spirit of the rederivation test from earlier in the series. Date it. Revisit it quarterly and expect it to change. The day it stops changing while your constraints keep moving, you've become your own 2012 whitepaper.
+
+## Further reading
+
+- Henrik Kniberg & Anders Ivarsson, "Scaling Agile @ Spotify" (2012) — the original thirteen pages, worth reading precisely because it's more hedged and more honest than the industry it spawned.
+- Henrik Kniberg, "Spotify Engineering Culture" parts 1 & 2 (2014) — the videos that carried the model worldwide; watch for how often he says this is a snapshot and everything keeps changing.
+- Jeremiah Lee, "Spotify's Failed #SquadGoals" (2020) — the inside account of the gap between the model as marketed and as lived; read alongside the responses it drew for the full contested picture.
