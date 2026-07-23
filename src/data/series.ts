@@ -110,17 +110,53 @@ export const seriesRegistry: Record<string, SeriesMeta> = {
       "A six-module hands-on course on opportunity solution trees and continuous discovery, run against one product end to end — Donut CRM, a relationship-first CRM for founders. Defining an outcome, mining interviews and JTBD for opportunities, recruiting and running discovery sessions (including the no-show playbook), ideating solutions alone and with a group using Liberating Structures, assumption mapping and experiments that test the riskiest thing first, and making discovery a weekly habit that coexists with Shape Up, OKRs, and the rest of your stack. Interactive exercises throughout — you leave with your own tree.",
     cover: "/images/blog/series/continuous-discovery.png",
   },
-  "continuous-discovery": {
-    title: "Continuous Discovery, Hands-On",
-    description:
-      "A six-module hands-on course on opportunity solution trees and continuous discovery, run against one product end to end — Donut CRM, a relationship-first CRM for founders. Defining an outcome, mining interviews and JTBD for opportunities, recruiting and running discovery sessions (including the no-show playbook), ideating solutions alone and with a group using Liberating Structures, assumption mapping and experiments that test the riskiest thing first, and making discovery a weekly habit that coexists with Shape Up, OKRs, and the rest of your stack. Interactive exercises throughout — you leave with your own tree.",
-    cover: "/images/blog/series/continuous-discovery.png",
-  },
   "operating-rhythm": {
     title: "The Product Operating Rhythm",
     description:
       "A five-part series on the work between strategy and shipping — a customer-request intake you can defend, the planning stack from undated vision through 5-year, 3-year, yearly, and quarterly plans without repeating yourself, the quarterly planning ritual as a runbook, stakeholder management as a system a product owner runs, and the recovery playbook for when sales sells a feature that was never on the roadmap.",
     cover: "/images/blog/series/operating-rhythm.png",
+  },
+  "ls-discovery": {
+    title: "Liberating Structures: Discovery & Root Cause",
+    description:
+      "A nineteen-part series applying the Liberating Structures built for surfacing what's actually going on — Troika Consulting, Nine Whys, Wicked Questions, Discovery & Action Dialogue, Appreciative Interviews, Simple Ethnography, Celebrity Interview, and User Experience Fishbowl — to feature-development workshops across a CRM, an AI-native QA tool, an HR leave tool, a Shopify storefront theme, and a Shopify-embedded LMS.",
+    cover: "/images/blog/series/ls-discovery.png",
+  },
+  "ls-ideation": {
+    title: "Liberating Structures: Ideation & Possibility",
+    description:
+      "An eleven-part series applying the Liberating Structures built for generating options at scale — 1-2-4-All, TRIZ, Drawing Together, Open Space Technology, and 25/10 Crowd Sourcing — to feature-development workshops across a CRM, an AI-native QA tool, an HR leave tool, a Shopify storefront theme, and a Shopify-embedded LMS.",
+    cover: "/images/blog/series/ls-ideation.png",
+  },
+  "ls-decide": {
+    title: "Liberating Structures: Prioritization & Decisions",
+    description:
+      "A fourteen-part series applying the Liberating Structures built for choosing under uncertainty — Ecocycle Planning, Panarchy, Critical Uncertainties, Agreement-Certainty Matrix, and Wise Crowds — to feature-development workshops across a CRM, an AI-native QA tool, an HR leave tool, a Shopify storefront theme, and a Shopify-embedded LMS.",
+    cover: "/images/blog/series/ls-decide.png",
+  },
+  "ls-design": {
+    title: "Liberating Structures: Design & Prototyping",
+    description:
+      "A nine-part series applying the Liberating Structures built for shaping a solution fast and cheaply — Min Specs, Improv Prototyping, and Design Storyboards — to feature-development workshops across a CRM, an AI-native QA tool, an HR leave tool, a Shopify storefront theme, and a Shopify-embedded LMS.",
+    cover: "/images/blog/series/ls-design.png",
+  },
+  "ls-alignment": {
+    title: "Liberating Structures: Alignment & Relating",
+    description:
+      "A twelve-part series applying the Liberating Structures built for building trust and shared understanding across a group — Impromptu Networking, Conversation Cafe, Heard Seen Respected, Fishbowl, What I Need From You, and Mad Tea — to feature-development workshops across a CRM, an AI-native QA tool, an HR leave tool, a Shopify storefront theme, and a Shopify-embedded LMS.",
+    cover: "/images/blog/series/ls-alignment.png",
+  },
+  "ls-retro": {
+    title: "Liberating Structures: Retrospectives & Improvement",
+    description:
+      "A six-part series applying the Liberating Structures built for turning a shipped feature into a documented lesson — What/So What/Now What and 15% Solutions — to feature-development workshops across a CRM, an AI-native QA tool, an HR leave tool, a Shopify storefront theme, and a Shopify-embedded LMS.",
+    cover: "/images/blog/series/ls-retro.png",
+  },
+  "ls-culture": {
+    title: "Liberating Structures: Culture, Change & Adoption",
+    description:
+      "A nine-part series applying the Liberating Structures built for spreading a new practice through an organization — Purpose-to-Practice, Shift & Share, Social Network Webbing, and Integrated~Autonomy — to feature-development workshops across a CRM, an AI-native QA tool, an HR leave tool, a Shopify storefront theme, and a Shopify-embedded LMS.",
+    cover: "/images/blog/series/ls-culture.png",
   },
 };
 
