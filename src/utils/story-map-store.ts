@@ -20,26 +20,47 @@ export interface StoryCard {
   order: number;
 }
 
+/**
+ * Where a builder island is mounted. The active-map pointer is scoped per
+ * context so the standalone tool and any future post embed each remember their
+ * own map, mirroring `metric-tree-store.ts`'s `contextKeyFor`.
+ */
+export type StoryMapSource =
+  | { type: "standalone" }
+  | { type: "post"; postSlug: string };
+
 export interface StoryMapRecord extends ToolRecordBase {
   title: string;
+  source: StoryMapSource;
   steps: BackboneStep[];
   slices: ReleaseSlice[];
   cards: StoryCard[];
 }
 
+export const contextKeyFor = (source: StoryMapSource): string =>
+  source.type === "post" ? `post:${source.postSlug}` : "standalone";
+
 const store = createToolStore<StoryMapRecord>({
   storageKey: "storymap-v1",
   idPrefix: "map",
+  // Records written before the source field existed were all standalone.
+  migrate: (records) => {
+    for (const record of Object.values(records)) {
+      if (!record.source) record.source = { type: "standalone" };
+    }
+    return records;
+  },
 });
 
 export const listMaps = (): StoryMapRecord[] => store.list();
 
 export const getMap = (id: string): StoryMapRecord | undefined => store.get(id);
 
-export const createMap = (): StoryMapRecord =>
+export const createMap = (source: StoryMapSource = { type: "standalone" }): StoryMapRecord =>
   store.create({
     productId: resolveActiveProduct().id,
     title: "Untitled map",
+    source,
     steps: [],
     slices: [],
     cards: [],
@@ -52,16 +73,20 @@ export const saveMapData = (
 
 export const deleteMap = (id: string): void => store.remove(id);
 
-export const getActiveId = (): string | null => store.getActiveId("standalone");
+export const getActiveId = (contextKey: string): string | null => store.getActiveId(contextKey);
 
-export const setActiveId = (id: string): void => store.setActiveId("standalone", id);
+export const setActiveId = (contextKey: string, id: string): void =>
+  store.setActiveId(contextKey, id);
 
-export const resolveActiveMap = (): StoryMapRecord => {
-  const activeId = getActiveId();
+export const resolveActiveMap = (
+  source: StoryMapSource = { type: "standalone" },
+): StoryMapRecord => {
+  const ck = contextKeyFor(source);
+  const activeId = getActiveId(ck);
   const existing = activeId ? getMap(activeId) : undefined;
   if (existing) return existing;
-  const created = createMap();
-  setActiveId(created.id);
+  const created = createMap(source);
+  setActiveId(ck, created.id);
   return created;
 };
 
@@ -138,14 +163,19 @@ export const deleteSlice = (mapId: string, sliceId: string): void => {
   saveMapData(mapId, { slices });
 };
 
-export const addCard = (mapId: string, stepId: string, text: string): void => {
+export const addCard = (
+  mapId: string,
+  stepId: string,
+  text: string,
+  sliceId: string | null = null,
+): void => {
   const map = getMap(mapId);
   if (!map) return;
-  const sameCell = map.cards.filter((c) => c.stepId === stepId && c.sliceId === null);
+  const sameCell = map.cards.filter((c) => c.stepId === stepId && c.sliceId === sliceId);
   const card: StoryCard = {
     id: uid("card"),
     stepId,
-    sliceId: null,
+    sliceId,
     text,
     order: sameCell.length,
   };
@@ -185,39 +215,51 @@ export const deleteCard = (mapId: string, cardId: string): void => {
   saveMapData(mapId, { cards: map.cards.filter((c) => c.id !== cardId) });
 };
 
+/** Label shown for cards whose `stepId` points at a deleted step. */
+export const UNASSIGNED_STEP_LABEL = "Unassigned step";
+/** Label of the trailing band holding cards with no (or a deleted) slice. */
+export const BACKLOG_LABEL = "Backlog (unsliced)";
+
 export const toMarkdown = (record: StoryMapRecord): string => {
   const sortedSteps = [...record.steps].sort((a, b) => a.order - b.order);
   const sortedSlices = [...record.slices].sort((a, b) => a.order - b.order);
+  const sliceIds = new Set(sortedSlices.map((s) => s.id));
+  const stepIds = new Set(sortedSteps.map((s) => s.id));
   const backboneLine = sortedSteps.map((s) => s.text).join(" → ");
-  const lines: string[] = [
+
+  // Columns in backbone order, plus a trailing bucket for cards whose step was
+  // deleted — deleting a step never deletes its cards (spec).
+  const columns: Array<{ label: string; matches: (card: StoryCard) => boolean }> = [
+    ...sortedSteps.map((step) => ({
+      label: step.text,
+      matches: (card: StoryCard) => card.stepId === step.id,
+    })),
+    { label: UNASSIGNED_STEP_LABEL, matches: (card: StoryCard) => !stepIds.has(card.stepId) },
+  ];
+
+  const section = (
+    title: string,
+    inBand: (card: StoryCard) => boolean,
+    /** Slice sections are always stated; the backlog only when it has cards. */
+    alwaysShow: boolean,
+  ): string[] => {
+    const lines: string[] = [];
+    for (const column of columns) {
+      const cards = record.cards
+        .filter((c) => inBand(c) && column.matches(c))
+        .sort((a, b) => a.order - b.order);
+      for (const card of cards) lines.push(`- ${column.label}: ${card.text}`);
+    }
+    if (lines.length === 0 && !alwaysShow) return [];
+    return [`## ${title}`, ...(lines.length > 0 ? lines : ["_(no cards yet)_"]), ""];
+  };
+
+  return [
     `# Story map: ${record.title || "Untitled"}`,
     "",
     `**Backbone:** ${backboneLine || "(no steps)"}`,
     "",
-  ];
-  for (const slice of sortedSlices) {
-    lines.push(`## ${slice.name}`);
-    for (const step of sortedSteps) {
-      const stepCards = record.cards
-        .filter((c) => c.stepId === step.id && c.sliceId === slice.id)
-        .sort((a, b) => a.order - b.order);
-      for (const card of stepCards) {
-        lines.push(`- ${step.text}: ${card.text}`);
-      }
-    }
-    lines.push("");
-  }
-  const unsliced = record.cards
-    .filter((c) => c.sliceId === null)
-    .sort((a, b) => a.order - b.order);
-  if (unsliced.length > 0) {
-    lines.push("## Backlog (unsliced)");
-    for (const card of unsliced) {
-      const step = record.steps.find((s) => s.id === card.stepId);
-      const stepLabel = step?.text ?? "Unassigned";
-      lines.push(`- ${stepLabel}: ${card.text}`);
-    }
-    lines.push("");
-  }
-  return lines.join("\n");
+    ...sortedSlices.flatMap((slice) => section(slice.name, (c) => c.sliceId === slice.id, true)),
+    ...section(BACKLOG_LABEL, (c) => c.sliceId === null || !sliceIds.has(c.sliceId), false),
+  ].join("\n");
 };

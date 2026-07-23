@@ -58,27 +58,36 @@ export default function StoryMapHelpModal({ show, onClose }: { show: boolean; on
             <p className="text-caption font-semibold text-muted">The structure</p>
             <ul className="mt-2 grid gap-2">
               <li className="rounded-md border border-ink-200 bg-surface-base p-3">
-                <p className="text-body font-semibold text-strong">Backbone (top)</p>
+                <p className="text-body font-semibold text-strong">Backbone (the columns)</p>
                 <p className="mt-1 text-caption text-muted">
-                  User activities in order — what the user does, end-to-end. E.g. "Find a product", "Add to cart", "Check out."
+                  The user's steps in narrative order — sign up, set up a project, invite the team,
+                  do the core work, share the result. The test: you can read it aloud left to right
+                  as a sentence about a user's day.
                 </p>
               </li>
               <li className="rounded-md border border-ink-200 bg-surface-base p-3">
-                <p className="text-body font-semibold text-strong">Tasks (below backbone)</p>
+                <p className="text-body font-semibold text-strong">Cards (under each step)</p>
                 <p className="mt-1 text-caption text-muted">
-                  Breaking each activity into smaller user tasks. These become the columns under each activity.
+                  The stories that serve that step. Each card belongs to exactly one step and at
+                  most one slice — move it with the two dropdowns, reorder it with the arrows.
                 </p>
               </li>
               <li className="rounded-md border border-ink-200 bg-surface-base p-3">
-                <p className="text-body font-semibold text-strong">Stories (below tasks)</p>
+                <p className="text-body font-semibold text-strong">Slices (the horizontal bands)</p>
                 <p className="mt-1 text-caption text-muted">
-                  The actual user stories, grouped by task, written in your language. This is where detail lives.
+                  Each slice is one release: a thin cut across the whole backbone, taking a little
+                  from every step so the slice is a complete, walkable journey. The first slice is
+                  the walking skeleton. Cards you haven't sliced yet sit in the backlog band.
                 </p>
               </li>
               <li className="rounded-md border border-ink-200 bg-surface-base p-3">
-                <p className="text-body font-semibold text-strong">Releases (horizontal slices)</p>
+                <p className="text-body font-semibold text-strong">
+                  Warning sign: a tower under one step
+                </p>
                 <p className="mt-1 text-caption text-muted">
-                  Draw horizontal lines across the map to define what goes into each release. MVP is the top slice.
+                  When one column has nine cards and its neighbours have none, that's depth-first
+                  polishing — sprints spent perfecting signup while everything to its right stays
+                  imaginary. A flat list can't show you that; the map makes it obvious.
                 </p>
               </li>
             </ul>
