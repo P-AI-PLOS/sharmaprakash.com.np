@@ -1,6 +1,6 @@
 # Design — Stakeholder Update Composer (Founder ring)
 
-> Contract of record: `openspec/changes/donut-crm-pipeline-data-contract/design.md`.
+> Contract of record: `openspec/changes/archive/2026-07-23-donut-crm-pipeline-data-contract/design.md`.
 > Every store shape, key, prefix, and reference in this document conforms to
 > that contract (D2, D4, D5, D8 for the Stakeholder Update Composer row).
 

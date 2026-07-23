@@ -1,7 +1,7 @@
 # Design — OKR Check-In (Stage 06: Feedback & Adoption)
 
 > **Contract of record:**
-> `openspec/changes/donut-crm-pipeline-data-contract/design.md`. Every type,
+> `openspec/changes/archive/2026-07-23-donut-crm-pipeline-data-contract/design.md`. Every type,
 > storage key, id prefix, and cross-tool reference in this document is taken
 > from that contract (D2, D4, D5, D6, D8). Where this tool needs one shape the
 > contract does not yet provide (the draft-OKR marker), this change carries a

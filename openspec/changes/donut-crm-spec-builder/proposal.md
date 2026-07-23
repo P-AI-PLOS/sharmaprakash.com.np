@@ -2,7 +2,7 @@
 
 ## Why
 
-The Donut CRM pipeline (see `openspec/changes/donut-crm-pipeline-data-contract/`)
+The Donut CRM pipeline (see `openspec/changes/archive/2026-07-23-donut-crm-pipeline-data-contract/`)
 has a Discovery stage tool (the shipped OST builder at
 `/tools/opportunity-solution-tree/`) but nothing in the 03 Definition stage
 that turns a starred opportunity + solution into a spec artifact. Downstream

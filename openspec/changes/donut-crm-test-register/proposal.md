@@ -62,7 +62,7 @@ continuing to look green.
 
 _None. `openspec/specs/` has no deployed capabilities yet; the
 `pipeline-data-contract` capability (proposed in
-`openspec/changes/donut-crm-pipeline-data-contract/`) is consumed as-is —
+`openspec/changes/archive/2026-07-23-donut-crm-pipeline-data-contract/`) is consumed as-is —
 this tool needs no new shared shapes beyond what its design.md already
 defines for Test Register (`StoryRef`, `AcceptanceCriterionRef`,
 `pm-testreg-v1`, prefix `test`)._

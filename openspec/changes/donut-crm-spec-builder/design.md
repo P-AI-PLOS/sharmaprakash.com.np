@@ -1,7 +1,7 @@
 # Design — Spec Builder Tool
 
 > Contract of record:
-> `openspec/changes/donut-crm-pipeline-data-contract/design.md`. Every shape
+> `openspec/changes/archive/2026-07-23-donut-crm-pipeline-data-contract/design.md`. Every shape
 > this tool persists or references (`OstPickRef`, `SpecRef`,
 > `AcceptanceCriterionRef`, `ToolRecordBase`, `createToolStore`, `uid`, the
 > `pm-spec-v1` key and `spec`/`ac` prefixes) is defined there and consumed

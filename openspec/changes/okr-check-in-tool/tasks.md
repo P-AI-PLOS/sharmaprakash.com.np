@@ -11,7 +11,7 @@
       `keyResults[{ id, who, doesWhat, byHowMuch }]`, `tag`), and it exposes a
       create function this tool can call for the draft handoff; if either
       differs, stop and reconcile against
-      `openspec/changes/donut-crm-pipeline-data-contract/design.md` before
+      `openspec/changes/archive/2026-07-23-donut-crm-pipeline-data-contract/design.md` before
       coding
 
 ## 2. Store

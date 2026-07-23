@@ -6,9 +6,10 @@
  * leaves the browser.
  *
  * Persistence runs on the shared pipeline store factory (`./pipeline-store.ts`,
- * contract of record: openspec/changes/donut-crm-pipeline-data-contract/design.md
- * D9). The storage keys and every exported function below are unchanged from
- * the hand-rolled version — only the internals moved.
+ * capability `openspec/specs/pipeline-data-contract/spec.md`; migration
+ * rationale in that change's archived design.md, D9). The storage keys and
+ * every exported function below are unchanged from the hand-rolled version —
+ * only the internals moved.
  */
 
 import {

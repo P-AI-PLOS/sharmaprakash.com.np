@@ -2,7 +2,7 @@
 
 ## Why
 
-The Donut CRM pipeline (see `openspec/changes/donut-crm-pipeline-data-contract/design.md`,
+The Donut CRM pipeline (see `openspec/changes/archive/2026-07-23-donut-crm-pipeline-data-contract/design.md`,
 the contract of record) defines Backlog Prioritizer as stage 04, downstream of
 Vertical Slicer and OKR Organizer: the place where sliced stories become an
 ordered, strategy-checked backlog. The site already teaches this exact method —

@@ -7,10 +7,11 @@
  * localStorage only — nothing here ever leaves the browser, there is no
  * backend, and every write degrades silently when storage is unavailable.
  *
- * Contract of record:
- * `openspec/changes/donut-crm-pipeline-data-contract/design.md`. A tool that
- * needs a shape this module doesn't provide extends that change rather than
- * inventing a parallel shape.
+ * Contract of record: the `pipeline-data-contract` capability
+ * (`openspec/specs/pipeline-data-contract/spec.md`); the design rationale lives
+ * in `openspec/changes/archive/2026-07-23-donut-crm-pipeline-data-contract/design.md`.
+ * A tool that needs a shape this module doesn't provide proposes a delta
+ * against that capability rather than inventing a parallel shape.
  */
 
 // ------------------------------------------------------------------ storage

@@ -1,7 +1,7 @@
 # Design — Backlog Prioritizer (Agreement/Certainty Matrix)
 
 > Contract of record:
-> `openspec/changes/donut-crm-pipeline-data-contract/design.md`. Every type,
+> `openspec/changes/archive/2026-07-23-donut-crm-pipeline-data-contract/design.md`. Every type,
 > key, and convention below conforms to that document (D2 interfaces, D4
 > naming tables, D5 stale-reference rule, D8 owned-entity expectations).
 

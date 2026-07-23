@@ -2,7 +2,7 @@
 
 ## Why
 
-The Donut CRM pipeline (see `openspec/changes/donut-crm-pipeline-data-contract/design.md`,
+The Donut CRM pipeline (see `openspec/changes/archive/2026-07-23-donut-crm-pipeline-data-contract/design.md`,
 the contract of record) covers vision → definition → backlog, but has no stage-05
 tool: nothing turns a prioritized backlog into shipped work on a rhythm with a
 reflection loop. Every delivery tool on the market defaults to Scrum vocabulary;

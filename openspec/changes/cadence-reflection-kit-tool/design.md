@@ -1,6 +1,6 @@
 # Design — Cadence & Reflection Kit
 
-> Contract of record: `openspec/changes/donut-crm-pipeline-data-contract/design.md`.
+> Contract of record: `openspec/changes/archive/2026-07-23-donut-crm-pipeline-data-contract/design.md`.
 > This tool builds on `createToolStore`, `QuarterRef` (+ `currentQuarter`/
 > `nextQuarter`/`compareQuarters`), `ToolRecordBase`, `OkrKeyResultRef`, and the
 > D4 naming tables (`pm-cadence-v1` / `pm-cadence-v1-active`, id prefix `cad`)

@@ -1,7 +1,7 @@
 # Design — OKR Organizer (Stage 01: Vision & OKRs)
 
 > **Contract of record:**
-> `openspec/changes/donut-crm-pipeline-data-contract/design.md`. Every type,
+> `openspec/changes/archive/2026-07-23-donut-crm-pipeline-data-contract/design.md`. Every type,
 > storage key, id prefix, and reference shape used here comes from that file
 > (D2, D4, D6, D8). This design adds nothing to the contract; it fills in the
 > tool-internal parts the contract deliberately leaves to each tool.

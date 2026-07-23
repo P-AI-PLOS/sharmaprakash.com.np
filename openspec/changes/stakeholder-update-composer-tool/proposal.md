@@ -2,7 +2,7 @@
 
 ## Why
 
-The Donut CRM pipeline (see `openspec/changes/donut-crm-pipeline-data-contract/design.md`,
+The Donut CRM pipeline (see `openspec/changes/archive/2026-07-23-donut-crm-pipeline-data-contract/design.md`,
 the contract of record) ends every stage with data trapped inside a tool: OKRs
 in the Organizer, discovery in the OST builder, cadence health in the
 Reflection Kit, adoption actuals in OKR Check-In. What a founder or exec

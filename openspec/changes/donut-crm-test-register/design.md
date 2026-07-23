@@ -1,7 +1,7 @@
 # Design — Test Register (QA ring flagship)
 
 > **Contract of record:**
-> `openspec/changes/donut-crm-pipeline-data-contract/design.md`. This tool
+> `openspec/changes/archive/2026-07-23-donut-crm-pipeline-data-contract/design.md`. This tool
 > builds its store with `createToolStore` on storage key `pm-testreg-v1` and
 > id prefix `test`, references sibling data only through `StoryRef` and
 > `AcceptanceCriterionRef`, and follows the D5 snapshot/re-resolve/badge rule

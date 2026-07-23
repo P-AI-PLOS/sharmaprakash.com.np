@@ -2,7 +2,7 @@
 
 ## Why
 
-The Donut CRM pipeline (see `openspec/changes/donut-crm-pipeline-data-contract/design.md`,
+The Donut CRM pipeline (see `openspec/changes/archive/2026-07-23-donut-crm-pipeline-data-contract/design.md`,
 the contract of record) starts at stage 01 "Vision & OKRs", but no tool exists
 for it yet — the only shipped pipeline-adjacent tool is the OST builder
 (stage 02 Discovery, `/tools/opportunity-solution-tree/`). Four downstream

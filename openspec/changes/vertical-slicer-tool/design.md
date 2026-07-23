@@ -1,7 +1,7 @@
 # Design — Vertical Slicer Tool
 
 > **Contract of record:** this tool is built against
-> `openspec/changes/donut-crm-pipeline-data-contract/design.md`. All exported
+> `openspec/changes/archive/2026-07-23-donut-crm-pipeline-data-contract/design.md`. All exported
 > names, storage keys, id prefixes, and the stale-reference rule cited below
 > come from that document (D2, D4, D5, D8) and are not re-decided here.
 
