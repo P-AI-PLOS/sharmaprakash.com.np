@@ -3,12 +3,11 @@
  * feature/spec title, chosen pattern, slice count and shippable-vs-flagged
  * tally, plus open/delete. Deletion touches only `pm-slice-v1`.
  *
- * Cards fade up on scroll via the site's global `.sr-reveal` primitive (stagger
- * capped `Math.min(i, 4) * 40`, `prefers-reduced-motion` honoured globally in
- * tokens.css). We re-run the observer here because the grid is rendered after
- * hydration, past the Astro `reveal()` pass.
+ * Cards fade up on scroll via the site's `.sr-reveal` primitive, driven by
+ * `useReveal` (stagger capped `Math.min(i, 4) * 40`, `prefers-reduced-motion`
+ * honoured globally in tokens.css). The hook re-observes after hydration
+ * because this grid renders past the Astro `reveal()` pass.
  */
-import { useEffect, useRef } from "react";
 import { CheckCircle2, Scissors, Trash2, TriangleAlert } from "lucide-react";
 import {
   isShippable,
@@ -16,6 +15,7 @@ import {
   titleFor,
   type SliceSession,
 } from "~/utils/slicer-store";
+import { useReveal } from "./useReveal";
 
 const formatDate = (ts: number) =>
   new Date(ts).toLocaleDateString(undefined, { month: "short", day: "numeric", year: "numeric" });
@@ -31,45 +31,23 @@ export default function SlicerDashboard({
   onOpen: (id: string) => void;
   onDelete: (id: string) => void;
 }) {
-  const gridRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const grid = gridRef.current;
-    if (!grid) return;
-    const els = grid.querySelectorAll<HTMLElement>(".sr-reveal:not(.is-visible)");
-    if (!("IntersectionObserver" in window)) {
-      els.forEach((el) => el.classList.add("is-visible"));
-      return;
-    }
-    const io = new IntersectionObserver(
-      (entries) => {
-        for (const e of entries) {
-          if (!e.isIntersecting) continue;
-          const el = e.target as HTMLElement;
-          window.setTimeout(() => el.classList.add("is-visible"), Number(el.dataset.srDelay ?? 0));
-          io.unobserve(el);
-        }
-      },
-      { threshold: 0.15 },
-    );
-    els.forEach((el) => io.observe(el));
-    return () => io.disconnect();
-  }, [records]);
+  const { containerRef, revealProps } = useReveal<HTMLDivElement>(records.length);
 
   if (records.length === 0) return null;
 
   return (
     <div className="mt-6 border-t border-ink-200 pt-4">
       <p className="text-caption font-semibold text-muted">Your slicing sessions ({records.length})</p>
-      <div ref={gridRef} className="mt-3 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+      <div ref={containerRef} className="mt-3 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
         {records.map((r, i) => {
           const shippable = r.stories.filter(isShippable).length;
           const flagged = r.stories.length - shippable;
+          const { className: revealClass, ...reveal } = revealProps(r.id, i);
           return (
             <div
               key={r.id}
-              className={`sr-reveal rounded-lg border p-4 ${r.id === activeId ? "border-accent-600 bg-accent-50" : "border-ink-200 bg-surface-base"}`}
-              data-sr-delay={Math.min(i, 4) * 40}
+              {...reveal}
+              className={`${revealClass} rounded-lg border p-4 ${r.id === activeId ? "border-accent-600 bg-accent-50" : "border-ink-200 bg-surface-base"}`}
             >
               <p className="line-clamp-2 text-body font-semibold text-strong">{titleFor(r)}</p>
               <p className="mt-1 flex items-center gap-1 text-caption text-faint">

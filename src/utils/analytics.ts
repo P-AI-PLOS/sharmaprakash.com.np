@@ -7,6 +7,12 @@ interface AnalyticsEvent {
   metadata?: Record<string, any>;
 }
 
+declare global {
+  interface Window {
+    trackEvent: typeof trackEvent;
+  }
+}
+
 const analyticsBuffer: AnalyticsEvent[] = [];
 
 export function trackEvent(event: string, metadata?: Record<string, any>) {
