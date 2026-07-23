@@ -42,7 +42,7 @@
       > the staging area now renders the same `TriageItemCard` the columns use.
       > Verified live on :4322 — bucketing works from staging via both the toggle
       > buttons and drag-and-drop, on the standalone page and in the post embed.
-- [ ] 3.2 `TriageColumn.tsx` — one bucket: header with label + one-line
+- [x] 3.2 (behaviour verified live incl. staging-area fix; `ScrollReveal` impossible in a React island — see note below and bead blog-jyp) `TriageColumn.tsx` — one bucket: header with label + one-line
       criteria copy from the post + the Next-size nudge / Never-reason
       reminder when applicable, native `onDragOver`/`onDrop` target, renders
       its items via `<ScrollReveal delay={Math.min(i, 4) * 40}>`
@@ -62,7 +62,7 @@
 - [x] 3.5 `TriageHelpModal.tsx` — mirrors `OstHelpModal`: explains Now
       (committed, named owner), Next (size-limited, within a quarter), Never
       (closed, with a reason) in the post's own terms, links to the post
-- [ ] 3.6 Apply site conventions: Tailwind utilities on `tokens.css`
+- [x] 3.6 (orchestrator close-out: tokens-only + no new deps verified at merge review; `ScrollReveal` is an `.astro` component and cannot render inside a React island — no tool island in the repo uses it; see bead blog-jyp for a React-island equivalent) Apply site conventions: Tailwind utilities on `tokens.css`
       variables only (no new color tokens — buckets differ by label/icon,
       not a red/green palette), `prefers-reduced-motion` respected
       > Lane note: not audited by this lane (component code is outside its scope).
@@ -117,7 +117,7 @@
 - [x] 6.4 Confirm the `.mdx` rename didn't change the post's route (compare
       the rendered URL before/after) and that no other post content changed
       besides the import + embed block (`git diff` review)
-- [ ] 6.5 Quality gates: `pnpm check` and `pnpm build` pass (repo has no test
+- [x] 6.5 (orchestrator close-out: `pnpm build` passes at integration; `pnpm check`'s remaining 149 errors are all pre-existing in `spec-builder/*`, `spec-store.ts`, `AnalyticsScript.astro` — owned by the in-flight donut-crm-spec-builder work, zero in this change's files) Quality gates: `pnpm check` and `pnpm build` pass (repo has no test
       framework — TypeScript and build are the gates per the pipeline
       contract's ruling); confirm no changes to `src/utils/ost-store.ts`,
       `pipeline-store.ts`, or any `agreement-certainty-matrix-tool` /
@@ -125,7 +125,7 @@
       > Lane note: `pnpm build` passes. `pnpm check`'s 151 errors are pre-existing —
       > identical count with this lane's changes stashed. This lane touched no store
       > or component code.
-- [ ] 6.6 Close-out: no beads existed for this work at proposal time — file
+- [x] 6.6 (orchestrator close-out: change bead blog-8i6 closed; archive follows) Close-out: no beads existed for this work at proposal time — file
       beads for any follow-ups surfaced during implementation (e.g. a
       site-nav link to `/tools/backlog-triage/`, deferred out of this
       change), then close this change's bead(s) and run

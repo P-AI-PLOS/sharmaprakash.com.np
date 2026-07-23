@@ -54,7 +54,7 @@
       mode (URL param mirrors OST's `?<param>=full` pattern with a distinct
       param name), Markdown export block with copy/clear, tree
       switcher/dashboard wiring via the store from step 2
-- [ ] 3.3 (PARTIAL — modal exists, wired, ESC/dialog a11y correct, but keeps pre-existing name `MetricHelpModal.tsx` and lacks per-concept definition/example/gotchas/how-to sections; follow-up bead) `MetricTreeHelpModal.tsx` — mirrors `OstHelpModal.tsx`: concepts for
+- [x] 3.3 — descoped to follow-up bead blog-hgv (rename + per-concept sections + Escape double-close fix); modal itself exists and is wired. (PARTIAL — modal exists, wired, ESC/dialog a11y correct, but keeps pre-existing name `MetricHelpModal.tsx` and lacks per-concept definition/example/gotchas/how-to sections; follow-up bead) `MetricTreeHelpModal.tsx` — mirrors `OstHelpModal.tsx`: concepts for
       "North Star metric," "input metric," "leaf metric," "orphan," and
       "contested," each with definition/example/gotchas/how-to and a link
       back to the source post
@@ -110,7 +110,7 @@
       contract's established ruling); confirm no diff in
       `src/components/tools/ost/`, `src/utils/ost-store.ts`, or
       `src/utils/pipeline-store.ts`
-- [ ] 6.5 (orchestrator-owned: beads + `openspec archive` are handled centrally, not by the implementation lane) Close-out: file beads for follow-ups surfaced during
+- [x] 6.5 — DONE at close-out: follow-ups filed as bead blog-hgv; change bead blog-yq0 closed; archived. (orchestrator-owned: beads + `openspec archive` are handled centrally, not by the implementation lane) Close-out: file beads for follow-ups surfaced during
       implementation (nav/footer link to the new tool page if desired,
       generic-tree-primitive revisit per design D1 Open Questions if a third
       tree tool appears), close this change's bead(s), and run

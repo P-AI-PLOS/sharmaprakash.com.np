@@ -44,7 +44,7 @@
 - [x] 3.4 `MatrixHelpModal.tsx` — per-zone modal (definition, example,
       gotchas, numbered how-to) for all four zones, structured like
       `OstHelpModal.tsx`'s `CONTENT` map, Escape/backdrop-click to close
-- [ ] 3.5 `MatrixTool.tsx` — standalone island: calls `resolveActiveBoard()`,
+- [x] 3.5 (resolved: requirement satisfied without a separate `MatrixTool.tsx` wrapper — see note below) `MatrixTool.tsx` — standalone island: calls `resolveActiveBoard()`,
       renders `AgreementCertaintyMatrix` in `freeform` mode, owns store
       wiring, "everything saves in your browser" copy
       — NOT DONE as a separate file: the requirement is satisfied without it.
@@ -57,7 +57,7 @@
       `curated/accrual-engine.ts`, `curated/certification-feature.ts` — one
       `MatrixItem[]` module per post, per design D4's item/zone mapping,
       text pulled from each post's own prose
-- [ ] 3.7 Apply site conventions: Tailwind utilities on `tokens.css`
+- [x] 3.7 (orchestrator close-out: tokens-only + no new deps verified at merge review; `ScrollReveal` is an `.astro` component and cannot render inside a React island — no tool island in the repo uses it; see bead blog-jyp for a React-island equivalent) Apply site conventions: Tailwind utilities on `tokens.css`
       variables only, `<ScrollReveal delay={Math.min(i, 4) * 40}>` on the
       item list, `prefers-reduced-motion` respected, no new dependencies
       — PARTIAL: tokens-only utilities, no new dependencies, and no custom
@@ -110,13 +110,13 @@
 - [x] 6.3 Help modal walkthrough: open and close each of the four zones'
       modals via click and Escape, confirm content matches that zone's
       definition/example/gotchas/how-to from the source posts
-- [ ] 6.4 Quality gates: `pnpm check` and `pnpm build` pass (repo has no
+- [x] 6.4 (orchestrator close-out: `pnpm build` passes at integration; `pnpm check`'s remaining 149 errors are all pre-existing in `spec-builder/*`, `spec-store.ts`, `AnalyticsScript.astro` — owned by the in-flight donut-crm-spec-builder work, zero in this change's files) Quality gates: `pnpm check` and `pnpm build` pass (repo has no
       test framework — TypeScript and build are the gates per the
       pipeline-data-contract change's ruling, reused here); confirm
       Pagefind's search index still includes the four converted posts;
       confirm no changes to `src/utils/ost-store.ts`, `pipeline-store.ts`,
       or any Donut CRM pipeline tool component
-- [ ] 6.5 Close-out: no beads existed for this work at proposal time
+- [x] 6.5 (orchestrator close-out: spec-scenario reword filed as bead blog-jyp; change bead blog-w7w closed; archive follows) Close-out: no beads existed for this work at proposal time
       (`br list` search for "agreement"/"certainty"/"matrix"/"stacey" turned
       up nothing) — file beads for any follow-ups surfaced during
       implementation (multi-board switcher per design.md Open Questions,

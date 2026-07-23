@@ -1,0 +1,31 @@
+---
+import SiteShell from "~/layouts/SiteShell.astro";
+import Slicer from "~/components/tools/vertical-slicer/Slicer.tsx";
+---
+
+<SiteShell
+  title="Vertical Slicer — Free Tool"
+  description="Turn one big feature into independently-shippable story slices. Slice by workflow step, business rule, or data variation, and check every slice for shippability — free, right in your browser."
+>
+  <section class="bg-surface-base pt-40 pb-12">
+    <div class="mx-auto max-w-3xl px-6 lg:px-12 text-center">
+      <p class="eyebrow mb-3">Free tool</p>
+      <h1 class="text-display-lg text-strong">Vertical Slicer</h1>
+      <p class="mt-4 text-body-lg text-muted max-w-xl mx-auto">
+        One big feature, sliced into stories that each ship on their own. Cut
+        by workflow step, business rule, or data variation, then check every
+        slice against the same question: could we ship just this and a user
+        gets value? Build as many as you need; everything saves in your browser.
+      </p>
+      <p class="mt-3 text-caption text-muted">
+        Want the full method? <a href="/course/continuous-discovery/" class="link-underline text-accent-700">Take the free course →</a>
+      </p>
+    </div>
+  </section>
+
+  <section class="bg-surface-base pb-24">
+    <div class="mx-auto max-w-5xl px-6 lg:px-12">
+      <Slicer client:load />
+    </div>
+  </section>
+</SiteShell>

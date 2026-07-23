@@ -1,0 +1,39 @@
+---
+import SiteShell from "~/layouts/SiteShell.astro";
+import ScrollReveal from "~/components/motion/ScrollReveal.astro";
+import BacklogPrioritizer from "~/components/tools/backlog-prioritizer/BacklogPrioritizer.tsx";
+---
+
+<SiteShell
+  title="Backlog Prioritizer — Free Tool"
+  description="Plot your backlog on the Agreement-Certainty matrix, derive the Stacey zone from placement, and force an explicit kill/probe/defer decision on the complex work — instead of burying low-consensus stories at rank #47. Free, right in your browser."
+>
+  <section class="bg-surface-base pt-40 pb-12">
+    <div class="mx-auto max-w-3xl px-6 lg:px-12 text-center">
+      <ScrollReveal>
+        <p class="eyebrow mb-3">Free tool</p>
+        <h1 class="text-display-lg text-strong">Backlog Prioritizer</h1>
+        <p class="mt-4 text-body-lg text-muted max-w-xl mx-auto">
+          Sort a quarter's work by how well it's actually understood, not by a flat P1/P2 guess.
+          Plot each story on Ralph Stacey's Agreement &amp; Certainty matrix — the zone falls out of
+          the placement, and the low-agreement, low-certainty items get pulled into an explicit
+          kill-or-probe conversation instead of being silently ranked. Everything saves in your browser.
+        </p>
+        <p class="mt-3 text-caption text-muted">
+          Want the full method? <a
+            href="/product-management/agreement-certainty-matrix-backlog-triage-recap-crm/"
+            class="link-underline text-accent-700">Read the essay →</a
+          >
+        </p>
+      </ScrollReveal>
+    </div>
+  </section>
+
+  <section class="bg-surface-base pb-24">
+    <div class="mx-auto max-w-5xl px-6 lg:px-12">
+      <ScrollReveal>
+        <BacklogPrioritizer client:load />
+      </ScrollReveal>
+    </div>
+  </section>
+</SiteShell>

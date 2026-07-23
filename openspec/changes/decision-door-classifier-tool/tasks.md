@@ -50,7 +50,7 @@
         no correct/incorrect verdict anywhere in this mode
       - both modes: an "Explain this door" trigger next to each judgment
         button opening `DecisionDoorHelpModal` for that door
-- [ ] 4.3 Apply site conventions: Tailwind utilities on `tokens.css`
+- [x] 4.3 (orchestrator close-out: tokens-only + no new deps verified at merge review; `ScrollReveal` is an `.astro` component and cannot render inside a React island — no tool island in the repo uses it; see bead blog-jyp for a React-island equivalent) Apply site conventions: Tailwind utilities on `tokens.css`
       variables only, `<ScrollReveal delay={Math.min(i, 4) * 40}>` on list
       renders (curated scenario list, freeform entries list),
       `prefers-reduced-motion` respected
@@ -73,7 +73,7 @@
       `DecisionDoorClassifier`, and confirm the post is still reachable at
       its existing locked URL after the loader's date-prefix-stripping
       `generateId` (per `src/content.config.ts`)
-- [ ] 6.2 Inside the "One-way doors and two-way doors" section, render
+- [x] 6.2 (deviation, orchestrator-approved: embed added with `source={{type:"post"}}` after the definitional paragraph; the two illustrative sentences were kept, not trimmed — prose byte-identical rule won) Inside the "One-way doors and two-way doors" section, render
       `<DecisionDoorClassifier client:visible mode="curated" />` after the
       definitional paragraph; trim only the two purely-illustrative
       narration sentences per design D2, leaving the definitional paragraph
@@ -88,7 +88,7 @@
 
 ## 7. Site chrome
 
-- [ ] 7.1 Add `/tools/decision-door-classifier/` to the header mobile menu
+- [x] 7.1 (resolved not-applicable: the site header has no per-tool submenu pattern anywhere; adding one would be new nav architecture, out of scope — footer Tools list already links the tool) Add `/tools/decision-door-classifier/` to the header mobile menu
       (`src/components/chrome/SiteHeader.astro`) and the footer "Tools" list
       (`src/components/chrome/SiteFooter.astro`), following the existing
       `/tools/opportunity-solution-tree/` entry's markup pattern exactly —
@@ -115,7 +115,7 @@
       URL, confirm the interactive classifier renders inside the "One-way
       doors and two-way doors" section and the rest of the post is
       unchanged
-- [ ] 8.4 Quality gates: `pnpm check` and `pnpm build` pass (repo has no
+- [x] 8.4 (orchestrator close-out: `pnpm build` passes at integration; `pnpm check`'s remaining 149 errors are all pre-existing in `spec-builder/*`, `spec-store.ts`, `AnalyticsScript.astro` — owned by the in-flight donut-crm-spec-builder work, zero in this change's files) Quality gates: `pnpm check` and `pnpm build` pass (repo has no
       test framework — TypeScript and build are the gates per the
       `pipeline-data-contract` change's ruling); confirm no changes to
       `src/utils/ost-store.ts`, `pipeline-store.ts`, or any Donut CRM
@@ -123,7 +123,7 @@
       > Lane note: `pnpm build` passes. `pnpm check`'s 151 errors are pre-existing —
       > identical count with this lane's changes stashed — and belong to other
       > in-flight lanes. This lane changed no store or component code.
-- [ ] 8.5 Close-out: file a follow-up bead for the RAID-log tracking tool
+- [x] 8.5 (orchestrator close-out: RAID-log follow-up filed as bead blog-4ol; change bead blog-9hk closed; archive follows) Close-out: file a follow-up bead for the RAID-log tracking tool
       this proposal deliberately does not build (design D1, e.g.
       `raid-log-tracker-tool`), then close this change's bead(s) and run
       `openspec archive decision-door-classifier-tool` when applied

@@ -111,7 +111,7 @@
       ruling); confirm no changes to `src/utils/ost-store.ts`,
       `pipeline-store.ts`, or any other tool's components; confirm
       `package.json` has no new dependency
-- [ ] 5.6 (orchestrator-owned: beads + `openspec archive` handled centrally) Close-out: no beads existed specifically for this tool at proposal
+- [x] 5.6 — DONE at close-out: StoryRef follow-up filed as bead blog-3is; change bead blog-6vw closed; archived. (orchestrator-owned: beads + `openspec archive` handled centrally) Close-out: no beads existed specifically for this tool at proposal
       time (related: `blog-j08`, "Article: PRD, pitch, or story map — naming
       the job before naming the artifact," is a separate essay topic, not
       this build) — file any follow-up beads surfaced during implementation
