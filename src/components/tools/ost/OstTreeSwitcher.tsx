@@ -3,7 +3,7 @@
  * the normal and full-screen headers.
  */
 import { useEffect, useRef, useState } from "react";
-import { ChevronDown, Compass, Globe, Plus } from "lucide-react";
+import { ChevronDown, Compass, Globe, Plus, Trash2 } from "lucide-react";
 import { titleFor, type OstRecord } from "~/utils/ost-store";
 
 export default function OstTreeSwitcher({
@@ -11,11 +11,13 @@ export default function OstTreeSwitcher({
   activeId,
   onSelect,
   onCreate,
+  onDelete,
 }: {
   records: OstRecord[];
   activeId: string;
   onSelect: (id: string) => void;
   onCreate: () => void;
+  onDelete: (id: string) => void;
 }) {
   const [open, setOpen] = useState(false);
   const rootRef = useRef<HTMLDivElement>(null);
@@ -59,7 +61,7 @@ export default function OstTreeSwitcher({
         >
           <ul className="grid max-h-64 gap-0.5 overflow-y-auto">
             {records.map((r) => (
-              <li key={r.id}>
+              <li key={r.id} className="flex min-w-0 items-stretch gap-1">
                 <button
                   type="button"
                   role="option"
@@ -68,7 +70,7 @@ export default function OstTreeSwitcher({
                     onSelect(r.id);
                     setOpen(false);
                   }}
-                  className={`flex w-full items-start gap-2 rounded-md px-3 py-2 text-left text-caption transition-colors hover:bg-ink-100 ${
+                  className={`flex min-w-0 flex-1 items-start gap-2 rounded-md px-3 py-2 text-left text-caption transition-colors hover:bg-ink-100 ${
                     r.id === activeId ? "bg-accent-50 text-accent-700" : "text-strong"
                   }`}
                 >
@@ -81,6 +83,17 @@ export default function OstTreeSwitcher({
                       {r.source.type === "course" ? `From ${r.source.courseTitle} · ${r.source.chapterLabel}` : "Standalone tool"}
                     </span>
                   </span>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    if (window.confirm(`Delete "${titleFor(r)}"? This can't be undone.`)) onDelete(r.id);
+                  }}
+                  aria-label={`Delete ${titleFor(r)}`}
+                  title="Delete this tree"
+                  className="shrink-0 rounded-md px-2 text-faint transition-colors hover:bg-ink-100 hover:text-accent-700"
+                >
+                  <Trash2 size={14} strokeWidth={2} />
                 </button>
               </li>
             ))}

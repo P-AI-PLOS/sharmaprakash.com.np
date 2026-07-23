@@ -22,3 +22,6 @@ podcast/**/ep-*-chunks/*.mp3
 *.db
 .beads-credential-key
 .beads/proxieddb/
+
+# bv (beads viewer) local config and caches
+.bv/

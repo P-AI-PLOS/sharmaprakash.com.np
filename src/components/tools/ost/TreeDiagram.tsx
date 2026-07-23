@@ -17,7 +17,7 @@ export type TreeDirection = "top-down" | "left-right" | "right-left";
 
 interface DiagramOpportunity {
   text: string;
-  solutions: string[];
+  solutions: { id: string; text: string }[];
   target: boolean;
 }
 
@@ -53,7 +53,7 @@ const toRawData = (outcome: string, opportunities: DiagramOpportunity[]): RawNod
     name: opp.text,
     attributes: { kind: "opportunity", target: opp.target },
     children: opp.solutions.map((sol) => ({
-      name: sol,
+      name: sol.text,
       attributes: { kind: "solution" },
     })),
   })),

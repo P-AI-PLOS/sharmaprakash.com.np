@@ -5,9 +5,9 @@
  */
 import { createPortal } from "react-dom";
 import { useEffect } from "react";
-import { Flag, Compass, Lightbulb, X, type LucideIcon } from "lucide-react";
+import { Flag, Compass, Lightbulb, Target, X, type LucideIcon } from "lucide-react";
 
-export type OstConcept = "outcome" | "opportunity" | "solution";
+export type OstConcept = "outcome" | "opportunity" | "solution" | "target";
 
 interface ConceptContent {
   icon: LucideIcon;
@@ -78,6 +78,26 @@ const CONTENT: Record<OstConcept, ConceptContent> = {
     blogHref: "/product-management/from-opportunities-to-solutions-ideating-alone-and-together/",
     blogLabel: "From opportunities to solutions: ideating alone and together",
   },
+  target: {
+    icon: Target,
+    label: "Target opportunity",
+    definition:
+      "The one opportunity your team commits to working next — chosen from the tree, not picked in isolation. Marking a target doesn't mean the others are wrong; it means you're focusing effort so solutions can be compared honestly against a single problem.",
+    example: "Of six opportunities under the outcome, you mark “Reps forget to log a call right after it ends” as the target because it blocks the most downstream opportunities and you can test it in a week.",
+    gotchas: [
+      "Only one opportunity should be the target at a time — marking a second one silently un-marks the first, because the tree is meant to focus the team, not run five workstreams at once.",
+      "Picking the target before the tree has real breadth (just one or two opportunities) means you're not really choosing — you're settling.",
+      "A target isn't a ranking of \"most important\" — it's \"most useful to learn from right now,\" which is often the smallest, fastest one to test.",
+    ],
+    howTo: [
+      "Build out the opportunity space first — several real, customer-worded opportunities under the outcome — before marking anything.",
+      "Weigh reach (how many customers hit this), and how quickly you could learn something by addressing it.",
+      "Click \"Make target\" on that opportunity, then move to solutions — only the target opportunity needs competing solution ideas right now.",
+      "Revisit the target once you've learned enough — targets change as you validate or kill opportunities, they aren't permanent.",
+    ],
+    blogHref: "/product-management/opportunity-solution-trees-the-shape-of-good-discovery/",
+    blogLabel: "The tree: outcomes, opportunities, solutions",
+  },
 };
 
 export default function OstHelpModal({ concept, onClose }: { concept: OstConcept | null; onClose: () => void }) {
@@ -144,7 +164,12 @@ export default function OstHelpModal({ concept, onClose }: { concept: OstConcept
           </ol>
         </div>
 
-        <a href={blogHref} className="mt-5 block text-caption font-semibold text-accent-700 link-underline">
+        <a
+          href={blogHref}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="mt-5 block text-caption font-semibold text-accent-700 link-underline"
+        >
           Read the full module — {blogLabel} →
         </a>
       </div>

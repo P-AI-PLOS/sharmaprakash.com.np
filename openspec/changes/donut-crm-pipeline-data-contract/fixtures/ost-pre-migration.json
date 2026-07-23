@@ -1,0 +1,68 @@
+{
+  "_note": "Pre-migration localStorage fixture for src/utils/ost-store.ts (task 5.1). Reproduces the exact shipped shape before the D9 migration: no node ids, solutions as bare strings, no productId on records, plus the pre-multi-tree legacy key. Paste the three values below into localStorage on http://localhost:4321 to reproduce a returning visitor, then load /tools/opportunity-solution-tree/ and compare before/after.",
+  "_seed_snippet": "for (const [k, v] of Object.entries(fixture.localStorage)) localStorage.setItem(k, JSON.stringify(v));",
+  "localStorage": {
+    "ost-trees-v1": {
+      "ost_a1b2c3d4": {
+        "id": "ost_a1b2c3d4",
+        "tree": {
+          "outcome": "Increase weekly active reps logging calls",
+          "opportunities": [
+            {
+              "text": "Reps forget to log a call right after it ends",
+              "solutions": [
+                "Auto-draft a call note from the calendar event",
+                "Nudge in Slack 5 minutes after the meeting ends"
+              ],
+              "target": true
+            },
+            {
+              "text": "Logging a call takes too many clicks",
+              "solutions": ["One-field quick log", "Voice-to-note capture"],
+              "target": false
+            }
+          ]
+        },
+        "source": { "type": "standalone" },
+        "createdAt": 1740000000000,
+        "updatedAt": 1740003600000
+      },
+      "ost_e5f6g7h8": {
+        "id": "ost_e5f6g7h8",
+        "tree": {
+          "outcome": "Course chapter tree",
+          "opportunities": [
+            { "text": "Opportunity with no solutions yet", "solutions": [], "target": false }
+          ]
+        },
+        "source": {
+          "type": "course",
+          "courseSlug": "continuous-discovery",
+          "courseTitle": "Continuous Discovery",
+          "chapterSlug": "solutions",
+          "chapterLabel": "From opportunities to solutions",
+          "href": "/courses/continuous-discovery/solutions/"
+        },
+        "createdAt": 1740000000000,
+        "updatedAt": 1740001800000
+      }
+    },
+    "ost-active-v1": {
+      "standalone": "ost_a1b2c3d4",
+      "course:continuous-discovery:solutions": "ost_e5f6g7h8"
+    },
+    "ost-tree-builder": {
+      "outcome": "Legacy single tree from the pre-multi-tree builder",
+      "opportunities": [
+        { "text": "Legacy opportunity", "solutions": ["Legacy solution"], "target": false }
+      ]
+    }
+  },
+  "expected_after_one_load": [
+    "ost-tree-builder is removed and wrapped into a third ost-trees-v1 record (migrateLegacy, unchanged behaviour)",
+    "every opportunity gains an opp_* id; every solution becomes { id: sol_*, text } with the same text and order",
+    "every record gains productId pointing at the seeded Donut CRM product (pm-products-v1 / pm-active-product-v1)",
+    "outcome, opportunity text/order and target flags are byte-identical to the fixture",
+    "ost-active-v1 keys and values are unchanged"
+  ]
+}

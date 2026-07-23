@@ -205,8 +205,25 @@ export interface ToolStore<T extends ToolRecordBase> {
 export function createToolStore<T extends ToolRecordBase>(opts: {
   storageKey: string;   // from the key table in D4, e.g. "pm-okr-v1"
   idPrefix: string;     // from the prefix table in D4, e.g. "okr"
+  /**
+   * Active-pointer key. Defaults to `<storageKey>-active` (what the eight
+   * pipeline tools use). OST overrides it to keep its pre-existing
+   * `ost-active-v1` key — see D4/D9.
+   */
+  activeKey?: string;
+  /**
+   * One-time, additive migration run inside the first `loadStore()`, before
+   * anything is read; persisted only if it actually changed something. OST
+   * passes its legacy-tree wrap composed with the node-id / `productId`
+   * backfills (D9). The eight pipeline tools are greenfield and omit it.
+   */
+  migrate?: (store: Record<string, T>) => Record<string, T>;
 }): ToolStore<T>;
 ```
+
+`activeKey` and `migrate` are optional escape hatches added during
+implementation: without them OST could not both keep `ost-active-v1` and run
+its D9 backfills inside the factory's load path. Greenfield tools pass neither.
 
 ### D3. Product record is thin on purpose
 

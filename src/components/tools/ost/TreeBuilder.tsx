@@ -18,6 +18,8 @@ import {
   createTree,
   deleteTree,
   listTrees,
+  newOpportunity,
+  newSolution,
   resolveActiveTree,
   saveTreeData,
   setActiveId as setActiveIdInStore,
@@ -45,7 +47,7 @@ const toMarkdown = (tree: OstTree): string => {
   const lines = [`# Opportunity solution tree`, ``, `**Outcome:** 🚩 ${tree.outcome || "(not set)"}`, ``];
   tree.opportunities.forEach((opp) => {
     lines.push(`- ${opp.target ? "🎯 " : "🧭 "}${opp.text}`);
-    opp.solutions.forEach((sol) => lines.push(`  - 💡 ${sol}`));
+    opp.solutions.forEach((sol) => lines.push(`  - 💡 ${sol.text}`));
   });
   return lines.join("\n");
 };
@@ -152,7 +154,7 @@ export default function TreeBuilder({
   const addOpportunity = () => {
     const text = oppDraft.trim();
     if (!text) return;
-    setTree((t) => ({ ...t, opportunities: [...t.opportunities, { text, solutions: [], target: false }] }));
+    setTree((t) => ({ ...t, opportunities: [...t.opportunities, newOpportunity(text)] }));
     setOppDraft("");
   };
 
@@ -161,7 +163,9 @@ export default function TreeBuilder({
     if (!text) return;
     setTree((t) => ({
       ...t,
-      opportunities: t.opportunities.map((o, j) => (j === i ? { ...o, solutions: [...o.solutions, text] } : o)),
+      opportunities: t.opportunities.map((o, j) =>
+        j === i ? { ...o, solutions: [...o.solutions, newSolution(text)] } : o,
+      ),
     }));
     setSolDrafts((d) => ({ ...d, [i]: "" }));
   };
@@ -243,13 +247,21 @@ export default function TreeBuilder({
 
       <div className="mt-3 grid gap-3">
         {tree.opportunities.map((opp, i) => (
-          <div key={i} className="rounded-lg border border-ink-200 bg-surface-base p-4">
+          <div key={opp.id} className="rounded-lg border border-ink-200 bg-surface-base p-4">
             <div className="flex items-start justify-between gap-3">
               <p className="text-body font-semibold text-strong">
                 <span aria-hidden="true">{opp.target ? "🎯" : "🧭"} </span>
                 {opp.text}
               </p>
-              <div className="flex shrink-0 gap-2">
+              <div className="flex shrink-0 items-center gap-2">
+                <button
+                  type="button"
+                  onClick={() => setHelpConcept("target")}
+                  aria-label="Explain target opportunity"
+                  className="inline-flex items-center text-muted transition-colors hover:text-accent-700"
+                >
+                  <HelpCircle size={14} strokeWidth={2} />
+                </button>
                 <button
                   type="button"
                   onClick={() => setTarget(i)}
@@ -272,12 +284,12 @@ export default function TreeBuilder({
             {opp.solutions.length > 0 && (
               <ul className="mt-2 grid gap-1 pl-4">
                 {opp.solutions.map((sol, s) => (
-                  <li key={s} className="flex items-baseline justify-between gap-3 text-body text-muted">
-                    <span>💡 {sol}</span>
+                  <li key={sol.id} className="flex items-baseline justify-between gap-3 text-body text-muted">
+                    <span>💡 {sol.text}</span>
                     <button
                       type="button"
                       onClick={() => removeSolution(i, s)}
-                      aria-label={`Remove solution: ${sol}`}
+                      aria-label={`Remove solution: ${sol.text}`}
                       className="shrink-0 text-caption text-faint link-underline"
                     >
                       Remove
@@ -346,7 +358,13 @@ export default function TreeBuilder({
   );
 
   const switcher = activeId && (
-    <OstTreeSwitcher records={records} activeId={activeId} onSelect={switchTo} onCreate={createAndSwitch} />
+    <OstTreeSwitcher
+      records={records}
+      activeId={activeId}
+      onSelect={switchTo}
+      onCreate={createAndSwitch}
+      onDelete={removeTree}
+    />
   );
 
   const helpModal = <OstHelpModal concept={helpConcept} onClose={() => setHelpConcept(null)} />;

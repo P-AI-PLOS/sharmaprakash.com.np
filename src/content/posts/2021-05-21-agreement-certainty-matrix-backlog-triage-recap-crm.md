@@ -5,7 +5,7 @@ category: ["Product"]
 categories: ["product-management"]
 directory: product-management
 excerpt: "Not every backlog item deserves the same process. The Agreement-Certainty Matrix sorts a quarter's worth of CRM work into simple, complicated, complex, and chaotic — and each zone gets a different kind of team, not just a different priority."
-tags: [liberating-structures, recap-crm]
+tags: [liberating-structures, donut-crm]
 series: ls-decide
 seriesOrder: 9
 use_featured_image: false
@@ -27,7 +27,7 @@ The tool is Liberating Structures' adaptation of Ralph Stacey's Agreement & Cert
 
 Facilitated as a Liberating Structure, this runs in 45–60 minutes. Individuals first write backlog items or open decisions on sticky notes, one per note — quarter-scale, not sprint-scale, so it covers real range. Small groups of four or five then take a stack of notes and physically place each one on a large drawn matrix, arguing out loud about where it belongs. That argument is the actual deliverable. A note slapped down instantly in Simple and left alone is genuinely simple. A note that migrates across the board three times while people push back is the one worth watching — the debate has surfaced a disagreement a written priority ranking would have quietly buried. Groups then read the zone off each cluster and name the work-mode it needs before anyone touches a sprint plan.
 
-## Running it on recap_crm's quarter backlog
+## Running it on Donut CRM's quarter backlog
 
 I ran this with a CRM team staring down a backlog that ranged from a five-line pipeline-view tweak to an open fight between sales and marketing about who owns a shared queue. Flat prioritization had been treating all of it as "just rank by value," which is how the fight kept resurfacing every planning cycle without resolving.
 
@@ -41,7 +41,7 @@ I ran this with a CRM team staring down a backlog that ranged from a five-line p
 
 What the matrix bought this team wasn't a ranked list — it was four different operating instructions for one backlog, and a visible reason the handoff redesign had eaten three planning cycles without progress: it had never actually been Complex work, it had been mis-run as Simple work with a due date.
 
-If you want the roadmap-level companion to this — how the same product's terrain holds up against different futures rather than different certainty levels — that's [the Panarchy post on recap_crm's roadmap resilience](/product-management/panarchy-roadmap-resilience-recap-crm/).
+If you want the roadmap-level companion to this — how the same product's terrain holds up against different futures rather than different certainty levels — that's [the Panarchy post on Donut CRM's roadmap resilience](/product-management/panarchy-roadmap-resilience-recap-crm/).
 
 ## Where it breaks
 
