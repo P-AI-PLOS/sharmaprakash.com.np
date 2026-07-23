@@ -1,6 +1,11 @@
 ---
 import SiteShell from "~/layouts/SiteShell.astro";
+import ScrollReveal from "~/components/motion/ScrollReveal.astro";
 import Slicer from "~/components/tools/vertical-slicer/Slicer.tsx";
+
+// ScrollReveal is imported here for the hero fade-in *and* because its
+// `is:global` `.sr-reveal` styles are what the Slicer island's `useReveal`
+// hook drives — an .astro component can't render inside a React island.
 ---
 
 <SiteShell
@@ -8,7 +13,7 @@ import Slicer from "~/components/tools/vertical-slicer/Slicer.tsx";
   description="Turn one big feature into independently-shippable story slices. Slice by workflow step, business rule, or data variation, and check every slice for shippability — free, right in your browser."
 >
   <section class="bg-surface-base pt-40 pb-12">
-    <div class="mx-auto max-w-3xl px-6 lg:px-12 text-center">
+    <ScrollReveal class="mx-auto max-w-3xl px-6 lg:px-12 text-center">
       <p class="eyebrow mb-3">Free tool</p>
       <h1 class="text-display-lg text-strong">Vertical Slicer</h1>
       <p class="mt-4 text-body-lg text-muted max-w-xl mx-auto">
@@ -20,7 +25,7 @@ import Slicer from "~/components/tools/vertical-slicer/Slicer.tsx";
       <p class="mt-3 text-caption text-muted">
         Want the full method? <a href="/course/continuous-discovery/" class="link-underline text-accent-700">Take the free course →</a>
       </p>
-    </div>
+    </ScrollReveal>
   </section>
 
   <section class="bg-surface-base pb-24">

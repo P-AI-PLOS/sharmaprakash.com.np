@@ -9,7 +9,7 @@
  * warning never blocks saving or export — it's a teaching tool, not a linter.
  */
 import { useEffect, useRef, useState } from "react";
-import { ArrowDown, ArrowUp, HelpCircle, Layers, Scissors, Trash2 } from "lucide-react";
+import { ArrowDown, ArrowUp, FileText, HelpCircle, Layers, Scissors, Trash2 } from "lucide-react";
 import { ExerciseShell } from "~/components/course/exercises/exercise-ui";
 import { resolveActiveProduct } from "~/utils/pipeline-store";
 import SlicerSessionSwitcher from "./SlicerSessionSwitcher";
@@ -287,6 +287,13 @@ export default function Slicer() {
                 Spec Builder
               </a>{" "}
               to link it here.
+            </p>
+          )}
+
+          {session.specRef && specLink.status === "live" && (
+            <p className="mt-2 inline-flex items-center gap-1.5 rounded-md border border-ink-200 bg-surface-raised px-2 py-1 text-caption font-semibold text-strong">
+              <FileText size={13} strokeWidth={2} className="shrink-0 text-accent-700" />
+              Slicing spec: {session.specTitleSnapshot}
             </p>
           )}
 
