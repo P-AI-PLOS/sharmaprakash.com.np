@@ -31,30 +31,31 @@
 
 ## 3. Components (`src/components/tools/backlog-triage/`)
 
-- [ ] 3.1 `TriageBoard.tsx` — island root: resolves the active board for its
+- [x] 3.1 `TriageBoard.tsx` — island root: resolves the active board for its
       `source` prop, single-line add form, bulk-paste textarea, renders the
       three `TriageColumn`s plus an "unbucketed" staging area, export action
       (clipboard + visible textarea fallback, mirroring `TreeBuilder`'s copy
       pattern), optional `TriageDashboard` via a `showDashboard` prop
-      > Lane note: BLOCKED — `TriageBoard.tsx`'s unbucketed staging area renders each
-      > item as text + a delete button only: no bucket buttons, no `draggable` handle.
-      > A newly added item therefore cannot be moved into Now/Next/Never by any means
-      > (verified in `pnpm dev`: zero `[draggable="true"]` and zero
-      > `button[aria-pressed]` elements on the page with four unbucketed items).
-      > `TriageItemCard`'s toggles and drag handle only render for already-bucketed
-      > items, which nothing can reach. Component logic is outside this lane's edit
-      > scope, so this is reported, not fixed. Blocks 3.2, 3.3, 6.1, 6.2, 6.3.
+      > Lane note: the unbucketed staging area originally rendered each item as text
+      > plus a delete button only — no bucket toggles, no drag handle — so a new item
+      > could not be bucketed by any means. Fixed under an approved scope extension:
+      > the staging area now renders the same `TriageItemCard` the columns use.
+      > Verified live on :4322 — bucketing works from staging via both the toggle
+      > buttons and drag-and-drop, on the standalone page and in the post embed.
 - [ ] 3.2 `TriageColumn.tsx` — one bucket: header with label + one-line
       criteria copy from the post + the Next-size nudge / Never-reason
       reminder when applicable, native `onDragOver`/`onDrop` target, renders
       its items via `<ScrollReveal delay={Math.min(i, 4) * 40}>`
-      > Lane note: not verified — blocked by the 3.1 staging-area gap (no item can
-      > reach a column, so column rendering could not be exercised).
-- [ ] 3.3 `TriageItemCard.tsx` — item text, three bucket toggle buttons
+      > Lane note: behaviour verified live — drop target accepts drags from staging and
+      > from other columns, criteria copy renders, the Next-size nudge appears above
+      > the threshold and clears below it, the Never-reason reminder appears and
+      > clears. Left unchecked for one reason: the `<ScrollReveal delay=…>` wrapper is
+      > NOT present — `TriageColumn.tsx` renders items in a plain grid. Adding it was
+      > outside the minimal-fix scope of this lane's extension.
+- [x] 3.3 `TriageItemCard.tsx` — item text, three bucket toggle buttons
       (`aria-pressed`, `ChoiceButton`-style), `draggable="true"` handle,
       inline reason input shown only when `bucket === "never"`, delete
       action
-      > Lane note: not verified — blocked by the 3.1 staging-area gap.
 - [x] 3.4 `TriageDashboard.tsx` — "Your boards" list for the standalone
       context only (title, item count, updated date, open/delete), trimmed
       `OstDashboard` mirror without the course-link column
@@ -100,29 +101,19 @@
 
 ## 6. Verification
 
-- [ ] 6.1 Spec scenario walkthrough in `pnpm dev` against
+- [x] 6.1 Spec scenario walkthrough in `pnpm dev` against
       `specs/backlog-triage-sorter/spec.md`: add single items and a bulk
       paste, confirm all start unbucketed, move items via buttons and via
       drag, confirm Never-reason is optional but nudges when empty, confirm
       the Next nudge appears/disappears at the threshold, reload and confirm
       persistence
-      > Lane note: partially verified — single add and bulk paste both work, blank
-      > lines are skipped, and all items start unbucketed. Bucket moves, the Never
-      > reason nudge, and the Next threshold nudge could not be exercised: blocked by
-      > the 3.1 staging-area gap.
-- [ ] 6.2 Markdown export scenario: items in all three buckets plus one
+- [x] 6.2 Markdown export scenario: items in all three buckets plus one
       unbucketed item, confirm export includes only bucketed items with the
       right headings and a Never reason rendered in parentheses
-      > Lane note: not verified — blocked by the 3.1 staging-area gap (nothing can be
-      > bucketed, so the export renders only the board title).
-- [ ] 6.3 Two-context scenario: triage items on `/tools/backlog-triage/` and
+- [x] 6.3 Two-context scenario: triage items on `/tools/backlog-triage/` and
       separately inside the post embed, reload both, confirm each keeps its
       own active board; on the standalone page, create a second board and
       confirm both are listed and switchable
-      > Lane note: partially verified — the post embed renders the reduced post-context
-      > UI per spec (no "New board" button, no boards list) and the two contexts
-      > resolve separate boards. Multi-board create/switch on the standalone page was
-      > not exercised.
 - [x] 6.4 Confirm the `.mdx` rename didn't change the post's route (compare
       the rendered URL before/after) and that no other post content changed
       besides the import + embed block (`git diff` review)
