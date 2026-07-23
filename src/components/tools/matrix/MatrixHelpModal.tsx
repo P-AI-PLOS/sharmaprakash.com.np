@@ -110,6 +110,16 @@ const CONTENT: Record<MatrixZone, ZoneContent> = {
  *  placement, in place of a correctness verdict (design D5: zone copy lives here once). */
 export const zoneApproach = (zone: MatrixZone): string => CONTENT[zone].approach;
 
+/** That zone's agreement/certainty reading — the same values the modal badges
+ *  show, so the grid can never drift from the modal. Complex and Chaotic are
+ *  BOTH low-agreement and low-certainty: the four zones do not split a strict
+ *  2×2 on certainty, which is why the grid labels the certainty split on the
+ *  top row only. */
+export const zoneAxes = (zone: MatrixZone): { agreement: string; certainty: string } => ({
+  agreement: CONTENT[zone].agreement,
+  certainty: CONTENT[zone].certainty,
+});
+
 export default function MatrixHelpModal({
   zone,
   onClose,

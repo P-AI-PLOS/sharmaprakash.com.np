@@ -6,7 +6,7 @@
 import { useEffect, useRef, useState } from "react";
 import { HelpCircle, Trash2 } from "lucide-react";
 import { ExerciseShell, ChoiceButton, Feedback } from "~/components/course/exercises/exercise-ui";
-import MatrixHelpModal, { zoneApproach, type MatrixZone } from "./MatrixHelpModal";
+import MatrixHelpModal, { zoneApproach, zoneAxes, type MatrixZone } from "./MatrixHelpModal";
 import { addItem, placeItem, removeItem, resolveActiveBoard } from "~/utils/matrix-store";
 
 export interface MatrixItem {
@@ -27,9 +27,11 @@ interface AgreementCertaintyMatrixProps {
 
 const ZONES: MatrixZone[] = ["simple", "complicated", "complex", "chaotic"];
 
-/** Rows are the certainty axis (high on top), columns the agreement axis
- *  (high on the left): Simple/Complicated share the high-certainty row,
- *  Complex/Chaotic the low-certainty row. */
+/** Rows are the agreement axis (high on top): Simple/Complicated share the
+ *  high-agreement row, Complex/Chaotic the low-agreement row. Certainty splits
+ *  the TOP ROW only — Complex and Chaotic are both low-certainty, so no strict
+ *  2×2 column claim is true for the bottom row. Each cell prints its own
+ *  reading from `zoneAxes()`, which reads the same table the help modal shows. */
 const ZONE_GRID_ORDER: MatrixZone[][] = [
   ["simple", "complicated"],
   ["complex", "chaotic"],
@@ -41,6 +43,31 @@ const ZONE_LABELS: Record<MatrixZone, string> = {
   complex: "Complex",
   chaotic: "Chaotic",
 };
+
+const AXIS_ROW_CAPTION = "High agreement on the top row, low on the bottom.";
+const AXIS_COL_CAPTION =
+  "Certainty splits the top row — high on the left, low on the right. Both bottom-row zones are low-certainty; Chaotic is the extreme corner.";
+
+/** One header, used by both modes, so the curated legend and the freeform grid
+ *  cannot describe the axes differently. */
+function AxisHeader() {
+  return (
+    <div className="pl-8">
+      <p className="text-caption font-semibold text-muted">Agreement ↓ — {AXIS_ROW_CAPTION}</p>
+      <p className="mt-0.5 text-caption text-faint">{AXIS_COL_CAPTION}</p>
+    </div>
+  );
+}
+
+/** The zone's own axis reading, sourced from the help modal's content table. */
+function ZoneAxisBadges({ zone }: { zone: MatrixZone }) {
+  const { agreement, certainty } = zoneAxes(zone);
+  return (
+    <p className="text-caption text-faint">
+      Agreement: {agreement} · Certainty: {certainty}
+    </p>
+  );
+}
 
 const inputClass =
   "w-full rounded-md border border-ink-200 bg-surface-base px-3 py-2 text-body text-strong placeholder:text-faint focus:border-accent-600 focus:outline-none";
@@ -122,17 +149,12 @@ export default function AgreementCertaintyMatrix({
       {/* Axis-labeled 2×2 legend — the per-item choice buttons below sit in these
           same four positions, so the crossing of the two axes stays visible. */}
       <div className="mb-5 rounded-xl border border-ink-200 bg-surface-base p-3">
-        <div className="flex items-center gap-2 pl-8">
-          <p className="text-caption font-semibold text-muted">Agreement →</p>
-          <p className="text-caption text-faint">
-            High agreement on the left, low on the right · high certainty on the top row
-          </p>
-        </div>
+        <AxisHeader />
         {ZONE_GRID_ORDER.map((row, rowIdx) => (
           <div key={rowIdx} className="mt-2 flex gap-2">
             {rowIdx === 0 ? (
               <div className="flex w-8 shrink-0 items-center justify-center">
-                <p className="text-caption text-faint -rotate-90 whitespace-nowrap">Certainty</p>
+                <p className="text-caption text-faint -rotate-90 whitespace-nowrap">Agreement</p>
               </div>
             ) : (
               <div className="w-8 shrink-0" />
@@ -140,14 +162,17 @@ export default function AgreementCertaintyMatrix({
             {row.map((zone) => (
               <div
                 key={zone}
-                className="flex flex-1 items-center justify-between gap-2 rounded-lg border border-ink-200 bg-surface-raised px-3 py-2"
+                className="flex flex-1 items-start justify-between gap-2 rounded-lg border border-ink-200 bg-surface-raised px-3 py-2"
               >
-                <p className="text-caption font-semibold text-strong">{ZONE_LABELS[zone]}</p>
+                <div>
+                  <p className="text-caption font-semibold text-strong">{ZONE_LABELS[zone]}</p>
+                  <ZoneAxisBadges zone={zone} />
+                </div>
                 <button
                   type="button"
                   onClick={() => setHelpZone(zone)}
                   aria-label={`What does ${ZONE_LABELS[zone]} mean?`}
-                  className="text-muted transition-colors hover:text-accent-700"
+                  className="shrink-0 text-muted transition-colors hover:text-accent-700"
                 >
                   <HelpCircle size={14} strokeWidth={2} />
                 </button>
@@ -187,7 +212,7 @@ export default function AgreementCertaintyMatrix({
                      post presents no single correct placement for them. */
                   <p
                     role="status"
-                    className="mt-3 rounded-md border border-dashed border-ink-200 bg-surface-base px-4 py-3 text-body text-strong"
+                    className="rounded-md border border-dashed border-ink-200 bg-surface-base px-4 py-3 text-body text-strong"
                   >
                     <span className="mr-1.5 font-semibold">Contested.</span>
                     {item.why ?? "This item sparked debate — no single placement was agreed."}
@@ -246,18 +271,13 @@ export default function AgreementCertaintyMatrix({
 
       {/* 2x2 grid with axis labels */}
       <div className="mt-4">
-        <div className="flex items-center gap-2 pl-8">
-          <p className="text-caption font-semibold text-muted">Agreement →</p>
-          <p className="text-caption text-faint">
-            High agreement on the left, low on the right · high certainty on the top row
-          </p>
-        </div>
+        <AxisHeader />
 
         {ZONE_GRID_ORDER.map((row, rowIdx) => (
           <div key={rowIdx} className="mt-2 flex gap-2">
             {rowIdx === 0 && (
               <div className="flex w-8 shrink-0 items-center justify-center">
-                <p className="text-caption text-faint -rotate-90 whitespace-nowrap">Certainty</p>
+                <p className="text-caption text-faint -rotate-90 whitespace-nowrap">Agreement</p>
               </div>
             )}
             {rowIdx === 1 && <div className="w-8 shrink-0" />}
@@ -268,13 +288,16 @@ export default function AgreementCertaintyMatrix({
                   key={zone}
                   className="flex-1 rounded-xl border border-ink-200 bg-surface-raised p-3"
                 >
-                  <div className="flex items-center justify-between gap-2">
-                    <p className="text-body font-semibold text-strong">{ZONE_LABELS[zone]}</p>
+                  <div className="flex items-start justify-between gap-2">
+                    <div>
+                      <p className="text-body font-semibold text-strong">{ZONE_LABELS[zone]}</p>
+                      <ZoneAxisBadges zone={zone} />
+                    </div>
                     <button
                       type="button"
                       onClick={() => setHelpZone(zone)}
                       aria-label={`What does ${ZONE_LABELS[zone]} mean?`}
-                      className="text-muted transition-colors hover:text-accent-700"
+                      className="shrink-0 text-muted transition-colors hover:text-accent-700"
                     >
                       <HelpCircle size={14} strokeWidth={2} />
                     </button>

@@ -14,6 +14,29 @@ certainty), in both curated and freeform mode.
   high/low-agreement column consistent with Complicated/Chaotic on the
   other column
 
+> **Implementation note (lane-matrix, gen 2).** This scenario's wording is
+> internally inconsistent with the zone definitions it depends on. Per the
+> help modal's content table (the same table the four source posts use),
+> Simple = high agreement / high certainty, Complicated = high agreement /
+> low certainty, Complex = low agreement / low certainty, Chaotic = low
+> agreement / low certainty (urgent). So Complex is low on *both* axes: it
+> cannot share a "high-agreement column" with Simple, and no strict 2×2
+> column claim can be true for the bottom row, because Complex and Chaotic
+> are both low-certainty.
+>
+> The implementation therefore follows the posts + help modal rather than
+> this scenario's column wording: **rows are the agreement axis** (high on
+> top), certainty is labeled as splitting the **top row only**, and every
+> zone cell prints its own reading via `zoneAxes()` — sourced from the same
+> `CONTENT` table the modal renders — so grid, legend, and modal cannot
+> drift. A follow-up should reword this scenario to match.
+>
+> Related: the flaky-tests post's on-screen prose ("Simple, bottom-right" /
+> "Complicated, upper-left") describes that workshop's physical whiteboard
+> and is diagonal — it cannot be reconciled with the modal's badges by any
+> 4-cell orientation. The per-cell badges are the mitigation; the post prose
+> is deliberately left untouched.
+
 ### Requirement: Curated mode scores placements with immediate reveal
 In `curated` mode, the system SHALL accept a fixed list of items, each
 carrying a `text`, an optional correct `zone`, and either a `why` (for scored

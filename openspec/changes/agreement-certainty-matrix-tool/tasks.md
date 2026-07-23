@@ -31,6 +31,13 @@
       debate/context text with no right/wrong marking and are excluded from
       the scored tally (spec scenario: "Contested item never marked right or
       wrong")
+      — DEVIATION: scored items do reuse `Feedback`, but the contested branch
+      does NOT. `Feedback` always prints a verdict word ("Right." / "Not
+      quite."), which is exactly what the contested scenario forbids, so the
+      contested panel is a hand-rolled `<p role="status">` with a neutral
+      "Contested." lead-in and the same dashed-border/token styling. Behavior
+      matches the scenario; only the "reuse `Feedback`" implementation detail
+      was dropped.
 - [x] 3.3 Freeform-mode: add-item input, place/re-place/delete any time,
       reveal shows the zone's operating instruction (from `MatrixHelpModal`'s
       content, design D5) never a verdict, wired to `matrix-store.ts`
@@ -53,6 +60,11 @@
 - [ ] 3.7 Apply site conventions: Tailwind utilities on `tokens.css`
       variables only, `<ScrollReveal delay={Math.min(i, 4) * 40}>` on the
       item list, `prefers-reduced-motion` respected, no new dependencies
+      — PARTIAL: tokens-only utilities, no new dependencies, and no custom
+      animation (so nothing to gate on `prefers-reduced-motion`) all hold.
+      `<ScrollReveal>` does NOT: it is an `.astro` component and cannot render
+      inside a React island. No exercise or tool island in this repo uses it;
+      the item list is plain `grid gap-3` instead.
 
 ## 4. Standalone page
 
