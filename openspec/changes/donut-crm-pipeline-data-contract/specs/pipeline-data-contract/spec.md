@@ -69,9 +69,11 @@ quarter encoding.
 The system SHALL generate entity ids as `uid(prefix)` producing
 `<prefix>_<8 base36 chars>`, using the design.md prefix table, and tool stores
 SHALL use the design.md storage-key table (`pm-<tool>-v1` plus
-`pm-<tool>-v1-active`). Any entity referenced by another tool MUST carry a
-stable `uid()` id; array indexes MUST NOT be used as join keys, except inside
-`OstPickRef` where they are paired with text snapshots.
+`pm-<tool>-v1-active`, except OST which keeps its pre-existing
+`ost-trees-v1`/`ost-active-v1` keys). Any entity referenced by another tool
+MUST carry a stable `uid()` id; array indexes MUST NOT be used as join keys —
+including inside OST trees, whose opportunities and solutions carry `uid("opp")`/
+`uid("sol")` ids after migration (D9).
 
 #### Scenario: Ids survive edits and reorders
 - **WHEN** a key result inside an OKR entry is reworded and its list reordered
@@ -80,7 +82,7 @@ stable `uid()` id; array indexes MUST NOT be used as join keys, except inside
 
 ### Requirement: Cross-tool reference shapes
 The system SHALL export the reference types `OstPickRef` (ostRecordId,
-opportunity/solution indexes, and mandatory text snapshots), `SpecRef`,
+opportunityId, solutionId, and mandatory text snapshots), `SpecRef`,
 `StoryRef` (storyId + specId), `OkrKeyResultRef` (okrId + keyResultId), and
 `AcceptanceCriterionRef` (specId + criterionId), and pipeline tools SHALL use
 these types — not ad-hoc shapes — for every cross-tool link.
@@ -88,8 +90,8 @@ these types — not ad-hoc shapes — for every cross-tool link.
 #### Scenario: Spec Builder picks a starred OST solution
 - **WHEN** a spec is created from an OST record's starred opportunity and
   solution
-- **THEN** the spec stores an `OstPickRef` containing the OstRecord id, both
-  indexes, and the opportunity and solution text as picked
+- **THEN** the spec stores an `OstPickRef` containing the OstRecord id, the
+  opportunity and solution ids, and the opportunity and solution text as picked
 
 ### Requirement: Stale references degrade with snapshots, never cascade
 Consumers of cross-tool references SHALL re-resolve ids against the source
@@ -104,17 +106,18 @@ stores.
   source-removed, and the story record is not deleted
 
 #### Scenario: OST solution reworded after pick
-- **WHEN** the text at an `OstPickRef`'s stored indexes differs from its
-  snapshot
+- **WHEN** the live text at an `OstPickRef`'s referenced opportunity/solution
+  id differs from its stored snapshot
 - **THEN** the consumer shows the snapshot flagged as source-changed rather
   than silently substituting the new text
 
 ### Requirement: Tool store factory
 The system SHALL provide `createToolStore<T extends ToolRecordBase>({ storageKey, idPrefix })`
-returning list/listForProduct/get/create/update/remove plus per-product
+returning list/listForProduct/get/create/update/remove plus scope-keyed
 active-record pointer accessors, persisting a `Record<id, T>` under the
 versioned storage key with an in-memory cache and silent try/catch JSON I/O,
-matching the ost-store pattern.
+matching the ost-store pattern. `src/utils/ost-store.ts` SHALL be re-implemented
+on this factory, keeping its existing storage keys and public API.
 
 #### Scenario: Create stamps contract fields
 - **WHEN** `create()` is called with tool-specific data and a `productId`
@@ -130,3 +133,16 @@ matching the ost-store pattern.
 - **WHEN** `setActiveId(productA, r1)` and `setActiveId(productB, r2)` are set
 - **THEN** `getActiveId(productA)` returns r1 and `getActiveId(productB)`
   returns r2
+
+#### Scenario: OST active record is scoped by context, not product
+- **WHEN** `ost-store.ts` calls `setActiveId(contextKeyFor(source), treeId)`
+  for a course-embed context and a standalone context
+- **THEN** each context resolves its own active tree independently, matching
+  today's `ost-active-v1` behavior
+
+#### Scenario: OST migration is additive, not destructive
+- **WHEN** an existing `ost-trees-v1` record with no node ids or `productId`
+  is loaded after the migration ships
+- **THEN** its `outcome`, `opportunities` text/order, and `target` flags are
+  unchanged, and each opportunity/solution gains a stable id plus the record
+  gains a `productId` on that load

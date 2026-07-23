@@ -1,0 +1,155 @@
+# spec-builder Specification
+
+Definition-stage tool at `/tools/spec-builder/` that turns a starred OST
+opportunity + solution into a spec record (PRD, Shape Up pitch, or story-map
+outline) with stable ids for downstream tools. Persists via
+`src/utils/spec-store.ts` on the pipeline data contract; reads
+`src/utils/ost-store.ts` strictly read-only.
+
+## ADDED Requirements
+
+### Requirement: Pick source from an existing OST record
+The tool SHALL let the visitor select an existing OST record (via
+`listTrees()`/`getTree()` from `src/utils/ost-store.ts`), then an opportunity
+and one of its solutions, and SHALL store the selection as an `OstPickRef`
+carrying `ostRecordId`, both indexes, and text snapshots of the opportunity
+and solution taken at pick time. The target (🎯) opportunity SHALL be
+visually recommended but selection MUST NOT be restricted to it. The tool
+MUST NOT modify `src/utils/ost-store.ts` or any data under OST's storage
+keys.
+
+#### Scenario: Picking a starred opportunity and solution
+- **WHEN** the visitor selects a tree, its target opportunity, and a solution
+  beneath it
+- **THEN** the new spec stores an `OstPickRef` with that tree's record id,
+  the opportunity and solution indexes, and both texts as snapshots, and the
+  spec title defaults from the solution text
+
+#### Scenario: No trees exist yet
+- **WHEN** the visitor opens the picker and `listTrees()` returns no records
+- **THEN** the tool shows an empty state linking to
+  `/tools/opportunity-solution-tree/` and offers manual entry of an
+  opportunity and solution, producing a spec with `sourcePick` unset
+
+#### Scenario: OST data is never written
+- **WHEN** any Spec Builder flow runs (pick, edit, delete, export)
+- **THEN** the contents of the `ost-trees-v1` and `ost-active-v1` storage
+  keys are byte-identical to before
+
+### Requirement: Stale pick handling per the contract snapshot rule
+On loading a spec with a `sourcePick`, the tool SHALL re-resolve the ref
+against the live OST store: if the record exists and the texts at the stored
+indexes match the snapshots, show live data; if the texts differ or the
+record is gone, render the stored snapshots with a "source changed" /
+"source removed" badge. The tool MUST NOT block editing, clear the ref, or
+substitute non-matching text without the badge.
+
+#### Scenario: Source tree edited after pick
+- **WHEN** a spec is opened and the opportunity text at the stored index no
+  longer equals the snapshot
+- **THEN** the snapshot text renders with a "source changed" badge and the
+  spec remains fully editable
+
+#### Scenario: Source tree deleted after pick
+- **WHEN** a spec is opened and `getTree(ref.ostRecordId)` returns undefined
+- **THEN** the snapshot text renders with a "source removed" badge and the
+  `sourcePick` is retained unchanged
+
+### Requirement: Framing moment before the format choice
+Before the format picker, the tool SHALL present a single framing prompt —
+"what's the job here?" — with three answers (align a room / hand off
+unambiguous scope / sequence a release) that pre-select the suggested format
+(pitch / PRD / story map respectively). The prompt SHALL be skippable and
+MUST NOT prevent the visitor from choosing any format.
+
+#### Scenario: Framing answer suggests a format
+- **WHEN** the visitor answers "hand off unambiguous scope"
+- **THEN** the PRD format card is pre-selected, and the visitor can still
+  select pitch or story map instead
+
+#### Scenario: Framing is skipped
+- **WHEN** the visitor uses the skip affordance without answering
+- **THEN** the format picker shows with no pre-selection and spec creation
+  proceeds normally with `framingJob` unset
+
+### Requirement: Explicit stored format with three shapes
+Each spec SHALL carry a visible, stored `format` field of exactly
+`"prd" | "shape-up-pitch" | "story-map"`, chosen by the visitor and
+switchable at any time. The editor SHALL render format-specific sections:
+PRD — problem, outcome, non-goals, success metric; Shape Up pitch — problem,
+appetite, solution, rabbit holes, no-gos; story map — backbone, walking
+skeleton, later slices. Switching format MUST preserve all previously
+entered section content (hidden, not deleted). Section text from the pick
+SHALL pre-fill where applicable (opportunity → problem; solution → the
+format's solution/outcome/backbone seed).
+
+#### Scenario: Format chosen and sections rendered
+- **WHEN** the visitor selects "shape-up-pitch"
+- **THEN** the record stores `format: "shape-up-pitch"` and the editor shows
+  problem, appetite, solution, rabbit holes, and no-gos sections, with
+  problem pre-filled from the picked opportunity text
+
+#### Scenario: Switching format loses nothing
+- **WHEN** a visitor with text in the PRD's non-goals section switches to
+  story map and back to PRD
+- **THEN** the non-goals text is exactly as entered
+
+### Requirement: Stable spec and acceptance-criterion ids for downstream tools
+Every spec record SHALL have an id generated by `uid("spec")` and SHALL
+carry `acceptanceCriteria: Array<{ id, text }>` where each criterion id is
+generated by `uid("ac")`, rendered and editable in all three formats.
+Criterion ids MUST survive edits, reorders, and deletions of sibling
+criteria, so that `SpecRef` and `AcceptanceCriterionRef` joins from other
+tools never depend on array positions.
+
+#### Scenario: Criteria available regardless of format
+- **WHEN** a spec is created in any of the three formats
+- **THEN** the acceptance-criteria list is present and criteria can be
+  added, edited, and removed
+
+#### Scenario: Criterion id survives reorder and edit
+- **WHEN** a criterion's text is edited and another criterion above it is
+  deleted
+- **THEN** the edited criterion keeps its original `ac`-prefixed id
+
+### Requirement: Persistence via the pipeline data contract
+Spec records SHALL be persisted by a store built with
+`createToolStore<SpecRecord>` from `src/utils/pipeline-store.ts` under
+storage key `pm-spec-v1` with active pointer `pm-spec-v1-active`; every
+record SHALL carry the `productId` of `resolveActiveProduct()` at creation.
+All data stays in localStorage; storage failures MUST degrade silently
+without breaking the editor. The visitor SHALL be able to create, switch
+between, rename, and delete multiple specs for the active product.
+
+#### Scenario: Spec scoped to the active product
+- **WHEN** a spec is created
+- **THEN** its `productId` equals the active product's id and it appears in
+  `listForProduct(activeProductId)`
+
+#### Scenario: Reload restores the open spec
+- **WHEN** the visitor edits a spec and reloads the page
+- **THEN** the same spec reopens with all sections, format, framing answer,
+  and criteria intact
+
+### Requirement: Markdown export
+The tool SHALL export the open spec as a Markdown download containing the
+title, the chosen format's sections under format-appropriate headings, the
+acceptance criteria as a list, and a source line citing the picked
+opportunity and solution (or "manual entry" when `sourcePick` is unset).
+
+#### Scenario: Exporting a pitch
+- **WHEN** the visitor exports a spec with `format: "shape-up-pitch"`
+- **THEN** the downloaded Markdown contains headings for problem, appetite,
+  solution, rabbit holes, and no-gos, an acceptance-criteria section, and
+  the OST source line
+
+### Requirement: Static tool page
+The tool SHALL be served at `/tools/spec-builder/` as a static Astro page
+using `SiteShell`, with all interactivity in React islands under
+`src/components/tools/spec-builder/`. No backend, no new runtime
+dependencies, styling only via existing Tailwind token utilities.
+
+#### Scenario: Page builds statically
+- **WHEN** `pnpm build` runs
+- **THEN** `/tools/spec-builder/` is emitted as static HTML with the Spec
+  Builder island hydrated client-side, and no other route's output changes

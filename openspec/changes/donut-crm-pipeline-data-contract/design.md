@@ -15,8 +15,11 @@ The site is static Astro 6.3; interactive tools are React 19 islands persisting
 to localStorage only (no backend, no CMS, nothing leaves the browser). The
 reference implementation is `src/utils/ost-store.ts`: versioned store key,
 `Record<id, record>` shape, in-memory cache, try/catch JSON read/write, and a
-separate active-record pointer keyed by context. That pattern is proven and is
-carried forward here.
+separate active-record pointer keyed by context. That pattern is proven, is
+carried forward here as the factory, and — rather than leaving two parallel
+implementations of the same pattern in the repo — this change also migrates
+`ost-store.ts` onto the factory (D9) so OST is the ninth store on the shared
+module, not a permanently-separate original.
 
 Eight tools form a pipeline around one fictional running case, "Donut CRM"
 (but generic — a visitor models their own product the same way):
@@ -45,10 +48,12 @@ only the shared module they all import: `src/utils/pipeline-store.ts`.
 - Naming conventions (storage keys, id prefixes) and a stale-reference rule.
 - A tiny store factory so eight tools reuse the ost-store persistence pattern
   instead of hand-rolling eight copies.
+- Migrate `ost-store.ts` onto that same factory (see D9) so there is one
+  persistence implementation, not "the factory, plus the one hand-rolled
+  store everything else was patterned after." OST nodes gain stable ids in
+  the process, ending the array-index-join exception.
 
 **Non-Goals:**
-- Migrating `ost-store.ts` onto the factory or adding ids to OST nodes
-  (OST stays as-is; the contract joins to it via snapshot refs).
 - Cross-tab sync (`storage` events), export/import, undo, schema validation
   libraries, or any general-purpose framework. Minimum viable contract only.
 - Defining each tool's full domain model. Each tool owns its own record shape;
@@ -136,13 +141,15 @@ export interface ToolRecordBase {
 
 /**
  * Spec Builder's input: a starred opportunity + solution from an OstRecord
- * (src/utils/ost-store.ts). OST nodes are index-addressed strings with no
- * stable ids, so refs carry text snapshots taken at pick time (see D5).
+ * (src/utils/ost-store.ts). Post-migration (D9) OST nodes carry stable
+ * `uid("opp")` / `uid("sol")` ids, so refs join on id, not position — but the
+ * text is still snapshotted at pick time so a badge can be shown without a
+ * second lookup even when the source is later deleted (see D5).
  */
 export interface OstPickRef {
   ostRecordId: string;        // OstRecord.id
-  opportunityIndex: number;   // index into tree.opportunities at pick time
-  solutionIndex: number;      // index into opportunities[i].solutions at pick time
+  opportunityId: string;      // uid("opp") — stable across reorders/edits
+  solutionId: string;         // uid("sol") — stable across reorders/edits
   opportunityText: string;    // snapshot — always renderable
   solutionText: string;       // snapshot
 }
@@ -179,9 +186,15 @@ export interface ToolStore<T extends ToolRecordBase> {
   create(data: Omit<T, "id" | "createdAt" | "updatedAt">): T;
   update(id: string, patch: Partial<Omit<T, "id" | "createdAt">>): void; // bumps updatedAt
   remove(id: string): void;
-  /** Active pointer, scoped per product: "which record is open for this product". */
-  getActiveId(productId: string): string | null;
-  setActiveId(productId: string, id: string): void;
+  /**
+   * Active pointer, scoped by an arbitrary string key: "which record is open
+   * for this scope". The eight pipeline tools pass `productId`; OST (D9)
+   * passes its existing `contextKeyFor(source)` (course chapter or
+   * "standalone") since its active record isn't product-scoped. One factory,
+   * two scoping conventions, same mechanism.
+   */
+  getActiveId(scopeKey: string): string | null;
+  setActiveId(scopeKey: string, id: string): void;
 }
 
 /**
@@ -210,11 +223,14 @@ pointer means every tool page opens on the same product without coordination.
 
 ### D4. Naming conventions (normative tables)
 
-**localStorage keys** — versioned, `pm-` prefixed (OST keeps its `ost-` keys):
+**localStorage keys** — versioned, `pm-` prefixed. OST keeps its existing
+`ost-` keys even after moving onto the factory (D9) — renaming the key would
+orphan every visitor's existing trees:
 
 | Tool | Store key | Active-pointer key |
 |------|-----------|--------------------|
 | (shared) products | `pm-products-v1` | `pm-active-product-v1` |
+| OST (migrated, D9) | `ost-trees-v1` | `ost-active-v1` |
 | OKR Organizer | `pm-okr-v1` | `pm-okr-v1-active` |
 | Spec Builder | `pm-spec-v1` | `pm-spec-v1-active` |
 | Vertical Slicer | `pm-slice-v1` | `pm-slice-v1-active` |
@@ -234,10 +250,14 @@ pointer means every tool page opens on the same product without coordination.
 | `spec` | Spec (PRD / pitch / story map) | Spec Builder |
 | `ac` | Acceptance criterion within a spec | Spec Builder |
 | `story` | Sliced story | Vertical Slicer |
+| `bklg` | Backlog record (one per product per quarter) | Backlog Prioritizer |
 | `cad` | Cadence record | Cadence & Reflection Kit |
 | `chk` | Check-in record | OKR Check-In |
 | `test` | Test scenario | Test Register |
 | `upd` | Stakeholder update draft | Stakeholder Update Composer |
+| `ost` | OST tree (migrated, D9) | OST tool |
+| `opp` | Opportunity within an OST tree (migrated, D9) | OST tool |
+| `sol` | Solution within an opportunity (migrated, D9) | OST tool |
 
 **The stable-id rule:** any entity another tool references MUST carry a
 `uid()`-generated id that survives edits and reorders. Array indexes are never
@@ -255,14 +275,54 @@ for every cross-tool ref:
    referenced titles, e.g. a story storing `specTitle` next to `specId`).
 2. **Re-resolve on load**: look the id up in the source store; if found, show
    live data.
-3. **Badge on drift**: if the id is missing (deleted) or, for `OstPickRef`,
-   the text at the stored index no longer matches the snapshot, render the
-   snapshot with a small "source changed/removed" badge. Never block the tool,
-   never cascade-delete, never silently swap in wrong data.
+3. **Badge on drift**: if the id is missing (deleted) or the live text no
+   longer matches the snapshot, render the snapshot with a small "source
+   changed/removed" badge. Never block the tool, never cascade-delete, never
+   silently swap in wrong data.
 
-Alternative considered: retrofitting stable ids into `OstTree` nodes plus a
-migration — rejected; it churns a shipped tool and the snapshot rule handles
-the same failure mode for zero migration cost.
+This applies uniformly now that OST nodes carry stable ids (D9) — there is no
+longer an index-addressed exception. The rule stays regardless: even with
+stable ids, localStorage still has no referential integrity across stores, so
+snapshot + re-resolve + badge remains the contract for every cross-tool ref.
+
+### D9. Migrating `ost-store.ts` onto the factory
+
+OST becomes the ninth store built on `createToolStore`, not a permanently
+separate original the factory was merely patterned after. Concretely:
+
+- **Storage keys unchanged**: `ost-trees-v1` / `ost-active-v1` stay as-is
+  (see D4) — renaming would orphan every visitor's existing trees on next
+  load. `createToolStore` takes `storageKey`/`idPrefix` as options precisely
+  so a tool can keep its own key while sharing the implementation.
+- **Stable ids added to tree nodes**: `OstOpportunity` and its `solutions`
+  entries move from bare `string`/index-addressed arrays to
+  `{ id /* uid("opp") | uid("sol") */, text, ... }`. A one-time load-time
+  migration walks every existing `OstRecord` and assigns ids to any node that
+  doesn't have one yet (pure addition, no data loss, idempotent).
+- **`ToolRecordBase` alignment**: `OstRecord` gains `productId` (defaulting
+  existing records to `resolveActiveProduct().id` on first load after
+  migration, matching the "seed a Donut CRM product" behavior in D2) so it
+  satisfies `ToolRecordBase` and can use `listForProduct`.
+- **Active pointer stays context-scoped, not product-scoped**: OST's existing
+  `contextKeyFor(source)` (`"standalone"` or `"course:<slug>:<chapter>"`)
+  continues to key the active pointer — that's *why* `ToolStore.getActiveId`/
+  `setActiveId` take a generic `scopeKey` rather than literally `productId`
+  (see D2). OST calls it with `contextKeyFor(source)`; the other eight tools
+  call it with `productId`. Same factory, two scoping conventions.
+- **`OstPickRef` switches from index to id** (see D2) now that stable ids
+  exist, removing the array-index-as-join-key exception entirely — Spec
+  Builder's refs are as durable as every other tool's.
+- **Legacy-tree migration preserved**: `migrateLegacy` (wrapping the
+  pre-multi-tree single tree into the store) keeps running exactly as today;
+  it runs *before* the new id-backfill and `productId`-backfill passes, so all
+  three migrations compose in one `loadStore()` call.
+
+Alternative considered (leave `ost-store.ts` as a permanently separate
+hand-rolled implementation, joining only via snapshot refs) — this was the
+original plan and is documented in the sibling `okr-organizer-tool` proposal;
+rejected here because it leaves two copies of the same persistence pattern in
+the repo indefinitely for no benefit once OST can safely gain ids at
+essentially zero migration cost.
 
 ### D6. Quarter shape
 
@@ -318,8 +378,14 @@ fields are contract-level because another tool reads them:
 - [Eight lanes drift from the contract anyway] → every tool proposal template
   must link this design.md; `pipeline-store.ts` exports are the only sanctioned
   shapes, so drift shows up as a type error at `pnpm check`, not at runtime.
-- [OstPickRef index drift after tree edits] → D5 snapshot + badge rule; worst
-  case the visitor re-picks, no data loss.
+- [Stale refs after tree/spec edits] → D5 snapshot + badge rule; worst case
+  the visitor re-picks, no data loss.
+- [OST id-backfill migration corrupts or drops an existing visitor's tree] →
+  the backfill is additive-only (assigns ids to nodes lacking one, never
+  rewrites `text`/`target`/order) and runs behind the same try/catch
+  `readJson`/`writeJson` as today; a failed migration degrades to "tree loads
+  without new ids this session," not data loss. Manually verified against a
+  pre-migration localStorage snapshot (D9, Migration Plan) before shipping.
 - [localStorage quota / private mode] → same silent-degrade behavior as
   ost-store (`writeJson` try/catch): tools stay usable, persistence quietly off.
 - [Factory too rigid for an outlier tool] → factory is optional sugar; a tool
@@ -331,11 +397,29 @@ fields are contract-level because another tool reads them:
 
 ## Migration Plan
 
-Greenfield module; nothing to migrate. `ost-store.ts` untouched. Rollback =
-delete `pipeline-store.ts` (no consumers exist until the tool changes land).
-Future shape changes bump the storage-key version (`pm-*-v2`) with a
-read-old/write-new migration in the shared module, mirroring
-`migrateLegacy` in ost-store.
+`pipeline-store.ts` itself is a greenfield module — no consumers exist until
+the tool changes land, so rollback there is just deleting the file. `ost-store.ts`
+is not greenfield: it has real visitor data in `ost-trees-v1`/`ost-active-v1`
+today (the OST tool and course embeds are shipped). Its migration onto the
+factory (D9) is:
+
+1. Snapshot-test against a real pre-migration localStorage export (existing
+   trees with no `id`/`productId` on their nodes) before merging.
+2. Ship the id-backfill and `productId`-backfill as pure-addition, idempotent
+   passes inside `loadStore()`, composed after the existing `migrateLegacy`
+   step — never a destructive rewrite of `ost-trees-v1`.
+3. Keep the storage keys (`ost-trees-v1`, `ost-active-v1`) and the public
+   function names OST's consumers (the tool page, the course embed) already
+   call (`listTrees`, `getTree`, `createTree`, `saveTreeData`, `deleteTree`,
+   `resolveActiveTree`, `contextKeyFor`) — only the internals move onto
+   `createToolStore`, so no caller needs to change.
+4. Rollback = revert the `ost-store.ts` diff; the storage keys and shape are
+   unchanged for anyone who didn't get the new fields yet (ids/`productId` are
+   additive, so an old build reading new data still works).
+
+Future shape changes anywhere in the contract bump the storage-key version
+(`pm-*-v2` / a future `ost-trees-v2`) with a read-old/write-new migration in
+the shared module, mirroring `migrateLegacy` in ost-store.
 
 ## Open Questions
 

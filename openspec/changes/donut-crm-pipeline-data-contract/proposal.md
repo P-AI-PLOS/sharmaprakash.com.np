@@ -24,19 +24,24 @@ and the pipeline never joins up.
     `currentQuarter` helpers — the single quarter representation used by OKR
     Organizer, Cadence & Reflection Kit, and OKR Check-In.
   - Cross-tool reference shapes: `OstPickRef` (starred opportunity + solution from
-    an existing `OstRecord`, with text snapshots because OST nodes have no stable
-    ids), `SpecRef`, `StoryRef`, `OkrKeyResultRef`, `AcceptanceCriterionRef`.
+    an existing `OstRecord`, joined by stable `opportunityId`/`solutionId` post
+    migration, with text snapshots for badge display), `SpecRef`, `StoryRef`,
+    `OkrKeyResultRef`, `AcceptanceCriterionRef`.
   - `ToolRecordBase` (`id`, `productId`, `createdAt`, `updatedAt`) and a minimal
     `createToolStore<T>()` factory replicating the proven ost-store persistence
-    pattern (versioned key, in-memory cache, try/catch JSON, active pointer) so
-    the eight tools don't hand-roll eight divergent copies.
+    pattern (versioned key, in-memory cache, try/catch JSON, scope-keyed active
+    pointer) so the eight tools — and OST itself — share one implementation
+    instead of hand-rolling divergent copies.
   - Shared `uid(prefix)` id generator and the id-prefix / storage-key naming
     conventions each tool must follow.
 - Document (in `design.md`) the entity-ownership map: which tool owns which
   entity, which ids are referenced by whom, and the stale-reference rule
   (snapshot at pick time, re-resolve on load, badge when the source is gone).
-- No changes to `src/utils/ost-store.ts`. OST predates this contract and keeps
-  its own store; the contract references it read-only via `OstPickRef`.
+- Migrate `src/utils/ost-store.ts` onto the factory (see `design.md` D9): add
+  stable ids to tree/opportunity/solution nodes, add `productId`, keep the
+  existing `ost-trees-v1`/`ost-active-v1` storage keys and every public
+  function signature the OST page and course embed already call — no callers
+  change.
 
 ## Capabilities
 
@@ -48,23 +53,25 @@ and the pipeline never joins up.
 
 ### Modified Capabilities
 
-_None. `openspec/specs/` is empty; this is the repo's first capability. The
-existing OST tool is intentionally left outside the contract._
+_None. `openspec/specs/` is empty; this is the repo's first capability._
 
 ## Impact
 
 - **New code:** `src/utils/pipeline-store.ts` (types + ~150 lines of helpers).
   No pages, no components, no visible UI ship in this change.
+- **Changed code:** `src/utils/ost-store.ts` re-implemented on top of
+  `createToolStore` (D9) — storage keys and every exported function
+  name/signature stay the same, so the OST tool page and course embed need no
+  changes.
 - **Downstream:** the eight follow-up tool proposals each build their own store
   on `createToolStore` and import the reference shapes from this module; their
   design docs must cite this change's `design.md` as the contract of record.
-- **Read-only dependency:** `src/utils/ost-store.ts` (`OstRecord`, `OstTree`)
-  for `OstPickRef` resolution.
 - **Constraints honored:** static Astro site, localStorage only, no backend/CMS,
   React islands only. No new dependencies.
 
 ## Non-goals
 
-- No migration of `ost-store.ts` onto the factory (working code, don't churn it).
-- No cross-tab sync, export/import, or schema-validation library.
+- No cross-tab sync, export/import, or schema-validation library — see
+  `design.md` Goals/Non-Goals for the rationale (minimum viable contract for a
+  personal-site teaching tool, not a general-purpose framework).
 - No implementation of any of the eight tools — each gets its own proposal.
