@@ -1,113 +1,114 @@
-"use client";
+/**
+ * Markdown export for one spec — a pure `specToMarkdown` renderer plus the
+ * copy/download block, mirroring TreeBuilder's exporter.
+ */
+import { useState } from "react";
+import {
+  SPEC_SECTION_KEYS,
+  formatLabel,
+  resolvePick,
+  sectionLabel,
+  titleForSpec,
+  type SpecRecord,
+} from "~/utils/spec-store";
 
-import { Download, FileText } from "lucide-react";
-import type { SpecRecord } from "~/utils/spec-store";
+/** The "Source:" line — the OST pick with its drift status, or manual entry. */
+const sourceLine = (spec: SpecRecord): string => {
+  if (!spec.sourcePick) return "**Source:** manual entry";
+  const { status, opportunityText, solutionText } = resolvePick(spec.sourcePick);
+  const suffix =
+    status === "drifted"
+      ? " _(source changed since this spec was written)_"
+      : status === "missing"
+        ? " _(source removed since this spec was written)_"
+        : "";
+  return `**Source:** 🎯 ${opportunityText} → 💡 ${solutionText}${suffix}`;
+};
 
-interface SpecMarkdownExportProps {
-  spec?: SpecRecord;
-  onDownload?: (content: string) => void;
-}
+export const specToMarkdown = (spec: SpecRecord): string => {
+  const lines = [
+    `# ${titleForSpec(spec)}`,
+    "",
+    `**Format:** ${formatLabel(spec.format)}`,
+    sourceLine(spec),
+    "",
+  ];
 
-export default function SpecMarkdownExport({ spec, onDownload }: SpecMarkdownExportProps) {
-  const exportAsMarkdown = (specRecord: SpecRecord): string => {
-    const lines = [ `# ${specRecord.title}`, "", `**Format:** ${specRecord.format}`, "", "**Source:**" ];
-
-    if (specRecord.sourcePick) {
-      lines.push(
-        `- Opportunity ${specRecord.sourcePick.opportunityIndex + 1}: ${specRecord.sourcePick.opportunityText}`,
-        `- Solution ${specRecord.sourcePick.solutionIndex + 1}: ${specRecord.sourcePick.solutionText}`
-      );
-    } else {
-      lines.push("- Manual entry (no tree pick)");
-    }
-
-    if (specRecord.framingJob) {
-      lines.push(`- Framing job: ${specRecord.framingJob}`);
-    }
-
-    lines.push("", "---", "");
-
-    const formatSectionKeys = [
-      "problem",
-      "outcome",
-      "nonGoals",
-      "successMetric",
-      "appetite",
-      "solution",
-      "rabbitHoles",
-      "noGos",
-      "backbone",
-      "walkingSkeleton",
-      "laterSlices",
-    ];
-
-    formatSectionKeys.forEach((key) => {
-      const value = specRecord.sections[key];
-      if (value) {
-        lines.push(`## ${key}`);
-        lines.push(value);
-        lines.push("");
-      }
-    });
-
-    lines.push("## Acceptance criteria");
-    lines.push("");
-
-    specRecord.acceptanceCriteria.forEach((ac) => {
-      lines.push(`- ${ac.text}`);
-    });
-
-    return lines.join("\n");
-  };
-
-  if (!spec) {
-    return null;
+  for (const key of SPEC_SECTION_KEYS[spec.format]) {
+    lines.push(
+      `## ${sectionLabel(key)}`,
+      "",
+      spec.sections[key]?.trim() || "_(not filled in yet)_",
+      "",
+    );
   }
 
-  const handleDownload = () => {
-    const markdown = exportAsMarkdown(spec);
+  lines.push("## Acceptance criteria", "");
+  const criteria = spec.acceptanceCriteria.filter((c) => c.text.trim());
+  if (criteria.length === 0) lines.push("_(none yet)_");
+  else criteria.forEach((c) => lines.push(`- [ ] ${c.text.trim()}`));
+
+  return `${lines.join("\n")}\n`;
+};
+
+const fileName = (spec: SpecRecord): string => {
+  const slug = titleForSpec(spec)
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-|-$/g, "");
+  return `${slug || "spec"}.md`;
+};
+
+export default function SpecMarkdownExport({ spec }: { spec: SpecRecord }) {
+  const [copied, setCopied] = useState(false);
+  const markdown = specToMarkdown(spec);
+
+  const copy = async () => {
+    try {
+      await navigator.clipboard.writeText(markdown);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch {
+      /* clipboard unavailable — the preview below still shows the export */
+    }
+  };
+
+  const download = () => {
     const blob = new Blob([markdown], { type: "text/markdown" });
     const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = `${spec.title.replace(/[^a-z0-9]/gi, "_")}.md`;
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = fileName(spec);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
     URL.revokeObjectURL(url);
-
-    onDownload?.(markdown);
   };
 
   return (
-    <div class="bg-surface-raised rounded-lg p-6">
-      <h3 class="text-h3 mb-4">Export to Markdown</h3>
-
-      <div class="space-y-4">
-        <div class="p-4 bg-surface-sunken rounded-md">
-          <h4 class="font-medium mb-2">Preview</h4>
-          <div class="text-sm text-muted space-y-1">
-            <div>Title: {spec.title}</div>
-            <div>Format: {spec.format}</div>
-            <div>Source: {spec.sourcePick ? "Opportunity solution tree" : "Manual entry"}</div>
-            <div>Sections: {Object.keys(spec.sections).filter((k) => spec.sections[k]).length} populated</div>
-            <div>Acceptance Criteria: {spec.acceptanceCriteria.length}</div>
-          </div>
-        </div>
-
-        <button
-          onClick={handleDownload}
-          class="w-full flex items-center justify-center gap-2 px-4 py-3 bg-surface-raised border border-border-strong rounded-md hover:bg-surface-sunken transition-colors"
-        >
-          <Download size={20} />
-          Download as Markdown
-        </button>
-
-        <div class="text-xs text-muted">
-          Exported spec includes all sections for the chosen format, plus acceptance criteria,
-          source attribution, and framing job if set.
+    <div className="mt-6 border-t border-ink-200 pt-4">
+      <div className="flex items-center justify-between gap-3">
+        <p className="text-caption font-semibold text-muted">Export</p>
+        <div className="flex gap-4">
+          <button
+            type="button"
+            onClick={copy}
+            className="text-caption font-semibold text-accent-700 link-underline"
+          >
+            {copied ? "Copied ✓" : "Copy as Markdown"}
+          </button>
+          <button
+            type="button"
+            onClick={download}
+            className="text-caption font-semibold text-accent-700 link-underline"
+          >
+            Download .md
+          </button>
         </div>
       </div>
+      <pre className="mt-2 max-h-72 overflow-auto rounded-md bg-ink-100 p-3 text-caption text-strong">
+        {markdown}
+      </pre>
     </div>
   );
 }

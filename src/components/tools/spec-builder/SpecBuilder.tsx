@@ -1,252 +1,158 @@
-"use client";
-
-import { useEffect, useState } from "react";
-import { HelpCircle, Download, Maximize2, X } from "lucide-react";
-import { ExerciseShell, ChoiceButton } from "~/components/course/exercises/exercise-ui";
+/**
+ * Spec Builder — stage 03 of the Donut CRM pipeline. Pick a starred
+ * opportunity + solution from an opportunity solution tree, answer one framing
+ * question, choose one of three formats, fill the scaffolded sections, list the
+ * acceptance criteria, and export Markdown. Persists to localStorage via
+ * spec-store; OST data is read, never written.
+ */
+import { useEffect, useRef, useState } from "react";
+import { ExerciseShell } from "~/components/course/exercises/exercise-ui";
 import SpecOstPicker from "./SpecOstPicker";
-import SpecFormatPicker from "./SpecFormatPicker";
+import SpecFormatPicker, { SpecFormatSegmented } from "./SpecFormatPicker";
 import SpecSwitcher from "./SpecSwitcher";
 import SpecMarkdownExport from "./SpecMarkdownExport";
-import { useSpecStore } from "~/utils/spec-store";
-import type { SpecRecord, SpecFormat } from "~/utils/spec-store";
-
-const FULLSCREEN_PARAM = "spec";
-const FULLSCREEN_VALUE = "full";
+import {
+  SPEC_SECTION_KEYS,
+  SPEC_SECTION_META,
+  applyPickSeeds,
+  createSpec,
+  deleteSpec,
+  listSpecsForProduct,
+  newCriterion,
+  resolveActiveProduct,
+  resolveActiveSpec,
+  setActiveSpecId,
+  updateSpec,
+  type OstPickRef,
+  type SpecFormat,
+  type SpecFramingJob,
+  type SpecRecord,
+} from "~/utils/spec-store";
 
 interface SpecBuilderProps {
-  source?: { type: "standalone" };
   kicker?: string;
   title?: string;
   instructions?: string;
-  showDashboard?: boolean;
 }
 
-const SpecBuilder = ({
-  source = { type: "standalone" },
+const inputClass =
+  "w-full rounded-md border border-ink-200 bg-surface-base px-3 py-2 text-body text-strong placeholder:text-faint focus:border-accent-600 focus:outline-none";
+
+const hasWriting = (spec: SpecRecord): boolean =>
+  Object.values(spec.sections).some((v) => v.trim()) || spec.acceptanceCriteria.length > 0;
+
+export default function SpecBuilder({
   kicker = "Free tool",
-  title = "Build your spec artifact",
-  instructions = "Pick an opportunity from your tree (🎯 target or any), select a solution, choose framing job, select format, then fill the scaffolded sections. Acceptance criteria applied to every format, regardless of format.",
-  showDashboard = false,
-}: SpecBuilderProps) => {
-  const [specs, setSpecs] = useState<SpecRecord[]>([]);
-  const [activeId, setActiveId] = useState<string | null>(null);
-  const [fullscreen, setFullscreen] = useState(false);
-  const [showHelp, setShowHelp] = useState(false);
+  title = "Build your spec",
+  instructions = "Start from an opportunity you already found, say what job the spec has to do, then write it in the format that fits. It saves in your browser — nothing is sent anywhere.",
+}: SpecBuilderProps) {
+  const [productId, setProductId] = useState<string | null>(null);
+  const [records, setRecords] = useState<SpecRecord[]>([]);
+  const [spec, setSpec] = useState<SpecRecord | null>(null);
+  const [showFormatCards, setShowFormatCards] = useState(true);
+  const hydrated = useRef(false);
 
-  // Load specs from store
   useEffect(() => {
-    setSpecs(useSpecStore((state) => state.specs));
+    const product = resolveActiveProduct();
+    const active = resolveActiveSpec(product.id);
+    setProductId(product.id);
+    setSpec(active);
+    setRecords(listSpecsForProduct(product.id));
+    setShowFormatCards(!hasWriting(active));
+    hydrated.current = true;
   }, []);
 
-  // Subscribe to store changes
-  useEffect(() => {
-    const unsubscribe = useSpecStore.subscribe((state) => {
-      setSpecs(state.specs);
-      setActiveId(state.activeId);
-    });
-
-    return unsubscribe;
-  }, []);
-
-  // URL fullscreen toggle (mirrors TreeBuilder)
-  useEffect(() => {
-    const urlParams = new URLSearchParams(window.location.search);
-    if (urlParams.get(FULLSCREEN_PARAM) === FULLSCREEN_VALUE) {
-      setFullscreen(true);
-    }
-  }, []);
-
-  const activeSpec = specs.find((s) => s.id === activeId) || null;
-
-  const exportAsMarkdown = (spec: SpecRecord): string => {
-    const lines = [
-      `# ${spec.title}`, 
-      "", 
-      `**Format:** ${spec.format}`, 
-      "", 
-      "**Source:**"
-    ];
-
-    if (spec.sourcePick) {
-      const {
-        opportunityText,
-        solutionText,
-        opportunityIndex,
-        solutionIndex,
-      } = spec.sourcePick;
-      lines.push(
-        `- Opportunity ${opportunityIndex + 1}: ${opportunityText}`,
-        `- Solution ${solutionIndex + 1}: ${solutionText}`
-      );
-    } else {
-      lines.push("- Manual entry (no tree pick)");
-    }
-
-    if (spec.framingJob) {
-      lines.push(`- Framing job: ${spec.framingJob}`);
-    }
-
-    lines.push("", "---", "");
-
-    // Format-specific sections
-    const sectionKeys = useSpecStore.getState().specSectionKeys[spec.format];
-    sectionKeys.forEach((key) => {
-      const value = spec.sections[key];
-      if (value) {
-        lines.push(`## ${key}`);
-        lines.push(value);
-        lines.push("");
-      }
-    });
-
-    lines.push("## Acceptance criteria");
-    lines.push("");
-
-    spec.acceptanceCriteria.forEach((ac) => {
-      lines.push(`- ${ac.text}`);
-    });
-
-    return lines.join("\n");
+  /** Single write path: patch state, persist, refresh the switcher list. */
+  const patch = (changes: Partial<Omit<SpecRecord, "id" | "createdAt">>) => {
+    if (!spec || !productId) return;
+    const next = { ...spec, ...changes, updatedAt: Date.now() };
+    setSpec(next);
+    updateSpec(spec.id, changes);
+    setRecords(listSpecsForProduct(productId));
   };
 
-  const downloadMarkdown = (spec: SpecRecord) => {
-    const markdown = exportAsMarkdown(spec);
-    const blob = new Blob([markdown], { type: "text/markdown" });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = `${spec.title.replace(/[^a-z0-9]/gi, "_")}.md`;
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
+  const openSpec = (record: SpecRecord) => {
+    if (!productId) return;
+    setActiveSpecId(productId, record.id);
+    setSpec(record);
+    setRecords(listSpecsForProduct(productId));
+    setShowFormatCards(!hasWriting(record));
   };
 
-  if (fullscreen) {
+  const switchTo = (id: string) => {
+    const record = records.find((r) => r.id === id);
+    if (record) openSpec(record);
+  };
+
+  const createAndSwitch = () => {
+    openSpec(createSpec());
+  };
+
+  const removeSpec = (id: string) => {
+    if (!productId) return;
+    deleteSpec(id);
+    const remaining = listSpecsForProduct(productId);
+    setRecords(remaining);
+    if (id === spec?.id) openSpec(remaining[0] ?? createSpec());
+  };
+
+  const applyPick = (ref: OstPickRef) => {
+    if (!spec) return;
+    patch({
+      sourcePick: ref,
+      sections: applyPickSeeds(spec.sections, ref.opportunityText, ref.solutionText, spec.format),
+      title: spec.title.trim() || ref.solutionText,
+    });
+  };
+
+  const applyManualPick = (opportunityText: string, solutionText: string) => {
+    if (!spec) return;
+    patch({
+      sourcePick: null,
+      sections: applyPickSeeds(spec.sections, opportunityText, solutionText, spec.format),
+      title: spec.title.trim() || solutionText,
+    });
+  };
+
+  const changeFormat = (format: SpecFormat) => {
+    if (!spec) return;
+    const pick = spec.sourcePick;
+    patch({
+      format,
+      // Sections are never dropped on a switch — only empty ones get seeded.
+      sections: pick
+        ? applyPickSeeds(spec.sections, pick.opportunityText, pick.solutionText, format)
+        : spec.sections,
+    });
+  };
+
+  const setSection = (key: string, value: string) => {
+    if (!spec) return;
+    patch({ sections: { ...spec.sections, [key]: value } });
+  };
+
+  const addCriterion = () => {
+    if (!spec) return;
+    patch({ acceptanceCriteria: [...spec.acceptanceCriteria, newCriterion()] });
+  };
+
+  const setCriterion = (id: string, text: string) => {
+    if (!spec) return;
+    patch({
+      acceptanceCriteria: spec.acceptanceCriteria.map((c) => (c.id === id ? { ...c, text } : c)),
+    });
+  };
+
+  const removeCriterion = (id: string) => {
+    if (!spec) return;
+    patch({ acceptanceCriteria: spec.acceptanceCriteria.filter((c) => c.id !== id) });
+  };
+
+  if (!spec) {
     return (
-      <div class="fixed inset-0 z-50 bg-surface-base p-6 overflow-auto">
-        <div class="flex justify-between items-center mb-6">
-          <h2 class="text-display-md">Spec Builder (fullscreen)</h2>
-          <button
-            onClick={() => {
-              const url = new URL(window.location.href);
-              url.searchParams.delete(FULLSCREEN_PARAM);
-              window.history.replaceState({}, "", url.toString());
-              setFullscreen(false);
-            }}
-            class="p-2 text-muted hover:text-default"
-          >
-            <X size={20} />
-          </button>
-        </div>
-
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          <div class="lg:col-span-1 space-y-6">
-            <SpecSwitcher specs={specs} activeId={activeId} onSelect={setActiveId} />
-            <SpecOstPicker activeSpec={activeSpec} onPickChange={(pick) => {
-              if (activeSpec) {
-                useSpecStore.getState().updateSpec(activeSpec.id, { sourcePick: pick });
-              }
-            }} />
-          </div>
-
-          <div class="lg:col-span-2 space-y-6">
-            <SpecFormatPicker
-              spec={activeSpec}
-              onFormatChange={(format: SpecFormat) => {
-                if (activeSpec) {
-                  useSpecStore.getState().updateSpec(activeSpec.id, { format });
-                }
-              }}
-              onFramingChange={(job: "align" | "handoff" | "sequence" | null) => {
-                if (activeSpec) {
-                  useSpecStore.getState().updateSpec(activeSpec.id, { framingJob: job });
-                }
-              }}
-            />
-
-            {activeSpec && (
-              <div class="bg-surface-raised rounded-lg p-6">
-                <h3 class="text-h3 mb-4">Spec Sections</h3>
-                {useSpecStore.getState().specSectionKeys[activeSpec.format].map((key) => (
-                  <div key={key} class="mb-4">
-                    <label class="block text-caption mb-2 text-muted">{key}</label>
-                    <textarea
-                      value={activeSpec.sections[key] || ""}
-                      onChange={(e) => {
-                        if (activeSpec) {
-                          const newSections = { ...activeSpec.sections, [key]: e.target.value };
-                          useSpecStore.getState().updateSpec(activeSpec.id, { sections: newSections });
-                        }
-                      }}
-                      class="w-full p-3 border border-border-strong rounded-md text-body resize-none min-h-[80px]"
-                      placeholder={`Enter ${key}...`}
-                    />
-                  </div>
-                ))}
-
-                <div class="mt-6">
-                  <h3 class="text-h3 mb-4">Acceptance Criteria</h3>
-                  {activeSpec.acceptanceCriteria.map((ac) => (
-                    <div key={ac.id} class="flex gap-2 mb-2">
-                      <span class="text-muted">•</span>
-                      <input
-                        type="text"
-                        value={ac.text}
-                        onChange={(e) => {
-                          if (activeSpec) {
-                            const newCriteria = activeSpec.acceptanceCriteria.map((c) =>
-                              c.id === ac.id ? { ...c, text: e.target.value } : c,
-                            );
-                            useSpecStore.getState().updateSpec(activeSpec.id, { acceptanceCriteria: newCriteria });
-                          }
-                        }}
-                        class="flex-1 p-2 border border-border-strong rounded-md text-body"
-                        placeholder="Enter acceptance criterion..."
-                      />
-                      <button
-                        onClick={() => {
-                          if (activeSpec) {
-                            const newCriteria = activeSpec.acceptanceCriteria.filter((c) => c.id !== ac.id);
-                            useSpecStore.getState().updateSpec(activeSpec.id, { acceptanceCriteria: newCriteria });
-                          }
-                        }}
-                        class="p-2 text-danger hover:bg-danger/10 rounded"
-                      >
-                        <X size={16} />
-                      </button>
-                    </div>
-                  ))}
-
-                  <button
-                    onClick={() => {
-                      if (activeSpec) {
-                        const newId = `ac_${Date.now()}`;
-                        const newCriterion = { id: newId, text: "" };
-                        const newCriteria = [...activeSpec.acceptanceCriteria, newCriterion];
-                        useSpecStore.getState().updateSpec(activeSpec.id, { acceptanceCriteria: newCriteria });
-                      }
-                    }}
-                    class="mt-3 px-4 py-2 bg-accent-600 text-white rounded-md hover:bg-accent-500"
-                  >
-                    + Add Criterion
-                  </button>
-                </div>
-
-                <div class="mt-8 pt-6 border-t border-border-default">
-                  <button
-                    onClick={() => activeSpec && downloadMarkdown(activeSpec)}
-                    class="flex items-center gap-2 px-6 py-3 bg-surface-raised border border-border-strong rounded-md hover:bg-surface-sunken"
-                  >
-                    <Download size={20} />
-                    Download Spec as Markdown
-                  </button>
-                </div>
-              </div>
-            )}
-          </div>
-        </div>
-      </div>
+      <ExerciseShell kicker={kicker} title={title} instructions={instructions}>
+        <p className="text-body text-muted">Loading your specs…</p>
+      </ExerciseShell>
     );
   }
 
@@ -255,200 +161,115 @@ const SpecBuilder = ({
       kicker={kicker}
       title={title}
       instructions={instructions}
-      helpContent={
-        <div class="space-y-4 text-body">
-          <p>
-            <strong>Purpose:</strong> Turn an opportunity + solution from your tree into a spec artifact.
-          </p>
-          <p>
-            <strong>Pick:</strong> Select an opportunity (🎯 recommended) and one of its solutions from
-            your existing trees (or enter manually if none exist).
-          </p>
-          <p>
-            <strong>Framing:</strong> Choose what job this spec serves — align a room, hand off
-            scope, or sequence a release. This pre-selects but doesn't lock the format.
-          </p>
-          <p>
-            <strong>Format:</strong> Visible, stored, switchable choice among PRD, Shape-Up pitch, Story-map.
-            All formats include acceptance criteria as the common surface downstream.
-          </p>
-          <p>
-            <strong>Sections:</strong> Format-appropriate fields pre-filled from your pick. All data
-            persists in your browser; switching formats keeps sections.
-          </p>
-          <p>
-            <strong>Acceptance Criteria:</strong> Applied to every format. Add/remove/edit criteria to
-            define what "done" looks like for this spec.
-          </p>
-          <p>
-            <strong>Export:</strong> Download the finished spec as Markdown, with source attribution
-            (or "manual entry").
-          </p>
-        </div>
+      headerAction={
+        <SpecSwitcher
+          records={records}
+          activeId={spec.id}
+          onSelect={switchTo}
+          onCreate={createAndSwitch}
+          onRename={(id, next) => (id === spec.id ? patch({ title: next }) : updateSpec(id, { title: next }))}
+          onDelete={removeSpec}
+        />
       }
-      onHelpToggle={setShowHelp}
     >
-      <div class="space-y-8">
-        <SpecSwitcher specs={specs} activeId={activeId} onSelect={setActiveId} />
+      <div className="grid gap-6">
+        <SpecOstPicker pick={spec.sourcePick} onPick={applyPick} onManualPick={applyManualPick} />
 
-        <SpecOstPicker activeSpec={activeSpec} onPickChange={(pick) => {
-          if (activeSpec) {
-            useSpecStore.getState().updateSpec(activeSpec.id, { sourcePick: pick });
-          }
-        }} />
-
-        {activeSpec && (
-          <div class="space-y-6">
-            <SpecFormatPicker
-              spec={activeSpec}
-              onFormatChange={(format: SpecFormat) => {
-                if (activeSpec) {
-                  useSpecStore.getState().updateSpec(activeSpec.id, { format });
-                }
-              }}
-              onFramingChange={(job: "align" | "handoff" | "sequence" | null) => {
-                if (activeSpec) {
-                  useSpecStore.getState().updateSpec(activeSpec.id, { framingJob: job });
-                }
-              }}
-            />
-
-            <div class="bg-surface-raised rounded-lg p-6">
-              <h3 class="text-h3 mb-4">Spec Sections</h3>
-              {useSpecStore.getState().specSectionKeys[activeSpec.format].map((key) => (
-                <div key={key} class="mb-4">
-                  <label class="block text-caption mb-2 text-muted">{key}</label>
-                  <textarea
-                    value={activeSpec.sections[key] || ""}
-                    onChange={(e) => {
-                      if (activeSpec) {
-                        const newSections = { ...activeSpec.sections, [key]: e.target.value };
-                        useSpecStore.getState().updateSpec(activeSpec.id, { sections: newSections });
-                      }
-                    }}
-                    class="w-full p-3 border border-border-strong rounded-md text-body resize-none min-h-[80px]"
-                    placeholder={`Enter ${key}...`}
-                  />
-                </div>
-              ))}
-
-              <div class="mt-6">
-                <h3 class="text-h3 mb-4">Acceptance Criteria</h3>
-                {activeSpec.acceptanceCriteria.map((ac) => (
-                  <div key={ac.id} class="flex gap-2 mb-2">
-                    <span class="text-muted">•</span>
-                    <input
-                      type="text"
-                      value={ac.text}
-                      onChange={(e) => {
-                        if (activeSpec) {
-                          const newCriteria = activeSpec.acceptanceCriteria.map((c) =>
-                            c.id === ac.id ? { ...c, text: e.target.value } : c,
-                          );
-                          useSpecStore.getState().updateSpec(activeSpec.id, { acceptanceCriteria: newCriteria });
-                        }
-                      }}
-                      class="flex-1 p-2 border border-border-strong rounded-md text-body"
-                      placeholder="Enter acceptance criterion..."
-                    />
-                    <button
-                      onClick={() => {
-                        if (activeSpec) {
-                          const newCriteria = activeSpec.acceptanceCriteria.filter((c) => c.id !== ac.id);
-                          useSpecStore.getState().updateSpec(activeSpec.id, { acceptanceCriteria: newCriteria });
-                        }
-                      }}
-                      class="p-2 text-danger hover:bg-danger/10 rounded"
-                    >
-                      <X size={16} />
-                    </button>
-                  </div>
-                ))}
-
-                <button
-                  onClick={() => {
-                    if (activeSpec) {
-                      const newId = `ac_${Date.now()}`;
-                      const newCriterion = { id: newId, text: "" };
-                      const newCriteria = [...activeSpec.acceptanceCriteria, newCriterion];
-                      useSpecStore.getState().updateSpec(activeSpec.id, { acceptanceCriteria: newCriteria });
-                    }
-                  }}
-                  class="mt-3 px-4 py-2 bg-accent-600 text-white rounded-md hover:bg-accent-500"
-                >
-                  + Add Criterion
-                </button>
-              </div>
-
-              <div class="mt-8 pt-6 border-t border-border-default">
-                <button
-                  onClick={() => activeSpec && downloadMarkdown(activeSpec)}
-                  class="flex items-center gap-2 px-6 py-3 bg-surface-raised border border-border-strong rounded-md hover:bg-surface-sunken"
-                >
-                  <Download size={20} />
-                  Download Spec as Markdown
-                </button>
-              </div>
-            </div>
-          </div>
-        )}
-
-        {!activeSpec && (
-          <div class="text-center py-12 bg-surface-raised rounded-lg border border-dashed border-border-strong">
-            <p class="text-muted">No spec created yet. Pick from your trees or add manually.</p>
-          </div>
-        )}
-      </div>
-
-      {showHelp && (
-        <div class="fixed inset-0 z-40 bg-black/50 flex items-center justify-center p-4">
-          <div class="bg-surface-base rounded-lg p-6 max-w-2xl w-full max-h-[80vh] overflow-auto">
-            <div class="flex justify-between items-start mb-4">
-              <h3 class="text-h2">Help: How Spec Builder Works</h3>
-              <button onClick={() => setShowHelp(false)} class="p-1 text-muted hover:text-default">
-                <X size={20} />
-              </button>
-            </div>
-            <div class="prose prose-sm text-body max-w-none">
-              <p>
-                <strong>Purpose:</strong> Turn an opportunity + solution from your opportunity solution tree
-                into a spec artifact.
-              </p>
-              <p>
-                <strong>Pick:</strong> Select an opportunity (🎯 recommended) and one of its solutions from
-                your existing trees (or enter manually if none exist).
-              </p>
-              <p>
-                <strong>Framing:</strong> Choose what job this spec serves — align a room, hand off
-                scope, or sequence a release. This pre-selects but doesn't lock the format.
-              </p>
-              <p>
-                <strong>Format:</strong> Visible, stored, switchable choice among PRD, Shape-Up pitch, Story-map.
-                All formats include acceptance criteria as the common surface downstream.
-              </p>
-              <p>
-                <strong>Sections:</strong> Format-appropriate fields pre-filled from your pick. All data
-                persists in your browser; switching formats keeps sections.
-              </p>
-              <p>
-                <strong>Acceptance Criteria:</strong> Applied to every format. Add/remove/edit criteria to
-                define what "done" looks like for this spec.
-              </p>
-              <p>
-                <strong>Export:</strong> Download the finished spec as Markdown, with source attribution
-                (or "manual entry").
-              </p>
-              <p>
-                <strong>Drift protection:</strong> If the source tree is deleted or changed after you pick,
-                the spec preserves the snapshots and badges you with "source changed/removed".
-                You're never blocked from editing.
-              </p>
-            </div>
-          </div>
+        <div>
+          <label htmlFor="spec-title" className="text-caption font-semibold text-muted">
+            Spec title
+          </label>
+          <input
+            id="spec-title"
+            type="text"
+            value={spec.title}
+            placeholder="e.g. Shared activity strip on the account record"
+            onChange={(e) => patch({ title: e.target.value })}
+            className={`mt-1 ${inputClass}`}
+          />
         </div>
-      )}
+
+        {showFormatCards ? (
+          <SpecFormatPicker
+            framingJob={spec.framingJob}
+            format={spec.format}
+            onFraming={(job: SpecFramingJob) => patch({ framingJob: job })}
+            onFormat={changeFormat}
+          />
+        ) : (
+          <div className="flex flex-wrap items-center justify-between gap-2">
+            <SpecFormatSegmented format={spec.format} onFormat={changeFormat} />
+            <button
+              type="button"
+              onClick={() => setShowFormatCards(true)}
+              className="text-caption font-semibold text-accent-700 link-underline"
+            >
+              What do these formats do?
+            </button>
+          </div>
+        )}
+
+        <div className="grid gap-4">
+          {SPEC_SECTION_KEYS[spec.format].map((key) => {
+            const meta = SPEC_SECTION_META[key];
+            return (
+              <div key={key}>
+                <label htmlFor={`spec-section-${key}`} className="text-caption font-semibold text-muted">
+                  {meta?.label ?? key}
+                </label>
+                {meta?.hint && <p className="text-caption text-faint">{meta.hint}</p>}
+                <textarea
+                  id={`spec-section-${key}`}
+                  value={spec.sections[key] ?? ""}
+                  placeholder={meta?.placeholder}
+                  rows={3}
+                  onChange={(e) => setSection(key, e.target.value)}
+                  className={`mt-1 ${inputClass}`}
+                />
+              </div>
+            );
+          })}
+        </div>
+
+        <div className="border-t border-ink-200 pt-4">
+          <p className="text-caption font-semibold text-muted">Acceptance criteria</p>
+          <p className="text-caption text-faint">
+            What has to be true for this to be done. These travel with the spec into slicing and
+            testing, whichever format you write in.
+          </p>
+
+          {spec.acceptanceCriteria.length > 0 && (
+            <ul className="mt-3 grid gap-2">
+              {spec.acceptanceCriteria.map((criterion) => (
+                <li key={criterion.id} className="flex items-center gap-2">
+                  <input
+                    type="text"
+                    value={criterion.text}
+                    placeholder="e.g. A rep sees the five most recent activities on any account"
+                    onChange={(e) => setCriterion(criterion.id, e.target.value)}
+                    aria-label="Acceptance criterion"
+                    className={inputClass}
+                  />
+                  <button
+                    type="button"
+                    onClick={() => removeCriterion(criterion.id)}
+                    aria-label={`Remove criterion: ${criterion.text || "empty"}`}
+                    className="shrink-0 text-caption font-semibold text-faint link-underline"
+                  >
+                    Remove
+                  </button>
+                </li>
+              ))}
+            </ul>
+          )}
+
+          <button type="button" onClick={addCriterion} className="btn btn-primary mt-3 shrink-0 !py-2">
+            Add criterion
+          </button>
+        </div>
+
+        <SpecMarkdownExport spec={spec} />
+      </div>
     </ExerciseShell>
   );
-};
-
-export default SpecBuilder;
+}
