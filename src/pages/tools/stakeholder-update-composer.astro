@@ -1,0 +1,33 @@
+---
+import SiteShell from "~/layouts/SiteShell.astro";
+import ScrollReveal from "~/components/motion/ScrollReveal.astro";
+import UpdateComposer from "~/components/tools/stakeholder-update-composer/UpdateComposer.tsx";
+---
+
+<SiteShell
+  title="Stakeholder Update Composer — Free Tool"
+  description="Assemble a stakeholder update from your product's OKRs, discovery, cadence, and adoption signal — one editable, copyable draft, free, right in your browser. Composes only; nothing is sent anywhere."
+>
+  <section class="bg-surface-base pt-40 pb-12">
+    <ScrollReveal class="mx-auto max-w-3xl px-6 lg:px-12 text-center">
+      <p class="eyebrow mb-3">Free tool</p>
+      <h1 class="text-display-lg text-strong">Stakeholder Update Composer</h1>
+      <p class="mt-4 text-body-lg text-muted max-w-xl mx-auto">
+        Stop retyping what you already wrote. Pick a quarter and this pulls your
+        OKRs, discovery highlights, delivery cadence, and adoption signal into
+        one editable draft you can copy straight into an email or Slack. Whatever
+        pipeline data exists becomes a section; the rest is simply skipped.
+      </p>
+      <p class="mt-3 text-caption text-muted">
+        It <strong class="text-strong">composes only</strong> — nothing is sent
+        anywhere. Everything saves in your browser.
+      </p>
+    </ScrollReveal>
+  </section>
+
+  <section class="bg-surface-base pb-24">
+    <div class="mx-auto max-w-5xl px-6 lg:px-12">
+      <UpdateComposer client:load />
+    </div>
+  </section>
+</SiteShell>
