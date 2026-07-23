@@ -11,6 +11,7 @@ seriesOrder: 5
 ---
 
 import AssumptionClassifier from "~/components/course/exercises/AssumptionClassifier.tsx";
+import Checklist from "~/components/course/exercises/Checklist.tsx";
 
 Priya was already sketching the pipeline on the whiteboard. Transcript comes out of the recording service, gets chunked, goes through the drafting model with the contact's timeline as context, draft lands on the contact page with a send button. Two sprints, maybe three. Tom had a rough layout open. The auto-drafted follow-up email had won the [ideation and story-mapping work](/product-management/from-opportunities-to-solutions-ideating-alone-and-together/) cleanly, it attacked the target opportunity directly, and everyone in the room could feel it working.
 
@@ -230,11 +231,17 @@ Take the assumption you circled on your 2×2. Pick the smallest test from the ca
 
 ## What you should have now
 
-- [ ] A happy-path story map for your leading solution
-- [ ] Ten or more assumptions, categorized across desirability, viability, feasibility, usability, and ethical
-- [ ] Your assumptions placed on the importance × evidence 2×2, with the riskiest one circled
-- [ ] One fully specified experiment card — success criterion and kill criterion written before running
-- [ ] A scheduled date to run it
+<Checklist
+  id="assumption-mapping-recap"
+  client:visible
+  items={[
+    "A happy-path story map for your leading solution",
+    "Ten or more assumptions, categorized across desirability, viability, feasibility, usability, and ethical",
+    "Your assumptions placed on the importance × evidence 2×2, with the riskiest one circled",
+    "One fully specified experiment card — success criterion and kill criterion written before running",
+    "A scheduled date to run it",
+  ]}
+/>
 
 You've now run the full loop once: outcome, opportunity space, target opportunity, solutions, riskiest assumption, test. The [final module](/product-management/making-discovery-a-habit-cdh-alongside-shape-up-okrs-and-agile/) is about doing it every week without a course propping you up — and making it coexist with the Shape Up cycles, OKRs, and sprint rituals your organization already runs.
 

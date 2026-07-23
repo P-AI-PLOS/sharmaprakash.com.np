@@ -8,11 +8,14 @@ export function ExerciseShell({
   kicker,
   title,
   instructions,
+  headerAction,
   children,
 }: {
   kicker?: string;
   title: string;
   instructions: string;
+  /** Optional control (e.g. an expand-to-fullscreen button) rendered top-right of the header. */
+  headerAction?: ReactNode;
   children: ReactNode;
 }) {
   return (
@@ -20,8 +23,13 @@ export function ExerciseShell({
       aria-label={title}
       className="not-prose my-10 rounded-xl border border-ink-200 bg-surface-raised p-5 lg:p-7 shadow-md"
     >
-      <p className="eyebrow mb-1">{kicker ?? "Try it"}</p>
-      <h3 className="text-h4 text-strong">{title}</h3>
+      <div className="flex items-start justify-between gap-3">
+        <div>
+          <p className="eyebrow mb-1">{kicker ?? "Try it"}</p>
+          <h3 className="text-h4 text-strong">{title}</h3>
+        </div>
+        {headerAction}
+      </div>
       <p className="mt-2 text-body text-muted">{instructions}</p>
       <div className="mt-5">{children}</div>
     </section>

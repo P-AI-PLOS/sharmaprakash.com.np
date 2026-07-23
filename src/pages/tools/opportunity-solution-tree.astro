@@ -1,0 +1,37 @@
+---
+import SiteShell from "~/layouts/SiteShell.astro";
+import TreeBuilder from "~/components/tools/ost/TreeBuilder.tsx";
+---
+
+<SiteShell
+  title="Opportunity Solution Tree Builder — Free Tool"
+  description="Build, visualize, and export an opportunity solution tree — outcome, opportunities, solutions — free, right in your browser. Based on Teresa Torres's Continuous Discovery Habits."
+>
+  <section class="bg-surface-base pt-40 pb-12">
+    <div class="mx-auto max-w-3xl px-6 lg:px-12 text-center">
+      <p class="eyebrow mb-3">Free tool</p>
+      <h1 class="text-display-lg text-strong">Opportunity Solution Tree Builder</h1>
+      <p class="mt-4 text-body-lg text-muted max-w-xl mx-auto">
+        One outcome at the root, customer needs in the middle, solutions below — the artifact from Teresa Torres's{" "}
+        <em>Continuous Discovery Habits</em> that turns roadmap arguments into a shared picture. Build as many trees as
+        you need; everything saves in your browser.
+      </p>
+      <p class="mt-3 text-caption text-muted">
+        Want the full method behind it? <a href="/course/continuous-discovery/" class="link-underline text-accent-700">Take the free course →</a>
+      </p>
+    </div>
+  </section>
+
+  <section class="bg-surface-base pb-24">
+    <div class="mx-auto max-w-5xl px-6 lg:px-12">
+      <TreeBuilder
+        client:load
+        kicker="Free tool"
+        title="Build your opportunity solution tree"
+        instructions="Outcome first, opportunities in your customers' words, solutions only under the opportunity they serve. It saves in your browser — nothing is sent anywhere."
+        source={{ type: "standalone" }}
+        showDashboard
+      />
+    </div>
+  </section>
+</SiteShell>

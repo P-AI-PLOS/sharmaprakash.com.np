@@ -11,6 +11,7 @@ seriesOrder: 2
 ---
 
 import InterviewQuestionQuiz from "~/components/course/exercises/InterviewQuestionQuiz.tsx";
+import Checklist from "~/components/course/exercises/Checklist.tsx";
 
 Maya has an outcome. After the work in [module one](/product-management/opportunity-solution-trees-the-shape-of-good-discovery/), the trio's tree has a real root: *increase the share of workspaces that send a follow-up within 24 hours of a meeting*. What it doesn't have is anything underneath. The opportunity space — the layer of customer needs, pains, and desires that connects the metric to actual humans — is three placeholder sticky notes and a lot of white wall.
 
@@ -179,12 +180,18 @@ Take every customer-stated pain, need, and desire you currently have evidence fo
 
 ## What you should have now
 
-- [ ] Three "would you use X?" questions from your own notes, rewritten as story questions
-- [ ] An interview snapshot template — quick facts, memorable quote, experience map, opportunities heard
-- [ ] One completed snapshot from your most recent customer conversation
-- [ ] A four-forces read (push / pull / anxiety / habit) on at least one switch — a customer who adopted or abandoned your product
-- [ ] A two-level opportunity space under your outcome, every node in customer words, tagged with evidence counts
-- [ ] Thin branches explicitly marked as recruiting targets
+<Checklist
+  id="finding-opportunities-recap"
+  client:visible
+  items={[
+    `Three "would you use X?" questions from your own notes, rewritten as story questions`,
+    "An interview snapshot template — quick facts, memorable quote, experience map, opportunities heard",
+    "One completed snapshot from your most recent customer conversation",
+    "A four-forces read (push / pull / anxiety / habit) on at least one switch — a customer who adopted or abandoned your product",
+    "A two-level opportunity space under your outcome, every node in customer words, tagged with evidence counts",
+    "Thin branches explicitly marked as recruiting targets",
+  ]}
+/>
 
 There's a dependency hiding in that list: everything above assumes a steady supply of interviews, and eight conversations scraped together from Ravi's inbox is a stockpile, not a supply. Making interviews happen every single week — recruiting, outreach that gets replies, and what to do when nobody shows up — is [module three](/product-management/running-discovery-sessions-recruiting-outreach-and-no-shows/).
 

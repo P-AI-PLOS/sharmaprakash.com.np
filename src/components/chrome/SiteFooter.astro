@@ -1,8 +1,21 @@
 ---
 import { Icon } from "@iconify/react";
 import { information, bookingUrl } from "~/data/site";
+import { getAllCategories, getUniqueCategories } from "~/utils/posts";
+import { createSlug } from "~/utils";
+import { courseRegistry } from "~/data/courses";
+import { courseUrl } from "~/utils/courses";
 
 const year = new Date().getFullYear();
+
+const categories = await getUniqueCategories();
+const allCategories = await getAllCategories();
+const categoryCounts = Object.fromEntries(
+  categories.map((c) => [c, allCategories.filter((x) => x === c).length]),
+);
+const topics = categories.sort((a, b) => categoryCounts[b] - categoryCounts[a]);
+
+const courses = Object.entries(courseRegistry).map(([slug, meta]) => ({ slug, meta }));
 ---
 
 <footer class="site-footer">
@@ -30,6 +43,51 @@ const year = new Date().getFullYear();
         <span>Say hello</span>
         <Icon icon="ri:arrow-right-line" client:load />
       </a>
+    </div>
+
+    <div class="site-footer-explore">
+      {topics.length > 0 && (
+        <div class="site-footer-explore-col">
+          <p class="eyebrow text-on-inverse-muted mb-3">Topics</p>
+          <ul class="site-footer-chips">
+            {topics.map((c) => (
+              <li>
+                <a href={`/category/${createSlug(c)}/1/`} class="chip chip-inverse">
+                  {c} <span class="chip-count">({categoryCounts[c]})</span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+
+      {courses.length > 0 && (
+        <div class="site-footer-explore-col">
+          <p class="eyebrow text-on-inverse-muted mb-3">Courses</p>
+          <ul class="site-footer-courses">
+            {courses.map(({ slug, meta }) => (
+              <li>
+                <a href={courseUrl(slug)} class="link-underline">
+                  {meta.title}
+                  <span class="chip-count">({meta.chapters.length} ch.)</span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+
+      <div class="site-footer-explore-col">
+        <p class="eyebrow text-on-inverse-muted mb-3">Tools</p>
+        <ul class="site-footer-courses">
+          <li>
+            <a href="/tools/opportunity-solution-tree/" class="link-underline">
+              Opportunity Solution Tree Builder
+              <span class="chip-count">(free)</span>
+            </a>
+          </li>
+        </ul>
+      </div>
     </div>
 
     <div class="site-footer-meta">
@@ -197,6 +255,72 @@ const year = new Date().getFullYear();
     transform: translateY(-2px);
     box-shadow:
       0 10px 24px -10px color-mix(in oklab, var(--accent-600), transparent 50%);
+  }
+
+  .site-footer-explore {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-8);
+    text-align: left;
+    border-top: 1px solid color-mix(in oklab, var(--ink-50), transparent 90%);
+    padding-top: var(--space-8);
+  }
+  @media (min-width: 640px) {
+    .site-footer-explore {
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-10);
+    }
+  }
+  @media (min-width: 900px) {
+    .site-footer-explore {
+      grid-template-columns: 1fr 1fr 1fr;
+    }
+  }
+
+  .site-footer-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .chip-inverse {
+    background: color-mix(in oklab, var(--ink-50), transparent 92%);
+    color: var(--text-on-inverse);
+    border-color: transparent;
+  }
+  a.chip-inverse:hover {
+    background: var(--accent-600);
+    color: #fff;
+    border-color: transparent;
+  }
+
+  .chip-count {
+    opacity: 0.7;
+    font-size: 0.9em;
+  }
+
+  .site-footer-courses {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .site-footer-courses a {
+    color: var(--text-on-inverse);
+    font-size: 15px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: var(--space-2);
+  }
+  .site-footer-courses .chip-count {
+    color: var(--text-on-inverse-muted);
+    font-size: 13px;
   }
 
   .site-footer-meta {

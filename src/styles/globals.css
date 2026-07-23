@@ -242,6 +242,10 @@
     max-width: none;
   }
   .prose-post > * { grid-column: content; }
+  /* Astro islands render as <astro-island display:contents>, so their
+     rendered content becomes the real grid child in place of the island —
+     give it the same column placement or it falls into the gutter track. */
+  .prose-post > astro-island > * { grid-column: content; }
 
   .prose-post h2,
   .prose-post h3 {

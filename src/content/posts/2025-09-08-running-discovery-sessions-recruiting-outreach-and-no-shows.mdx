@@ -10,6 +10,8 @@ series: continuous-discovery
 seriesOrder: 3
 ---
 
+import Checklist from "~/components/course/exercises/Checklist.tsx";
+
 Maya blocked out Tuesday and Thursday afternoons for interviews, wrote a careful email, and sent it to forty Donut CRM users who'd been active in the last month. Two replied. One booked. He didn't show.
 
 That's not a bad-luck story; that's the baseline. Cold outreach to your user base converts in low single digits, and a meaningful fraction of the people who book will no-show. If Maya's plan for [continuous interviewing](/product-management/finding-opportunities-interviews-jtbd-and-the-opportunity-space/) depends on cold email working, the habit dies in week three — not because she stopped believing in discovery, but because the calendar stayed empty and the sprint didn't.
@@ -261,12 +263,18 @@ Twenty-five minutes. Write your own one-pager for the target opportunity you cho
 
 ## What you should have now
 
-- [ ] A channel plan: who in your company touches customers weekly, and what each could hand you
-- [ ] Internal asks sent to your two most promising colleagues, forwardable paragraph included
-- [ ] A cold-invite template adapted to your product — and ten sent
-- [ ] Scheduling mechanics set up: ≤7-day booking window, instant invite with video link, day-before reminder, 25-minute slots
-- [ ] A no-show playbook: 1.3x overbooking, the graceful reschedule message, zero guilt-trips
-- [ ] A versioned one-page discussion guide for your target opportunity
+<Checklist
+  id="running-discovery-sessions-recap"
+  client:visible
+  items={[
+    "A channel plan: who in your company touches customers weekly, and what each could hand you",
+    "Internal asks sent to your two most promising colleagues, forwardable paragraph included",
+    "A cold-invite template adapted to your product — and ten sent",
+    "Scheduling mechanics set up: ≤7-day booking window, instant invite with video link, day-before reminder, 25-minute slots",
+    "A no-show playbook: 1.3x overbooking, the graceful reschedule message, zero guilt-trips",
+    "A versioned one-page discussion guide for your target opportunity",
+  ]}
+/>
 
 With this machinery running, the interviews stop being an event and become a pulse — one conversation a week feeding the opportunity space, indefinitely. Next: what to *do* with a target opportunity once the evidence is solid — generating real solution options instead of grabbing the first idea — in [module 4](/product-management/from-opportunities-to-solutions-ideating-alone-and-together/).
 

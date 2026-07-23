@@ -11,6 +11,7 @@ seriesOrder: 1
 ---
 
 import OpportunitySorter from "~/components/course/exercises/OpportunitySorter.tsx";
+import Checklist from "~/components/course/exercises/Checklist.tsx";
 
 Maya walks into the Tuesday roadmap meeting at Donut CRM with a board mandate — "improve retention" — and walks into a wall of everyone else's certainty. Sam, the founder, wants the Salesforce importer, because two prospects asked for it on calls last week. Ravi, who runs the support inbox, has a spreadsheet of forty-one requests sorted by frequency; the top row says "Zapier integration (x9)." Priya, the tech lead, wants two weeks for the enrichment pipeline, which keeps flagging job changes for people who haven't changed jobs. Tom has a redesigned onboarding flow he's quietly convinced is the real answer.
 
@@ -154,9 +155,15 @@ Expect at least one request to decompress into something surprising, and at leas
 
 ## What you should have now
 
-- [ ] A product outcome statement, derived from your business outcome and passed through the three-test check (outcome not output / team can influence / measurable weekly-ish)
-- [ ] The sorter completed, with the opportunity/solution/experiment tell internalized
-- [ ] Your last five feature requests decompressed into the opportunities underneath them
+<Checklist
+  id="opportunity-solution-trees-recap"
+  client:visible
+  items={[
+    "A product outcome statement, derived from your business outcome and passed through the three-test check (outcome not output / team can influence / measurable weekly-ish)",
+    "The sorter completed, with the opportunity/solution/experiment tell internalized",
+    "Your last five feature requests decompressed into the opportunities underneath them",
+  ]}
+/>
 
 That's a root and the first raw material for an opportunity space. Next, the part most teams skip and then wonder why their tree is fiction: [finding opportunities through continuous interviewing, jobs-to-be-done, and experience mapping](/product-management/finding-opportunities-interviews-jtbd-and-the-opportunity-space/).
 

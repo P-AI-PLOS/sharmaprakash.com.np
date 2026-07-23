@@ -10,7 +10,8 @@ series: continuous-discovery
 seriesOrder: 4
 ---
 
-import TreeBuilder from "~/components/course/exercises/TreeBuilder.tsx";
+import TreeBuilder from "~/components/tools/ost/TreeBuilder.tsx";
+import Checklist from "~/components/course/exercises/Checklist.tsx";
 
 Maya booked a room, wrote the target opportunity at the top of the whiteboard — *"Half my follow-ups slip because I write them on sticky notes after calls"* — and said the word every product team says at this point: "Ideas?"
 
@@ -179,15 +180,33 @@ The only rule that matters: **the tool must make the tree cheap to change, or th
 
 Time to put the pieces together in one place: your outcome from module 1 at the root, your opportunities from module 2 underneath, and — under the single target you picked above — at least three surviving solutions from your ideation list. Your tree persists in this browser across the rest of the course, so build it for real; module 5 works directly against what you put here.
 
-<TreeBuilder client:visible />
+{/* client:load, not client:visible — the full-screen mode reads its own state from a ?ost=full query param on mount, so it needs to hydrate immediately on page load, not on scroll-into-view. */}
+
+<TreeBuilder
+  client:load
+  source={{
+    type: "course",
+    courseSlug: "continuous-discovery",
+    courseTitle: "Continuous Discovery, Hands-On",
+    chapterSlug: "solutions",
+    chapterLabel: "From opportunities to solutions",
+    href: "/course/continuous-discovery/solutions/",
+  }}
+/>
 
 ## What you should have now
 
-- [ ] One target opportunity, chosen by scoring frequency-times-intensity, company fit, and speed to learn — with the runners-up parked, not deleted
-- [ ] A solo list of 15+ solution ideas spanning at least four mechanism categories, built over two or more sittings
-- [ ] If you have a team: a 1-2-4-All session run (or booked) using the 45-minute agenda
-- [ ] Three genuinely different solutions clustered, deduped, and placed under your target opportunity
-- [ ] Your tree assembled in the builder above: outcome, opportunities, three solutions
+<Checklist
+  id="ideating-alone-and-together-recap"
+  client:visible
+  items={[
+    "One target opportunity, chosen by scoring frequency-times-intensity, company fit, and speed to learn — with the runners-up parked, not deleted",
+    "A solo list of 15+ solution ideas spanning at least four mechanism categories, built over two or more sittings",
+    "If you have a team: a 1-2-4-All session run (or booked) using the 45-minute agenda",
+    "Three genuinely different solutions clustered, deduped, and placed under your target opportunity",
+    "Your tree assembled in the builder above: outcome, opportunities, three solutions",
+  ]}
+/>
 
 All three of your solutions — like all three of Donut's — are currently stacks of guesses: that users want this, that they'll trust it, that you can build it, that it won't backfire. Next, you find the guess that kills the idea fastest if it's wrong, and [test that one first](/product-management/assumption-mapping-experiments-that-test-the-riskiest-thing-first/).
 

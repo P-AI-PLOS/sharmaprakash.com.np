@@ -10,7 +10,8 @@ series: continuous-discovery
 seriesOrder: 6
 ---
 
-import TreeBuilder from "~/components/course/exercises/TreeBuilder.tsx";
+import TreeBuilder from "~/components/tools/ost/TreeBuilder.tsx";
+import Checklist from "~/components/course/exercises/Checklist.tsx";
 
 Six weeks after the Tuesday roadmap meeting where this started, Donut CRM's tree has earned its keep. The outcome at the root — *increase the share of workspaces that send a follow-up within 24 hours of a meeting* — moved from 22% to 26% after the auto-drafted follow-up shipped behind its "edit before send" framing. Sam stopped relitigating the Salesforce importer, because it's visibly parked on a branch nobody has prioritized. Ravi's support spreadsheet now feeds interview recruiting instead of the roadmap.
 
@@ -143,18 +144,36 @@ Here's the whole course as a runnable plan. Each week is a few hours of focused 
 
 The tree you started building in module four is below — same tool, same data, still where you left it. Finish it now: outcome at the root, the opportunity space in your customers' words, your target marked, at least three solutions on the target branch, and the first assumption test you'll run. Then export the Markdown and put it somewhere your team will trip over it weekly — the wiki page linked from your sprint board, the channel topic, the doc your Monday agenda opens. A tree nobody sees on a schedule is already slideware.
 
-<TreeBuilder client:visible />
+{/* client:load, not client:visible — the full-screen mode reads its own state from a ?ost=full query param on mount, so it needs to hydrate immediately on page load, not on scroll-into-view. */}
+
+<TreeBuilder
+  client:load
+  source={{
+    type: "course",
+    courseSlug: "continuous-discovery",
+    courseTitle: "Continuous Discovery, Hands-On",
+    chapterSlug: "habit",
+    chapterLabel: "Making discovery a habit",
+    href: "/course/continuous-discovery/habit/",
+  }}
+/>
 
 ## What you should have now
 
 The whole course, as artifacts:
 
-- [ ] A product outcome statement — behavior, baseline, business outcome it serves ([module 1](/product-management/opportunity-solution-trees-the-shape-of-good-discovery/))
-- [ ] Interview snapshots from story-based customer interviews ([module 2](/product-management/finding-opportunities-interviews-jtbd-and-the-opportunity-space/))
-- [ ] A recruiting pipeline: outreach templates, a source list, a standing weekly slot ([module 3](/product-management/running-discovery-sessions-recruiting-outreach-and-no-shows/))
-- [ ] An opportunity space in customer words, one target chosen, ≥3 solutions attached ([module 4](/product-management/from-opportunities-to-solutions-ideating-alone-and-together/))
-- [ ] An assumption map and at least one test run with pre-written success criteria ([module 5](/product-management/assumption-mapping-experiments-that-test-the-riskiest-thing-first/))
-- [ ] A finished, exported tree and three recurring calendar events that keep it alive (this module)
+<Checklist
+  id="habit-recap"
+  client:visible
+  items={[
+    "A product outcome statement — behavior, baseline, business outcome it serves (module 1)",
+    "Interview snapshots from story-based customer interviews (module 2)",
+    "A recruiting pipeline: outreach templates, a source list, a standing weekly slot (module 3)",
+    "An opportunity space in customer words, one target chosen, ≥3 solutions attached (module 4)",
+    "An assumption map and at least one test run with pre-written success criteria (module 5)",
+    "A finished, exported tree and three recurring calendar events that keep it alive (this module)",
+  ]}
+/>
 
 The artifacts will all be wrong within a month — rankings will shift, branches will die, the outcome baseline will move. Good. The tree was never the deliverable. The deliverable is a team that, every single week, talks to a customer, changes its picture, and can say what it decided differently because of it.
 
