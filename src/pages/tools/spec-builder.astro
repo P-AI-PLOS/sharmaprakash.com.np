@@ -1,0 +1,37 @@
+---
+import SiteShell from "~/layouts/SiteShell.astro";
+import SpecBuilder from "~/components/tools/spec-builder/SpecBuilder.tsx";
+---
+
+<SiteShell
+  title="Spec Builder — Free Tool"
+  description="Scaffold a product spec from an opportunity solution tree. Choose between PRD, Shape-Up pitch, or Story-map outline. Everything lives in your browser."
+>
+  <section class="bg-surface-base pt-40 pb-12">
+    <div class="mx-auto max-w-3xl px-6 lg:px-12 text-center">
+      <p class="eyebrow mb-3">Free tool</p>
+      <h1 class="text-display-lg text-strong">Spec Builder</h1>
+      <p class="mt-4 text-body-lg text-muted max-w-xl mx-auto">
+        From an opportunity solution tree, pick a featured opportunity and solution,
+        choose a spec format (PRD / Shape-Up pitch / Story-map), and fill the
+        scaffolded sections. Produces exportable Markdown.
+      </p>
+      <p class="mt-3 text-caption text-muted">
+        Want the method behind it? <a href="/course/continuous-discovery/" class="link-underline text-accent-700">Take the free course →</a>
+      </p>
+    </div>
+  </section>
+
+  <section class="bg-surface-base pb-24">
+    <div class="mx-auto max-w-5xl px-6 lg:px-12">
+      <SpecBuilder
+        client:load
+        kicker="Free tool"
+        title="Build your spec artifact"
+        instructions="Pick an opportunity from your tree (🎯 target or any), select a solution, choose framing job, select format, then fill the scaffolded sections. Acceptance criteria applied to every format, regardless of format."
+        source={{ type: "standalone" }}
+        showDashboard
+      />
+    </div>
+  </section>
+</SiteShell>
