@@ -34,30 +34,38 @@ export const newNode = (text: string): MetricNode => ({
   annotation: null,
 });
 
-export const EMPTY_TREE: MetricTree = { root: newNode("") };
+export const emptyTree = (): MetricTree => ({ root: newNode("") });
 
-const SEDED_TREE: MetricTree = {
+/**
+ * The post's own marketplace worked example (design D7): weekly transactions
+ * → active buyers × transactions per buyer; active buyers → new activations +
+ * retained + resurrected; activation → signups × onboarding completion ×
+ * first-transaction rate. Built fresh per call so every seeded record gets its
+ * own node ids.
+ */
+const seededTree = (): MetricTree => ({
   root: {
     ...newNode("Weekly transactions"),
     children: [
       {
         ...newNode("Active buyers"),
         children: [
-          newNode("New activations"),
+          {
+            ...newNode("New activations"),
+            children: [
+              newNode("Signups"),
+              newNode("Onboarding completion"),
+              newNode("First-transaction rate"),
+            ],
+          },
           newNode("Retained"),
           newNode("Resurrected"),
         ],
-        annotation: null,
       },
-      {
-        ...newNode("Transactions per buyer"),
-        children: [],
-        annotation: null,
-      },
+      newNode("Transactions per buyer"),
     ],
-    annotation: null,
   },
-};
+});
 
 export const contextKeyFor = (source: MetricTreeSource): string =>
   source.type === "post" ? `post:${source.postSlug}` : "standalone";
@@ -72,7 +80,7 @@ export const listTrees = (): MetricTreeRecord[] => store.list();
 
 export const getTree = (id: string): MetricTreeRecord | undefined => store.get(id);
 
-export const createTree = (source: MetricTreeSource, tree: MetricTree = EMPTY_TREE): MetricTreeRecord =>
+export const createTree = (source: MetricTreeSource, tree: MetricTree = emptyTree()): MetricTreeRecord =>
   store.create({
     productId: resolveActiveProduct().id,
     tree,
@@ -92,8 +100,10 @@ export const resolveActiveTree = (source: MetricTreeSource): MetricTreeRecord =>
   const activeId = getActiveId(ck);
   const existing = activeId ? getTree(activeId) : undefined;
   if (existing) return existing;
-  const useSeeded = source.type === "post";
-  const created = createTree(source, useSeeded ? SEDED_TREE : EMPTY_TREE);
+  // D7: only a brand-new post-embed record is seeded with the worked example;
+  // an existing record is returned untouched, so a returning visitor sees
+  // their own edits rather than a re-seed.
+  const created = createTree(source, source.type === "post" ? seededTree() : emptyTree());
   setActiveId(ck, created.id);
   return created;
 };

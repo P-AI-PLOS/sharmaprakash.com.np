@@ -1,283 +1,423 @@
 /**
- * North Star Metric Tree — standalone builder island.
- * Root (North Star) → input metrics → leaves, any depth.
- * Persists via metric-tree-store; freeform only.
+ * North Star Metric Tree — the builder island.
+ *
+ * Root (the North Star) → input metrics → leaves, at any depth. Leaves can be
+ * flagged orphan (nobody owns it) or contested (more than one team claims it)
+ * with a note. Persists to localStorage via metric-tree-store, which can hold
+ * several trees (the post embed, or any number created from the standalone
+ * tool) and remembers which tree each embed context last had open.
  */
 import { useEffect, useRef, useState } from "react";
-import { Plus, Trash2, Ghost, Swords, ChevronRight, Copy, Maximize2, Minimize2 } from "lucide-react";
-import { ExerciseShell } from "~/components/course/exercises/exercise-ui";
+import { createPortal } from "react-dom";
+import { Ghost, HelpCircle, Maximize2, Plus, Swords, Trash2, TreePine, X } from "lucide-react";
+import { ExerciseShell, ChoiceButton } from "~/components/course/exercises/exercise-ui";
 import MetricHelpModal from "./MetricHelpModal";
 import MetricTreeDiagram, { type TreeDirection } from "./MetricTreeDiagram";
+import MetricTreeSwitcher from "./MetricTreeSwitcher";
+import MetricTreeDashboard from "./MetricTreeDashboard";
 import {
   addChild,
+  contextKeyFor,
+  createTree,
+  deleteTree,
+  emptyTree,
+  listTrees,
   removeNode,
   renameNode,
-  setAnnotation,
   resolveActiveTree,
   saveTreeData,
+  setAnnotation,
+  setActiveId as setActiveIdInStore,
+  toMarkdown,
+  type MetricAnnotationStatus,
   type MetricNode,
+  type MetricTree,
+  type MetricTreeRecord,
+  type MetricTreeSource,
 } from "~/utils/metric-tree-store";
 
-function uid(): string {
-  return Math.random().toString(36).slice(2, 10);
-}
+// Distinct from OST's `?ost=full` so the two tools never read each other's
+// full-screen state when both appear on one page.
+const FULLSCREEN_PARAM = "mtree";
+const FULLSCREEN_VALUE = "full";
 
 const inputClass =
   "w-full rounded-md border border-ink-200 bg-surface-base px-3 py-2 text-body text-strong placeholder:text-faint focus:border-accent-600 focus:outline-none";
 
-// Markdown export
-const ICON = { root: "🌟", branch: "📊", leaf: "🎯" } as const;
-
-const lineFor = (node: MetricNode, depth: number): string[] => {
-  const isLeaf = node.children.length === 0;
-  const icon = depth === 0 ? ICON.root : isLeaf ? ICON.leaf : ICON.branch;
-  const badge =
-    node.annotation?.status === "orphan" ? " — 🕳️ orphan" :
-    node.annotation?.status === "contested" ? " — ⚔️ contested" : "";
-  const line = `${"  ".repeat(depth)}- ${icon} ${node.text}${badge}`;
-  return [line, ...node.children.flatMap((c) => lineFor(c, depth + 1))];
-};
-
-const exportToMarkdown = (root: MetricNode): string => {
-  const lines = [`# North Star metric tree`, "", ...lineFor(root, 0)];
-  return lines.join("\n");
-};
-
 interface MetricTreeBuilderProps {
-  source?: { type: "standalone" } | { type: "post"; postSlug: string; postTitle: string; href: string };
-  showDashboard?: boolean;
+  /** Which embed this is — the source post, or the standalone tool. Defaults to standalone. */
+  source?: MetricTreeSource;
   kicker?: string;
   title?: string;
   instructions?: string;
+  /** Show the "your trees" management grid below the export block (used on the standalone tool page). */
+  showDashboard?: boolean;
 }
 
 export default function MetricTreeBuilder({
   source = { type: "standalone" },
+  kicker = "Build yours",
+  title = "Your North Star metric tree",
+  instructions = "North Star at the root, the input metrics that compose it underneath, and keep decomposing until every leaf is a number one team can own. It saves in your browser — nothing is sent anywhere.",
   showDashboard = false,
-  kicker = "Free tool",
-  title = "North Star metric tree",
-  instructions = "Decompose your North Star into input metrics. Keep going until each leaf is owned by a single team.",
 }: MetricTreeBuilderProps) {
-  const [showHelp, setShowHelp] = useState(false);
-  const [treeId, setTreeId] = useState<string | null>(null);
-  const [root, setRoot] = useState<MetricNode>({ id: "", text: "", children: [], annotation: null });
-  const [direction, setDirection] = useState<TreeDirection>("left-right");
+  const [activeId, setActiveId] = useState<string | null>(null);
+  const [tree, setTree] = useState<MetricTree>(emptyTree);
+  const [records, setRecords] = useState<MetricTreeRecord[]>([]);
+  const [childDrafts, setChildDrafts] = useState<Record<string, string>>({});
+  const [direction, setDirection] = useState<TreeDirection>("top-down");
   const [fullscreen, setFullscreen] = useState(false);
-  const [newChildTexts, setNewChildTexts] = useState<Record<string, string>>({});
-  const [editingId, setEditingId] = useState<string | null>(null);
-  const [editingText, setEditingText] = useState("");
+  const [copied, setCopied] = useState(false);
+  const [showHelp, setShowHelp] = useState(false);
   const hydrated = useRef(false);
+  const contextKey = contextKeyFor(source);
 
   useEffect(() => {
-    const tree = resolveActiveTree(source);
-    setTreeId(tree.id);
-    setRoot(tree.tree.root);
+    const record = resolveActiveTree(source);
+    setActiveId(record.id);
+    setTree(record.tree);
+    setRecords(listTrees());
     hydrated.current = true;
-  }, [source]);
 
-  const persist = (nextRoot: MetricNode) => {
-    setRoot(nextRoot);
-    // persistence happens inside metric-tree-store on each mutation call
-  };
+    const params = new URLSearchParams(window.location.search);
+    if (params.get(FULLSCREEN_PARAM) === FULLSCREEN_VALUE) setFullscreen(true);
+    // Only the resolved source (via contextKey) should ever re-run this — source is a fresh object per render otherwise.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [contextKey]);
 
-  const findNode = (node: MetricNode, id: string): MetricNode | null => {
-    if (node.id === id) return node;
-    for (const child of node.children) {
-      const found = findNode(child, id);
-      if (found) return found;
+  // Mirror fullscreen state into the URL (replaceState, not pushState — this
+  // is a view mode, not a new history entry) so a refresh re-opens in place.
+  const skipFirstUrlSync = useRef(true);
+  useEffect(() => {
+    if (skipFirstUrlSync.current) {
+      skipFirstUrlSync.current = false;
+      return;
     }
-    return null;
-  };
+    const url = new URL(window.location.href);
+    if (fullscreen) url.searchParams.set(FULLSCREEN_PARAM, FULLSCREEN_VALUE);
+    else url.searchParams.delete(FULLSCREEN_PARAM);
+    window.history.replaceState(window.history.state, "", url);
+  }, [fullscreen]);
 
-  const replaceNode = (node: MetricNode, id: string, replacement: MetricNode | null): MetricNode => {
-    if (node.id === id) return replacement ?? node;
-    return {
-      ...node,
-      children: node.children
-        .map((child) => replaceNode(child, id, replacement))
-        .filter((c): c is MetricNode => c !== null),
+  useEffect(() => {
+    if (!hydrated.current || !activeId) return;
+    saveTreeData(activeId, tree);
+    setRecords(listTrees());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [tree]);
+
+  useEffect(() => {
+    if (!fullscreen) return;
+    const previousOverflow = document.documentElement.style.overflow;
+    document.documentElement.style.overflow = "hidden";
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setFullscreen(false);
     };
+    window.addEventListener("keydown", onKeyDown);
+    return () => {
+      document.documentElement.style.overflow = previousOverflow;
+      window.removeEventListener("keydown", onKeyDown);
+    };
+  }, [fullscreen]);
+
+  const switchTo = (id: string) => {
+    const record = records.find((r) => r.id === id);
+    if (!record) return;
+    setActiveIdInStore(contextKey, id);
+    setActiveId(id);
+    setTree(record.tree);
   };
 
-  const handleAddChild = (parentId: string) => {
-    const text = (newChildTexts[parentId] ?? "").trim();
-    if (!text || !treeId) return;
-    const tree = resolveActiveTree(source);
-    const updatedTree = addChild(tree.tree, parentId, text);
-    saveTreeData(treeId, updatedTree);
-    persist(updatedTree.root);
-    setNewChildTexts((prev) => ({ ...prev, [parentId]: "" }));
+  const createAndSwitch = () => {
+    const record = createTree(source);
+    setActiveIdInStore(contextKey, record.id);
+    setActiveId(record.id);
+    setTree(record.tree);
+    setRecords(listTrees());
   };
 
-  const handleDelete = (nodeId: string) => {
-    if (!treeId || nodeId === root.id) return; // can't delete root
-    const tree = resolveActiveTree(source);
-    const updatedTree = removeNode(tree.tree, nodeId);
-    saveTreeData(treeId, updatedTree);
-    persist(updatedTree.root);
+  const removeTree = (id: string) => {
+    deleteTree(id);
+    const remaining = listTrees();
+    setRecords(remaining);
+    if (id === activeId) {
+      const next = remaining[0] ?? createTree(source);
+      setActiveIdInStore(contextKey, next.id);
+      setActiveId(next.id);
+      setTree(next.tree);
+      if (remaining.length === 0) setRecords(listTrees());
+    }
   };
 
-  const handleAnnotate = (nodeId: string, status: "orphan" | "contested") => {
-    if (!treeId) return;
-    const tree = resolveActiveTree(source);
-    const updatedTree = setAnnotation(tree.tree, nodeId, { status, note: "" });
-    saveTreeData(treeId, updatedTree);
-    persist(updatedTree.root);
+  const rename = (nodeId: string, text: string) => setTree((t) => renameNode(t, nodeId, text));
+
+  const addChildTo = (parentId: string) => {
+    const text = (childDrafts[parentId] ?? "").trim();
+    if (!text) return;
+    setTree((t) => addChild(t, parentId, text));
+    setChildDrafts((d) => ({ ...d, [parentId]: "" }));
   };
 
-  const handleClearAnnotation = (nodeId: string) => {
-    if (!treeId) return;
-    const tree = resolveActiveTree(source);
-    const updatedTree = setAnnotation(tree.tree, nodeId, null);
-    saveTreeData(treeId, updatedTree);
-    persist(updatedTree.root);
+  const remove = (nodeId: string) => setTree((t) => removeNode(t, nodeId));
+
+  const annotate = (nodeId: string, status: MetricAnnotationStatus | null, note = "") =>
+    setTree((t) => setAnnotation(t, nodeId, status ? { status, note } : null));
+
+  const copyMarkdown = async () => {
+    try {
+      await navigator.clipboard.writeText(toMarkdown(tree));
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch {
+      /* clipboard unavailable — the block below still shows the export */
+    }
   };
 
-  const handleStartEdit = (nodeId: string, currentText: string) => {
-    setEditingId(nodeId);
-    setEditingText(currentText);
-  };
-
-  const handleSaveEdit = (nodeId: string) => {
-    if (!treeId || !editingText.trim()) return;
-    const tree = resolveActiveTree(source);
-    const updatedTree = renameNode(tree.tree, nodeId, editingText.trim());
-    saveTreeData(treeId, updatedTree);
-    persist(updatedTree.root);
-    setEditingId(null);
-    setEditingText("");
-  };
-
-  const handleExport = () => {
-    const md = exportToMarkdown(root);
-    navigator.clipboard.writeText(md).catch(() => {});
-  };
-
-  const renderNode = (node: MetricNode, depth: number = 0): React.ReactNode => {
+  const renderNode = (node: MetricNode, depth: number): React.ReactNode => {
     const isLeaf = node.children.length === 0;
     const isRoot = depth === 0;
+    const status = node.annotation?.status ?? null;
 
     return (
-      <div key={node.id} className={`${depth > 0 ? "ml-4 mt-2 border-l-2 border-ink-200 pl-3" : ""}`}>
-        <div className="flex items-center gap-2 rounded-lg border border-ink-200 bg-surface-base p-3">
-          {editingId === node.id ? (
-            <div className="flex flex-1 items-center gap-2">
-              <input
-                type="text"
-                value={editingText}
-                onChange={(e) => setEditingText(e.target.value)}
-                onKeyDown={(e) => e.key === "Enter" && handleSaveEdit(node.id)}
-                className={`${inputClass} !text-caption flex-1`}
-                autoFocus
-              />
-              <button type="button" onClick={() => handleSaveEdit(node.id)} className="btn btn-primary btn-sm !py-1">
-                Save
+      <div
+        key={node.id}
+        className={depth > 0 ? "mt-3 border-l-2 border-ink-200 pl-3 sm:pl-4" : ""}
+      >
+        <div className="rounded-lg border border-ink-200 bg-surface-base p-3">
+          <div className="flex items-center gap-2">
+            <span aria-hidden="true" className="shrink-0 text-caption">
+              {isRoot ? "🌟" : isLeaf ? "🎯" : "📊"}
+            </span>
+            <input
+              type="text"
+              value={node.text}
+              onChange={(e) => rename(node.id, e.target.value)}
+              placeholder={isRoot ? "Your North Star metric…" : "Metric name…"}
+              aria-label={isRoot ? "North Star metric" : `Metric: ${node.text || "unnamed"}`}
+              className={`${inputClass} !py-1.5 ${isRoot ? "font-semibold" : ""}`}
+            />
+
+            {status === "orphan" && (
+              <span className="hidden shrink-0 items-center gap-1 rounded-full border border-dashed border-ink-400 px-2 py-0.5 text-[10px] font-semibold text-muted sm:flex">
+                <Ghost size={10} strokeWidth={3} aria-hidden="true" /> Orphan
+              </span>
+            )}
+            {status === "contested" && (
+              <span className="hidden shrink-0 items-center gap-1 rounded-full border border-accent-600 bg-accent-600 px-2 py-0.5 text-[10px] font-semibold text-white sm:flex">
+                <Swords size={10} strokeWidth={3} aria-hidden="true" /> Contested
+              </span>
+            )}
+
+            {!isRoot && (
+              <button
+                type="button"
+                onClick={() => remove(node.id)}
+                aria-label={`Remove metric: ${node.text || "unnamed"}`}
+                className="shrink-0 text-faint transition-colors hover:text-accent-700"
+              >
+                <Trash2 size={14} strokeWidth={2} />
+              </button>
+            )}
+          </div>
+
+          {/* Ownership annotation — leaves only (design D5). An unnamed node
+              has nothing to own yet, so the controls wait for a name rather
+              than greeting an empty tree with "mark orphan". */}
+          {isLeaf && node.text.trim() !== "" && (
+            <div className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-2 pl-6">
+              <button
+                type="button"
+                onClick={() => annotate(node.id, status === "orphan" ? null : "orphan", node.annotation?.note ?? "")}
+                aria-pressed={status === "orphan"}
+                className={`inline-flex items-center gap-1 text-caption font-semibold link-underline ${
+                  status === "orphan" ? "text-accent-700" : "text-faint"
+                }`}
+              >
+                <Ghost size={13} strokeWidth={2} aria-hidden="true" />
+                {status === "orphan" ? "Orphan ✓" : "Mark orphan"}
               </button>
               <button
                 type="button"
-                onClick={() => setEditingId(null)}
-                className="btn btn-ghost btn-sm !py-1 text-faint"
+                onClick={() => annotate(node.id, status === "contested" ? null : "contested", node.annotation?.note ?? "")}
+                aria-pressed={status === "contested"}
+                className={`inline-flex items-center gap-1 text-caption font-semibold link-underline ${
+                  status === "contested" ? "text-accent-700" : "text-faint"
+                }`}
               >
-                Cancel
+                <Swords size={13} strokeWidth={2} aria-hidden="true" />
+                {status === "contested" ? "Contested ✓" : "Mark contested"}
               </button>
+              {status && (
+                <input
+                  type="text"
+                  value={node.annotation?.note ?? ""}
+                  onChange={(e) => annotate(node.id, status, e.target.value)}
+                  placeholder={
+                    status === "orphan"
+                      ? "Why is it unowned? e.g. no team has claimed this"
+                      : "Who's claiming it? e.g. Growth and Lifecycle both"
+                  }
+                  aria-label={`${status === "orphan" ? "Orphan" : "Contested"} note for ${node.text || "this metric"}`}
+                  className={`${inputClass} !py-1 !text-caption min-w-[16rem] flex-1`}
+                />
+              )}
             </div>
-          ) : (
-            <>
-              <span
-                className="flex-1 text-body font-semibold text-strong cursor-pointer hover:text-accent-700"
-                onClick={() => handleStartEdit(node.id, node.text)}
-              >
-                {isRoot && <span className="mr-1">🌟</span>}
-                {isLeaf && !isRoot && <span className="mr-1">🎯</span>}
-                {!isLeaf && !isRoot && <span className="mr-1">📊</span>}
-                {node.text || "(empty)"}
-              </span>
+          )}
 
-              {/* Annotation badges */}
-              {node.annotation?.status === "orphan" && (
-                <span className="flex items-center gap-1 rounded-full border border-amber-300 bg-amber-50 px-2 py-0.5 text-[10px] font-semibold text-amber-700">
-                  <Ghost size={10} strokeWidth={3} /> Orphan
-                </span>
-              )}
-              {node.annotation?.status === "contested" && (
-                <span className="flex items-center gap-1 rounded-full border border-rose-300 bg-rose-50 px-2 py-0.5 text-[10px] font-semibold text-rose-700">
-                  <Swords size={10} strokeWidth={3} /> Contested
-                </span>
-              )}
-
-              {/* Actions */}
-              {!isRoot && (
-                <button
-                  type="button"
-                  onClick={() => handleDelete(node.id)}
-                  aria-label={`Delete: ${node.text}`}
-                  className="shrink-0 text-faint transition-colors hover:text-accent-700"
-                >
-                  <Trash2 size={14} strokeWidth={2} />
-                </button>
-              )}
-              {isLeaf && !isRoot && (
-                <>
-                  {node.annotation?.status !== "orphan" && (
-                    <button
-                      type="button"
-                      onClick={() => handleAnnotate(node.id, "orphan")}
-                      className="shrink-0 text-faint transition-colors hover:text-amber-600"
-                      title="Mark as orphan"
-                    >
-                      <Ghost size={14} strokeWidth={2} />
-                    </button>
-                  )}
-                  {node.annotation?.status !== "contested" && (
-                    <button
-                      type="button"
-                      onClick={() => handleAnnotate(node.id, "contested")}
-                      className="shrink-0 text-faint transition-colors hover:text-rose-600"
-                      title="Mark as contested"
-                    >
-                      <Swords size={14} strokeWidth={2} />
-                    </button>
-                  )}
-                  {node.annotation && (
-                    <button
-                      type="button"
-                      onClick={() => handleClearAnnotation(node.id)}
-                      className="text-[10px] text-faint hover:text-accent-700"
-                    >
-                      clear
-                    </button>
-                  )}
-                </>
-              )}
-            </>
+          {/* Decompose one level further. */}
+          <div className="mt-2 flex gap-2 pl-6">
+            <input
+              type="text"
+              value={childDrafts[node.id] ?? ""}
+              onChange={(e) => setChildDrafts((d) => ({ ...d, [node.id]: e.target.value }))}
+              onKeyDown={(e) => e.key === "Enter" && addChildTo(node.id)}
+              placeholder={isRoot ? "Add an input metric that composes it…" : "Break this down one level further…"}
+              aria-label={`Add a child metric under ${node.text || "this metric"}`}
+              className={`${inputClass} !py-1 !text-caption`}
+            />
+            <button
+              type="button"
+              onClick={() => addChildTo(node.id)}
+              className="btn btn-primary btn-sm shrink-0 !py-1"
+              aria-label={`Add child metric under ${node.text || "this metric"}`}
+            >
+              <Plus size={13} strokeWidth={3} aria-hidden="true" />
+              Add
+            </button>
+          </div>
+          {isLeaf && status && (
+            <p className="mt-2 pl-6 text-caption text-faint">
+              Adding a child metric clears this leaf&rsquo;s {status} flag — it&rsquo;s no longer where the tree stops.
+            </p>
           )}
         </div>
 
-        {/* Add child input */}
-        <div className="mt-2 flex items-center gap-2">
-          <ChevronRight size={14} className="text-faint" />
-          <input
-            type="text"
-            value={newChildTexts[node.id] ?? ""}
-            onChange={(e) => setNewChildTexts((prev) => ({ ...prev, [node.id]: e.target.value }))}
-            onKeyDown={(e) => e.key === "Enter" && handleAddChild(node.id)}
-            placeholder="Add child metric..."
-            className={`${inputClass} !text-caption flex-1`}
-          />
-          <button
-            type="button"
-            onClick={() => handleAddChild(node.id)}
-            className="btn btn-primary btn-sm shrink-0 !py-1"
-          >
-            <Plus size={12} strokeWidth={3} />
-          </button>
-        </div>
-
-        {/* Children */}
         {node.children.map((child) => renderNode(child, depth + 1))}
       </div>
     );
   };
+
+  const hasTree = Boolean(tree.root.text.trim()) || tree.root.children.length > 0;
+
+  const editor = (
+    <>
+      <div className="flex items-center justify-between gap-2">
+        <span className="text-caption font-semibold text-muted">
+          The tree — North Star at the root, input metrics beneath it
+        </span>
+        <button
+          type="button"
+          onClick={() => setShowHelp(true)}
+          className="shrink-0 inline-flex items-center gap-1 text-caption text-muted transition-colors hover:text-accent-700"
+        >
+          <HelpCircle size={14} strokeWidth={2} aria-hidden="true" />
+          How this works
+        </button>
+      </div>
+      <div className="mt-3">{renderNode(tree.root, 0)}</div>
+    </>
+  );
+
+  const directionToggle = (
+    <div className="flex gap-2">
+      <ChoiceButton label="Top-down" selected={direction === "top-down"} onClick={() => setDirection("top-down")} />
+      <ChoiceButton label="Left-right" selected={direction === "left-right"} onClick={() => setDirection("left-right")} />
+      <ChoiceButton label="Right-left" selected={direction === "right-left"} onClick={() => setDirection("right-left")} />
+    </div>
+  );
+
+  const exportBlock = hasTree && (
+    <div className="mt-6 border-t border-ink-200 pt-4">
+      <div className="flex items-center justify-between gap-3">
+        <p className="text-caption font-semibold text-muted">Export</p>
+        <div className="flex gap-4">
+          <button type="button" onClick={copyMarkdown} className="text-caption font-semibold text-accent-700 link-underline">
+            {copied ? "Copied ✓" : "Copy as Markdown"}
+          </button>
+          <button
+            type="button"
+            onClick={() => setTree(emptyTree())}
+            className="text-caption font-semibold text-faint link-underline"
+          >
+            Clear tree
+          </button>
+        </div>
+      </div>
+      <pre className="mt-2 overflow-x-auto rounded-md bg-ink-100 p-3 text-caption text-strong">{toMarkdown(tree)}</pre>
+    </div>
+  );
+
+  const switcher = activeId && (
+    <MetricTreeSwitcher
+      records={records}
+      activeId={activeId}
+      onSelect={switchTo}
+      onCreate={createAndSwitch}
+      onDelete={removeTree}
+    />
+  );
+
+  const helpModal = <MetricHelpModal show={showHelp} onClose={() => setShowHelp(false)} />;
+
+  if (fullscreen) {
+    return (
+      <>
+        {createPortal(
+          <div
+            className="fixed inset-0 z-[100] flex flex-col bg-surface-base"
+            role="dialog"
+            aria-modal="true"
+            aria-label="Your North Star metric tree — full screen"
+          >
+            <div className="flex items-center justify-between gap-3 border-b border-ink-200 bg-surface-raised px-5 py-4 shadow-sm lg:px-7">
+              <div className="flex min-w-0 items-center gap-3">
+                <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-accent-50 text-accent-700">
+                  <TreePine size={20} strokeWidth={2} aria-hidden="true" />
+                </span>
+                <div className="min-w-0">
+                  <p className="eyebrow mb-0.5">{kicker} · Full screen</p>
+                  <h3 className="truncate text-h4 text-strong leading-tight">{tree.root.text || title}</h3>
+                </div>
+              </div>
+              <div className="flex shrink-0 items-center gap-2">
+                {switcher}
+                <button
+                  type="button"
+                  onClick={() => setFullscreen(false)}
+                  className="btn btn-secondary btn-sm shrink-0"
+                  aria-label="Exit full screen"
+                >
+                  <X size={16} strokeWidth={2.5} aria-hidden="true" />
+                  <span>Exit full screen</span>
+                  <kbd className="rounded border border-current/30 px-1.5 py-0.5 text-[11px] font-normal opacity-70">Esc</kbd>
+                </button>
+              </div>
+            </div>
+
+            <div className="flex min-h-0 flex-1 flex-col gap-4 overflow-hidden p-4 lg:flex-row lg:gap-6 lg:p-6">
+              <div className="min-h-0 overflow-y-auto lg:w-[420px] lg:shrink-0 lg:pr-2">
+                {editor}
+                {exportBlock}
+              </div>
+
+              <div className="flex min-h-0 flex-1 flex-col">
+                <div className="flex items-center justify-between gap-3">
+                  <p className="text-caption font-semibold text-muted">Tree diagram</p>
+                  {directionToggle}
+                </div>
+                <div className="mt-3 min-h-0 flex-1">
+                  <MetricTreeDiagram root={tree.root} direction={direction} heightClassName="h-full" />
+                </div>
+                <p className="mt-2 text-caption text-faint">Drag to pan, scroll to zoom.</p>
+              </div>
+            </div>
+          </div>,
+          document.body,
+        )}
+        {helpModal}
+      </>
+    );
+  }
 
   return (
     <>
@@ -285,68 +425,43 @@ export default function MetricTreeBuilder({
         kicker={kicker}
         title={title}
         instructions={instructions}
-      >
-        <div className="flex items-center justify-between gap-3">
-          <button
-            type="button"
-            onClick={() => setShowHelp(true)}
-            className="btn btn-ghost btn-sm !text-caption"
-          >
-            How this works
-          </button>
-          <div className="flex items-center gap-2">
-            <select
-              value={direction}
-              onChange={(e) => setDirection(e.target.value as TreeDirection)}
-              className="rounded-md border border-ink-200 bg-surface-base px-2 py-1 text-caption text-strong"
-            >
-              <option value="left-right">Left → Right</option>
-              <option value="top-down">Top → Bottom</option>
-            </select>
+        headerAction={
+          <div className="flex shrink-0 items-center gap-2">
+            {switcher}
             <button
               type="button"
-              onClick={() => setFullscreen(!fullscreen)}
-              className="btn btn-ghost btn-sm !py-1"
-              aria-label={fullscreen ? "Exit fullscreen" : "Fullscreen"}
+              onClick={() => setFullscreen(true)}
+              className="btn btn-ghost shrink-0 !py-1.5 !text-caption"
+              aria-label="Expand to full screen"
             >
-              {fullscreen ? <Minimize2 size={14} /> : <Maximize2 size={14} />}
-            </button>
-            <button
-              type="button"
-              onClick={handleExport}
-              className="btn btn-ghost btn-sm !text-caption"
-            >
-              <Copy size={12} /> Export
+              <Maximize2 size={14} strokeWidth={2} aria-hidden="true" />
+              <span>Full screen</span>
             </button>
           </div>
-        </div>
+        }
+      >
+        {editor}
 
-        {/* Diagram */}
-        <div className={fullscreen ? "fixed inset-0 z-50 bg-surface-base p-4" : ""}>
-          {fullscreen && (
-            <div className="mb-2 flex justify-end">
-              <button
-                type="button"
-                onClick={() => setFullscreen(false)}
-                className="btn btn-ghost btn-sm"
-              >
-                <Minimize2 size={14} /> Exit
-              </button>
+        {hasTree && (
+          <div className="mt-6 border-t border-ink-200 pt-4">
+            <div className="flex items-center justify-between gap-3">
+              <p className="text-caption font-semibold text-muted">Tree diagram</p>
+              {directionToggle}
             </div>
-          )}
-          <MetricTreeDiagram
-            root={root}
-            direction={direction}
-            heightClassName={fullscreen ? "flex-1" : undefined}
-          />
-        </div>
+            <div className="mt-3">
+              <MetricTreeDiagram root={tree.root} direction={direction} />
+            </div>
+            <p className="mt-2 text-caption text-faint">Drag to pan, scroll to zoom.</p>
+          </div>
+        )}
 
-        {/* Editor */}
-        <div className={fullscreen ? "hidden" : ""}>
-          {renderNode(root)}
-        </div>
+        {exportBlock}
+
+        {showDashboard && activeId && (
+          <MetricTreeDashboard records={records} activeId={activeId} onOpen={switchTo} onDelete={removeTree} />
+        )}
       </ExerciseShell>
-      <MetricHelpModal show={showHelp} onClose={() => setShowHelp(false)} />
+      {helpModal}
     </>
   );
 }
