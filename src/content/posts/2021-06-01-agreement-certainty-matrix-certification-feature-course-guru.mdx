@@ -11,6 +11,9 @@ seriesOrder: 12
 use_featured_image: false
 ---
 
+import AgreementCertaintyMatrix from "~/components/tools/matrix/AgreementCertaintyMatrix.tsx";
+import { CERTIFICATION_FEATURE_ITEMS } from "~/components/tools/matrix/curated/certification-feature.ts";
+
 The pitch in the room was: "every LMS has certificates, we're behind, let's just build it." Nobody argued. Nobody needed to — it sounded like the kind of thing you don't debate, you just do, the way you don't debate whether a course needs a title field. Twenty minutes into scoping, the room split three ways on branding, split again on pricing, and split a third time on whether a certificate needed any verification behind it at all. The feature that "everyone agrees is obvious" turned out to be the one nobody agreed on. That gap — between how settled something *feels* and how settled it *is* — is exactly what the **Agreement-Certainty Matrix** exists to expose, and it's what saved course guru's certification feature from getting built twice.
 
 ## What it is
@@ -39,6 +42,15 @@ This is a 45–60 minute structure, and the value is almost entirely in the phys
 **Match approach to zone (10–15 minutes).** Simple items get delegated and executed without further ceremony. Complicated items get routed to whoever has the expertise — a specialist, a technical lead, outside research. Complex items get a small experiment or another Liberating Structure (Critical Uncertainties fits well here, since it's built for exactly this zone) to probe before committing real build time. Chaotic items — rare in feature planning, more common in an incident review — get stopped and stabilized before anything else happens.
 
 ## Running certificates through the matrix
+
+<AgreementCertaintyMatrix
+  client:visible
+  mode="curated"
+  items={CERTIFICATION_FEATURE_ITEMS}
+  kicker="Try it"
+  title="Place course guru's certificates"
+  instructions="Two items off that wall. Place each one before you read the walkthrough below — the certification feature is the one the room split on."
+/>
 
 Course guru's team pulled the certification feature into the grid alongside a dozen other backlog items, expecting it to land in Simple — the reasoning was straightforward: certificates are a category staple, dozens of LMS products ship them, so surely best practice already exists and the only work left is implementation.
 
