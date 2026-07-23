@@ -10,6 +10,8 @@ series: agile-first-principles
 seriesOrder: 3
 ---
 
+import TriageBoard from "~/components/tools/backlog-triage/TriageBoard.tsx";
+
 The backlog had 1,147 items when I opened it. A fintech client had asked me to help their team "get back on top of prioritization," and the first thing I did was sort their tracker by creation date. The oldest ticket was four and a half years old — older than every current member of the team. It requested a CSV export for a report that no longer existed, filed by a customer who had churned in the interim, referencing a pricing tier that had been retired twice over. It had been groomed. Someone, at some point, had given it a story-point estimate. Nobody could tell me why it was still open, and everybody could tell me why it couldn't be closed: *what if it's important?*
 
 That question — asked reflexively, about an item nobody had touched in four years — is the whole disease. **A big backlog feels like diligence and functions as denial: it's the place where a team stores every decision it's unwilling to make, filed under the pretense that filing is a plan.**
@@ -41,6 +43,8 @@ For a team that can't stomach the auto-close, there's the honest extreme: **back
 What survives the deletion pass — the recent, the touched, the still-warm — gets exactly three buckets.
 
 **Now** is committed work: this cycle, named owners, no ambiguity. **Next** is the short queue behind it — things you genuinely expect to start within a quarter, which means the bucket has a size limit by definition. And **never** is the bucket that does the real work, because *never gets said out loud*. Not "backlog," not "icebox," not "future considerations" — closed, with a reason, communicated to whoever asked. "We looked at this and we're not going to do it, because it serves a segment we've deprioritized" costs one uncomfortable minute and repays it forever: the requester stops waiting, stops asking for status, and — this part surprised me the first time — usually respects the answer. The polite deferral was never fooling them anyway. Every stakeholder with a year of tenure knows exactly what "it's in the backlog" means.
+
+<TriageBoard client:load source={{ type: "post" }} />
 
 The triage is also where the buried decisions surface. Most of what makes a backlog unrankable is that its items aren't comparable — half are tasks, half are wishes, and a wish can't be prioritized against a task. Which leads to the step most cleanups skip.
 

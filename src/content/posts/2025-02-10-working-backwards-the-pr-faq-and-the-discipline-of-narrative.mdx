@@ -8,6 +8,8 @@ excerpt: "Amazon's PR/FAQ gets described as 'write the press release first,' whi
 use_featured_image: false
 ---
 
+import PrFaqBuilder from "~/components/tools/pr-faq/PrFaqBuilder.tsx";
+
 The best kill decision I've ever been part of took four pages and zero sprints. A platform team had been circling an internal developer portal for two quarters — everyone vaguely for it, nobody quite able to say what it was, headcount conversations already starting. Instead of a discovery phase, we wrote the press release: it's launch day, eighteen months from now, and here's the announcement. Customer quote, the problem it solved, why it mattered. The draft took a week of real arguing, and somewhere in draft three the thing became undeniable — the press release had no news in it. Every benefit we could honestly claim was something two existing tools already did, worded more excitedly. We killed the project in a document review, for the cost of a week of writing, instead of in a retro eighteen months later for the cost of a team.
 
 That's Amazon's Working Backwards process doing exactly what it's for. It gets summarized as "write the press release first," which makes it sound like a copywriting exercise. The summary misses the mechanism: **it's a cheap simulation of the launch, run before the build, structured so that a product nobody would care about fails on paper** — where failure costs a rewrite — instead of failing in the market, where it costs the whole investment. [How that discipline has actually played out inside Amazon](/product-management/amazon-pr-faq-working-backwards-in-practice/), hits and misses both, gets its own post.
@@ -39,7 +41,15 @@ The third is cultural, and it's the honest reason working backwards fails in mos
 ## Put it to work
 
 1. **Write the press release for the thing you're already building.** One page, customer language, a plausible customer quote. If the honest version has no news in it — if the quote reads as "it's somewhat more convenient now" — you've learned something a roadmap review wasn't going to tell you, and it cost an afternoon.
-2. **Draft the five questions you hope nobody asks.** For your current biggest bet, write the FAQ entries for the pricing question, the switching question, the cannibalization question, the hardest-technical-problem question, and the "why us" question — with real answers. The one you can't answer is your riskiest assumption, and [the risk post](/product-management/risk-reduction-and-decision-making-the-vocabulary-i-use-under-pressure/) says test that one first.
+2. **Draft the five questions you hope nobody asks.** For your current biggest bet, write the FAQ entries for the pricing question, the switching question, the cannibalization question, the hardest-technical-problem question, and the "why us" question — with real answers. The one you can't answer is your riskiest assumption, and [the risk post](/product-management/risk-reduction-and-decision-making-the-vocabulary-i-use-under-pressure/) says test that one first. Draft both halves here — the press release, then the five questions:
+
+   {/* client:load, not client:visible — the builder resolves its document in an effect, so it server-renders to nothing; an empty island gives client:visible's IntersectionObserver no child to observe and it would never hydrate. */}
+
+   <PrFaqBuilder
+     client:load
+     source={{ type: "post", postSlug: "working-backwards-the-pr-faq-and-the-discipline-of-narrative" }}
+   />
+
 3. **Run SCQA on your last strategy doc.** Label every paragraph S, C, Q, or A. No complication means the doc never establishes why anything must change; multiple answers with no shared question means it's several proposals in a trench coat. Ten minutes, and it finds the structural problem faster than three rounds of comments.
 
 ## Further reading
