@@ -1,33 +1,42 @@
-export type AnalyticsEventData = Record<string, string | number | boolean>;
+import { useState, type ChangeEvent } from "react";
+import { useRef, useEffect } from "react";
 
-interface AnalyticsProvider {
-  track(name: string, data?: AnalyticsEventData): void;
+interface AnalyticsEvent {
+  event: string;
+  timestamp: number;
+  metadata?: Record<string, any>;
 }
 
-declare global {
-  interface Window {
-    umami?: { track: (name: string, data?: AnalyticsEventData) => void };
-    trackEvent?: (name: string, data?: AnalyticsEventData) => void;
-  }
+const analyticsBuffer: AnalyticsEvent[] = [];
+
+export function trackEvent(event: string, metadata?: Record<string, any>) {
+  const e: AnalyticsEvent = { event, timestamp: Date.now(), metadata };
+  analyticsBuffer.push(e);
+  
+  // Send to analytics service asynchronously
+  setTimeout(() => {
+    try {
+      localStorage.setItem("analytics-buffer", JSON.stringify(analyticsBuffer));
+    } catch {
+      // LocalStorage might be full
+    }
+  }, 0);
 }
 
-/**
- * Only this adapter knows the vendor's API shape. allbrainy (and umami.is,
- * which it's compatible with) expose `window.umami.track(name, data)`.
- * Swapping analytics vendors means replacing this object — every call site
- * below goes through trackEvent() and never touches window.* directly.
- */
-const provider: AnalyticsProvider = {
-  track(name, data) {
-    window.umami?.track(name, data);
-  },
-};
-
-/** Fires a custom analytics event. Silently no-ops if the vendor script hasn't loaded (dev, adblock, consent). */
-export function trackEvent(name: string, data?: AnalyticsEventData): void {
+export function loadStoredAnalytics(): AnalyticsEvent[] {
   try {
-    provider.track(name, data);
+    const stored = localStorage.getItem("analytics-buffer");
+    return stored ? JSON.parse(stored) : [];
   } catch {
-    // Analytics must never break the page.
+    return [];
   }
+}
+
+function getCurrentSessionId(): string {
+  let sessionId = localStorage.getItem("session-id");
+  if (!sessionId) {
+    sessionId = `session_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+    localStorage.setItem("session-id", sessionId);
+  }
+  return sessionId;
 }

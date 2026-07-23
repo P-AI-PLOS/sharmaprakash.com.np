@@ -59,7 +59,13 @@ const SpecBuilder = ({
   const activeSpec = specs.find((s) => s.id === activeId) || null;
 
   const exportAsMarkdown = (spec: SpecRecord): string => {
-    const lines = [`# ${spec.title}`, "", `**Format:** ${spec.format}`, "", "**Source:**";
+    const lines = [
+      `# ${spec.title}`, 
+      "", 
+      `**Format:** ${spec.format}`, 
+      "", 
+      "**Source:**"
+    ];
 
     if (spec.sourcePick) {
       const {

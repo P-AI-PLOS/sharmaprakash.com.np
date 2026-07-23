@@ -1,0 +1,30 @@
+---
+import SiteShell from "~/layouts/SiteShell.astro";
+import TriageBoard from "~/components/tools/backlog-triage/TriageBoard.tsx";
+---
+
+<SiteShell
+  title="Backlog Triage Board — Free Tool"
+  description="Triage your backlog into Now, Next, and Never. A simple board for making hard prioritization decisions stick."
+>
+  <section class="bg-surface-base pt-40 pb-12">
+    <div class="mx-auto max-w-3xl px-6 lg:px-12 text-center">
+      <p class="eyebrow mb-3">Free tool</p>
+      <h1 class="text-display-lg text-strong">Backlog Triage Board</h1>
+      <p class="mt-4 text-body-lg text-muted max-w-xl mx-auto">
+        Paste your backlog, then sort each item: Now (committed this cycle),
+        Next (a short queue within a quarter), or Never (said out loud, closed
+        with a reason). Everything saves in your browser.
+      </p>
+      <p class="mt-3 text-caption text-muted">
+        Want the full method? <a href="/product-management/backlog-cleanup-how-to-actually-do-it/" class="link-underline text-accent-700">Read the essay →</a>
+      </p>
+    </div>
+  </section>
+
+  <section class="bg-surface-base pb-24">
+    <div class="mx-auto max-w-5xl px-6 lg:px-12">
+      <TriageBoard client:load source={{ type: "standalone" }} showDashboard />
+    </div>
+  </section>
+</SiteShell>

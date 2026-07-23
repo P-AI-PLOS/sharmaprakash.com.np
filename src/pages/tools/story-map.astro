@@ -1,0 +1,31 @@
+---
+import SiteShell from "~/layouts/SiteShell.astro";
+import StoryMapBuilder from "~/components/tools/story-map/StoryMapBuilder.tsx";
+---
+
+<SiteShell
+  title="Story Map Builder — Free Tool"
+  description="Build a user story map with backbone steps and release slices. A tool for fixing the flat backlog, based on Jeff Patton's story mapping method."
+>
+  <section class="bg-surface-base pt-40 pb-12">
+    <div class="mx-auto max-w-3xl px-6 lg:px-12 text-center">
+      <p class="eyebrow mb-3">Free tool</p>
+      <h1 class="text-display-lg text-strong">Story Map Builder</h1>
+      <p class="mt-4 text-body-lg text-muted max-w-xl mx-auto">
+        A backbone of user steps, sliced by release priority — the artifact
+        from Jeff Patton's story mapping that turns a flat backlog into a
+        coherent picture. Build as many maps as you need; everything saves
+        in your browser.
+      </p>
+      <p class="mt-3 text-caption text-muted">
+        Want the full method? <a href="/product-management/user-story-mapping-fixing-the-flat-backlog/" class="link-underline text-accent-700">Read the essay →</a>
+      </p>
+    </div>
+  </section>
+
+  <section class="bg-surface-base pb-24">
+    <div class="mx-auto max-w-5xl px-6 lg:px-12">
+      <StoryMapBuilder client:load source={{ type: "standalone" }} showDashboard />
+    </div>
+  </section>
+</SiteShell>

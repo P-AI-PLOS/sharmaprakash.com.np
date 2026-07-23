@@ -1,0 +1,30 @@
+---
+import SiteShell from "~/layouts/SiteShell.astro";
+import AgreementCertaintyMatrix from "~/components/tools/matrix/AgreementCertaintyMatrix.tsx";
+---
+
+<SiteShell
+  title="Agreement-Certainty Matrix — Free Tool"
+  description="Sort decisions on a 2x2 matrix of agreement vs certainty. A tool for backlog triage using the Stacey matrix framework."
+>
+  <section class="bg-surface-base pt-40 pb-12">
+    <div class="mx-auto max-w-3xl px-6 lg:px-12 text-center">
+      <p class="eyebrow mb-3">Free tool</p>
+      <h1 class="text-display-lg text-strong">Agreement-Certainty Matrix</h1>
+      <p class="mt-4 text-body-lg text-muted max-w-xl mx-auto">
+        Plot your backlog items on two axes — how much agreement is there, and
+        how certain are you about what to do? The quadrant tells you what kind
+        of action fits. Everything saves in your browser.
+      </p>
+      <p class="mt-3 text-caption text-muted">
+        Want the full method? <a href="/product-management/agreement-certainty-matrix-backlog-triage-recap-crm/" class="link-underline text-accent-700">Read the essay →</a>
+      </p>
+    </div>
+  </section>
+
+  <section class="bg-surface-base pb-24">
+    <div class="mx-auto max-w-5xl px-6 lg:px-12">
+      <AgreementCertaintyMatrix client:load mode="freeform" />
+    </div>
+  </section>
+</SiteShell>

@@ -1,0 +1,30 @@
+---
+import SiteShell from "~/layouts/SiteShell.astro";
+import PrFaqBuilder from "~/components/tools/pr-faq/PrFaqBuilder.tsx";
+---
+
+<SiteShell
+  title="PR/FAQ Builder — Free Tool"
+  description="Draft Amazon-style press releases and FAQ documents. Write the launch announcement before building the product."
+>
+  <section class="bg-surface-base pt-40 pb-12">
+    <div class="mx-auto max-w-3xl px-6 lg:px-12 text-center">
+      <p class="eyebrow mb-3">Free tool</p>
+      <h1 class="text-display-lg text-strong">PR/FAQ Builder</h1>
+      <p class="mt-4 text-body-lg text-muted max-w-xl mx-auto">
+        A cheap simulation of the launch: write the press release first, then
+        answer the five questions you hope nobody asks. Draft as many as you need;
+        everything saves in your browser.
+      </p>
+      <p class="mt-3 text-caption text-muted">
+        Want the full method? <a href="/product-management/working-backwards-the-pr-faq-and-the-discipline-of-narrative/" class="link-underline text-accent-700">Read the essay →</a>
+      </p>
+    </div>
+  </section>
+
+  <section class="bg-surface-base pb-24">
+    <div class="mx-auto max-w-3xl px-6 lg:px-12">
+      <PrFaqBuilder client:load source={{ type: "standalone" }} showDashboard />
+    </div>
+  </section>
+</SiteShell>

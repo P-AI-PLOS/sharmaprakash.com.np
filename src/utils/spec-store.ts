@@ -245,6 +245,23 @@ class SpecStore {
 
 export const specStore = new SpecStore();
 
+/** React hook to access spec store state, matching the pattern of other stores */
+export function useSpecStore<T>(selector?: (state: SpecStoreState) => T): T {
+  const [state, setState] = useState<T>(selector ? selector(specStore.getState()) : specStore.getState() as T);
+  
+  useEffect(() => {
+    const unsubscribe = specStore.subscribe((newState) => {
+      setState(selector ? selector(newState) : newState as T);
+    });
+    
+    specStore.initialize();
+    
+    return unsubscribe;
+  }, []);
+  
+  return state;
+}
+
 /** Export all for tree/shape compatibility with the rest of the pipeline. */
 export {
   resolveActiveProduct,

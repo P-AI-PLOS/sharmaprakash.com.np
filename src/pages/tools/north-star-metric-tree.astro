@@ -1,0 +1,30 @@
+---
+import SiteShell from "~/layouts/SiteShell.astro";
+import MetricTreeBuilder from "~/components/tools/metric-tree/MetricTreeBuilder.tsx";
+---
+
+<SiteShell
+  title="North Star Metric Tree — Free Tool"
+  description="Decompose your North Star metric into input metrics and leaf metrics. A recursive tree builder for metric strategy."
+>
+  <section class="bg-surface-base pt-40 pb-12">
+    <div class="mx-auto max-w-3xl px-6 lg:px-12 text-center">
+      <p class="eyebrow mb-3">Free tool</p>
+      <h1 class="text-display-lg text-strong">North Star Metric Tree</h1>
+      <p class="mt-4 text-body-lg text-muted max-w-xl mx-auto">
+        One metric at the root, input metrics in the middle, leaf metrics at
+        the bottom — the decomposition that turns a vague goal into a team-level
+        strategy. Build as many trees as you need; everything saves in your browser.
+      </p>
+      <p class="mt-3 text-caption text-muted">
+        Want the full method? <a href="/product-management/north-star-metrics-and-metric-trees/" class="link-underline text-accent-700">Read the essay →</a>
+      </p>
+    </div>
+  </section>
+
+  <section class="bg-surface-base pb-24">
+    <div class="mx-auto max-w-5xl px-6 lg:px-12">
+      <MetricTreeBuilder client:load source={{ type: "standalone" }} showDashboard />
+    </div>
+  </section>
+</SiteShell>

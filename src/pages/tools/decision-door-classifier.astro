@@ -1,0 +1,30 @@
+---
+import SiteShell from "~/layouts/SiteShell.astro";
+import DecisionDoorClassifier from "~/components/tools/decision-door/DecisionDoorClassifier.tsx";
+---
+
+<SiteShell
+  title="Decision Door Classifier — Free Tool"
+  description="Classify decisions as one-way doors (irreversible) or two-way doors (reversible). Practice the framework from Amazon's working backwards methodology."
+>
+  <section class="bg-surface-base pt-40 pb-12">
+    <div class="mx-auto max-w-3xl px-6 lg:px-12 text-center">
+      <p class="eyebrow mb-3">Free tool</p>
+      <h1 class="text-display-lg text-strong">Decision Door Classifier</h1>
+      <p class="mt-4 text-body-lg text-muted max-w-xl mx-auto">
+        One-way doors need conviction; two-way doors need speed. Practice the
+        classification with curated scenarios, or log your own decisions.
+        Everything saves in your browser.
+      </p>
+      <p class="mt-3 text-caption text-muted">
+        Want the full framework? <a href="/product-management/risk-reduction-and-decision-making-the-vocabulary-i-use-under-pressure/" class="link-underline text-accent-700">Read the essay →</a>
+      </p>
+    </div>
+  </section>
+
+  <section class="bg-surface-base pb-24">
+    <div class="mx-auto max-w-3xl px-6 lg:px-12">
+      <DecisionDoorClassifier client:load source={{ type: "standalone" }} />
+    </div>
+  </section>
+</SiteShell>

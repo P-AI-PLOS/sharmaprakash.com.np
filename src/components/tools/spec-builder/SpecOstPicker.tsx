@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import type { SpecRecord, OstPickRef, SpecFormat } from "~/utils/spec-store";
 
 interface SpecOstPickerProps {
@@ -12,7 +11,6 @@ interface SpecOstPickerProps {
 export default function SpecOstPicker({ activeSpec, onPickChange }: SpecOstPickerProps) {
   const [trees, setTrees] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const navigate = useNavigate();
 
   useEffect(() => {
     import("~/utils/ost-store").then((module) => {
@@ -21,43 +19,46 @@ export default function SpecOstPicker({ activeSpec, onPickChange }: SpecOstPicke
     });
   }, []);
 
-  const handleTreeSelect = (treeId: string) => {
-    navigate(`/tools/opportunity-solution-tree/${treeId}`);
-  };
-
   if (isLoading) {
     return (
-      <div class="bg-surface-raised rounded-lg p-6">
-        <h3 class="text-h3 mb-4">Select from your Opportunity Trees</h3>
-        <div class="text-muted">Loading trees...</div>
+      <div className="bg-surface-raised rounded-lg p-6">
+        <h3 className="text-h3 mb-4">Select from your Opportunity Trees</h3>
+        <div className="text-muted">Loading trees...</div>
       </div>
     );
   }
 
   return (
-    <div class="bg-surface-raised rounded-lg p-6">
-      <h3 class="text-h3 mb-4">Select from your Opportunity Trees</h3>
+    <div className="bg-surface-raised rounded-lg p-6">
+      <h3 className="text-h3 mb-4">Select from your Opportunity Trees</h3>
 
       {trees.length === 0 ? (
-        <div class="text-center py-8">
-          <p class="text-muted mb-4">No opportunity trees yet.</p>
+        <div className="text-center py-8">
+          <p className="text-muted mb-4">No opportunity trees yet.</p>
           <button
-            onClick={() => navigate("/tools/opportunity-solution-tree")}
-            class="px-4 py-2 bg-accent-600 text-white rounded-md hover:bg-accent-500"
+            onClick={() => {
+              const url = new URL(window.location.href);
+              url.pathname = "/tools/opportunity-solution-tree";
+              window.history.replaceState({}, "", url);
+            }}
+            className="px-4 py-2 bg-accent-600 text-white rounded-md hover:bg-accent-500"
           >
             Create first tree
           </button>
         </div>
       ) : (
-        <div class="space-y-3">
+        <div className="space-y-3">
           {trees.map((tree) => (
             <div
               key={tree.id}
-              class="p-4 border border-border-strong rounded-md hover:bg-surface-sunken cursor-pointer"
-              onClick={() => handleTreeSelect(tree.id)}
+              className="p-4 border border-border-strong rounded-md hover:bg-surface-sunken cursor-pointer"
+              onClick={() => {
+                // Open the tree in a new window or overlay for now
+                window.open(`/tools/opportunity-solution-tree#${tree.id}`, "_blank");
+              }}
             >
-              <h4 class="font-medium text-strong">{tree.title || "Unnamed Tree"}</h4>
-              <p class="text-sm text-muted">
+              <h4 className="font-medium text-strong">{tree.title || "Unnamed Tree"}</h4>
+              <p className="text-sm text-muted">
                 {tree.tree.opportunities.length} opportunities
               </p>
             </div>
@@ -66,10 +67,10 @@ export default function SpecOstPicker({ activeSpec, onPickChange }: SpecOstPicke
       )}
 
       {activeSpec?.sourcePick && (
-        <div class="mt-6 p-4 bg-accent-50 rounded-md">
-          <h4 class="font-medium text-accent-700 mb-2">Current Pick</h4>
-          <p class="text-sm text-accent-600">{activeSpec.sourcePick.opportunityText}</p>
-          <p class="text-xs text-accent-500">→ {activeSpec.sourcePick.solutionText}</p>
+        <div className="mt-6 p-4 bg-accent-50 rounded-md">
+          <h4 className="font-medium text-accent-700 mb-2">Current Pick</h4>
+          <p className="text-sm text-accent-600">{activeSpec.sourcePick.opportunityText}</p>
+          <p className="text-xs text-accent-500">→ {activeSpec.sourcePick.solutionText}</p>
         </div>
       )}
     </div>
