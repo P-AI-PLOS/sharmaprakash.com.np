@@ -43,8 +43,6 @@ The third is cultural, and it's the honest reason working backwards fails in mos
 1. **Write the press release for the thing you're already building.** One page, customer language, a plausible customer quote. If the honest version has no news in it — if the quote reads as "it's somewhat more convenient now" — you've learned something a roadmap review wasn't going to tell you, and it cost an afternoon.
 2. **Draft the five questions you hope nobody asks.** For your current biggest bet, write the FAQ entries for the pricing question, the switching question, the cannibalization question, the hardest-technical-problem question, and the "why us" question — with real answers. The one you can't answer is your riskiest assumption, and [the risk post](/product-management/risk-reduction-and-decision-making-the-vocabulary-i-use-under-pressure/) says test that one first. Draft both halves here — the press release, then the five questions:
 
-   {/* client:load, not client:visible — the builder resolves its document in an effect, so it server-renders to nothing; an empty island gives client:visible's IntersectionObserver no child to observe and it would never hydrate. */}
-
    <PrFaqBuilder
      client:load
      source={{ type: "post", postSlug: "working-backwards-the-pr-faq-and-the-discipline-of-narrative" }}
