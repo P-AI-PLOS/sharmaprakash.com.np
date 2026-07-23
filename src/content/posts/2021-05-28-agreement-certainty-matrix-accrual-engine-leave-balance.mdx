@@ -11,6 +11,9 @@ seriesOrder: 11
 use_featured_image: false
 ---
 
+import AgreementCertaintyMatrix from "~/components/tools/matrix/AgreementCertaintyMatrix.tsx";
+import { ACCRUAL_ENGINE_ITEMS } from "~/components/tools/matrix/curated/accrual-engine.ts";
+
 The backlog item read "fix carryover proration bug" and the one above it read "redesign the manager approval screen," and in planning we sized them the same way: story points, a two-day spike, a demo at the end of the sprint. Six weeks later the proration fix had shipped clean on the first try — someone had read the policy document, implemented it, and a compliance reviewer had signed off in twenty minutes. The approval screen was on its third redesign, because every manager who saw it wanted something different and nobody could say why one version was "right." Same backlog, same estimation ritual, two completely different kinds of work wearing the same costume. That's the moment I brought in the Agreement-Certainty Matrix.
 
 ## What it is
@@ -31,6 +34,15 @@ Individuals first, then groups — the sequence matters because it surfaces disa
 Forty-five to sixty minutes total, and it works with as few as eight people in the room — two groups is enough to generate useful disagreement in step 3.
 
 ## Running it on leave balance
+
+<AgreementCertaintyMatrix
+  client:visible
+  mode="curated"
+  items={ACCRUAL_ENGINE_ITEMS}
+  kicker="Try it"
+  title="Sort the leave-balance stack"
+  instructions="Three items off that stack. Place each one before you read the walkthrough below. One of them split the room three ways — it isn't scored, because there was no agreed answer to score it against."
+/>
 
 I ran this with the leave-balance team specifically to break a habit: every item on the backlog was getting the same two-week cycle regardless of what kind of problem it actually was. We wrote up a mixed stack — proration bug fixes, a jurisdiction's new accrual rate, the manager approval screen, an employee-facing balance summary redesign, a request for negative-balance handling, a policy exception workflow — and the groups went to placing.
 

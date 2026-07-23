@@ -106,6 +106,10 @@ const CONTENT: Record<MatrixZone, ZoneContent> = {
   },
 };
 
+/** That zone's operating instruction — the reveal text freeform mode shows after a
+ *  placement, in place of a correctness verdict (design D5: zone copy lives here once). */
+export const zoneApproach = (zone: MatrixZone): string => CONTENT[zone].approach;
+
 export default function MatrixHelpModal({
   zone,
   onClose,

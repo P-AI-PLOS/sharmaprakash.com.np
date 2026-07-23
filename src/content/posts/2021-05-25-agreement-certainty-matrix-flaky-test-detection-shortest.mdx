@@ -11,6 +11,9 @@ seriesOrder: 10
 use_featured_image: false
 ---
 
+import AgreementCertaintyMatrix from "~/components/tools/matrix/AgreementCertaintyMatrix.tsx";
+import { FLAKY_TEST_ITEMS } from "~/components/tools/matrix/curated/flaky-tests.ts";
+
 The flaky-test roadmap review that taught me this lesson opened with a single line item: "reduce flaky test rate." Underneath it, seven engineers had seven different mental models of what "flaky" even meant — a timing race in one suite, an environment that behaved differently under CI load, and, for a growing slice of the AI-generated tests, a live argument about whether the assertions had ever been correct in the first place. We'd been treating all of it as one backlog item with one owner and one fix: add retries. Retries made the dashboard green and told us nothing. The problem wasn't that we lacked a solution — it's that we'd never established which parts of the problem *had* a knowable solution at all. That's the job of the **Agreement-Certainty Matrix**.
 
 ## What it is
@@ -33,6 +36,15 @@ Break into small groups of 4-5 and hand each group a large matrix drawn on a whi
 Once the matrix has stabilized, spend the last 10-15 minutes matching response mode to zone, zone by zone: Simple items get delegated for immediate execution, Complicated items get an owner tasked with finding or being the expert, Complex items get assigned a small time-boxed probe (often another Liberating Structure, like Critical Uncertainties), and anything Chaotic gets flagged for whoever can stabilize it fastest, full stop, no further discussion until it's stable. Whole exercise: 45-60 minutes.
 
 ## Applying it to shortest's flaky tests
+
+<AgreementCertaintyMatrix
+  client:visible
+  mode="curated"
+  items={FLAKY_TEST_ITEMS}
+  kicker="Try it"
+  title="Triage shortest's flaky tests"
+  instructions="Four flakiness sources off that wall. Place each one before you read the walkthrough below — then see where the room landed, and why."
+/>
 
 We ran this with the engineers closest to CI, QA leads, and one person from the AI test-generation team, all writing candidate flakiness sources independently first. What landed on the matrix broke roughly into three clusters — and the clustering itself was the finding, because the roadmap had been treating them as one.
 
