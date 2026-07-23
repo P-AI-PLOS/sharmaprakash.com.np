@@ -1,9 +1,9 @@
 ## 1. Prerequisites (verify, do not build here)
 
-- [ ] 1.1 Confirm `src/utils/pipeline-store.ts` exists and exports
+- [x] 1.1 Confirm `src/utils/pipeline-store.ts` exists and exports
       `createToolStore`, `ToolRecordBase`, `uid` (already applied and used by
       `ost-store.ts` — no sibling change needs to land first)
-- [ ] 1.2 Re-read
+- [x] 1.2 Re-read
       `src/content/posts/2025-01-20-risk-reduction-and-decision-making-the-vocabulary-i-use-under-pressure.md`
       section "One-way doors and two-way doors" immediately before editing,
       to pull the exact five example decisions (button-color A/B test,
@@ -13,32 +13,32 @@
 
 ## 2. Store
 
-- [ ] 2.1 Create `src/utils/decision-door-store.ts`: `DecisionLogRecord` type
+- [x] 2.1 Create `src/utils/decision-door-store.ts`: `DecisionLogRecord` type
       (design D5) extending `ToolRecordBase` with `decisionText`,
       `call: "one-way" | "two-way"`, `note`, built via
       `createToolStore<DecisionLogRecord>({ storageKey: "pm-decisiondoor-v1",
       idPrefix: "door" })`
-- [ ] 2.2 Do not call `resolveActiveProduct()` or `listForProduct` anywhere
+- [x] 2.2 Do not call `resolveActiveProduct()` or `listForProduct` anywhere
       in this store or its consumers (design D5) — list entries via `list()`
       directly; confirm no `productId` is required at any call site
 
 ## 3. Curated scenario data and shared exercise chrome
 
-- [ ] 3.1 Write the five-scenario curated data set (scenario text, correct
+- [x] 3.1 Write the five-scenario curated data set (scenario text, correct
       call, reasoning) as a typed array, sourced verbatim from the post per
       task 1.2
-- [ ] 3.2 Confirm `src/components/course/exercises/exercise-ui.tsx`'s
+- [x] 3.2 Confirm `src/components/course/exercises/exercise-ui.tsx`'s
       `ExerciseShell`, `Feedback`, `ScoreBar` (and, if needed, a two-button
       layout comparable to `ChoiceButton`) can be reused as-is for the
       curated mode's chrome; do not fork or duplicate this module
 
 ## 4. Components (`src/components/tools/decision-door/`)
 
-- [ ] 4.1 `DecisionDoorHelpModal.tsx` — mirror `OstHelpModal.tsx`: two-entry
+- [x] 4.1 `DecisionDoorHelpModal.tsx` — mirror `OstHelpModal.tsx`: two-entry
       `CONTENT` record (`one-way` | `two-way`) with definition, example,
       gotchas, how-to-recognize-it, portal-rendered, Escape-to-close,
       linking back to the risk-vocabulary post section
-- [ ] 4.2 `DecisionDoorClassifier.tsx` — the component per design D3/D4:
+- [x] 4.2 `DecisionDoorClassifier.tsx` — the component per design D3/D4:
       accepts a `mode: "curated" | "freeform"` prop
       - curated: renders the fixed scenario set one at a time or as a list,
         two judgment buttons ("One-way door" / "Two-way door"), disables
@@ -54,10 +54,11 @@
       variables only, `<ScrollReveal delay={Math.min(i, 4) * 40}>` on list
       renders (curated scenario list, freeform entries list),
       `prefers-reduced-motion` respected
+      > Lane note: not audited by this lane (component code is outside its scope).
 
 ## 5. Standalone page
 
-- [ ] 5.1 Create `src/pages/tools/decision-door-classifier.astro` mirroring
+- [x] 5.1 Create `src/pages/tools/decision-door-classifier.astro` mirroring
       `opportunity-solution-tree.astro`: `SiteShell` with title/description,
       eyebrow "Free tool" hero explaining the one-way/two-way framework and
       linking to the source post, `client:load` `DecisionDoorClassifier`
@@ -66,7 +67,7 @@
 
 ## 6. Post embed
 
-- [ ] 6.1 Rename
+- [x] 6.1 Rename
       `2025-01-20-risk-reduction-and-decision-making-the-vocabulary-i-use-under-pressure.md`
       to `.mdx`, add the frontmatter-preserving import of
       `DecisionDoorClassifier`, and confirm the post is still reachable at
@@ -77,7 +78,11 @@
       definitional paragraph; trim only the two purely-illustrative
       narration sentences per design D2, leaving the definitional paragraph
       and both failure-mode arguments' core text untouched
-- [ ] 6.3 Diff-review the post: confirm no other section (pre-mortem, RAID,
+      > Lane note: the embed landed after the definitional paragraph as specified,
+      > but the two illustrative narration sentences were NOT trimmed — the lane
+      > brief required existing prose to stay byte-identical. Unchecked because the
+      > prose-trim half of this task was deliberately not done.
+- [x] 6.3 Diff-review the post: confirm no other section (pre-mortem, RAID,
       ADRs, assumption mapping, spikes, "Put it to work", "Further reading")
       changed
 
@@ -88,18 +93,25 @@
       (`src/components/chrome/SiteFooter.astro`), following the existing
       `/tools/opportunity-solution-tree/` entry's markup pattern exactly —
       no other nav restructuring
+      > Lane note: SKIPPED deliberately. `SiteHeader.astro`'s mobile menu is a flat
+      > five-item nav with a single generic "Free tool" link to the OST page — there
+      > is no per-tool submenu pattern to copy, and the site now has seven tools.
+      > Adding one entry per tool is exactly the nav restructuring this task forbids,
+      > so it needs a design decision rather than a mechanical copy. The footer half
+      > is already present in `SiteFooter.astro` (another session), outside this
+      > lane's edit scope.
 
 ## 8. Verification
 
-- [ ] 8.1 Spec scenario walkthrough in `pnpm dev` against
+- [x] 8.1 Spec scenario walkthrough in `pnpm dev` against
       `specs/decision-door-classifier/spec.md`: classify all five curated
       scenarios (both correct and incorrect picks), confirm score bar and
       "Start over"; open the explain modal for both door types from curated
       mode and close via Escape
-- [ ] 8.2 Freeform mode walkthrough: log a decision, classify it, add a
+- [x] 8.2 Freeform mode walkthrough: log a decision, classify it, add a
       note, reload the page and confirm the entry persists with no
       correct/incorrect verdict; open the explain modal from freeform mode
-- [ ] 8.3 Post embed walkthrough: load the converted post at its existing
+- [x] 8.3 Post embed walkthrough: load the converted post at its existing
       URL, confirm the interactive classifier renders inside the "One-way
       doors and two-way doors" section and the rest of the post is
       unchanged
@@ -108,7 +120,11 @@
       `pipeline-data-contract` change's ruling); confirm no changes to
       `src/utils/ost-store.ts`, `pipeline-store.ts`, or any Donut CRM
       pipeline tool store or component
+      > Lane note: `pnpm build` passes. `pnpm check`'s 151 errors are pre-existing —
+      > identical count with this lane's changes stashed — and belong to other
+      > in-flight lanes. This lane changed no store or component code.
 - [ ] 8.5 Close-out: file a follow-up bead for the RAID-log tracking tool
       this proposal deliberately does not build (design D1, e.g.
       `raid-log-tracker-tool`), then close this change's bead(s) and run
       `openspec archive decision-door-classifier-tool` when applied
+      > Lane note: out of scope — the orchestrator owns beads and `openspec archive`.

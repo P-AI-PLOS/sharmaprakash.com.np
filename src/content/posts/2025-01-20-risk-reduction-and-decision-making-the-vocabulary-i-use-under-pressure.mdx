@@ -10,6 +10,8 @@ series: leadership-frameworks
 seriesOrder: 5
 ---
 
+import DecisionDoorClassifier from "~/components/tools/decision-door/DecisionDoorClassifier.tsx";
+
 Somewhere around my third or fourth production migration, I noticed a pattern in how they went wrong. It was never the migration script. It was the rollback plan nobody had actually written down, discovered at 2am to be a paragraph of wishful thinking rather than a runbook. The frameworks in this post aren't about eliminating that kind of surprise — you can't. They're about making sure the surprise shows up in a meeting on a Tuesday afternoon instead of a pager alert at 2am on a Saturday.
 
 This is the layer of [the cascade](/product-management/the-strategy-cascade-frameworks-i-actually-reach-for/) I find teams skip most often, because it doesn't feel like "real work." Writing a risk log doesn't ship a feature. But every incident retro I've sat through eventually traces back to a decision that got made too fast, or scrutinized too little, or both — and usually in the wrong direction.
@@ -25,6 +27,8 @@ The honest failure mode: a pre-mortem only surfaces what people are willing to w
 ## One-way doors and two-way doors
 
 This is the single most useful piece of decision vocabulary I've adopted, mostly because it's short enough to actually get used in a Slack thread. A two-way door is a decision you can walk back — reversible, cheap to undo, low blast radius. Ship it, learn, adjust. A one-way door is the opposite — once you're through, you're not getting back to where you started, at least not without real cost.
+
+<DecisionDoorClassifier client:visible mode="curated" source={{ type: "post" }} />
 
 The failure mode I see constantly is teams treating every decision like a one-way door, because that's the safe-feeling posture — more meetings, more sign-off, more caution always looks responsible. But that caution has a cost too, it's just invisible: it's the six weeks a two-way-door decision, like which button color converts better or which of two similar libraries to prototype with, spent in a steering committee. I've watched teams spend more calendar time deciding on a reversible A/B test than they later spent running it. The vocabulary is only useful if someone in the room is willing to say "this is a two-way door, let's just decide and move" — and that requires actually doing the classification work up front, not assuming.
 

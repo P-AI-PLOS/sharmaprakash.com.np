@@ -7,6 +7,7 @@
 import { useEffect, useRef, useState } from "react";
 import { ExerciseShell } from "~/components/course/exercises/exercise-ui";
 import TriageColumn from "./TriageColumn";
+import TriageItemCard from "./TriageItemCard";
 import TriageDashboard from "./TriageDashboard";
 import TriageHelpModal, { type TriageConcept } from "./TriageHelpModal";
 import {
@@ -202,17 +203,13 @@ export default function TriageBoard({
           </p>
           <div className="mt-2 grid gap-2">
             {unbucketed.map((item) => (
-              <div key={item.id} className="flex items-center gap-2 rounded-lg border border-ink-200 bg-surface-raised p-2">
-                <p className="flex-1 text-body text-strong">{item.text}</p>
-                <button
-                  type="button"
-                  onClick={() => handleDeleteItem(item.id)}
-                  aria-label={`Delete: ${item.text}`}
-                  className="shrink-0 text-faint transition-colors hover:text-accent-700"
-                >
-                  ×
-                </button>
-              </div>
+              <TriageItemCard
+                key={item.id}
+                item={item}
+                onMove={(b) => handleDrop(item.id, b)}
+                onSetReason={(r) => handleSetReason(item.id, r)}
+                onDelete={() => handleDeleteItem(item.id)}
+              />
             ))}
           </div>
         </div>
