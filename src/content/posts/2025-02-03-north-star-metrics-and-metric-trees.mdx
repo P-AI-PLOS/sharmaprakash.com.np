@@ -8,6 +8,8 @@ excerpt: "A North Star metric without a tree underneath it is a scoreboard nobod
 use_featured_image: false
 ---
 
+import MetricTreeBuilder from "~/components/tools/metric-tree/MetricTreeBuilder.tsx";
+
 I once sat in a quarterly review where a team presented, with real pride, that weekly active users were up eleven percent — and then spent the next forty minutes unable to answer the only question leadership asked: *why?* Nobody knew which of the quarter's six shipped features had driven it, whether it was a marketing campaign's echo, or whether it would still be true next month. The metric had gone up and the team had learned nothing. That's the moment I stopped thinking of a North Star metric as the finish line of measurement and started thinking of it as the *root of a tree* — because a single number, however well-chosen, only tells you the score. It's the decomposition underneath that tells you where to push.
 
 In [the series this post extends](/product-management/the-strategy-cascade-frameworks-i-actually-reach-for/), the North Star sat in the objectives layer's table and never got developed. This is that development, because the metric layer is where I've seen the most well-intentioned damage done — teams that measure nothing, and teams that measure one thing so hard they break everything around it.
@@ -30,6 +32,24 @@ The tree also disciplines OKRs, connecting straight back to [the measurement pos
 
 Two supporting frameworks slot in here rather than compete. The **AARRR pirate funnel** — acquisition, activation, retention, referral, revenue — is a generic starter tree for when you don't yet know your product's real structure; useful scaffolding, but generic by construction, and teams that never graduate from it end up optimizing a funnel shape their product doesn't actually have. And Google's **HEART framework** — happiness, engagement, adoption, retention, task success — is what I reach for at the *feature* level, where a North Star is too coarse: it forces you to pick, per feature, which dimension success even means, instead of defaulting to "usage went up."
 
+### Build the marketplace tree, then make it yours
+
+The tree below opens on that marketplace decomposition — weekly transactions down through activation — so the shape is on the screen before you argue with it. Edit the nodes into your own product's metrics, add a level wherever a leaf is still too coarse for one team to own, and flag the leaves that turn out to be orphan or contested. It saves in your browser.
+
+{/* client:load, not client:visible — full-screen mode reads its own state from a ?mtree=full query param on mount, so it needs to hydrate on page load rather than on scroll-into-view. */}
+
+<MetricTreeBuilder
+  client:load
+  kicker="Build yours"
+  title="Your North Star metric tree"
+  source={{
+    type: "post",
+    postSlug: "north-star-metrics-and-metric-trees",
+    postTitle: "North Star Metrics and Metric Trees",
+    href: "/product-management/north-star-metrics-and-metric-trees/",
+  }}
+/>
+
 ## Guardrails, or: every metric is a target someone will hit
 
 Goodhart's law — when a measure becomes a target, it ceases to be a good measure — isn't a risk of metric trees, it's a certainty, and the only defense I've found is naming **counter-metrics** at the same moment you name the target. Pushing activation? Pair it with early retention, so you notice when you've "activated" people into a product that doesn't hold them. Pushing engagement? Pair it with a quality signal, so you can't win by making the product harder to leave rather than better to use. Support deflection paired with resolution satisfaction; delivery speed paired with change failure rate — the DORA metrics from the series work exactly this way, four numbers chosen partly because they check each other.
@@ -41,7 +61,7 @@ The honest failure mode of the whole apparatus: metric trees rot, exactly like t
 ## Put it to work
 
 1. **Test your North Star against the three criteria.** Value received, not extracted; leads revenue; teams can move it. Write one sentence of evidence per criterion. If your metric is revenue, signups, or anything with "total cumulative" in front of it, at least one sentence won't survive being written down.
-2. **Draw the tree to the team level.** Decompose your North Star until every leaf has exactly one team's name next to it. Orphan leaves — inputs nobody owns — are your unstaffed strategy; contested leaves are next quarter's coordination failure, visible early.
+2. **Draw the tree to the team level.** Decompose your North Star in [the tree above](#build-the-marketplace-tree-then-make-it-yours) until every leaf has exactly one team's name next to it. Orphan leaves — inputs nobody owns — are your unstaffed strategy; contested leaves are next quarter's coordination failure, visible early. Both are a click on the leaf.
 3. **Name a counter-metric for every current target.** For each metric a team is actively pushing this quarter, write down the number that would reveal the cheap way to win it. If you can't think of one, ask the team — someone on it has already found the cheap way and is politely not using it.
 
 ## Further reading

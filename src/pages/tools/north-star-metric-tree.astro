@@ -24,7 +24,14 @@ import MetricTreeBuilder from "~/components/tools/metric-tree/MetricTreeBuilder.
 
   <section class="bg-surface-base pb-24">
     <div class="mx-auto max-w-5xl px-6 lg:px-12">
-      <MetricTreeBuilder client:load source={{ type: "standalone" }} showDashboard />
+      <MetricTreeBuilder
+        client:load
+        kicker="Free tool"
+        title="Build your North Star metric tree"
+        instructions="North Star at the root, the input metrics that compose it underneath, and keep decomposing until every leaf is a number one team can own. Flag the leaves nobody owns and the ones two teams claim. It saves in your browser — nothing is sent anywhere."
+        source={{ type: "standalone" }}
+        showDashboard
+      />
     </div>
   </section>
 </SiteShell>
