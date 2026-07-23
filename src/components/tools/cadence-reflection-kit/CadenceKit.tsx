@@ -94,7 +94,11 @@ export default function CadenceKit() {
 
       <div ref={containerRef} className="mt-5 space-y-8">
         {viewing.mode === null ? (
-          <ModePicker onChoose={(mode: CadenceMode) => apply(setMode(record.id, mode))} />
+          readOnly ? (
+            <p className="text-caption text-muted">No cadence mode was chosen for this quarter.</p>
+          ) : (
+            <ModePicker onChoose={(mode: CadenceMode) => apply(setMode(record.id, mode))} />
+          )
         ) : (
           <>
             <div {...revealProps("metrics", 0)}>
