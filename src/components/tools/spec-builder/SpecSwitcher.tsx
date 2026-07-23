@@ -1,151 +1,130 @@
-"use client";
+/**
+ * "My specs" dropdown — switches the builder between saved specs for the
+ * active product, and creates/renames/deletes them. Mirrors OstTreeSwitcher.
+ */
+import { useEffect, useRef, useState } from "react";
+import { ChevronDown, FileText, Pencil, Plus, Trash2 } from "lucide-react";
+import { formatLabel, titleForSpec, type SpecRecord } from "~/utils/spec-store";
 
-import { useState, useEffect } from "react";
-import { Search, Plus, Edit, Trash2, Check, X } from "lucide-react";
-import type { SpecRecord } from "~/utils/spec-store";
+export default function SpecSwitcher({
+  records,
+  activeId,
+  onSelect,
+  onCreate,
+  onRename,
+  onDelete,
+}: {
+  records: SpecRecord[];
+  activeId: string;
+  onSelect: (id: string) => void;
+  onCreate: () => void;
+  onRename: (id: string, title: string) => void;
+  onDelete: (id: string) => void;
+}) {
+  const [open, setOpen] = useState(false);
+  const rootRef = useRef<HTMLDivElement>(null);
+  const active = records.find((r) => r.id === activeId);
 
-interface SpecSwitcherProps {
-  specs: SpecRecord[];
-  activeId?: string | null;
-  onSelect?: (id: string) => void;
-}
-
-export default function SpecSwitcher({ specs, activeId, onSelect }: SpecSwitcherProps) {
-  const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
-  const [newSpecTitle, setNewSpecTitle] = useState("");
-  const [searchTerm, setSearchTerm] = useState("");
-
-  const filteredSpecs = specs.filter((spec) =>
-    spec.title.toLowerCase().includes(searchTerm.toLowerCase())
-  );
-
-  const handleCreateSpec = () => {
-    if (!newSpecTitle.trim()) return;
-
-    const tempId = `temp_${Date.now()}`;
-    const newSpec: SpecRecord = {
-      id: tempId,
-      title: newSpecTitle,
-      sourcePick: null,
-      framingJob: null,
-      format: "prd",
-      sections: { problem: "", outcome: "", nonGoals: "", successMetric: "" },
-      acceptanceCriteria: [],
-      productId: "sample-product",
-      createdAt: Date.now(),
-      updatedAt: Date.now(),
+  useEffect(() => {
+    if (!open) return;
+    const onDocClick = (e: MouseEvent) => {
+      if (rootRef.current && !rootRef.current.contains(e.target as Node)) setOpen(false);
     };
-
-    onSelect?.(tempId);
-    setNewSpecTitle("");
-    setIsCreateModalOpen(false);
-  };
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setOpen(false);
+    };
+    document.addEventListener("mousedown", onDocClick);
+    window.addEventListener("keydown", onKeyDown);
+    return () => {
+      document.removeEventListener("mousedown", onDocClick);
+      window.removeEventListener("keydown", onKeyDown);
+    };
+  }, [open]);
 
   return (
-    <div class="bg-surface-raised rounded-lg p-6">
-      <div class="flex items-center justify-between mb-4">
-        <h3 class="text-h3">Your Specs</h3>
-        <button
-          onClick={() => setIsCreateModalOpen(true)}
-          class="p-2 bg-accent-600 text-white rounded-md hover:bg-accent-500 transition-colors"
-        >
-          <Plus size={16} />
-        </button>
-      </div>
-
-      {/* Search */}
-      <div class="relative mb-4">
-        <Search class="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted" size={16} />
-        <input
-          type="text"
-          placeholder="Search specs..."
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-          class="w-full pl-10 pr-4 py-2 border border-border-strong rounded-md text-sm"
+    <div ref={rootRef} className="relative">
+      <button
+        type="button"
+        onClick={() => setOpen((v) => !v)}
+        aria-expanded={open}
+        aria-haspopup="listbox"
+        className="btn btn-ghost btn-sm max-w-[220px] shrink-0"
+      >
+        <FileText size={15} strokeWidth={2} className="shrink-0 text-accent-700" />
+        <span className="truncate">{active ? titleForSpec(active) : "My specs"}</span>
+        <ChevronDown
+          size={14}
+          strokeWidth={2}
+          className={`shrink-0 transition-transform ${open ? "rotate-180" : ""}`}
         />
-      </div>
+      </button>
 
-      {/* Spec List */}
-      {filteredSpecs.length === 0 ? (
-        <div class="text-center py-8">
-          <p class="text-muted mb-2">No specs found</p>
-          <p class="text-sm text-muted">
-            {searchTerm ? "Try a different search term" : "Create your first spec"}
-          </p>
-        </div>
-      ) : (
-        <div class="space-y-2">
-          {filteredSpecs.map((spec) => (
-            <div
-              key={spec.id}
-              class={`p-3 rounded-md border cursor-pointer transition-colors ${activeId === spec.id ? "border-accent-600 bg-accent-50" : "border-border-strong hover:bg-surface-sunken"}`}
-              onClick={() => onSelect?.(spec.id)}
-            >
-              <div class="flex items-center justify-between">
-                <div>
-                  <h4 class="font-medium text-strong">{spec.title}</h4>
-                  <div class="flex items-center gap-3 text-xs text-muted mt-1">
-                    <span>{spec.format}</span>
-                    {spec.sourcePick && <span>🔗 from tree</span>}
-                    <span>{spec.acceptanceCriteria.length} criteria</span>
-                  </div>
-                </div>
-                <div class="flex gap-1">
-                  <button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      // Edit functionality would go here
-                    }}
-                    class="p-1 text-muted hover:text-default rounded"
-                  >
-                    <Edit size={14} />
-                  </button>
-                  <button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      // Delete functionality would go here
-                    }}
-                    class="p-1 text-danger hover:bg-danger/10 rounded"
-                  >
-                    <Trash2 size={14} />
-                  </button>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-      )}
-
-      {/* Create Modal */}
-      {isCreateModalOpen && (
-        <div class="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50">
-          <div class="bg-surface-base rounded-lg p-6 max-w-md w-full">
-            <h3 class="text-h3 mb-4">Create New Spec</h3>
-            <input
-              type="text"
-              placeholder="Spec title..."
-              value={newSpecTitle}
-              onChange={(e) => setNewSpecTitle(e.target.value)}
-              class="w-full p-3 border border-border-strong rounded-md mb-4"
-              autoFocus
-              onKeyDown={(e) => e.key === "Enter" && handleCreateSpec()}
-            />
-            <div class="flex gap-3 justify-end">
-              <button
-                onClick={() => setIsCreateModalOpen(false)}
-                class="px-4 py-2 text-muted hover:text-default"
-              >
-                Cancel
-              </button>
-              <button
-                onClick={handleCreateSpec}
-                disabled={!newSpecTitle.trim()}
-                class="px-4 py-2 bg-accent-600 text-white rounded-md hover:bg-accent-500 disabled:opacity-50"
-              >
-                Create
-              </button>
-            </div>
-          </div>
+      {open && (
+        <div
+          role="listbox"
+          aria-label="Your specs"
+          className="absolute right-0 top-full z-10 mt-2 w-72 rounded-lg border border-ink-200 bg-surface-raised p-2 shadow-lg"
+        >
+          <ul className="grid max-h-64 gap-0.5 overflow-y-auto">
+            {records.map((r) => (
+              <li key={r.id} className="flex min-w-0 items-stretch gap-1">
+                <button
+                  type="button"
+                  role="option"
+                  aria-selected={r.id === activeId}
+                  onClick={() => {
+                    onSelect(r.id);
+                    setOpen(false);
+                  }}
+                  className={`flex min-w-0 flex-1 items-start gap-2 rounded-md px-3 py-2 text-left text-caption transition-colors hover:bg-ink-100 ${
+                    r.id === activeId ? "bg-accent-50 text-accent-700" : "text-strong"
+                  }`}
+                >
+                  <span className="min-w-0">
+                    <span className="block truncate font-semibold">{titleForSpec(r)}</span>
+                    <span className="block truncate text-faint">
+                      {formatLabel(r.format)} · {r.acceptanceCriteria.length} criteria
+                    </span>
+                  </span>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    const next = window.prompt("Rename this spec", titleForSpec(r));
+                    if (next !== null && next.trim()) onRename(r.id, next.trim());
+                  }}
+                  aria-label={`Rename ${titleForSpec(r)}`}
+                  title="Rename this spec"
+                  className="shrink-0 rounded-md px-2 text-faint transition-colors hover:bg-ink-100 hover:text-accent-700"
+                >
+                  <Pencil size={14} strokeWidth={2} />
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    if (window.confirm(`Delete "${titleForSpec(r)}"? This can't be undone.`))
+                      onDelete(r.id);
+                  }}
+                  aria-label={`Delete ${titleForSpec(r)}`}
+                  title="Delete this spec"
+                  className="shrink-0 rounded-md px-2 text-faint transition-colors hover:bg-ink-100 hover:text-accent-700"
+                >
+                  <Trash2 size={14} strokeWidth={2} />
+                </button>
+              </li>
+            ))}
+          </ul>
+          <button
+            type="button"
+            onClick={() => {
+              onCreate();
+              setOpen(false);
+            }}
+            className="mt-1 flex w-full items-center gap-2 rounded-md border-t border-ink-200 px-3 py-2 pt-3 text-left text-caption font-semibold text-accent-700 hover:bg-ink-100"
+          >
+            <Plus size={14} strokeWidth={2} />
+            New spec
+          </button>
         </div>
       )}
     </div>
