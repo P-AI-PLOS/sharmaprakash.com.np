@@ -73,46 +73,6 @@ export const courseRegistry: Record<string, CourseMeta> = {
       },
     ],
   },
-  "continuous-discovery": {
-    title: "Continuous Discovery, Hands-On",
-    description:
-      "Learn opportunity solution trees by running the whole discovery loop against one product — from outcome to opportunities to experiments — with interactive exercises and a tree of your own at the end.",
-    intro:
-      "Six modules, one running case. You'll follow the product team at Donut CRM — a relationship-first CRM for founders — as they define an outcome, mine interviews for opportunities, recruit and run discovery sessions, ideate solutions solo and as a group, and design assumption tests that kill bad ideas cheaply. Every module ends with work on your own product: an interactive tree builder persists your outcome, opportunities, and solutions across the course, and classification exercises train the distinctions (opportunity vs. solution vs. experiment) that make the method work. Reading it is the easy half; do the exercises.",
-    cover: "/images/blog/series/continuous-discovery.png",
-    chapters: [
-      {
-        slug: "tree",
-        label: "The tree: outcomes, opportunities, solutions",
-        postId: "opportunity-solution-trees-the-shape-of-good-discovery",
-      },
-      {
-        slug: "opportunities",
-        label: "Finding opportunities: interviews & JTBD",
-        postId: "finding-opportunities-interviews-jtbd-and-the-opportunity-space",
-      },
-      {
-        slug: "sessions",
-        label: "Running discovery sessions",
-        postId: "running-discovery-sessions-recruiting-outreach-and-no-shows",
-      },
-      {
-        slug: "solutions",
-        label: "From opportunities to solutions",
-        postId: "from-opportunities-to-solutions-ideating-alone-and-together",
-      },
-      {
-        slug: "experiments",
-        label: "Assumption mapping & experiments",
-        postId: "assumption-mapping-experiments-that-test-the-riskiest-thing-first",
-      },
-      {
-        slug: "habit",
-        label: "Making discovery a habit",
-        postId: "making-discovery-a-habit-cdh-alongside-shape-up-okrs-and-agile",
-      },
-    ],
-  },
   "ship-the-product-not-the-date": {
     title: "Ship the Product, Not the Date",
     description:
