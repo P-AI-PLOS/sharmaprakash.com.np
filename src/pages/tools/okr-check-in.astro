@@ -1,0 +1,37 @@
+---
+import SiteShell from "~/layouts/SiteShell.astro";
+import ScrollReveal from "~/components/motion/ScrollReveal.astro";
+import CheckInTool from "~/components/tools/okr-check-in/CheckInTool.tsx";
+
+// ScrollReveal is imported here for the hero fade-in *and* because its
+// `is:global` `.sr-reveal` styles are what the CheckInTool island's `useReveal`
+// hook drives — an .astro component can't render inside a React island.
+---
+
+<SiteShell
+  title="OKR Check-In — Free Tool"
+  description="Close out a quarter's OKR the honest way: log the number you actually landed on each key result, track mid-quarter snapshots so adoption isn't judged on launch week alone, and draft next quarter's OKR in one click — free, right in your browser."
+>
+  <section class="bg-surface-base pt-40 pb-12">
+    <ScrollReveal class="mx-auto max-w-3xl px-6 lg:px-12 text-center">
+      <p class="eyebrow mb-3">Free tool</p>
+      <h1 class="text-display-lg text-strong">OKR Check-In</h1>
+      <p class="mt-4 text-body-lg text-muted max-w-xl mx-auto">
+        The quarter-close ritual: for each key result, log what you actually
+        landed, how much you trust it, and one honest reflection. Track
+        mid-quarter snapshots so a launch-week spike doesn't get mistaken for
+        lasting change — then draft next quarter's OKR back into stage 01, so
+        you never restart from a blank page. Everything saves in your browser.
+      </p>
+      <p class="mt-3 text-caption text-muted">
+        Set the OKR first in the <a href="/tools/okr-organizer/" class="link-underline text-accent-700">OKR Organizer →</a>
+      </p>
+    </ScrollReveal>
+  </section>
+
+  <section class="bg-surface-base pb-24">
+    <div class="mx-auto max-w-5xl px-6 lg:px-12">
+      <CheckInTool client:load />
+    </div>
+  </section>
+</SiteShell>
