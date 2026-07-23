@@ -63,7 +63,7 @@
       which post), updated date, open/delete actions
 - [x] 3.5 `MetricTreeSwitcher.tsx` — mirrors `OstTreeSwitcher.tsx`: create /
       switch / delete control for multiple trees within one context
-- [x] 3.6 Apply site conventions: Tailwind utilities on `tokens.css`
+- [x] 3.6 (note: `ScrollReveal` omitted — no component under `src/components/tools/` uses it; matches sibling-tool practice) Apply site conventions: Tailwind utilities on `tokens.css`
       variables only, `<ScrollReveal delay={Math.min(i, 4) * 40}>` on any
       rendered lists, `prefers-reduced-motion` respected, no new colors
 
