@@ -1,0 +1,49 @@
+---
+title: "Agreement-Certainty Matrix: Accrual Engine vs. UI for Leave Balance"
+date: "2021-05-28T10:00:00+05:45"
+category: ["Product"]
+categories: ["product-management"]
+directory: product-management
+excerpt: "Two items on the same leave-balance backlog can look equally hard and need completely different planning rituals. The Agreement-Certainty Matrix is how I stopped estimating a compliance change like a design experiment."
+tags: [liberating-structures, leave-balance]
+series: ls-decide
+seriesOrder: 11
+use_featured_image: false
+---
+
+The backlog item read "fix carryover proration bug" and the one above it read "redesign the manager approval screen," and in planning we sized them the same way: story points, a two-day spike, a demo at the end of the sprint. Six weeks later the proration fix had shipped clean on the first try — someone had read the policy document, implemented it, and a compliance reviewer had signed off in twenty minutes. The approval screen was on its third redesign, because every manager who saw it wanted something different and nobody could say why one version was "right." Same backlog, same estimation ritual, two completely different kinds of work wearing the same costume. That's the moment I brought in the Agreement-Certainty Matrix.
+
+## What it is
+
+The Agreement-Certainty Matrix is built on Ralph Stacey's Agreement & Certainty Matrix, adapted by the Liberating Structures community into a workshop tool. It's a 2x2: one axis is **certainty about cause and effect** — do we know, technically, what produces the outcome we want — and the other is **agreement among stakeholders** — do the people who care about this item actually agree on what "good" looks like. Crossing them gives four zones. **Simple**: high agreement, high certainty — there's a known best practice, so just apply it. **Complicated**: high certainty but contested agreement, or the reverse — an expert or a documented standard can settle it. **Complex**: low agreement and low certainty at once — no best practice exists yet, so you need to probe before you can plan. **Chaotic**: things are actively breaking; stabilize first, plan later.
+
+The useful move isn't the taxonomy — it's that the matrix forces you to notice when two backlog items *look* similarly difficult but sit in genuinely different zones, and that difference should change how you plan them, not just how hard you push.
+
+## How the workshop runs
+
+Individuals first, then groups — the sequence matters because it surfaces disagreement instead of letting the loudest voice pre-sort it away.
+
+1. **Individual write-up (5-10 minutes).** Everyone silently writes backlog items or problem statements on sticky notes, one per note. No discussion yet.
+2. **Small groups of 4-5 place items on a shared matrix (20-25 minutes).** A large 2x2 goes on a wall or whiteboard — certainty on one axis, agreement on the other. Each group takes their combined stack of stickies and physically places every item, debating placement out loud as they go. The debate is the actual output of this structure — watching two people argue over whether an item is Complicated or Complex tells you more than either of their individual placements would.
+3. **Groups report back and reconcile (10-15 minutes).** Where placements diverge across groups, that divergence is itself information — it usually means the item is more contested than anyone assumed walking in.
+4. **Match approach to zone (10-15 minutes).** Simple items get delegated and executed against known practice. Complicated items get routed to whoever the expert is. Complex items get a small experiment or another Liberating Structure to probe before committing to a plan. Chaotic items get stopped and stabilized before anything else happens to them.
+
+Forty-five to sixty minutes total, and it works with as few as eight people in the room — two groups is enough to generate useful disagreement in step 3.
+
+## Running it on leave balance
+
+I ran this with the leave-balance team specifically to break a habit: every item on the backlog was getting the same two-week cycle regardless of what kind of problem it actually was. We wrote up a mixed stack — proration bug fixes, a jurisdiction's new accrual rate, the manager approval screen, an employee-facing balance summary redesign, a request for negative-balance handling, a policy exception workflow — and the groups went to placing.
+
+The pattern that emerged fast: almost everything touching the **accrual engine** landed Complicated. Accrual rates, carryover caps, proration math, how a policy exception should compute — these are technically intricate, sometimes genuinely hard to implement correctly, but there's a right answer. A compliance reference or someone who's read the actual policy document can adjudicate a disagreement in the room in minutes. One group placed the proration bug in Complex on first pass because the implementation had been messy last time; the debate that followed reclassified it once someone pointed out the mess was an execution problem, not a disagreement about what correct behavior should be. That's exactly the reclassification this structure is for.
+
+The **manager and employee UI work** scattered differently. The approval screen landed Complex almost every time — different managers wanted different amounts of context before approving (some wanted the requester's remaining balance and recent history visible inline, others found that cluttered and wanted a clean approve/deny), and there was no textbook that settled the disagreement, because it wasn't a factual question. The employee balance summary redesign split the room: one group placed it Simple ("just show the number clearly"), another placed it Complicated ("there's a known best pattern for balance displays"), a third placed it Complex once someone raised that employees in different countries expect different units — days versus hours versus a rolling entitlement — and nobody in the room agreed on which to default to.
+
+What the matrix actually bought us was permission to stop planning these two categories the same way. We'd been running the accrual engine work through the same "build a prototype, get user feedback, iterate" ritual we used for UI, which was slow and pointless — nobody needed a prototype of carryover math, they needed the policy document and forty-five minutes with someone who'd read it. And we'd been running the approval-screen work as if it were a spec to implement correctly, sizing it in story points and shipping the "correct" version on the first pass — which produced a screen that was internally consistent and that half the managers disliked, because there was no correct version to converge on without first probing what managers actually wanted. After this session, Complicated accrual items got a fast lane: find the expert, confirm the rule, implement, done. Complex UI items got routed to a proper probe — a round of contextual interviews with managers before any screen got built, followed by [SHORTEST](/product-management/agreement-certainty-matrix-flaky-test-detection-shortest/)-style rapid iterations rather than one big redesign committed up front.
+
+## Where it falls apart
+
+The most common failure is groups mistaking Complicated for Complex because the work is hard, not because it's contested — hard and uncertain aren't the same axis. An intricate accrual rule with five nested conditions is still Complicated if a compliance reference settles it; it doesn't become Complex just because the implementation will take a while. Watch for the tell: if the group's justification for placing something Complex is "this is going to be a pain to build," redirect them to ask whether stakeholders actually disagree on the target outcome, not whether the work is annoying.
+
+The second failure is running this on individual tickets instead of categories. The matrix is a categorization tool, and it earns its keep fastest when applied to a type of work — "accrual rule changes," "approval-flow changes" — rather than re-litigated ticket by ticket every sprint. Once a team internalizes that accrual work tends Complicated and approval-UI work tends Complex, most new items sort themselves without a workshop; save the full session for genuinely novel categories, like when the product adds an entirely new leave type or enters a jurisdiction with different rules.
+
+Skip it entirely if the backlog is already small and homogeneous enough that everyone agrees on how to plan each item — the matrix earns its keep specifically when a team is mis-applying one planning ritual across genuinely different kinds of work, which was the whole reason I ran it here.

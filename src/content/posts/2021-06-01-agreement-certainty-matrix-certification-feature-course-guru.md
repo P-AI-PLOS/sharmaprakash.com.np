@@ -1,0 +1,67 @@
+---
+title: "Agreement-Certainty Matrix: Should Course Guru Build Certificates?"
+date: "2021-06-01T10:00:00+05:45"
+category: ["Product"]
+categories: ["product-management"]
+directory: product-management
+excerpt: "Certificates look like a checkbox feature — every LMS has one, so why debate it? Because for a Shopify-embedded app, the checkbox hides three real disagreements. Here's how the Agreement-Certainty Matrix stopped a team from copying a feature that didn't fit."
+tags: [liberating-structures, course-guru]
+series: ls-decide
+seriesOrder: 12
+use_featured_image: false
+---
+
+The pitch in the room was: "every LMS has certificates, we're behind, let's just build it." Nobody argued. Nobody needed to — it sounded like the kind of thing you don't debate, you just do, the way you don't debate whether a course needs a title field. Twenty minutes into scoping, the room split three ways on branding, split again on pricing, and split a third time on whether a certificate needed any verification behind it at all. The feature that "everyone agrees is obvious" turned out to be the one nobody agreed on. That gap — between how settled something *feels* and how settled it *is* — is exactly what the **Agreement-Certainty Matrix** exists to expose, and it's what saved course guru's certification feature from getting built twice.
+
+## What it is
+
+The Agreement-Certainty Matrix is built on work by organizational theorist Ralph Stacey, adapted into a Liberating Structure for sorting a mixed pile of decisions, problems, or features into the approach each one actually needs. It's a 2x2. One axis is **certainty about cause and effect** — do we know what actions produce what outcomes here, based on precedent or evidence? The other axis is **agreement among stakeholders** — do the people in the room actually want the same thing, or do they just sound like they do?
+
+Four zones fall out of the grid:
+
+- **Simple** (high agreement, high certainty): a known best practice exists and everyone wants it. Just execute.
+- **Complicated** (high certainty, lower agreement — or the reverse): the mechanics are knowable but people disagree, or people agree but the mechanics need expertise. Bring in the expert, resolve, move on.
+- **Complex** (low agreement *and* low certainty): no best practice exists yet because the situation is genuinely novel to this context. Best practice doesn't transfer here — you need to probe, sense, and respond.
+- **Chaotic** (crisis): no time to deliberate, stabilize first, sort out the rest after.
+
+The matrix's job isn't to answer the question. It's to stop a team from applying a Simple-zone move — grab a template, copy a competitor, execute — to something that's actually sitting in Complex, where that move reliably produces a feature nobody's happy with three months later.
+
+## How it runs
+
+This is a 45–60 minute structure, and the value is almost entirely in the physical act of placing items, not in the taxonomy itself.
+
+**Setup (5 minutes).** Draw a large 2x2 on a wall or whiteboard — certainty on one axis, agreement on the other, four labeled quadrants. Have the group brainstorm the decisions or features under discussion; each item goes on its own sticky note. For a feature review, this might be a dozen items off the roadmap: certificates, one item, one sticky.
+
+**Individual placement, silently (5–10 minutes).** Before any group discussion, each person places their own copy of the item on the grid privately, or jots a quick rationale. This matters — it surfaces the actual spread of opinion before anyone anchors on the loudest voice in the room.
+
+**Small-group debate and placement (20–25 minutes).** Groups of 4–5 take the stickies and physically place them on a shared matrix, arguing out loud about where each belongs. This is the whole point of the structure — the debate about *why* something is Simple versus Complex is more valuable than the placement itself, because it forces people to name the disagreement or uncertainty instead of leaving it implicit. A team that can't agree where to place an item has just proven, empirically, that it doesn't belong in Simple.
+
+**Match approach to zone (10–15 minutes).** Simple items get delegated and executed without further ceremony. Complicated items get routed to whoever has the expertise — a specialist, a technical lead, outside research. Complex items get a small experiment or another Liberating Structure (Critical Uncertainties fits well here, since it's built for exactly this zone) to probe before committing real build time. Chaotic items — rare in feature planning, more common in an incident review — get stopped and stabilized before anything else happens.
+
+## Running certificates through the matrix
+
+Course guru's team pulled the certification feature into the grid alongside a dozen other backlog items, expecting it to land in Simple — the reasoning was straightforward: certificates are a category staple, dozens of LMS products ship them, so surely best practice already exists and the only work left is implementation.
+
+Individually placing the sticky broke that assumption immediately. Half the room put it near Simple. The other half wouldn't move it off the Complex border, and the small-group debate is where the real feature spec started to emerge, because it turned up three separate fault lines hiding under one feature name.
+
+**Whose certificate is it?** Course guru sells into merchant stores — every course lives inside someone else's Shopify shopfront. Should a certificate carry the merchant's brand, since that's whose learner relationship it represents? Or course guru's, since that's the platform vouching for the credential? There was no shared assumption here at all — some people had been quietly building for one answer, some for the other, and nobody had said so out loud until the matrix made them place a sticky and defend it.
+
+**Does anyone actually want the verification overhead?** "Certificate" implies something checkable — a completion record, maybe a verification URL, maybe compliance language for merchants selling regulated training. Nobody in the room had evidence that merchants wanted that weight versus a simple decorative PDF a learner could screenshot and post. That's not a disagreement about implementation, that's a genuine unknown about the market course guru serves — small-to-mid Shopify merchants, most of them not running compliance-grade training. Cause and effect wasn't just uncertain, it was untested.
+
+**Where does it sit in pricing and access?** Is a certificate a base feature on every plan, an add-on merchants pay extra to unlock, or gated to premium course tiers only? Sales had opinions, engineering had opinions, and none of them matched — this was the clearest agreement gap of the three, because everyone had a confident, mutually exclusive answer.
+
+Stack certainty and agreement together and the placement was obvious once the debate happened: this was Complex, not Simple. Copying the nearest competitor's certificate feature would have resolved the branding question by accident (probably in the wrong direction for a white-label-leaning merchant base), ignored the verification question entirely, and hard-coded a pricing answer nobody had actually chosen. The team routed it to a small probe instead — a lightweight survey to existing merchants on whether they wanted branded certificates, and a cheap prototype test of a plain, merchant-branded certificate before committing engineering time to a verification system nobody had confirmed was wanted. Two other items on that same wall — a UI tweak to the instructor dashboard and a well-precedented CSV export for enrollment data — landed cleanly in Simple and shipped that sprint without ceremony, which is the other half of what the matrix buys you: it's just as useful for confirming what *doesn't* need a workshop as for catching what does.
+
+If you want the companion structure for probing a genuinely uncertain feature once you've named it, [Critical Uncertainties](/product-management/critical-uncertainties-ai-tutoring-course-guru/) is where course guru's team took the certificate question next.
+
+## When it fails, and when to skip it
+
+**Treating quadrant placement as permanent.** A feature that lands in Complex today can move to Complicated or Simple once the probe produces an answer — certainty about cause and effect is precisely what a good experiment changes. Teams that run the matrix once and file the placement away as a verdict lose the entire benefit; it's a snapshot, not a classification system.
+
+**Skipping the individual, silent placement step.** Go straight to group discussion and the person who speaks first anchors the placement before anyone else has committed to an independent view. The private-then-shared sequence is what surfaces real disagreement instead of manufactured consensus.
+
+**Using it on a single item.** The matrix earns its keep by comparison — a dozen items on the grid at once is what makes the Simple ones look obviously easy and the Complex ones look obviously contested. Run it on one feature in isolation and everything looks moderately uncertain, with nothing to calibrate against.
+
+**Reaching for it during an actual crisis.** If there's a production incident or a compliance deadline forcing an immediate decision, don't run a 45-minute matrix workshop — stabilize first. This is a planning tool, not a firefighting one.
+
+This is the last Agreement-Certainty Matrix post in this series — three feature decisions run through the same grid is enough to show the pattern. Next up is a different kind of structure entirely: Wise Crowds, a peer-consultation format rather than a mapping tool.
