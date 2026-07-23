@@ -1,0 +1,34 @@
+---
+import SiteShell from "~/layouts/SiteShell.astro";
+import OkrOrganizer from "~/components/tools/okr/OkrOrganizer.tsx";
+---
+
+<SiteShell
+  title="OKR Organizer — Free Tool"
+  description="Write customer-centric OKRs — who changes their behaviour, what they do, by how much — quarter by quarter, free, right in your browser. Based on Jeff Gothelf's customer-centric OKR form."
+>
+  <section class="bg-surface-base pt-40 pb-12">
+    <div class="mx-auto max-w-3xl px-6 lg:px-12 text-center">
+      <p class="eyebrow mb-3">Free tool</p>
+      <h1 class="text-display-lg text-strong">OKR Organizer</h1>
+      <p class="mt-4 text-body-lg text-muted max-w-xl mx-auto">
+        An objective is the qualitative change you want. A key result names <em>who</em> changes
+        their behaviour, <em>what</em> that behaviour is, and <em>by how much</em> it moves — Jeff
+        Gothelf's customer-centric OKR form, which is much harder to fake than a list of things
+        you plan to ship.
+      </p>
+      <p class="mt-3 text-caption text-muted">
+        Your OKRs are saved in your browser and sent nowhere. Once they exist, take one into the{" "}
+        <a href="/tools/opportunity-solution-tree/" class="link-underline text-accent-700">
+          opportunity solution tree builder →
+        </a>
+      </p>
+    </div>
+  </section>
+
+  <section class="bg-surface-base pb-24">
+    <div class="mx-auto max-w-5xl px-6 lg:px-12">
+      <OkrOrganizer client:load />
+    </div>
+  </section>
+</SiteShell>
