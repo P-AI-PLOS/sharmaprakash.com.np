@@ -6,9 +6,9 @@
   "scripts": {
     "dev": "astro dev --host",
     "start": "astro dev --host",
-    "build": "astro build && pagefind --site dist",
+    "build": "astro build && pagefind --site dist --silent",
     "preview": "astro preview",
-    "search:index": "astro build && pagefind --site dist --output-path public/pagefind",
+    "search:index": "astro build && pagefind --site dist --output-path public/pagefind --silent",
     "check": "astro check",
     "presentations:build": "node scripts/presentations/build-presentations.mjs",
     "presentations:check": "node scripts/presentations/check-presentations.mjs",
