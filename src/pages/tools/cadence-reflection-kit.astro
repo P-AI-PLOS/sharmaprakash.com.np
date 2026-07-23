@@ -1,0 +1,38 @@
+---
+import SiteShell from "~/layouts/SiteShell.astro";
+import ScrollReveal from "~/components/motion/ScrollReveal.astro";
+import CadenceKit from "~/components/tools/cadence-reflection-kit/CadenceKit.tsx";
+
+// ScrollReveal is imported here for the hero fade-in *and* because its
+// `is:global` `.sr-reveal` styles are what the CadenceKit island's `useReveal`
+// hook drives — an .astro component can't render inside a React island.
+---
+
+<SiteShell
+  title="Cadence & Reflection Kit — Free Tool"
+  description="Turn a backlog into shipped work on a rhythm, with a reflection loop. Pick your cadence — flow, scrumban, or sprint — track a handful of honest metrics, run a one-action retro, and tie each demo to a key result. Free, right in your browser."
+>
+  <section class="bg-surface-base pt-40 pb-12">
+    <ScrollReveal class="mx-auto max-w-3xl px-6 lg:px-12 text-center">
+      <p class="eyebrow mb-3">Free tool</p>
+      <h1 class="text-display-lg text-strong">Cadence &amp; Reflection Kit</h1>
+      <p class="mt-4 text-body-lg text-muted max-w-xl mx-auto">
+        The job first: turn a prioritized backlog into shipped work, on a rhythm,
+        with a loop that makes you a little better each time round. <em>Then</em>
+        the ritual — flow, scrumban, or sprint — is a choice you make on purpose,
+        not a default you inherit. Track a few honest numbers, keep one retro
+        action you'll actually do, and tie every demo to a key result.
+      </p>
+      <p class="mt-3 text-caption text-muted">
+        Everything saves in your browser and is sent nowhere. Set your outcomes first in the{" "}
+        <a href="/tools/okr-organizer/" class="link-underline text-accent-700">OKR Organizer →</a>
+      </p>
+    </ScrollReveal>
+  </section>
+
+  <section class="bg-surface-base pb-24">
+    <div class="mx-auto max-w-5xl px-6 lg:px-12">
+      <CadenceKit client:load />
+    </div>
+  </section>
+</SiteShell>
