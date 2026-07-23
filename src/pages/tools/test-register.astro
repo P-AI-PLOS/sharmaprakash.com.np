@@ -1,0 +1,198 @@
+---
+import SiteShell from "~/layouts/SiteShell.astro";
+import ScrollReveal from "~/components/motion/ScrollReveal.astro";
+import TestRegister from "~/components/tools/test-register/TestRegister.tsx";
+
+/** The four displayed states, in lifecycle order. Stale is derived, never chosen. */
+const STATUSES = [
+  {
+    label: "Not automated",
+    body: "Written down, anchored to a criterion or a story, no spec file yet. A named gap you can schedule beats an unnamed one you rediscover in production.",
+  },
+  {
+    label: "AI-drafted",
+    body: "A spec file exists and a model wrote most of it. It runs and it goes green. Nobody has confirmed it asserts the thing the criterion actually asks for.",
+  },
+  {
+    label: "Human-reviewed",
+    body: "Someone read the generated test next to the criterion and agreed. This is the only status where the coverage number means what you'd like it to mean.",
+  },
+  {
+    label: "Stale",
+    body: "A linked criterion or story changed — or was deleted — after the test was written. Derived on every load from the stored snapshot, so it can't be forgotten to be set.",
+  },
+];
+
+const PATH_RULES = [
+  {
+    rule: "Mirror the app's domain structure, not your test framework's folders.",
+    body: "If the product has orders, billing, and admin, so does e2e/. A person looking at a failing suite should be able to guess the file from the feature name.",
+  },
+  {
+    rule: "One registered scenario ↦ one test() block.",
+    body: "When a scenario goes stale you want to open exactly one block, read what it asserts, and regenerate it. A single test() covering four scenarios makes drift unfixable in place.",
+  },
+  {
+    rule: "One file per feature area, not per criterion.",
+    body: "e2e/orders/discount-code.spec.ts holds every discount-code scenario. Files per criterion sprawl past the point where anyone can find anything; files per epic get too big to regenerate safely.",
+  },
+];
+---
+
+<SiteShell
+  title="Test Register — Free Tool"
+  description="Register the test scenarios that matter, anchor each to an acceptance criterion or a sliced story, and get told when the spec has drifted from the test that supposedly covers it. Free, right in your browser."
+>
+  <section class="bg-surface-base pt-40 pb-12">
+    <div class="mx-auto max-w-3xl px-6 lg:px-12 text-center">
+      <p class="eyebrow mb-3">Free tool</p>
+      <h1 class="text-display-lg text-strong">Test Register</h1>
+      <p class="mt-4 text-body-lg text-muted max-w-xl mx-auto">
+        The scenarios you're relying on, tied to the acceptance criteria and
+        sliced stories they verify. When a spec changes, every test generated
+        from it is flagged stale — because in 2026 the expensive failure isn't
+        the test you forgot to write, it's the one written from a spec that has
+        since moved.
+      </p>
+      <p class="mt-3 text-caption text-muted">
+        It spans three stages of the pipeline — definition, delivery cadence, and
+        feedback — which is why the QA ring runs alongside them rather than owning one.
+      </p>
+    </div>
+  </section>
+
+  <section class="bg-surface-base pb-16">
+    <div class="mx-auto max-w-5xl px-6 lg:px-12">
+      <TestRegister client:load />
+      <p class="mt-4 text-center text-caption text-faint">
+        Nothing leaves your browser. Scenarios, links, and statuses are stored in
+        localStorage on this device — there's no account and no server.
+      </p>
+    </div>
+  </section>
+
+  <section class="bg-surface-base pb-24">
+    <div class="mx-auto max-w-reading px-6 lg:px-0">
+      <ScrollReveal>
+        <h2 class="text-h2 text-strong">Running a register when the machine writes the tests</h2>
+        <p class="mt-4 text-body text-default">
+          A test register used to be a bureaucratic artifact: a spreadsheet
+          somebody updated the week before an audit. It's worth keeping again for
+          one reason. When a model drafts your Playwright specs, the link between
+          <em>what we agreed to build</em> and <em>what the suite checks</em> stops
+          being obvious. The code compiles, the suite is green, and nobody can tell
+          you whether the green covers the criterion you shipped last Thursday or
+          the wording it had three revisions ago.
+        </p>
+        <p class="mt-4 text-body text-default">
+          The register's job is to hold that link explicitly, so drift is loud. You
+          register a scenario, anchor it to an acceptance criterion or a sliced
+          story, and the tool takes a snapshot of that source's exact wording. Later
+          — after somebody sharpens a criterion in the spec, or deletes a story that
+          got absorbed into another slice — the register compares the snapshot to
+          what's there now and flags every scenario built on the old text.
+        </p>
+      </ScrollReveal>
+
+      <ScrollReveal delay={40}>
+        <h3 class="text-h3 text-strong mt-10">Four statuses, and only three of them are yours</h3>
+        <p class="mt-4 text-body text-default">
+          You set the first three. The fourth sets itself.
+        </p>
+        <dl class="mt-4 grid gap-3">
+          {
+            STATUSES.map((s) => (
+              <div class="rounded-lg border border-ink-200 bg-surface-raised p-4">
+                <dt class="text-body font-semibold text-strong">{s.label}</dt>
+                <dd class="mt-1 text-body text-muted">{s.body}</dd>
+              </div>
+            ))
+          }
+        </dl>
+        <p class="mt-4 text-body text-default">
+          The rule that makes the whole thing work: <strong>regenerating resets
+          review.</strong> When you regenerate a spec from updated wording and mark
+          it regenerated here, the scenario drops back to AI-drafted — even if a
+          human had reviewed it an hour earlier. That review was of different code
+          asserting different words. Keeping the badge would be a lie, and it's the
+          exact lie that lets a suite stay green while quietly ceasing to check the
+          thing it was written for.
+        </p>
+        <p class="mt-4 text-body text-default">
+          Sources that were <em>deleted</em> can't be regenerated — there's no
+          current wording to re-baseline against. Those you unlink deliberately, and
+          the register won't let a scenario end up anchored to nothing: link
+          something else, or delete the scenario and admit the coverage is gone.
+        </p>
+      </ScrollReveal>
+
+      <ScrollReveal delay={80}>
+        <h3 class="text-h3 text-strong mt-10">Spec paths that survive a regeneration</h3>
+        <p class="mt-4 text-body text-default">
+          Each scenario carries a path to the spec file that runs it — a pointer,
+          not a promise; the tool never checks whether the file exists. Three
+          conventions make that pointer worth storing:
+        </p>
+        <ul class="mt-4 grid gap-3">
+          {
+            PATH_RULES.map((r) => (
+              <li class="rounded-lg border border-ink-200 bg-surface-raised p-4">
+                <p class="text-body font-semibold text-strong">{r.rule}</p>
+                <p class="mt-1 text-body text-muted">{r.body}</p>
+              </li>
+            ))
+          }
+        </ul>
+        <p class="mt-4 text-body text-default">
+          So a discount-code scenario for Donut CRM lands at
+          <code class="rounded bg-ink-100 px-1.5 py-0.5 text-caption text-strong"
+            >e2e/orders/discount-code.spec.ts</code
+          >, and when its criterion is reworded you know precisely which file to
+          hand back to the model — and precisely which block inside it.
+        </p>
+      </ScrollReveal>
+
+      <ScrollReveal delay={120}>
+        <h3 class="text-h3 text-strong mt-10">Why the coverage view is a list, not a percentage</h3>
+        <p class="mt-4 text-body text-default">
+          Coverage percentages are the most gameable number in engineering. 84%
+          tells you nothing you can act on: not which criterion is naked, not
+          whether the covered 84% is covered by tests generated from wording that's
+          still current. So the register leads with the gaps — the criteria and
+          stories with no scenario at all, then the ones whose only coverage is
+          stale. The fraction is there, in small type, underneath.
+        </p>
+        <p class="mt-4 text-body text-default">
+          That middle bucket is the interesting one. "Covered by stale tests only"
+          is AI-era test debt made visible: work that looks done on every dashboard
+          and verifies a spec nobody ships anymore. A scenario contributes to
+          coverage only when the whole scenario is current — one drifted link
+          poisons it, because a test half-generated from an old criterion isn't
+          trustworthy about the other half either.
+        </p>
+        <p class="mt-4 text-body text-default">
+          Drift detection here is deliberately literal: any change to the wording,
+          down to a typo fix, flags the scenario. Over-flagging costs one click on
+          "mark regenerated." Under-flagging costs an escape, found by a customer.
+          That trade isn't close.
+        </p>
+      </ScrollReveal>
+
+      <ScrollReveal delay={160}>
+        <h3 class="text-h3 text-strong mt-10">Where it sits in the pipeline</h3>
+        <p class="mt-4 text-body text-default">
+          The register reads — and never writes — two neighbouring tools. Acceptance
+          criteria come from the{" "}
+          <a href="/tools/spec-builder/" class="link-underline text-accent-700">Spec Builder</a>;
+          sliced stories come from the{" "}
+          <a href="/tools/vertical-slicer/" class="link-underline text-accent-700">Vertical Slicer</a>.
+          Write criteria there, cut slices there, register the scenarios here, and
+          the three stay joined by stable ids rather than by copy-paste. Editing a
+          criterion in the Spec Builder is what makes a scenario go stale in this
+          tool — that's the feature, not a synchronisation bug. Reload the register
+          after you've edited a spec elsewhere and the flags catch up.
+        </p>
+      </ScrollReveal>
+    </div>
+  </section>
+</SiteShell>
