@@ -89,7 +89,19 @@ export default function ScenarioEditor({
       return;
     }
 
+    // Snapshots on links that already exist on the record are preserved as-is:
+    // editing a scenario's description must NOT silently re-baseline a
+    // reviewed snapshot to current wording (contract D3). Current text is
+    // snapshotted only for links added during this edit. Re-baselining stays
+    // exclusive to markRegenerated.
+    const existingStories = new Map(editing?.stories.map((link) => [link.ref.storyId, link]) ?? []);
+    const existingCriteria = new Map(
+      editing?.criteria.map((link) => [critKey(link.ref.specId, link.ref.criterionId), link]) ?? [],
+    );
+
     const stories: LinkedStory[] = storyIds.flatMap((id) => {
+      const kept = existingStories.get(id);
+      if (kept) return [kept];
       const story = index.storyById.get(id);
       if (!story) return [];
       return [
@@ -102,6 +114,8 @@ export default function ScenarioEditor({
     });
 
     const criteria: LinkedCriterion[] = criterionKeys.flatMap((key) => {
+      const kept = existingCriteria.get(key);
+      if (kept) return [kept];
       const [specId, criterionId] = key.split("::");
       const spec = index.specById.get(specId ?? "");
       const criterion = spec?.criteria.find((c) => c.id === criterionId);
