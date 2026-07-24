@@ -144,3 +144,31 @@ on this factory, keeping its existing storage keys and public API.
   unchanged, and each opportunity/solution gains a stable id plus the record
   gains a `productId` on that load
 
+### Requirement: Draft OKR handoff marker
+OKR records in OKR Organizer's store (`pm-okr-v1`) SHALL support two optional
+contract-level fields: `draft: true`, present only while the record is an
+unaccepted draft, and `draftedFrom: { checkinId: string; quarterKey: string }`
+identifying the check-in record and closed quarter that produced it. Only OKR
+Check-In SHALL create records carrying these fields, and it SHALL create them
+through OKR Organizer's store with the contract's OKR record shape — never a
+private copy in another store. OKR Organizer SHALL render draft records
+visibly distinct from committed entries with an accept action that clears the
+`draft` flag (retaining `draftedFrom` as provenance), and records lacking the
+`draft` field SHALL behave exactly as before this delta.
+
+#### Scenario: Draft record surfaces in OKR Organizer
+- **WHEN** OKR Organizer lists entries for a product that includes a record
+  with `draft: true` and `draftedFrom` set
+- **THEN** the record is shown marked as a draft produced by a check-in,
+  distinct from committed entries
+
+#### Scenario: Accepting a draft commits it
+- **WHEN** the visitor accepts a draft OKR record in OKR Organizer
+- **THEN** the `draft` flag is cleared, `draftedFrom` is retained, and the
+  record thereafter behaves as a normal committed entry
+
+#### Scenario: Records without the field are unaffected
+- **WHEN** an OKR record created before this delta (no `draft` field) is
+  listed or edited
+- **THEN** its behavior is unchanged in every tool that reads OKR records
+

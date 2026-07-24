@@ -67,31 +67,31 @@
 
 ## 4. Spec scenario verification (manual, in browser)
 
-- [ ] 4.1 Full-pipeline compose: seed OKR/check-in/cadence records (via
+- [x] 4.1 Full-pipeline compose: seed OKR/check-in/cadence records (via
       sibling tools if merged, else hand-written localStorage fixtures
       matching D8) + an OST tree; verify all sections and per-KR confidence
-- [ ] 4.2 Partial pipeline: only OKR + OST → only those sections plus asks
+- [x] 4.2 Partial pipeline: only OKR + OST → only those sections plus asks
       prompt; nothing at all → headline + asks prompt, coverage all-missing
-- [ ] 4.3 Persistence: edit body, reload, draft restored; two products →
+- [x] 4.3 Persistence: edit body, reload, draft restored; two products →
       drafts correctly scoped per product
-- [ ] 4.4 Recompose confirmation overwrites only after confirm; edited-since-
+- [x] 4.4 Recompose confirmation overwrites only after confirm; edited-since-
       compose warning shows
-- [ ] 4.5 Copy action puts full body on clipboard; simulate clipboard denial
+- [x] 4.5 Copy action puts full body on clipboard; simulate clipboard denial
       → manual-copy fallback, no page error
-- [ ] 4.6 Read-only guarantee: snapshot sibling keys before/after a full
+- [x] 4.6 Read-only guarantee: snapshot sibling keys before/after a full
       compose-edit-copy session and confirm byte-identical
-- [ ] 4.7 OST drift: delete the referenced tree, reopen draft → badge shown,
+- [x] 4.7 OST drift: delete the referenced tree, reopen draft → badge shown,
       body unchanged
 
 ## 5. Verification and close-out
 
-- [ ] 5.1 Quality gates: `pnpm check` and `pnpm build` pass; no new
+- [x] 5.1 Quality gates: `pnpm check` and `pnpm build` pass; no new
       dependencies added to `package.json`
-- [ ] 5.2 Confirm no locked URL changed; new route is exactly
+- [x] 5.2 Confirm no locked URL changed; new route is exactly
       `/tools/stakeholder-update-composer/`
-- [ ] 5.3 File follow-up beads: `stakeholder-update-sources-v2` (Backlog
+- [x] 5.3 File follow-up beads: `stakeholder-update-sources-v2` (Backlog
       Prioritizer / Test Register sections) and note the still-open
       `pipeline-tools-chrome` question; file + close a bead for this change's
       implementation (none pre-exists)
-- [ ] 5.4 `openspec archive stakeholder-update-composer-tool` after deploy
+- [x] 5.4 `openspec archive stakeholder-update-composer-tool` after deploy
       verification
