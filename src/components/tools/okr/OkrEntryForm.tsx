@@ -34,14 +34,14 @@ const KR_FIELDS: {
   {
     key: "doesWhat",
     label: "Does what",
-    hint: "An observable behaviour, not a thing you ship.",
-    placeholder: "complete their first order pipeline",
+    hint: "A behaviour that proves they got value — not a feature they touched.",
+    placeholder: "stop touching the paper order book during a live rush",
   },
   {
     key: "byHowMuch",
     label: "By how much",
-    hint: "A measured amount, framed baseline → target.",
-    placeholder: "from 12% to 40% within the trial",
+    hint: "Phrase it \"up from X to Y\" so it reads as one sentence with who + does what.",
+    placeholder: "up from 1 in 8 trials to 1 in 2",
   },
 ];
 
@@ -144,7 +144,7 @@ export default function OkrEntryForm({
         <textarea
           value={objective}
           rows={2}
-          placeholder="e.g. New bakeries feel Donut CRM is worth paying for before their trial ends"
+          placeholder="e.g. Trial bakery owners trust Donut CRM enough to close the paper order book for good"
           onChange={(e) => {
             setObjective(e.target.value);
             setError(null);

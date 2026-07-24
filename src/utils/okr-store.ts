@@ -93,18 +93,18 @@ export const MAX_KEY_RESULTS = 5;
 export const SAMPLE_OKR: Pick<OkrRecord, "objective" | "tag"> & {
   keyResults: Omit<OkrKeyResult, "id">[];
 } = {
-  objective: "New bakeries feel Donut CRM is worth paying for before their trial ends",
+  objective: "Trial bakery owners trust Donut CRM enough to close the paper order book for good",
   tag: { kind: "product", label: "Onboarding" },
   keyResults: [
     {
       who: "Trial bakery owners",
-      doesWhat: "complete their first order pipeline",
-      byHowMuch: "from 12% to 40% within the trial",
+      doesWhat: "stop touching the paper order book during a live rush",
+      byHowMuch: "up from 1 in 8 trials to 1 in 2",
     },
     {
       who: "Trial bakery owners",
-      doesWhat: "invite a second person from the shop",
-      byHowMuch: "from 1 in 9 trials to 1 in 3",
+      doesWhat: "log back in the morning after their first busy weekend",
+      byHowMuch: "up from 30% to 70%",
     },
   ],
 };
