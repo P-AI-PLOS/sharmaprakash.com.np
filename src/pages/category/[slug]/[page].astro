@@ -6,20 +6,19 @@ import SeriesStrip from "~/components/blog/SeriesStrip.astro";
 import ScrollReveal from "~/components/motion/ScrollReveal.astro";
 import { headTitle } from "~/data/site";
 import {
-  getUniqueCategories,
+  getCategorySummaries,
   getPostsByCategorySlug,
   postUrl,
   postThumbnail,
   POSTS_PER_PAGE,
 } from "~/utils/posts";
 import Pagination from "~/components/blog/Pagination.astro";
-import { createSlug, formatBlogDate } from "~/utils";
+import { formatBlogDate } from "~/utils";
 
 export const getStaticPaths = (async () => {
-  const cats = await getUniqueCategories();
+  const cats = await getCategorySummaries();
   const out = [];
-  for (const cat of cats) {
-    const slug = createSlug(cat);
+  for (const { slug, name } of cats) {
     const posts = await getPostsByCategorySlug(slug);
     const total = Math.max(1, Math.ceil(posts.length / POSTS_PER_PAGE));
     for (let i = 0; i < total; i++) {
@@ -31,7 +30,7 @@ export const getStaticPaths = (async () => {
           posts: posts.slice(start, start + POSTS_PER_PAGE),
           currentPage: pageNum,
           totalPages: total,
-          category: cat,
+          category: name,
           slug,
         },
       });

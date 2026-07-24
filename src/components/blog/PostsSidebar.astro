@@ -1,16 +1,13 @@
 ---
 import {
-  getAllCategories,
+  getCategorySummaries,
   getRecentBlogPosts,
-  getUniqueCategories,
   postUrl,
 } from "~/utils/posts";
-import { createSlug, formatBlogDate } from "~/utils";
+import { formatBlogDate } from "~/utils";
 
 const recent = await getRecentBlogPosts(5);
-const cats = await getUniqueCategories();
-const all = await getAllCategories();
-const counts = Object.fromEntries(cats.map((c) => [c, all.filter((x) => x === c).length]));
+const cats = await getCategorySummaries();
 ---
 
 <aside class="space-y-10 sticky top-28">
@@ -19,8 +16,8 @@ const counts = Object.fromEntries(cats.map((c) => [c, all.filter((x) => x === c)
     <ul class="flex flex-wrap gap-2 list-none">
       {cats.map((c) => (
         <li>
-          <a href={`/category/${createSlug(c)}/1/`} class="chip">
-            {c} <span class="text-faint ml-1">({counts[c]})</span>
+          <a href={`/category/${c.slug}/1/`} class="chip">
+            {c.name} <span class="text-faint ml-1">({c.count})</span>
           </a>
         </li>
       ))}

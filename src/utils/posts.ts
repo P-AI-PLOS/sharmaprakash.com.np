@@ -38,8 +38,27 @@ export const getAllCategories = async (): Promise<string[]> => {
   return all.flatMap((p) => p.data.category ?? []);
 };
 
-export const getUniqueCategories = async (): Promise<string[]> => {
-  return [...new Set(await getAllCategories())];
+export type CategorySummary = { slug: string; name: string; count: number };
+
+// Category frontmatter is free text ("Technical Notes" vs "technical-notes"),
+// so dedup by slug rather than raw string — otherwise both variants generate
+// the same /category/[slug]/[page] static path and Astro drops one at build.
+export const getCategorySummaries = async (): Promise<CategorySummary[]> => {
+  const all = await getAllCategories();
+  const bySlug = new Map<string, CategorySummary>();
+  for (const name of all) {
+    const slug = createSlug(name);
+    const existing = bySlug.get(slug);
+    if (existing) {
+      existing.count++;
+      if (!/[A-Z]/.test(existing.name) && /[A-Z]/.test(name)) {
+        existing.name = name;
+      }
+    } else {
+      bySlug.set(slug, { slug, name, count: 1 });
+    }
+  }
+  return [...bySlug.values()];
 };
 
 export const getPostsByCategorySlug = async (
