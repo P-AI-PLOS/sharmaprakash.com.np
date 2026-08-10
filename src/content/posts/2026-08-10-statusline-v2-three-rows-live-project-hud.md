@@ -361,10 +361,10 @@ Worth naming, because it's easy to assume everything changed:
 
 ## The full script
 
-Every snippet above is an excerpt. Since this post, I've split the script into namespaced modules and pulled it out into its own repo — [**agent-statusline**](https://github.com/tokdio/agent-statusline?utm_source=sharmaprakash-blog&utm_medium=referral&utm_campaign=statusline-v2&utm_content=full-script-intro) — with a `build.sh` that flattens the modules into the single fork-free file Claude Code actually runs, ShellCheck-clean CI on every push, and a versioned release. If you'd rather grab it than copy-paste, this is the fastest path:
+Every snippet above is an excerpt. Since this post, I've split the script into namespaced modules and pulled it out into its own repo — [**agent-statusline**](https://github.com/poudelprakash/agent-statusline?utm_source=sharmaprakash-blog&utm_medium=referral&utm_campaign=statusline-v2&utm_content=full-script-intro) — with a `build.sh` that flattens the modules into the single fork-free file Claude Code actually runs, ShellCheck-clean CI on every push, and a versioned release. If you'd rather grab it than copy-paste, this is the fastest path:
 
 ```bash
-curl -fsSL "https://github.com/tokdio/agent-statusline/releases/latest/download/statusline-command.sh?utm_source=sharmaprakash-blog&utm_medium=referral&utm_campaign=statusline-v2&utm_content=curl-oneliner" \
+curl -fsSL "https://github.com/poudelprakash/agent-statusline/releases/latest/download/statusline-command.sh?utm_source=sharmaprakash-blog&utm_medium=referral&utm_campaign=statusline-v2&utm_content=curl-oneliner" \
   -o ~/.claude/statusline-command.sh
 chmod +x ~/.claude/statusline-command.sh
 ```
