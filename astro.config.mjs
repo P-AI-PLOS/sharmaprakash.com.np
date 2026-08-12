@@ -42,5 +42,7 @@ export default defineConfig({
     "/technical-notes/ai-podcast-index-project-overview/": "/technical-notes/clipdex-project-overview/",
     "/technical-notes/react-frontend-for-podcast-index/": "/technical-notes/clipdex-react-frontend/",
     "/series/ai-podcast-index/": "/series/clipdex/",
+    "/blog/statusline-the-five-second-feedback-loop/": "/ai/statusline-the-five-second-feedback-loop/",
+    "/blog/statusline-v2-three-rows-live-project-hud/": "/ai/statusline-v2-three-rows-live-project-hud/",
   },
 });

@@ -35,7 +35,7 @@ Seven fields, one line, zero token cost — and each field changes a decision I 
 
 This post is about why the statusline is the most underused configuration surface in agentic coding, what to put in it, and a few patterns the community has converged on.
 
-> **Update, August 2026:** the script below is where I started. It's since grown into a three-row layout with clickable branch/PR links, rate-limit pacing, and a project-state row — see [Statusline v2: Three Rows, Clickable Links, and a Live Project HUD](/blog/statusline-v2-three-rows-live-project-hud/) for what changed and why. The fundamentals here — what the statusline is, the fork-count discipline, the `$HOME` collapse trap — still stand and aren't repeated there.
+> **Update, August 2026:** the script below is where I started. It's since grown into a three-row layout with clickable branch/PR links, rate-limit pacing, and a project-state row — see [Statusline v2: Three Rows, Clickable Links, and a Live Project HUD](/ai/statusline-v2-three-rows-live-project-hud/) for what changed and why. The fundamentals here — what the statusline is, the fork-count discipline, the `$HOME` collapse trap — still stand and aren't repeated there.
 
 ---
 

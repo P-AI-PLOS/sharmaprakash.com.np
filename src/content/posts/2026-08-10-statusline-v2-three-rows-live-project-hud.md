@@ -8,7 +8,7 @@ excerpt: "Upgrading a Claude Code statusline past one line: a three-row layout, 
 use_featured_image: false
 ---
 
-If you set up a statusline after reading [Your Statusline Is the Cheapest Feedback Loop in Agentic Coding](/blog/statusline-the-five-second-feedback-loop/), you're probably running some version of the 8-field, single-line script from that post: cwd, branch, model, tokens, diff magnitude, context %, cache ratio, rate limit. It still works. Nothing in this post breaks it or makes it wrong.
+If you set up a statusline after reading [Your Statusline Is the Cheapest Feedback Loop in Agentic Coding](/ai/statusline-the-five-second-feedback-loop/), you're probably running some version of the 8-field, single-line script from that post: cwd, branch, model, tokens, diff magnitude, context %, cache ratio, rate limit. It still works. Nothing in this post breaks it or makes it wrong.
 
 What I want to show you is what happens after you live with that line for a couple of months and keep asking yourself questions it can't answer. Mine grew from roughly 160 lines to 434, and the shape changed completely — one line became three, plain text became clickable links, and a row appeared that has nothing to do with the JSON payload Claude Code sends at all. Every addition below started the same way the fields in the first post did: I kept looking something up by hand, and eventually it annoyed me enough to put on the line instead.
 
