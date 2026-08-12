@@ -7,7 +7,7 @@ directory: ai
 excerpt: "Most teams using Claude Code, Cursor, or Aider leave the statusline at default. It's a one-line strip of pixels that costs you nothing, sees zero tokens, and can change every decision you make during a session."
 cover: "/images/blog/ai/statusline-feedback-loop.png"
 thumb: "/images/blog/ai/statusline-feedback-loop.png"
-last_modified_at: "2026-05-25T10:00:00+05:45"
+last_modified_at: "2026-08-12T10:00:00+05:45"
 use_featured_image: true
 ---
 
@@ -530,3 +530,27 @@ Most teams leave it at default — and the default is *empty*. The slot sits unu
 Twenty-five minutes of bash, and your one-line cockpit tells you exactly what you ask of it: where you are, what state your branch is in, which model is on the meter, how much you've spent in tokens, how big the agent's diff has grown, how much context you have left, and where you sit against your rate limit.
 
 It's the cheapest feedback loop in your stack. Build it once.
+
+---
+
+## Don't want to build it? Install it
+
+Everything above has since been extracted into its own repo — [**agent-statusline**](https://github.com/poudelprakash/agent-statusline?utm_source=sharmaprakash-blog&utm_medium=referral&utm_campaign=statusline-v1&utm_content=closing-install) — namespaced modules, a `build.sh` that flattens them into the single fork-free file Claude Code actually runs, ShellCheck-clean CI, and versioned releases.
+
+**Homebrew** — puts `agent-statusline` on your `PATH`, no `~/.claude` path to remember:
+
+```bash
+brew install tokdio/tap/agent-statusline
+```
+
+`brew info agent-statusline` prints the exact `statusLine` block to paste into `~/.claude/settings.json`.
+
+**Or curl the prebuilt script directly:**
+
+```bash
+curl -fsSL "https://github.com/poudelprakash/agent-statusline/releases/latest/download/statusline-command.sh?utm_source=sharmaprakash-blog&utm_medium=referral&utm_campaign=statusline-v1&utm_content=curl-oneliner" \
+  -o ~/.claude/statusline-command.sh
+chmod +x ~/.claude/statusline-command.sh
+```
+
+For what the current three-row layout does with those fields, see [Statusline v2: Three Rows, Clickable Links, and a Live Project HUD](/ai/statusline-v2-three-rows-live-project-hud/).

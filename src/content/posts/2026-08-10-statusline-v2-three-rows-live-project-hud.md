@@ -5,7 +5,10 @@ category: ["AI"]
 categories: ["ai"]
 directory: ai
 excerpt: "Upgrading a Claude Code statusline past one line: a three-row layout, clickable branch and PR links, rate-limit pacing arrows, and a live project-state row for GSD, OpenSpec, and Beads — plus the full updated script and where to start if you're extending your own."
-use_featured_image: false
+cover: "/images/blog/ai/statusline-v2-three-rows.png"
+thumb: "/images/blog/ai/statusline-v2-three-rows.png"
+last_modified_at: "2026-08-12T10:00:00+05:45"
+use_featured_image: true
 ---
 
 If you set up a statusline after reading [Your Statusline Is the Cheapest Feedback Loop in Agentic Coding](/ai/statusline-the-five-second-feedback-loop/), you're probably running some version of the 8-field, single-line script from that post: cwd, branch, model, tokens, diff magnitude, context %, cache ratio, rate limit. It still works. Nothing in this post breaks it or makes it wrong.
@@ -861,3 +864,15 @@ The first post's bar was: *does this field, looked at right now, change a decisi
 Row 3 is the clearest example on my line — most renders, on most repos, it's not there, and that's correct. A statusline that always shows every row you've ever configured stops being a cockpit indicator and becomes wallpaper you stop reading. Whatever you build, make the empty state as deliberate as the full one — if a row can't earn a clean "nothing to show" most of the time, it doesn't belong on the line yet.
 
 The JSON payload will keep growing, and you'll keep finding project state worth reading off disk that has nothing to do with it. When you hit that point, don't reach for a new field on an existing row first — ask whether it's actually a new row, or a reason one of your current rows should learn to disappear more often.
+
+---
+
+## Get it
+
+The whole thing lives in [**agent-statusline**](https://github.com/poudelprakash/agent-statusline?utm_source=sharmaprakash-blog&utm_medium=referral&utm_campaign=statusline-v2&utm_content=closing-install) — namespaced modules, a `build.sh` that flattens them into the single fork-free file Claude Code runs, ShellCheck-clean CI, and versioned releases.
+
+```bash
+brew install tokdio/tap/agent-statusline
+```
+
+`brew info agent-statusline` prints the exact `statusLine` block to paste into `~/.claude/settings.json`. No Homebrew? [Curl the prebuilt script](#the-full-script) instead.
