@@ -1,0 +1,9 @@
+---
+import SiteShell from "~/layouts/SiteShell.astro";
+import ScrollReveal from "~/components/motion/ScrollReveal.astro";
+import ScrobbleStats from "~/components/tools/scrobble-stats/ScrobbleStats";
+---
+<SiteShell title="Scrobble Listening Stats — Free Tool" description="Paste a Last.fm CSV or ListenBrainz JSON export to see listening charts, top artists, monthly and hourly patterns, and a compact summary entirely client-side with no upload.">
+  <section class="bg-surface-base pt-40 pb-12"><ScrollReveal class="mx-auto max-w-3xl px-6 lg:px-12 text-center"><p class="eyebrow mb-3">Free tool</p><h1 class="text-display-lg text-strong">Scrobble Listening Stats</h1><p class="mt-4 text-body-lg text-muted max-w-xl mx-auto">Drop or paste your listening history and explore the patterns hiding in it. Your file never leaves this browser, and listen data is kept in memory only. Pair it with the <a href="/technical-notes/homelab-music-recommendations-field-guide/" class="link-underline text-accent-700">homelab music field guide →</a></p></ScrollReveal></section>
+  <section class="bg-surface-base pb-24"><div class="mx-auto max-w-5xl px-6 lg:px-12"><ScrobbleStats client:load /></div></section>
+</SiteShell>

@@ -193,3 +193,5 @@ Don't over-apply the lens. The cost of constantly glancing at a statusline is lo
 A friend asked me how many tokens my last session burned. I didn't have an answer — I'd been watching `ctx:%` for months and treating that as my dashboard. It wasn't. The reframe took twenty-five minutes of bash and changed my behaviour mid-session more than any prompt-engineering tip I've picked up this year.
 
 The companion post — [Your Statusline is the Cheapest Feedback Loop in Agentic Coding](/ai/statusline-the-five-second-feedback-loop/) — has the actual script and the field-by-field rationale. Read it after this one.
+
+<p class="not-prose"><a href="/tools/token-cost-calculator/" class="link-underline">Paste your ccusage export into the Token Cost Calculator to inspect the same session costs →</a></p>

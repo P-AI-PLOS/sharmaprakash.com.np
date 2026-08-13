@@ -554,3 +554,5 @@ chmod +x ~/.claude/statusline-command.sh
 ```
 
 For what the current three-row layout does with those fields, see [Statusline v2: Three Rows, Clickable Links, and a Live Project HUD](/ai/statusline-v2-three-rows-live-project-hud/).
+
+<p class="not-prose"><a href="/tools/statusline-playground/" class="link-underline">Compose and preview the statusline described here in the Statusline Playground →</a></p>

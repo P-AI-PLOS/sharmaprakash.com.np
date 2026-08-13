@@ -1,0 +1,9 @@
+---
+import SiteShell from "~/layouts/SiteShell.astro";
+import ScrollReveal from "~/components/motion/ScrollReveal.astro";
+import PoResponsibilityMap from "~/components/tools/po-responsibility-map/PoResponsibilityMap";
+---
+<SiteShell title="PO Responsibility Map — Free Tool" description="Sketch how product-owner responsibilities shift as an engineering team grows, add the roles around the PO, override the defaults into a RACI, and export the result.">
+  <section class="bg-surface-base pt-40 pb-12"><ScrollReveal class="mx-auto max-w-3xl px-6 lg:px-12 text-center"><p class="eyebrow mb-3">Free tool</p><h1 class="text-display-lg text-strong">PO Responsibility Map</h1><p class="mt-4 text-body-lg text-muted max-w-xl mx-auto">Choose a team shape, see what a PO absorbs or hands off, and edit the map into a lightweight RACI. The defaults follow the <a href="/product-management/what-a-po-absorbs-vs-hands-off-by-team-size/" class="link-underline text-accent-700">team-size guide →</a></p></ScrollReveal></section>
+  <section class="bg-surface-base pb-24"><div class="mx-auto max-w-5xl px-6 lg:px-12"><PoResponsibilityMap client:load /></div></section>
+</SiteShell>

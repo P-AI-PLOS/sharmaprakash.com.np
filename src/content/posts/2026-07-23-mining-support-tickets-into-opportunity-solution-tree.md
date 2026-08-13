@@ -94,6 +94,8 @@ That moment — the customer who is actively frustrated and has no reason to be 
 
 ## Further reading
 
+<p class="not-prose"><a href="/tools/affinity-board/" class="link-underline">Cluster support-ticket evidence before feeding themes into an OST with the Interview Affinity Board →</a> <a href="/tools/assumption-mapper/" class="link-underline">Rank the assumptions behind each opportunity with the Assumption Mapper →</a></p>
+
 - [Opportunity Solution Trees](/product-management/opportunity-solution-trees-the-shape-of-good-discovery/) — the tree that support signal feeds into; the decompression technique is the same one used for feature requests in interviews.
 - [Finding Opportunities: Interviews, JTBD, and the Opportunity Space](/product-management/finding-opportunities-interviews-jtbd-and-the-opportunity-space/) — the opportunity-space discipline that keeps support themes from becoming feature requests with better formatting.
 - [The Signal Pipeline](/product-management/the-signal-pipeline-tickets-calls-and-crm-into-one-weekly-digest/) — the signal-card format and weekly digest rhythm this extraction pass plugs into.

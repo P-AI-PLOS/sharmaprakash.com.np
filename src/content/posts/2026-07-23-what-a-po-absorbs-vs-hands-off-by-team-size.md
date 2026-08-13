@@ -101,6 +101,8 @@ The invoice PDF was fixed in four hours. The CFO presentation happened Monday an
 
 ## Further reading
 
+<p class="not-prose"><a href="/tools/po-responsibility-map/" class="link-underline">Adjust the team-size responsibility defaults in the PO Responsibility Map →</a></p>
+
 - [The Planning Stack](/product-management/the-planning-stack-vision-to-quarter-without-repeating-yourself/) — the horizon framework this post's hat-migration sits inside; the PO's shrinking sprint role is a downstream effect of planning layers getting explicit.
 - [The Strategy Cascade](/product-management/the-strategy-cascade-frameworks-i-actually-reach-for/) — where the PO's hats map to cascade layers; sprint facilitation lives at the backlog-and-delivery layer, discovery at the strategy-and-objectives layer.
 - [The Product Owner's Stakeholder Craft](/product-management/the-product-owners-stakeholder-craft/) — the hat that never migrates: the PO as the team's interface with the organization.

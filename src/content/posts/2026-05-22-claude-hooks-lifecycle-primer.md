@@ -244,3 +244,5 @@ The primer is the map. The doc is the legend.
 Hooks feel like an obscure feature until the first one saves you an hour of "no, not like that" — then they feel essential. The lifecycle isn't complicated; there are only eight events and three exit codes that matter. Once that's in your head, the question shifts from "how do I write this" to "what should I write" — which is the topic of the companion post.
 
 Bookmark this one. You'll forget the matcher regex syntax at least once a month, and that's fine — the doc is right here.
+
+<p class="not-prose"><a href="/tools/claude-hook-builder/" class="link-underline">Build this lifecycle configuration interactively in the Claude Code Hook Builder →</a></p>

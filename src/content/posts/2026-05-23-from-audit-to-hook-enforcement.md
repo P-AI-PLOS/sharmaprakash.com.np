@@ -386,3 +386,5 @@ The hook system is the cheapest enforcement layer in a Claude-driven repo. It do
 Eight hooks. ~250 lines of shell. Every audit finding that survived being-written-down gets one. The repo that started with an open-ended drift problem ends with a deterministic refusal at write-time, every time, with the explanation right there in the block message.
 
 If you're new to the team and inheriting a setup like this, that's the mental model: each hook script is a fossil of a specific drift that someone got tired of correcting in PR review. Read the block messages. Each one tells you something about the codebase that isn't written anywhere else.
+
+<p class="not-prose"><a href="/tools/claude-hook-builder/" class="link-underline">Turn these enforcement ideas into a ready-to-paste hooks block with the Claude Code Hook Builder →</a></p>

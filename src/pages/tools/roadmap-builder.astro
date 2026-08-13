@@ -1,0 +1,9 @@
+---
+import SiteShell from "~/layouts/SiteShell.astro";
+import ScrollReveal from "~/components/motion/ScrollReveal.astro";
+import RoadmapBuilder from "~/components/tools/roadmap-builder/RoadmapBuilder";
+---
+<SiteShell title="Now / Next / Later Roadmap Builder — Free Tool" description="Build a date-light Now, Next, Later roadmap with outcomes, confidence, themes, Markdown export, and an SVG you can paste into a deck.">
+  <section class="bg-surface-base pt-40 pb-12"><ScrollReveal class="mx-auto max-w-3xl px-6 lg:px-12 text-center"><p class="eyebrow mb-3">Free tool</p><h1 class="text-display-lg text-strong">Now / Next / Later Roadmap</h1><p class="mt-4 text-body-lg text-muted max-w-xl mx-auto">Keep the roadmap honest before adding dates: make the commitment horizon visible, attach an outcome to every item, and share a compact export. Derive priorities from your <a href="/tools/north-star-metric-tree/" class="link-underline text-accent-700">North Star Metric Tree →</a></p></ScrollReveal></section>
+  <section class="bg-surface-base pb-24"><div class="mx-auto max-w-5xl px-6 lg:px-12"><RoadmapBuilder client:load /></div></section>
+</SiteShell>

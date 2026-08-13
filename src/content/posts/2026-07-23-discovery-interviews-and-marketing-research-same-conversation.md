@@ -90,6 +90,8 @@ The PM and the marketer in that interview I described at the top were both good 
 
 ## Further reading
 
+<p class="not-prose"><a href="/tools/affinity-board/" class="link-underline">Turn your interview snippets into themes with the Interview Affinity Board →</a> <a href="/tools/assumption-mapper/" class="link-underline">Map the beliefs behind those themes with the Assumption Mapper →</a></p>
+
 - [Discovery and Customer Understanding](/product-management/discovery-and-customer-understanding/) — the discovery frameworks (JTBD, opportunity trees, Mom Test) that product uses; the marketing overlap starts here.
 - [Positioning: The Choice You Make Before the Market Does](/product-management/positioning-the-choice-you-make-before-the-market-makes-it-for-you/) — where the marketing research converges with the product's competitive-alternative analysis; Dunford's five components begin with the same question the PM asks in discovery.
 - [Finding Opportunities: Interviews, JTBD, and the Opportunity Space](/product-management/finding-opportunities-interviews-jtbd-and-the-opportunity-space/) — the JTBD switch interview as the shared format where PM and marketing signal naturally interleave.

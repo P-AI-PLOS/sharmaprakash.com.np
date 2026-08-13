@@ -1,0 +1,9 @@
+---
+import SiteShell from "~/layouts/SiteShell.astro";
+import ScrollReveal from "~/components/motion/ScrollReveal.astro";
+import StatuslinePlayground from "~/components/tools/statusline-playground/StatuslinePlayground";
+---
+<SiteShell title="Claude Code Statusline Playground — Free Tool" description="Compose and preview a Claude Code statusline with model, branch, context, cost, token, working-directory, time, and custom segments, then export the command and settings.json block.">
+  <section class="bg-surface-base pt-40 pb-12"><ScrollReveal class="mx-auto max-w-3xl px-6 lg:px-12 text-center"><p class="eyebrow mb-3">Free tool</p><h1 class="text-display-lg text-strong">Claude Code Statusline Playground</h1><p class="mt-4 text-body-lg text-muted max-w-xl mx-auto">Compose a useful five-second feedback loop, test it with sample data, and export a statusline command. Try the <a href="/ai/statusline-v2-three-rows-live-project-hud/" class="link-underline text-accent-700">three-row HUD companion post →</a></p></ScrollReveal></section>
+  <section class="bg-surface-base pb-24"><div class="mx-auto max-w-5xl px-6 lg:px-12"><StatuslinePlayground client:load /></div></section>
+</SiteShell>

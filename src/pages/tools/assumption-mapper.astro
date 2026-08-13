@@ -1,0 +1,9 @@
+---
+import SiteShell from "~/layouts/SiteShell.astro";
+import ScrollReveal from "~/components/motion/ScrollReveal.astro";
+import AssumptionMapper from "~/components/tools/assumption-mapper/AssumptionMapper";
+---
+<SiteShell title="Assumption Mapper — Free Tool" description="Map product assumptions on an importance by evidence 2×2, find the high-importance low-evidence risks, and export testable hypotheses entirely in your browser.">
+  <section class="bg-surface-base pt-40 pb-12"><ScrollReveal class="mx-auto max-w-3xl px-6 lg:px-12 text-center"><p class="eyebrow mb-3">Free tool</p><h1 class="text-display-lg text-strong">Assumption Mapper</h1><p class="mt-4 text-body-lg text-muted max-w-xl mx-auto">Make the riskiest belief visible: place assumptions by importance and evidence, draft a test for the danger zone, then move the work into the <a href="/tools/test-register/" class="link-underline text-accent-700">Test Register →</a> after reading about <a href="/product-management/discovery-interviews-and-marketing-research-same-conversation/" class="link-underline text-accent-700">assumption-led discovery →</a></p></ScrollReveal></section>
+  <section class="bg-surface-base pb-24"><div class="mx-auto max-w-5xl px-6 lg:px-12"><AssumptionMapper client:load /></div></section>
+</SiteShell>
