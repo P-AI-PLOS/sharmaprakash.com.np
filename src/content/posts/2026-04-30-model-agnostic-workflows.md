@@ -42,7 +42,7 @@ The goal isn't to eliminate tool-specific things — you'll always have some. Th
 
 **Spec files (OpenSpec).** Markdown in the repo. Any agent that can read files can read a spec. The spec format is plain English — no proprietary syntax.
 
-**Beads state.** If you're using Beads for task tracking (JSONL in the repo), any agent can read the current state with a single file read. The state is in a standard format, not inside a tool's database.
+**Beads state.** Beads keeps canonical task state in Dolt and exposes it through the `bd` CLI. Any harness that can run the CLI can query the same dependency graph. Portability comes from the local command and data model—not from pretending its JSONL export is the database.
 
 **The "spec before code" habit.** Writing a spec first is a cognitive discipline, not a tool feature. It survives every model change.
 
@@ -68,7 +68,7 @@ When you switch tools, here's what each asset requires:
 |---|---|---|
 | CLAUDE.md / AGENTS.md content | High | Rename file, review for Anthropic-specific phrasing |
 | rules/*.md content | High | Copy as-is, minor reformatting if needed |
-| Beads state (JSONL) | Full | Zero — it's plain files in the repo |
+| Beads state (Dolt + `bd` CLI) | High | Install the CLI and connect or initialize the workspace |
 | Git worktrees | Full | Zero — pure git |
 | OpenSpec files | Full | Zero — pure markdown |
 | Conventional Commits config | Full | Zero — in .git config or repo root |
@@ -103,8 +103,8 @@ These are the habits that pay off when the model landscape shifts:
 **1. Keep context in markdown files, not tool-specific formats.**
 A `rules/naming-conventions.md` file that any agent can read is more durable than a Claude Code skill that encodes the same rules in tool-specific syntax.
 
-**2. Store task state in standard formats in the repo.**
-JSON, JSONL, plain text. Anything a shell script could read. If your task state lives inside a tool's database or memory system, it's locked to that tool.
+**2. Store task state behind a portable interface with an export path.**
+Plain JSON and markdown remain excellent defaults, but a local database is not automatically lock-in. Beads uses Dolt as its canonical store, offers a stable CLI to every harness, and provides JSONL export for migration and interoperability. The durable requirement is that another tool can query and move the state without depending on one model vendor's private memory.
 
 **3. Write rules as "what to do," not "how Claude should behave."**
 Instructions like "use Conventional Commit format" work for any instruction-following model. Instructions like "when you use the Bash tool, check with me first" are Claude-specific phrasing that may not transfer. Prefer general imperative instructions.

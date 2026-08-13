@@ -5,14 +5,16 @@ date: "2026-04-16T10:00:00+05:45"
 category: ["AI"]
 categories: ["ai"]
 directory: ai
-excerpt: "GitHub Issues is great for tracking work across a team. Beads is great for the local development loop — and for the AI agents running inside it. It's the same data, in the same repo, queryable with jq."
+excerpt: "GitHub Issues is great for tracking work across a team. Beads is a Dolt-backed task graph for the local development loop — and for the AI agents running inside it."
 cover: "/images/blog/ai/beads-local-first-task-graph.png"
 thumb: "/images/blog/ai/beads-local-first-task-graph.png"
-last_modified_at: "2026-04-16T10:00:00+05:45"
+last_modified_at: "2026-08-14T10:00:00+05:45"
 use_featured_image: true
 series: parallel-developer
 seriesOrder: 4
 ---
+
+> **Updated August 14, 2026:** Beads moved from the SQLite/JSONL architecture described in the original article to Dolt. This revision corrects the storage, sync, backup, and agent-query guidance while preserving the original workflow argument.
 
 You break a feature into six tasks in your head. You start on task one. Forty minutes in, a colleague pings you about an unrelated bug. You switch. You fix it. You come back the next morning and stare at the half-finished code trying to remember: was I on task two or three? Did I already do the migration? Which of the six tasks was blocked by the auth change that isn't merged yet?
 
@@ -22,7 +24,7 @@ That's not a memory problem. It's a data storage problem. You were keeping the t
 
 ## What Beads is
 
-[Beads](https://github.com/gastownhall/beads) is a local-first issue tracker with a dependency graph. Single binary (`bd`), SQLite working store, JSONL source of truth committed to git alongside your code.
+[Beads](https://github.com/gastownhall/beads) is a local-first issue tracker with a dependency graph. The `bd` binary stores canonical issue state in Dolt. A JSONL export may also live alongside the code for review and interoperability, but it is not the database or a complete backup.
 
 It is not a project management tool. It is not a replacement for GitHub Issues or Linear or Jira. Those tools are for communicating work across teams. Beads is for the local development loop — the part that happens on your machine between "issue opened" and "PR opened." Sub-tasks, dependencies, priority ordering, status tracking, agent context.
 
@@ -44,9 +46,9 @@ Both have their place. They don't compete.
 | `bd ready` | Only unblocked work, sorted by priority |
 | `bd show bd-42.1` | Details + dependencies for one bead |
 | `bd dep add bd-42.2 bd-42.1` | Make `bd-42.2` depend on `bd-42.1` |
-| `bd update bd-42.1 --status=in_progress` | Claim a task |
+| `bd update bd-42.1 --claim` | Claim a task |
 | `bd close bd-42.1` | Mark done |
-| `bd export > .beads/issues.jsonl` | Write the graph to git |
+| `bd dolt push` | Sync the canonical database to its Dolt remote |
 
 ---
 
@@ -62,7 +64,7 @@ bd ready
 # bd-15.3  [P2] Extract BillingService from UsersController
 ```
 
-Two items. Both unblocked. Top priority first. Pick one, run `bd update bd-42.1 --status=in_progress`, and start.
+Two items. Both unblocked. Top priority first. Pick one, run `bd update bd-42.1 --claim`, and start.
 
 ---
 
@@ -72,7 +74,7 @@ The pairing is intentional. When you claim a bead, you also create the worktree:
 
 ```bash
 # Claim the task
-bd update bd-42.1 --status=in_progress
+bd update bd-42.1 --claim
 
 # Create the isolated environment
 git worktree add ../neo-42-feat main -b 42-feat/add-avatars
@@ -93,70 +95,56 @@ git branch -d 42-feat/add-avatars
 
 ---
 
-## SQLite for speed, JSONL for git
+## Dolt is canonical; JSONL is an export
 
-The local working store is SQLite — fast queries, dependency traversal, no network latency. But SQLite files are binary and don't diff cleanly. So Beads maintains a parallel JSONL representation:
+Beads now uses Dolt for its working database and versioned issue history. If the project has a configured remote, cross-machine synchronization uses the dedicated database ref through `bd dolt push` and `bd dolt pull`.
+
+This distinction matters because `.beads/issues.jsonl` is an issue-table export. It is useful for viewers, migration, and interoperability, but it does not contain Dolt branches, commit history, working-set state, or every non-issue table. It is not a complete backup.
+
+Use the database-native path for each job:
 
 ```bash
-bd export > .beads/issues.jsonl
+# Share canonical issue state through the configured Dolt remote
+bd dolt push
+bd dolt pull
+
+# Create a full off-machine backup
+bd backup init /path/to/backup
+bd backup sync
+
+# Produce an optional issue export for interchange
+bd export -o issues.jsonl
 ```
 
-Commit `.beads/issues.jsonl` to git. The full graph — every bead, every dependency, every status — is in your repository history. Anyone who clones the repo can run `bd import < .beads/issues.jsonl` to rebuild the SQLite working store in seconds.
-
-Lose the SQLite? Re-import. Switch machines? Re-import. Onboard a new agent? Feed it the JSONL.
-
-A single bead in the JSONL looks like this:
-
-```json
-{
-  "id": "neo-09w",
-  "title": "Build theme toggle Stimulus controller",
-  "status": "closed",
-  "priority": 2,
-  "issue_type": "task",
-  "owner": "hi@jonathanclarke.ie",
-  "created_at": "2026-02-17T20:15:04Z",
-  "closed_at": "2026-02-17T20:21:06Z",
-  "dependencies": [
-    {"depends_on_id": "neo-tiu", "type": "blocks"}
-  ]
-}
-```
-
-Every field is meaningful. `status` is machine-readable. `dependencies` is a proper graph edge, not a freetext "blocked by #42" comment.
+That is less conceptually simple than the original SQLite-to-JSONL design I described when this article was first published. It is also the accurate model now: Dolt is the source of truth; JSONL is a projection of part of it.
 
 ---
 
-## Three `jq` queries worth keeping
+## Three CLI queries worth keeping
 
 ```bash
-# Ready and high priority (priority 1 or 2)
-jq '[.[] | select(.status == "open" and .dependencies == [] and .priority <= 2)]' \
-  .beads/issues.jsonl
+# Work that is ready to claim
+bd ready --json
 
-# Everything blocking a given bead
-jq --arg id "neo-09w" \
-  '[.[] | select(.dependencies[]?.depends_on_id == $id)]' \
-  .beads/issues.jsonl
+# Canonical details and dependencies for one issue
+bd show neo-09w --json
 
-# Beads closed this week
-jq --argjson since "$(date -d '7 days ago' +%s 2>/dev/null || date -v-7d +%s)" \
-  '[.[] | select(.status == "closed" and (.closed_at | fromdateiso8601) > $since)] | length' \
-  .beads/issues.jsonl
+# All open work
+bd list --status=open --json
 ```
 
-The JSONL format makes the graph queryable with standard tools. No API key, no network call, no third-party service.
+Use `bv --robot-triage` when you want graph-aware prioritization across the whole project. Its recommendations are advisory; inspect the canonical issue with `bd show` before claiming it.
 
 ---
 
-## Agents read the JSON directly
+## Agents read through the CLI
 
-This is the underrated part. You don't need a Beads MCP server for an agent to understand the task graph. The JSONL is already in the repo. The agent can read it directly:
+This is the underrated part. You don't need a Beads MCP server for an agent to understand the task graph. If the `bd` CLI is installed in its environment, the agent can query canonical state directly:
 
 ```
 You are implementing bead bd-42.2.
 
-Read .beads/issues.jsonl for full context:
+Run bd show bd-42.2 --json for full context, then inspect:
 - The beads that bd-42.2 depends on (and their current status)
 - The sibling beads in this feature
 - The parent feature's scope
@@ -164,7 +152,7 @@ Read .beads/issues.jsonl for full context:
 Implement only bd-42.2. Do not touch work covered by other beads.
 ```
 
-No custom tooling. No MCP server. Just `cat .beads/issues.jsonl` and structured JSON the model can reason over. The agent knows what's in scope, what's already done (closed beads), and what it must not touch (work owned by other beads).
+No custom parser. No MCP server. The CLI returns structured state from the authoritative database. The agent knows what's in scope, what's already done, and what it must not touch.
 
 ---
 
@@ -176,12 +164,14 @@ For when you want to see the graph rather than query it: `bv` is a terminal UI t
 
 ## How OpenSpec and Beads connect
 
-When `/opsx:apply` runs against an approved spec, it reads `tasks.md` and creates one bead per checkbox. The dependency graph comes from the task order: task 3 that requires the migration from task 1 to exist gets a `depends_on` edge added automatically.
+OpenSpec and Beads solve adjacent problems, but neither connection nor task conversion is automatic unless your workflow explicitly builds that bridge.
 
-The spec writes the graph. Beads tracks it. `bd ready` surfaces what's executable right now. The agent picks from `bd ready`, updates the status, and works.
+OpenSpec describes the approved change and its implementation tasks. Beads records durable ownership, dependencies, blockers, and follow-up work across sessions. An orchestrator can create or link Beads from an OpenSpec task list, but that mutation should be explicit and verified rather than assumed from task order.
+
+The spec remains authoritative for what the change requires. Beads tracks who is doing the work and what is executable now. If the two disagree, stop and resolve the conflict instead of letting one silently overwrite the other.
 
 ---
 
 ## Coming next
 
-[Part 5: AI Agents That Work — Give Them Structure, Not Just Prompts](/ai/2026-04-17-ai-agents-structured-workflow/) wires all four tools into the complete agentic loop. What the human does, what the agent does, what artifact gets produced at each step — and why this workflow eliminates the ambiguity that makes most agentic coding sessions fail.
+[Part 5: AI Agents That Work — Give Them Structure, Not Just Prompts](/ai/ai-agents-structured-workflow/) wires all four tools into the complete agentic loop. What the human does, what the agent does, what artifact gets produced at each step — and why this workflow eliminates the ambiguity that makes most agentic coding sessions fail.
