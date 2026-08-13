@@ -59,3 +59,5 @@ The founder who attended one interview per month didn't become a product manager
 The compound effect is trust. When the team knows the CEO has heard the customer directly, they don't need to translate customer context in every presentation. When the CEO trusts the team's discovery process because they've witnessed it, the approval cycle shortens. When both sides share the same customer vocabulary, the "why didn't we do X?" questions disappear — not because the CEO stopped asking, but because they already knew the answer.
 
 The investment is one interview per month and a ten-minute debrief. The return is a leadership team whose decisions are grounded in customer reality instead of a two-month-old interpretation of it. That's the highest-leverage hour a founder can spend on product quality, and most founders never discover it because they're too busy attending demos.
+
+<p class="not-prose"><a href="/tools/po-responsibility-map/" class="link-underline">Sketch discovery ownership and the surrounding RACI with the PO Responsibility Map →</a></p>

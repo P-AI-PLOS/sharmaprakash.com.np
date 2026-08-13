@@ -876,3 +876,5 @@ brew install tokdio/tap/agent-statusline
 ```
 
 `brew info agent-statusline` prints the exact `statusLine` block to paste into `~/.claude/settings.json`. No Homebrew? [Curl the prebuilt script](#the-full-script) instead.
+
+<p class="not-prose"><a href="/tools/statusline-playground/" class="link-underline">Try the three-row layout interactively in the Statusline Playground →</a></p>

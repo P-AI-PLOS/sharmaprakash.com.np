@@ -1,0 +1,9 @@
+---
+import SiteShell from "~/layouts/SiteShell.astro";
+import ScrollReveal from "~/components/motion/ScrollReveal.astro";
+import AgentsMdLinter from "~/components/tools/agents-md-linter/AgentsMdLinter";
+---
+<SiteShell title="CLAUDE.md / AGENTS.md Linter — Free Tool" description="Lint CLAUDE.md and AGENTS.md instruction files in your browser for structure, contradictions, vague language, duplication, stale markers, and obvious secrets without making an LLM or network request.">
+  <section class="bg-surface-base pt-40 pb-12"><ScrollReveal class="mx-auto max-w-3xl px-6 lg:px-12 text-center"><p class="eyebrow mb-3">Free tool</p><h1 class="text-display-lg text-strong">CLAUDE.md / AGENTS.md Linter</h1><p class="mt-4 text-body-lg text-muted max-w-xl mx-auto">Paste an agent-instructions file and get heuristic, line-referenced feedback. It pairs well with thoughtful agent setup, but it never uploads your instructions or calls a model.</p></ScrollReveal></section>
+  <section class="bg-surface-base pb-24"><div class="mx-auto max-w-5xl px-6 lg:px-12"><AgentsMdLinter client:load /></div></section>
+</SiteShell>

@@ -1,0 +1,9 @@
+---
+import SiteShell from "~/layouts/SiteShell.astro";
+import ScrollReveal from "~/components/motion/ScrollReveal.astro";
+import ClaudeHookBuilder from "~/components/tools/claude-hook-builder/ClaudeHookBuilder";
+---
+<SiteShell title="Claude Code Hook Builder — Free Tool" description="Build Claude Code lifecycle hooks for blocking commands, validating edits, formatting files, injecting context, and auditing sessions with a ready-to-paste settings.json snippet.">
+  <section class="bg-surface-base pt-40 pb-12"><ScrollReveal class="mx-auto max-w-3xl px-6 lg:px-12 text-center"><p class="eyebrow mb-3">Free tool</p><h1 class="text-display-lg text-strong">Claude Code Hook Builder</h1><p class="mt-4 text-body-lg text-muted max-w-xl mx-auto">Choose lifecycle events, configure matchers and commands, and leave with a valid hooks block you can paste into Claude Code. Learn the event model in the <a href="/ai/claude-hooks-lifecycle-primer/" class="link-underline text-accent-700">hooks lifecycle primer →</a></p></ScrollReveal></section>
+  <section class="bg-surface-base pb-24"><div class="mx-auto max-w-5xl px-6 lg:px-12"><ClaudeHookBuilder client:load /></div></section>
+</SiteShell>

@@ -1,0 +1,9 @@
+---
+import SiteShell from "~/layouts/SiteShell.astro";
+import ScrollReveal from "~/components/motion/ScrollReveal.astro";
+import TokenCostCalculator from "~/components/tools/token-cost-calculator/TokenCostCalculator";
+---
+<SiteShell title="Claude Code Token Cost Calculator — Free Tool" description="Calculate Claude Code token spend from manual counts or a ccusage JSON export, edit model prices locally, and compare fresh versus cached token costs without sending data anywhere.">
+  <section class="bg-surface-base pt-40 pb-12"><ScrollReveal class="mx-auto max-w-3xl px-6 lg:px-12 text-center"><p class="eyebrow mb-3">Free tool</p><h1 class="text-display-lg text-strong">Claude Code Token Cost Calculator</h1><p class="mt-4 text-body-lg text-muted max-w-xl mx-auto">Paste a ccusage export or enter token counts manually to see a transparent per-model cost breakdown. The price table is editable because providers change prices; the calculator never fetches them. Read the <a href="/ai/tracking-tokens-per-session-in-claude-code/" class="link-underline text-accent-700">token tracking guide →</a></p></ScrollReveal></section>
+  <section class="bg-surface-base pb-24"><div class="mx-auto max-w-5xl px-6 lg:px-12"><TokenCostCalculator client:load /></div></section>
+</SiteShell>

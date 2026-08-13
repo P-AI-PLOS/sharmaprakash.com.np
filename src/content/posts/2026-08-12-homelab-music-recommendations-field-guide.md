@@ -815,3 +815,5 @@ When those boundaries remain visible, a homelab can provide a genuinely rich,
 Spotify-like discovery experience without pretending that every tool is a
 recommender or giving automation uncontrolled authority over personal data and
 music files.
+
+<p class="not-prose"><a href="/tools/scrobble-stats/" class="link-underline">Explore your own listening history with the client-side Scrobble Listening Stats visualizer →</a></p>

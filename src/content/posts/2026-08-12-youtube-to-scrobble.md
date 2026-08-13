@@ -717,3 +717,5 @@ The design principle is simple:
 That approach is slower than blindly recording the video title. It is also much
 more useful: the resulting history can actually support personal discovery,
 household correlation, and a better homelab music experience.
+
+<p class="not-prose"><a href="/tools/scrobble-stats/" class="link-underline">Inspect a Last.fm CSV or ListenBrainz export with the Scrobble Listening Stats visualizer →</a></p>

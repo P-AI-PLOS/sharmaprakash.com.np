@@ -1,0 +1,9 @@
+---
+import SiteShell from "~/layouts/SiteShell.astro";
+import ScrollReveal from "~/components/motion/ScrollReveal.astro";
+import RiceScorer from "~/components/tools/rice-scorer/RiceScorer";
+---
+<SiteShell title="RICE / ICE Scorer — Free Tool" description="Score backlog ideas with RICE or ICE, adjust confidence and effort assumptions with sensitivity sliders, and see which priorities move before you commit to a ranking.">
+  <section class="bg-surface-base pt-40 pb-12"><ScrollReveal class="mx-auto max-w-3xl px-6 lg:px-12 text-center"><p class="eyebrow mb-3">Free tool</p><h1 class="text-display-lg text-strong">RICE / ICE Scorer</h1><p class="mt-4 text-body-lg text-muted max-w-xl mx-auto">This is a sensitivity tool: score the work, then stress-test the assumptions that make a ranking feel certain. It complements the <a href="/tools/backlog-prioritizer/" class="link-underline text-accent-700">Backlog Prioritizer →</a> and <a href="/tools/backlog-triage/" class="link-underline text-accent-700">Backlog Triage Board →</a></p></ScrollReveal></section>
+  <section class="bg-surface-base pb-24"><div class="mx-auto max-w-5xl px-6 lg:px-12"><RiceScorer client:load /></div></section>
+</SiteShell>

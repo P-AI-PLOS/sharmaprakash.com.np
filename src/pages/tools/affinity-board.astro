@@ -1,0 +1,9 @@
+---
+import SiteShell from "~/layouts/SiteShell.astro";
+import ScrollReveal from "~/components/motion/ScrollReveal.astro";
+import AffinityBoard from "~/components/tools/affinity-board/AffinityBoard";
+---
+<SiteShell title="Interview Affinity Board — Free Tool" description="Turn discovery interviews or support-ticket notes into snippet cards, group them into themes, draft insights, and export an affinity map in Markdown without leaving your browser.">
+  <section class="bg-surface-base pt-40 pb-12"><ScrollReveal class="mx-auto max-w-3xl px-6 lg:px-12 text-center"><p class="eyebrow mb-3">Free tool</p><h1 class="text-display-lg text-strong">Interview Affinity Board</h1><p class="mt-4 text-body-lg text-muted max-w-xl mx-auto">Split raw notes into movable evidence cards, name the themes emerging from the conversation, and turn each theme into a useful insight. Start with <a href="/product-management/discovery-interviews-and-marketing-research-same-conversation/" class="link-underline text-accent-700">discovery interviews →</a></p></ScrollReveal></section>
+  <section class="bg-surface-base pb-24"><div class="mx-auto max-w-5xl px-6 lg:px-12"><AffinityBoard client:load /></div></section>
+</SiteShell>

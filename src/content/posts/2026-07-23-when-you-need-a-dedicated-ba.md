@@ -82,3 +82,5 @@ The question isn't "should we hire a BA?" It's "is our domain complexity consumi
 4. **Check the team size.** If the team is under eight people, try the template and the time-tracking first. If it's over twelve and the signals hold, hire.
 
 The BA role is real, valuable, and badly timed in most organizations. Hire too early and you get documentation nobody reads. Hire too late and you get compliance failures nobody can explain. Hire when the domain complexity is consuming the PO's capacity for product decisions, and the BA becomes the most leveraged person on the team — not because they do product work, but because they free the PO to do it.
+
+<p class="not-prose"><a href="/tools/po-responsibility-map/" class="link-underline">See how adding a dedicated BA changes the map in the PO Responsibility Map →</a></p>
