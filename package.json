@@ -13,6 +13,7 @@
     "presentations:build": "node scripts/presentations/build-presentations.mjs",
     "presentations:check": "node scripts/presentations/check-presentations.mjs",
     "blog-image:render": "node scripts/images/render-blog-header.mjs",
+    "blog-image:ai": "node scripts/images/render-ai-header.mjs",
     "podcast:bundle": "node scripts/podcast/bundle.mjs",
     "podcast:dialogue": "node scripts/podcast/dialogue.mjs",
     "podcast:monologue": "node scripts/podcast/monologue.mjs",
