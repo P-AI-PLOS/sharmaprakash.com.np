@@ -1,7 +1,7 @@
 ---
 title: "The Claude Hooks Lifecycle: A Primer You Can Bookmark"
 date: "2026-05-22T10:00:00+05:45"
-category: ["AI"]
+category: ["AI", "Primer"]
 categories: ["ai"]
 directory: ai
 excerpt: "Eight events, one JSON payload format, three exit codes that matter. The reference doc I wish I had open the first time I wrote a Claude Code hook."
