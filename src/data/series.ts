@@ -29,7 +29,7 @@ export const seriesRegistry: Record<string, SeriesMeta> = {
   "parallel-developer": {
     title: "The Parallel Developer",
     description:
-      "A five-part series on running multiple features in flight simultaneously using git worktrees, OpenSpec, Beads, and AI agents.",
+      "An eight-part series on running multiple features in flight with git worktrees, OpenSpec, Beads, AI agents, and OpenGSD — from the first disciplined phase loop to safely operating concurrent workstreams.",
     cover: "/images/blog/series/parallel-developer.png",
   },
   "ai-tooling": {
