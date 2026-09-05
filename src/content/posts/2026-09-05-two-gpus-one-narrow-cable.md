@@ -1,5 +1,5 @@
 ---
-draft: true
+draft: false
 title: "Two GPUs, One Narrow Cable: Where Does the Traffic Go?"
 date: "2026-09-05T10:02:00+05:45"
 category: ["AI"]

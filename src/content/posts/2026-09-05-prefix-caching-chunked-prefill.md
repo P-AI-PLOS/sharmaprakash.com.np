@@ -1,5 +1,5 @@
 ---
-draft: true
+draft: false
 title: "Prefix Caching, Chunked Prefill, and the Trouble with Chunks"
 date: "2026-09-05T10:04:00+05:45"
 category: ["AI"]

@@ -1,6 +1,6 @@
-# Running AI Yourself: draft review
+# Running AI Yourself: publication review
 
-The six Markdown posts are drafts in `src/content/posts/`, with the
+The six Markdown posts are published content in `src/content/posts/`, with the
 `running-ai-yourself` series and orders 1–6. The recurring example is an
 invoice repository: an assistant answers an authorization question, handles
 follow-ups, then serves colleagues. This document records editorial and
@@ -8,7 +8,7 @@ local verification evidence; the articles contain the explanations and sources.
 
 ## Article map
 
-| Part | Source | Approximate body words | Route when published |
+| Part | Source | Approximate body words | Route |
 | --- | --- | ---: | --- |
 | 1 | [Prompt lifecycle](../src/content/posts/2026-09-05-what-happens-when-you-send-an-ai-prompt.md) | 1,838 | `/ai/what-happens-when-you-send-an-ai-prompt/` |
 | 2 | [Conversation memory](../src/content/posts/2026-09-05-your-model-fits-conversation-memory.md) | 1,884 | `/ai/your-model-fits-conversation-memory/` |
@@ -73,7 +73,7 @@ browser policy, or future YouTube state.
 
 ## Harness companion, illustrations, and glossary
 
-The separate draft [From Prompts to Harnesses](../src/content/posts/2026-09-05-from-prompts-to-harness-engineering.md)
+The separate article [From Prompts to Harnesses](../src/content/posts/2026-09-05-from-prompts-to-harness-engineering.md)
 has approximately 2,080 body words and a registered title card. Parts 1 and 4
 link to it. It preserves the original six-part order and distinguishes the
 model, inference server, agent harness, and evaluation harness. Historical
@@ -102,9 +102,9 @@ on keyboard focus and the link reached the matching glossary entry.
 
 - `pnpm check`: zero errors and warnings (see current check output for informational hints).
 - `pnpm build`: passed in the normal draft build.
-- `node --test scripts/tests/running-ai-series.test.mjs scripts/tests/ai-diagrams.test.mjs`: ten passing tests
+- `node --test scripts/tests/running-ai-series.test.mjs scripts/tests/ai-diagrams.test.mjs`: eleven passing tests
   covering draft metadata, word bounds, image dimensions, embed contracts,
-  hidden production output, and internal links.
+  published production routes, and internal links.
 - `git diff --check`: passed.
 - Isolated preview: copied site with this series and its harness companion enabled for preview;
   build passed. All six article pages showed the correct part number out of
@@ -119,9 +119,9 @@ dependencies. Bare pnpm attempted an automatic reinstall and stopped at a
 non-interactive modules-purge prompt. No dependency or lockfile changes
 were made for the series.
 
-Draft-only series are now excluded from the catalog and static series
-routes. The companion link appears only when its destination has a
-published article. Normal output was checked for absence of these draft
-routes and references across HTML, sitemap, and feed files. Publishing will
-require intentionally changing the draft metadata and the draft-specific
-acceptance test; no publication, commit, push, or host change was performed.
+Draft-only series are excluded from the catalog and static series routes.
+All eight remaining draft posts were enabled for publication at the user's
+request, including the six-part series, its harness companion, and the older
+AI toolkit retrospective. Acceptance tests now require published routes and
+series discoverability. Source publication is separate from the deployment
+workflow result.

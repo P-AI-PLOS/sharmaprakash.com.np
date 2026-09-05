@@ -1,5 +1,5 @@
 ---
-draft: true
+draft: false
 title: "What Actually Happens When You Send an AI Prompt?"
 date: "2026-09-05T10:00:00+05:45"
 category: ["AI"]

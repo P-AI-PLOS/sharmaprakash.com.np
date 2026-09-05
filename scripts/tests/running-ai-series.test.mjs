@@ -14,12 +14,12 @@ const posts = readdirSync(resolve(root, "src/content/posts"))
   .sort((a, b) => a.data.seriesOrder - b.data.seriesOrder);
 const slug = ({ name }) => name.replace(/^\d{4}-\d{2}-\d{2}-/, "").replace(/\.md$/, "");
 
-test("six ordered drafts have complete editorial and image metadata", () => {
+test("six ordered published posts have complete editorial and image metadata", () => {
   assert.equal(posts.length, 6);
   assert.deepEqual(posts.map(({ data }) => data.seriesOrder), [1, 2, 3, 4, 5, 6]);
   for (const post of posts) {
     const { name, data, content } = post;
-    assert.equal(data.draft, true, name);
+    assert.equal(data.draft, false, name);
     assert.equal(data.directory, "ai", name);
     assert.equal(data.date.slice(0, 10), name.slice(0, 10), name);
     assert.equal(data.use_featured_image, true, name);
@@ -59,48 +59,48 @@ test("the three intended videos have accessible responsive embeds and fallback l
   }
 });
 
-test("normal production build keeps drafts out of routes, catalog, sitemap and feeds", () => {
-  assert.ok(existsSync(resolve(root, "dist/series/index.html")), "Run pnpm build first");
-  const forbidden = ["running-ai-yourself", ...posts.map(slug)];
+test("published series appears in routes, catalog, and sitemap", () => {
+  assert.ok(existsSync(resolve(root, "dist/series/running-ai-yourself/index.html")));
+  assert.match(read("dist/series/index.html"), /running-ai-yourself/);
+  const sitemaps = readdirSync(resolve(root, "dist"))
+    .filter(path => /^sitemap.*\.xml$/.test(path)).map(path => read(`dist/${path}`)).join("\n");
   for (const post of posts) {
-    assert.equal(existsSync(resolve(root, `dist/ai/${slug(post)}/index.html`)), false);
-  }
-  assert.equal(existsSync(resolve(root, "dist/series/running-ai-yourself/index.html")), false);
-  const outputs = readdirSync(resolve(root, "dist"), { recursive: true })
-    .filter((path) => /\.(html|xml)$/.test(path));
-  for (const output of outputs) {
-    const html = read(`dist/${output}`);
-    for (const entry of forbidden) assert.ok(!html.includes(entry), `${output} exposes ${entry}`);
+    assert.ok(existsSync(resolve(root, `dist/ai/${slug(post)}/index.html`)));
+    assert.ok(sitemaps.includes(`/ai/${slug(post)}/`));
   }
 });
 
-test("internal article links resolve to an existing route or a sibling draft", () => {
+test("internal article links resolve to published routes", () => {
   const companionName = "2026-09-05-from-prompts-to-harness-engineering.md";
   const companion = { name: companionName, ...matter(read(`src/content/posts/${companionName}`)) };
   const linkedPosts = [...posts, companion];
-  const siblings = new Set(linkedPosts.map((post) => `/ai/${slug(post)}/`));
-  assert.match(read("src/data/series.ts"), /running-ai-yourself/);
-  siblings.add("/series/running-ai-yourself/"); // Registered series has only drafts in the normal build.
   for (const { content, name } of linkedPosts) {
     for (const [, href] of content.matchAll(/\]\((\/[^)#]+)(?:#[^)]*)?\)/g)) {
-      assert.ok(siblings.has(href) || existsSync(resolve(root, `dist${href}index.html`)), `${name}: ${href}`);
+      assert.ok(existsSync(resolve(root, `dist${href}index.html`)), `${name}: ${href}`);
     }
   }
 });
 
-test("harness companion stays a separate draft with working article and glossary links", () => {
+test("harness companion stays a separate article with working article and glossary links", () => {
   const name = "from-prompts-to-harness-engineering";
   const { data, content } = matter(read(`src/content/posts/2026-09-05-${name}.md`));
-  assert.equal(data.draft, true);
+  assert.equal(data.draft, false);
   assert.equal(data.directory, "ai");
   assert.equal(data.series, undefined);
   const words = content.match(/\b[\w’'-]+\b/g).length;
   assert.ok(words >= 1500 && words <= 2200, `${words} words`);
   assert.ok(existsSync(resolve(root, `public${data.cover}`)));
   assert.ok(existsSync(resolve(root, "public/images/blog/running-ai-yourself/harness.svg")));
-  assert.ok(!existsSync(resolve(root, `dist/ai/${name}/index.html`)));
+  assert.ok(existsSync(resolve(root, `dist/ai/${name}/index.html`)));
   for (const id of ["agent-harness", "inference-server", "prompt-engineering", "context-engineering", "harness-engineering", "evaluation-harness"]) {
     assert.match(content, new RegExp(`/ai/glossary/#${id}`));
     assert.ok(read("src/data/ai-glossary.mjs").includes(`"${id}"`));
   }
+});
+
+test("older toolkit retrospective is released with its featured image", () => {
+  const {data} = matter(read("src/content/posts/2026-05-13-ai-toolkit-four-weeks.md"));
+  assert.equal(data.draft, false);
+  assert.ok(existsSync(resolve(root, "dist/ai/ai-toolkit-four-weeks/index.html")));
+  assert.ok(existsSync(resolve(root, `public${data.cover}`)));
 });

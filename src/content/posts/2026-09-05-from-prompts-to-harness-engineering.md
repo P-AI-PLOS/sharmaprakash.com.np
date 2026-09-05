@@ -1,5 +1,5 @@
 ---
-draft: true
+draft: false
 title: "From Prompts to Harnesses: How AI Coding Became a System"
 date: "2026-09-05T16:00:00+05:45"
 category: ["AI"]

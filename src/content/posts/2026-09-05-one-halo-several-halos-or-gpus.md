@@ -1,5 +1,5 @@
 ---
-draft: true
+draft: false
 title: "One Halo, Several Halos, or a Desktop Full of GPUs?"
 date: "2026-09-05T10:05:00+05:45"
 category: ["AI"]
