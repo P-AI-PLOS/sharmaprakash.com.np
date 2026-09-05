@@ -246,6 +246,18 @@ Soft, layered shadows. Never use Tailwind's defaults — they're too dark for am
 
 ### 6.3 Patterns
 
+- **AI explanatory diagrams** — reader-controlled SVG steps, with Step, Play/Pause,
+  and Reset controls. Playback never starts on load, stops off-screen or when the
+  page is hidden, and uses four `--dur-pageturn` intervals between explanatory
+  states. Reduced motion disables playback while preserving manual stepping.
+  The steps do not represent measured execution time. Static SVG fallbacks and
+  written captions remain available without JavaScript. Memory sliders update
+  a labeled illustrative budget without animated interpolation.
+- **Glossary hints** — AI article links to `/ai/glossary/#<term>` show a textual
+  definition on hover or keyboard focus. Escape dismisses it; the popup itself
+  is hoverable. Ordinary links provide touch and no-JavaScript navigation to a
+  stable glossary entry. Definitions have a single source in `ai-glossary.mjs`.
+
 - **Hover lift** — `translateY(-2px)` + shadow upgrade `md → lg`, 200ms `ease-out-quad`.
 - **Underline grow** — pseudo-element `width: 0 → 100%`, anchored left, 200ms.
 - **Focus ring** — `outline: 2px solid var(--accent-600); outline-offset: 2px` on

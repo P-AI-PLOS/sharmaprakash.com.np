@@ -1,5 +1,18 @@
 # Agent recipes — "Before you touch X, read Y"
 
+AI explainers: Markdown can contain `<ai-diagram data-diagram="prefix">`
+with a static SVG image and explanatory paragraph as its children. The
+Running AI Yourself post layout loads `AiDiagrams.astro` to enhance these
+elements; without JavaScript the fallback remains readable. Diagram state
+and SVG rendering live in `src/data/ai-diagrams.mjs`. After changing that
+module, run `node scripts/images/render-ai-diagrams.mjs` to refresh the
+committed SVG fallbacks, and `node --test scripts/tests/ai-diagrams.test.mjs`.
+
+AI glossary: definitions live once in `src/data/ai-glossary.mjs` and render
+at `/ai/glossary/`. Link a term as `[inference server](/ai/glossary/#inference-server)`.
+AI-directory posts show a definition on hover or focus; the ordinary link
+works on touch and without JavaScript. Keep fragment IDs stable.
+
 | You want to… | Read these first |
 | --- | --- |
 | Add a blog post | `src/content/posts/` using filename pattern `YYYY-MM-DD-slug.md` only; do not create undated post filenames. The `date` frontmatter must match the filename date. Schema lives in `src/content.config.ts`. Required frontmatter: `title`, `date`, **`directory: <category>`** (without it, `src/utils/posts.ts:121` routes the post to `/<slug>/` instead of `/<category>/<slug>/` and breaks under the expected URL — set `directory` alongside `category`, not in place of it). Common optional: `excerpt`, `categories`, `tags`, `cover`, `thumb`, `series` + `seriesOrder`. Set `draft: true` to hide a post from all listings, feeds, and the sitemap (filter lives in `src/utils/posts.ts`). |

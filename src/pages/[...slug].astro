@@ -6,6 +6,8 @@ import PostHero from "~/components/blog/PostHero.astro";
 import ReadingProgressBar from "~/components/blog/ReadingProgressBar.astro";
 import RelatedPosts from "~/components/blog/RelatedPosts.astro";
 import CodeBlockEnhancements from "~/components/blog/CodeBlockEnhancements.astro";
+import AiDiagrams from "~/components/blog/AiDiagrams.astro";
+import AiGlossaryHints from "~/components/blog/AiGlossaryHints.astro";
 import SeriesNavStrip from "~/components/blog/SeriesNavStrip.astro";
 import SeriesContinueBlock from "~/components/blog/SeriesContinueBlock.astro";
 import AuthorBioCard from "~/components/blog/AuthorBioCard.astro";
@@ -77,6 +79,8 @@ const absoluteUrl = new URL(postUrl(post), Astro.site ?? "http://localhost/").to
     </div>
 
     <CodeBlockEnhancements />
+    {post.data.series === "running-ai-yourself" && <AiDiagrams />}
+    {post.data.directory === "ai" && <AiGlossaryHints />}
 
     <div class="mx-auto max-w-5xl px-6 lg:px-8 pt-12 pb-20 space-y-12">
       <AuthorBioCard />

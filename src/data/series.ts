@@ -14,6 +14,18 @@ export interface SeriesMeta {
 }
 
 export const seriesRegistry: Record<string, SeriesMeta> = {
+  "local-ai-toolkit": {
+    title: "Local AI Toolkit: Runtimes, GPU Backends, and Model Files",
+    description:
+      "Three practical primers on choosing llama.cpp, vLLM, or LM Studio; understanding CUDA, ROCm, Vulkan, and Metal; and reading GGUF, quantization, dense-model, and MoE labels. A companion to the standalone model-architecture guide and Running AI Yourself.",
+    cover: "/images/blog/ai/llama-cpp-vllm-lm-studio-local-runtimes.png",
+  },
+  "running-ai-yourself": {
+    title: "Running AI Yourself: Where the Time and Memory Go",
+    description:
+      "Six practical explainers following a coding assistant from its first repository question to a shared local service: inference, memory budgets, PCIe topology, prompt caching, scheduling, and hardware placement.",
+    cover: "/images/blog/ai/what-happens-when-you-send-an-ai-prompt.png",
+  },
   "agent-ready-react": {
     title: "Agent-ready React",
     description:

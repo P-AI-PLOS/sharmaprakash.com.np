@@ -1,6 +1,6 @@
 ---
 import { Icon } from "@iconify/react";
-import { information } from "~/data/site";
+import { information, professionalByline } from "~/data/site";
 ---
 
 <section class="author-bio-card">
@@ -12,7 +12,7 @@ import { information } from "~/data/site";
     <h3 class="author-bio-name">{information.fullName}</h3>
     <p class="author-bio-meta">
       <Icon icon="ri:briefcase-line" client:load aria-hidden="true" />
-      <span>{information.currentRole} · {information.currentCompany}</span>
+      <span>{professionalByline}</span>
     </p>
     <p class="author-bio-text">{information.bio}</p>
     <div class="author-bio-actions">

@@ -3,21 +3,27 @@ import { portfolios } from "./portfolios";
 export const services = [
   {
     id: 1,
-    title: "Product engineering",
-    text: "From discovery to shipped code — I work across the stack and across the product lifecycle.",
+    title: "Freelance product management",
+    text: "Discovery, prioritisation, and delivery. I help teams clarify the problem, decide what matters next, and connect product decisions to the work being shipped.",
     icon: "/icons/code-s-slash-line.svg",
   },
   {
     id: 2,
-    title: "Engineering leadership",
-    text: "Hiring, coaching, and setting practice. Building teams that ship without burning out.",
+    title: "Codebase readiness audits",
+    text: "Assess how well coding agents can understand and work in your repository: its structure, documentation, tests, and feedback loops. Identify the changes that would make agent work easier to review and verify.",
     icon: "/icons/quill-pen-line.svg",
   },
   {
     id: 3,
-    title: "Product ownership",
-    text: "Roadmaps, prioritisation, and customer conversations. Translating outcomes into work.",
+    title: "Software factory setup",
+    text: "Connect requirements, coding agents, code review, testing, and release into a repeatable workflow. Make responsibilities and checks explicit so the team can follow work from an idea to a verified change.",
     icon: "/icons/smartphone-line.svg",
+  },
+  {
+    id: 4,
+    title: "Agentic coding adoption",
+    text: "Help teams choose where agents fit, establish working practices, and learn through real development tasks. Build the team's ability to steer, review, and improve the workflow over time.",
+    icon: "/icons/code-s-slash-line.svg",
   },
 ];
 
@@ -57,14 +63,31 @@ export const skillGroups = [
 
 export const jobExperience = [
   {
+    id: 5,
+    title: "Product manager & agentic engineering consultant",
+    meta: "Independent",
+    year: "Now",
+    highlights: [
+      "Freelance product management across discovery, prioritisation, and delivery.",
+      "Codebase readiness audits, software factory setup, and agentic coding adoption support.",
+    ],
+  },
+  {
+    id: 6,
+    title: "Software Engineer · Independent contractor",
+    meta: "Luthor (YC F24)",
+    year: "Previous engagement",
+    highlights: ["Worked with Luthor as an independent contract software engineer."],
+  },
+  {
     id: 1,
     title: "Engineering Manager · Product Owner",
     meta: "Varicon — Onboarding squad",
-    year: "Nov 2025 — Present",
+    year: "Previous role",
     highlights: [
-      "Own the Onboarding squad roadmap end-to-end — discovery through delivery.",
-      "Lead hiring, coaching, and the engineering practice for the squad.",
-      "Pair with design and customer success on a ground-up onboarding redesign.",
+      "Owned the Onboarding squad roadmap end-to-end — discovery through delivery.",
+      "Led hiring, coaching, and the engineering practice for the squad.",
+      "Paired with design and customer success on a ground-up onboarding redesign.",
     ],
   },
   {

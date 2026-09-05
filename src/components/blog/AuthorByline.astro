@@ -1,6 +1,6 @@
 ---
 import ShareRow from "./ShareRow.astro";
-import { information } from "~/data/site";
+import { information, professionalByline } from "~/data/site";
 import { formatBlogDate } from "~/utils";
 
 interface Props {
@@ -19,7 +19,7 @@ const { date, readingMinutes, url, title } = Astro.props;
     </a>
     <div>
       <a href="/about/" class="author-name link-underline">{information.fullName}</a>
-      <p class="author-role">{information.currentRole} · {information.currentCompany}</p>
+      <p class="author-role">{professionalByline}</p>
       <p class="author-meta">
         <time datetime={new Date(date).toISOString()}>{formatBlogDate(date)}</time>
         <span class="text-faint mx-1">·</span>

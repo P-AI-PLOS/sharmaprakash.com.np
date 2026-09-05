@@ -1,5 +1,5 @@
 export const headTitle = {
-  siteTitle: "Prakash - Programmer Turned Entreprenuer",
+  siteTitle: "Prakash - Product manager, founder, builder",
   aboutTitle: "About",
   notFoundTitle: "Not Found",
   contactTitle: "Contact",
@@ -16,7 +16,7 @@ export const siteConfig = {
   metaImage: "/images/prakash-horizontal.jpeg",
   twitterUsername: "@poudelprakash",
   descriptionContent:
-    "Engineering Manager and Product Owner at Varicon. Eleven years building software — programmer, founder, and now sharpening the product craft.",
+    "Prakash Poudel Sharma — independent product manager, founder, and builder. Product management, codebase readiness audits, and agentic engineering consulting.",
   disqusShortname: "prakash014",
   /**
    * Canonical GitHub URL for this site's source repo. Posts that link to the
@@ -36,15 +36,14 @@ export const information = {
   fullName: "Prakash Poudel Sharma",
   thumbImage: "/images/formal-image.jpeg",
   largeImage: "/images/prakash-horizontal.jpeg",
-  bio: "Engineering Manager at Varicon, leading the Onboarding squad as Product Owner. Eleven years of building software — first as a programmer, then as a founder, now sharpening the product craft from the inside of a focused team.",
+  bio: "I'm an independent product manager, founder, and software builder based in Kathmandu. I help teams make product decisions and adopt agentic software development, drawing on over a decade of building software. I write about product thinking, engineering with AI, and hands-on experiments.",
   age: 31,
   nationality: "Nepalese",
   languages: ["English", "Nepali", "Hindi"],
   address: "Kathmandu, Nepal",
-  freelance: "Open to conversations",
-  currentRole: "Engineering Manager · Product Owner",
-  currentCompany: "Varicon",
-  yearsOfExperience: 11,
+  freelance: "Available for freelance PM work and consulting",
+  currentRole: "Independent product manager & agentic engineering consultant",
+  currentCompany: null as string | null,
   socialAddress: {
     facebook: "https://www.facebook.com/poudelprakash",
     twitter: "https://twitter.com/poudelprakash",
@@ -53,8 +52,11 @@ export const information = {
   },
   phoneNumbers: ["+977-9803572935"],
   emailAddress: ["prakash@tremark.com.np"],
-  companyName: "Varicon",
 } as const;
+
+export const professionalByline = [information.currentRole, information.currentCompany]
+  .filter(Boolean)
+  .join(" · ");
 
 export const bookingShortUrl = "https://calendar.app.google/KMPNnkNsJUzBbBg66";
 export const bookingUrl =

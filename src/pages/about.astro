@@ -3,52 +3,54 @@ import SiteShell from "~/layouts/SiteShell.astro";
 import ScrollReveal from "~/components/motion/ScrollReveal.astro";
 import { headTitle, information } from "~/data/site";
 import { services } from "~/data/resume";
+import { getBlogPosts, postUrl } from "~/utils/posts";
+
+const readingPicks = [
+  { id: "when-to-sit-in-on-discovery-not-just-the-demo", topic: "Product thinking", note: "Getting closer to customer reality, and knowing when to listen before deciding what to build." },
+  { id: "exit-0-is-not-evidence", topic: "Engineering with AI", note: "What it takes to trust an agent's work: reviewable changes, meaningful checks, and evidence." },
+  { id: "homelab-music-recommendations-field-guide", topic: "Hands-on experiments", note: "Exploring music discovery at home, from metadata and listening habits to the trade-offs behind recommendations." },
+];
+const posts = await getBlogPosts();
+const selectedWriting = readingPicks.map((pick) => {
+  const post = posts.find((post) => post.id === pick.id);
+  if (!post) throw new Error(`About reading selection is missing or unpublished: ${pick.id}`);
+  return { ...pick, post };
+});
 ---
 
-<SiteShell title={headTitle.aboutTitle}>
-  <section class="bg-surface-base pt-40 pb-24">
-    <div class="mx-auto max-w-6xl px-6 lg:px-12 grid lg:grid-cols-12 gap-12 items-start">
-      <ScrollReveal class="lg:col-span-5">
-        <div class="rounded-xl overflow-hidden shadow-lg">
-          <img src={information.largeImage} alt={information.fullName} class="w-full h-auto" />
-        </div>
-      </ScrollReveal>
-
-      <ScrollReveal delay={120} class="lg:col-span-7">
-        <p class="eyebrow mb-3">About</p>
-        <h1 class="text-display-lg text-strong mb-6">
-          Programmer who founded a few things, now sharpening the product craft.
-        </h1>
-        <p class="text-body-lg text-muted mb-4">{information.bio}</p>
-        <dl class="mt-8 grid grid-cols-2 gap-x-8 gap-y-3 text-body">
-          <dt class="text-muted">Currently</dt><dd class="text-strong">{information.currentRole}</dd>
-          <dt class="text-muted">At</dt><dd class="text-strong">{information.currentCompany}</dd>
-          <dt class="text-muted">Based in</dt><dd class="text-strong">{information.address}</dd>
-          <dt class="text-muted">Experience</dt><dd class="text-strong">{information.yearsOfExperience}+ years</dd>
-          <dt class="text-muted">Languages</dt><dd class="text-strong">{information.languages.join(", ")}</dd>
-          <dt class="text-muted">Status</dt><dd class="text-strong">{information.freelance}</dd>
-        </dl>
-        <div class="mt-8 flex gap-3">
-          <a href="/resume/" class="btn btn-primary"><span>View résumé</span></a>
+<SiteShell title={headTitle.aboutTitle} bodyClass="about-page" description="Meet Prakash Poudel Sharma: independent product manager, founder, and builder. My work, background, writing, and experiments with agentic engineering.">
+  <section class="bg-surface-base pt-40 pb-16 lg:pb-24">
+    <div class="mx-auto max-w-6xl px-6 lg:px-12 grid lg:grid-cols-12 gap-12 items-center">
+      <ScrollReveal class="lg:col-span-8">
+        <p class="eyebrow mb-4">About · {information.address}</p>
+        <h1 class="text-display-lg lg:text-display-xl text-strong mb-6">Product manager,<br />founder, builder.</h1>
+        <p class="text-body-lg text-default max-w-prose">I'm Prakash Poudel Sharma. I work independently, helping teams make product decisions and adopt agentic software development—from assessing codebase readiness to setting up the workflows around it.</p>
+        <p class="text-body-lg text-default mt-4 max-w-prose">Here, I write about product thinking, engineering with AI, and the systems I explore hands-on. Building, asking questions, and writing things down are how I make sense of the work.</p>
+        <div class="mt-8 flex flex-wrap gap-4">
+          <a href="#writing" class="btn btn-primary"><span>Explore my writing</span></a>
           <a href="/contact/" class="btn btn-secondary"><span>Get in touch</span></a>
         </div>
+      </ScrollReveal>
+      <ScrollReveal delay={120} class="lg:col-span-4">
+        <img src={information.largeImage} alt={information.fullName} class="w-full max-w-sm mx-auto h-auto rounded-xl shadow-md" />
+        <p class="text-body-sm text-muted mt-4 text-center">Independent work. Over a decade building software.</p>
       </ScrollReveal>
     </div>
   </section>
 
-  <section class="bg-surface-sunken py-24">
+  <section class="bg-surface-sunken py-16 lg:py-24" aria-labelledby="work-heading">
     <div class="mx-auto max-w-6xl px-6 lg:px-12">
-      <ScrollReveal>
-        <p class="eyebrow mb-3">What I do</p>
-        <h2 class="text-h1 text-strong mb-12 max-w-xl">Areas where I tend to be useful.</h2>
+      <ScrollReveal class="max-w-2xl mb-12">
+        <p class="eyebrow mb-3">What I work on</p>
+        <h2 id="work-heading" class="text-h1 text-strong mb-4">From product decisions to software that ships.</h2>
+        <p class="text-body-lg text-default">I bring product and engineering experience to freelance PM engagements and consulting with teams adopting coding agents.</p>
       </ScrollReveal>
-      <div class="grid md:grid-cols-3 gap-8">
-        {services.map((s, i) => (
-          <ScrollReveal delay={80 * i}>
-            <div class="card-interactive rounded-lg bg-surface-raised shadow-md p-8 h-full">
-              <img src={s.icon} alt="" class="w-10 h-10 mb-5 opacity-80" />
-              <h3 class="text-h3 text-strong mb-3">{s.title}</h3>
-              <p class="text-body text-muted">{s.text}</p>
+      <div class="grid md:grid-cols-2 gap-x-12 gap-y-10">
+        {services.map((service, i) => (
+          <ScrollReveal delay={i * 80}>
+            <div class="border-t border-default pt-6">
+              <h3 class="text-h3 text-strong mb-3">{service.title}</h3>
+              <p class="text-body text-default max-w-prose">{service.text}</p>
             </div>
           </ScrollReveal>
         ))}
@@ -56,4 +58,76 @@ import { services } from "~/data/resume";
     </div>
   </section>
 
+  <section class="bg-surface-base py-16 lg:py-24" aria-labelledby="background-heading">
+    <div class="mx-auto max-w-6xl px-6 lg:px-12 grid lg:grid-cols-12 gap-8 lg:gap-16">
+      <ScrollReveal class="lg:col-span-4">
+        <p class="eyebrow mb-3">How I got here</p>
+        <h2 id="background-heading" class="text-h1 text-strong">Different roles.<br />A builder throughout.</h2>
+      </ScrollReveal>
+      <div class="lg:col-span-8 space-y-6 text-body-lg text-default">
+        <p>I founded <strong class="text-strong">Truemark Technology</strong>, a product engineering studio. That work put me on both sides of the conversation: building software and taking responsibility for the team and business around it.</p>
+        <p>Earlier, I worked in software engineering at <strong class="text-strong">Leapfrog Technology</strong>. I've also worked as an independent contract software engineer for <a href="https://www.luthor.ai/" class="link-underline text-accent-700">Luthor</a> (<a href="https://www.ycombinator.com/companies/luthor" class="link-underline text-accent-700">YC F24</a>).</p>
+        <p>Today, those experiences meet in my independent work. I care about choosing useful problems, making the code understandable, and giving teams a way to check that what they ship does what they intended.</p>
+        <a href="/resume/" class="inline-block link-underline text-accent-700 text-body">More about my experience →</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="writing" class="bg-surface-sunken py-16 lg:py-24 scroll-mt-24" aria-labelledby="writing-heading">
+    <div class="mx-auto max-w-6xl px-6 lg:px-12">
+      <ScrollReveal class="max-w-2xl mb-10">
+        <p class="eyebrow mb-3">What I write and explore</p>
+        <h2 id="writing-heading" class="text-h1 text-strong mb-4">A notebook for the work—and the curiosity around it.</h2>
+        <p class="text-body-lg text-default">Some essays start with product discovery or leadership. Others follow coding agents into real codebases. My homelab gives me room to experiment with infrastructure, music, and systems for their own sake.</p>
+      </ScrollReveal>
+      <div>
+        {selectedWriting.map(({ topic, note, post }, i) => (
+          <ScrollReveal delay={i * 80}>
+            <article class="grid md:grid-cols-12 gap-3 md:gap-8 py-8 border-t border-default">
+              <p class="eyebrow md:col-span-3">{topic}</p>
+              <div class="md:col-span-9">
+                <h3 class="text-h3 text-strong mb-3"><a href={postUrl(post)} class="link-underline">{post.data.title}</a></h3>
+                <p class="text-body text-default max-w-prose">{note}</p>
+              </div>
+            </article>
+          </ScrollReveal>
+        ))}
+      </div>
+      <div class="border-t border-default pt-8 flex flex-col gap-4">
+        <p class="text-body text-default">For a longer read: <a href="/series/agent-ready-react/" class="link-underline text-accent-700">Agent-ready React</a> explores codebases that agents can work in; <a href="/series/parallel-developer/" class="link-underline text-accent-700">The Parallel Developer</a> covers working across agents and workstreams.</p>
+        <a href="/blog/page/1/" class="link-underline text-accent-700 self-start">Browse all writing →</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-surface-base py-16 lg:py-24" aria-labelledby="contact-heading">
+    <div class="mx-auto max-w-6xl px-6 lg:px-12">
+      <ScrollReveal class="max-w-2xl">
+        <p class="eyebrow mb-3">Work together</p>
+        <h2 id="contact-heading" class="text-h1 text-strong mb-4">What is your team working through?</h2>
+        <p class="text-body-lg text-default mb-8">If you need a freelance product manager, a clearer picture of your codebase's readiness for agents, or help putting agentic development into practice, I'd like to hear about it.</p>
+        <a href="/contact/" class="btn btn-primary"><span>Let's talk about your project</span></a>
+      </ScrollReveal>
+    </div>
+  </section>
 </SiteShell>
+
+<style is:global>
+  /* Keep small text and button labels readable on this editorial page. */
+  .about-page #main .eyebrow {
+    color: var(--accent-700);
+  }
+  .about-page #main .btn-primary {
+    background-color: var(--accent-700);
+  }
+  .about-page #main .btn-primary:hover {
+    background-color: var(--accent-700);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .about-page #main .sr-reveal {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+  }
+</style>

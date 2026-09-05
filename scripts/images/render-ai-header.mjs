@@ -63,6 +63,83 @@ const palette = {
  * rather than overloading an existing one.
  */
 const HEADERS = {
+  "2026-09-05-from-prompts-to-harness-engineering": {
+    chip: "AI CODING SYSTEMS", chipWidth: 280,
+    headline: ["From Prompts", "to Harnesses"], headlineSize: 60,
+    subline: ["Shape the request. Supply context.", "Build the loop around the model."],
+    sublineSize: 25, pill: "intent → action → evidence", pillWidth: 650,
+    diagram: "harness-loop",
+  },
+  "2026-09-05-beyond-transformers-model-architecture-families": {
+    chip: "AI · MODEL ARCHITECTURE", chipWidth: 330,
+    headline: ["Beyond", "Transformers"], headlineSize: 62,
+    subline: ["Five families. Different ways", "to carry context forward."],
+    sublineSize: 25, pill: "attention · recurrence · state", pillWidth: 720,
+    diagram: "model-families",
+  },
+  "2026-09-05-llama-cpp-vllm-lm-studio-local-runtimes": {
+    chip: "LOCAL AI TOOLKIT · 1", chipWidth: 300,
+    headline: ["Which Tool", "Runs the Model?"], headlineSize: 57,
+    subline: ["llama.cpp, vLLM, LM Studio:", "choose by the job."],
+    sublineSize: 25, pill: "app → engine → backend", pillWidth: 650,
+    diagram: "local-runtime-layers",
+  },
+  "2026-09-05-cuda-rocm-vulkan-metal-local-ai": {
+    chip: "LOCAL AI TOOLKIT · 2", chipWidth: 300,
+    headline: ["The Software", "Behind the GPU"], headlineSize: 57,
+    subline: ["CUDA, ROCm, Vulkan, Metal:", "the execution path matters."],
+    sublineSize: 25, pill: "supported ≠ optimized", pillWidth: 650,
+    diagram: "gpu-backend-options",
+  },
+  "2026-09-05-gguf-quantization-dense-moe-model-files": {
+    chip: "LOCAL AI TOOLKIT · 3", chipWidth: 300,
+    headline: ["Read the", "Model Labels"], headlineSize: 62,
+    subline: ["Format, precision, architecture:", "separate the memory questions."],
+    sublineSize: 25, pill: "active work ≠ total storage", pillWidth: 700,
+    diagram: "model-artifact-labels",
+  },
+  "2026-09-05-what-happens-when-you-send-an-ai-prompt": {
+    chip: "RUNNING AI · PART 1", chipWidth: 280,
+    headline: ["What Happens", "After Send?"], headlineSize: 62,
+    subline: ["Prefill reads. Decode writes.", "The cache keeps intermediate state."],
+    sublineSize: 25, pill: "prompt → prefill → decode", pillWidth: 650,
+    diagram: "inference-flow",
+  },
+  "2026-09-05-your-model-fits-conversation-memory": {
+    chip: "RUNNING AI · PART 2", chipWidth: 280,
+    headline: ["The Model Fits.", "Does the", "Conversation?"], headlineSize: 56,
+    subline: ["Weights are only one allocation.", "Budget room for every request."],
+    sublineSize: 25, pill: "weights + KV + workspace", pillWidth: 650,
+    diagram: "memory-budget",
+  },
+  "2026-09-05-two-gpus-one-narrow-cable": {
+    chip: "RUNNING AI · PART 3", chipWidth: 280,
+    headline: ["Two GPUs.", "One Narrow", "Cable."], headlineSize: 62,
+    subline: ["Trace the transfers before", "counting the extra compute."],
+    sublineSize: 25, pill: "host → switch → GPUs", pillWidth: 650,
+    diagram: "pcie-topology",
+  },
+  "2026-09-05-caching-for-coding-agents": {
+    chip: "RUNNING AI · PART 4", chipWidth: 280,
+    headline: ["Stop Reading", "the Same", "Prompt Twice."], headlineSize: 56,
+    subline: ["Stable context can earn a hit.", "Changing requests still do work."],
+    sublineSize: 25, pill: "stable prefix · changing request", pillWidth: 750,
+    diagram: "prompt-reuse",
+  },
+  "2026-09-05-prefix-caching-chunked-prefill": {
+    chip: "RUNNING AI · PART 5", chipWidth: 280,
+    headline: ["Reuse Work.", "Schedule", "What Remains."], headlineSize: 56,
+    subline: ["Prefix caching and chunked prefill", "solve different problems."],
+    sublineSize: 25, pill: "cache blocks ≠ scheduling slices", pillWidth: 750,
+    diagram: "prefill-slices",
+  },
+  "2026-09-05-one-halo-several-halos-or-gpus": {
+    chip: "RUNNING AI · PART 6", chipWidth: 280,
+    headline: ["One Halo?", "Several Halos?", "More GPUs?"], headlineSize: 56,
+    subline: ["Choose a serving shape", "for the work people actually do."],
+    sublineSize: 25, pill: "latency · capacity · concurrency", pillWidth: 750,
+    diagram: "serving-shapes",
+  },
   "2026-08-15-two-claude-accounts-one-machine": {
     chip: "AI · DEVELOPER SETUP",
     chipWidth: 275,
@@ -100,6 +177,17 @@ const HEADERS = {
 };
 
 const diagrams = {
+  "model-families": modelFamilies,
+  "local-runtime-layers": localRuntimeLayers,
+  "gpu-backend-options": gpuBackendOptions,
+  "model-artifact-labels": modelArtifactLabels,
+  "harness-loop": harnessLoop,
+  "inference-flow": inferenceFlow,
+  "memory-budget": memoryBudget,
+  "pcie-topology": pcieTopology,
+  "prompt-reuse": promptReuse,
+  "prefill-slices": prefillSlices,
+  "serving-shapes": servingShapes,
   "parallel-workspaces": parallelWorkspaces,
   "policy-stack": policyStack,
   none: () => "",
@@ -348,6 +436,101 @@ function sublineMark({ subline, sublineSize }) {
 }
 
 /** Two mirrored workspaces, dashed symlinks down to one shared tool layer. */
+function diagramBox(x, y, width, label, accent = false) {
+  return `<rect x="${x}" y="${y}" width="${width}" height="80" rx="16" fill="${accent ? palette.amber100 : palette.surface}" stroke="${accent ? palette.amber500 : palette.ink200}" stroke-width="2"/>
+    <text x="${x + width / 2}" y="${y + 49}" text-anchor="middle" font-family="Arial" font-size="24" font-weight="700" fill="${palette.navy}">${escapeXml(label)}</text>`;
+}
+
+function diagramLine(x1, y1, x2, y2) {
+  return `<path d="M${x1} ${y1} L${x2} ${y2}" stroke="${palette.ink400}" stroke-width="4" fill="none"/>`;
+}
+
+function harnessLoop() {
+  return diagramLine(1320, 210, 1320, 530)
+    + diagramBox(1030, 120, 600, "task · context · boundaries")
+    + diagramBox(1030, 285, 600, "harness ↔ model", true)
+    + diagramBox(1030, 450, 600, "tools ↔ observed results");
+}
+
+function inferenceFlow() {
+  return diagramLine(1320, 220, 1320, 500)
+    + diagramBox(1070, 160, 500, "repository prompt")
+    + diagramBox(1070, 310, 500, "prefill → KV state", true)
+    + diagramBox(1070, 460, 500, "decode → answer");
+}
+
+function modelFamilies() {
+  return ["attention · Llama", "recurrence · RWKV", "convolution · WaveNet", "state space · Mamba", "hybrid · Jamba"]
+    .map((label, i) => diagramBox(1030, 110 + i * 104, 610, label, i === 4)).join("");
+}
+
+function localRuntimeLayers() {
+  return diagramLine(1320, 200, 1320, 540)
+    + diagramBox(1020, 120, 600, "client · chat or coding agent")
+    + diagramBox(1020, 285, 600, "engine · execute and schedule", true)
+    + diagramBox(1020, 450, 600, "backend · reach the processor");
+}
+
+function gpuBackendOptions() {
+  return diagramBox(1120, 125, 420, "model operations", true)
+    + diagramLine(1330, 205, 1330, 260)
+    + diagramLine(1110, 260, 1550, 260)
+    + diagramLine(1110, 260, 1110, 295)
+    + diagramLine(1550, 260, 1550, 295)
+    + diagramBox(970, 295, 330, "CUDA · NVIDIA")
+    + diagramBox(1370, 295, 330, "ROCm · AMD")
+    + diagramBox(970, 435, 330, "Vulkan · portable")
+    + diagramBox(1370, 435, 330, "Metal · Apple");
+}
+
+function modelArtifactLabels() {
+  return ["identity · model + revision", "container · GGUF / safetensors", "precision · BF16 / quantized", "routing · dense / MoE"]
+    .map((label, i) => diagramBox(990, 135 + i * 120, 700, label, i === 3)).join("");
+}
+
+function memoryBudget() {
+  return ["weights", "active KV state", "runtime workspace", "safety headroom"]
+    .map((label, i) => diagramBox(1040, 135 + i * 110, 560, label, i === 1)).join("");
+}
+
+function pcieTopology() {
+  return diagramLine(1320, 210, 1320, 500)
+    + diagramLine(1150, 490, 1490, 490)
+    + diagramLine(1150, 490, 1150, 520)
+    + diagramLine(1490, 490, 1490, 520)
+    + diagramBox(1120, 140, 400, "CPU / shared memory")
+    + diagramBox(1120, 320, 400, "PCIe switch", true)
+    + diagramBox(1020, 520, 260, "GPU A")
+    + diagramBox(1360, 520, 260, "GPU B");
+}
+
+function promptReuse() {
+  return ["question A", "question B", "question C"].map((label, i) =>
+    diagramBox(980, 165 + i * 145, 370, "same prefix", true)
+    + diagramLine(1350, 205 + i * 145, 1390, 205 + i * 145)
+    + diagramBox(1390, 165 + i * 145, 260, label)).join("");
+}
+
+function prefillSlices() {
+  return diagramBox(1000, 145, 640, "cached beginning: reuse", true)
+    + diagramBox(1000, 295, 300, "prefill slice")
+    + diagramBox(1340, 295, 300, "decode turn", true)
+    + diagramBox(1000, 445, 300, "prefill slice")
+    + diagramBox(1340, 445, 300, "decode turn", true)
+    + diagramLine(1300, 335, 1340, 335)
+    + diagramLine(1300, 485, 1340, 485);
+}
+
+function servingShapes() {
+  return diagramLine(1320, 220, 1320, 470)
+    + diagramLine(1050, 370, 1590, 370)
+    + diagramLine(1050, 370, 1050, 470)
+    + diagramLine(1590, 370, 1590, 470)
+    + diagramBox(1120, 160, 400, "requests → router", true)
+    + ["worker A", "worker B", "worker C"].map((label, i) =>
+      diagramBox(940 + i * 270, 470, 220, label)).join("");
+}
+
 function parallelWorkspaces() {
   return `
   <g>

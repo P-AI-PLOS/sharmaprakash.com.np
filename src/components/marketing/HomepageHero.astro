@@ -10,9 +10,9 @@ import { information, siteConfig } from "~/data/site";
   <HeroAuroraBackground />
 
   <div class="relative z-10 mx-auto max-w-7xl px-6 lg:px-12 pt-10 lg:pt-12 pb-16 lg:pb-32 flex flex-col lg:min-h-screen">
-    <header class="flex items-center justify-between gap-6">
+    <header class="flex flex-wrap lg:flex-nowrap items-center justify-between gap-6">
       <a href="/" class="font-semibold tracking-tight text-h4 text-on-inverse">{siteConfig.fullName}</a>
-      <div class="hidden lg:block">
+      <div class="order-last w-full lg:order-none lg:w-auto">
         <PrimaryNavigation tone="inverse" />
       </div>
       <a href="/contact/" class="btn btn-primary btn-sm hidden md:inline-flex">
@@ -27,7 +27,7 @@ import { information, siteConfig } from "~/data/site";
         </ScrollReveal>
         <ScrollReveal delay={120}>
           <h1 class="text-display-xl lg:text-display-2xl text-on-inverse mt-4">
-            Programmer, Founder, <span class="text-accent-500">Product Owner</span>.
+            Product manager, founder, <span class="text-accent-500">builder</span>.
           </h1>
         </ScrollReveal>
         <ScrollReveal delay={260}>
@@ -67,8 +67,8 @@ import { information, siteConfig } from "~/data/site";
             class="w-full h-full object-cover"
           />
         </div>
-        <span class="hp-badge hp-badge--a">11+ years shipping</span>
-        <span class="hp-badge hp-badge--b">EM @ Varicon</span>
+        <span class="hp-badge hp-badge--a">Over a decade building</span>
+        <span class="hp-badge hp-badge--b">Independent PM &amp; consultant</span>
       </ScrollReveal>
     </div>
   </div>

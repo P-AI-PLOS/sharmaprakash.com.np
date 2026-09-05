@@ -1,0 +1,33 @@
+---
+import SiteShell from "~/layouts/SiteShell.astro";
+import { aiGlossary } from "~/data/ai-glossary.mjs";
+---
+
+<SiteShell title="AI Glossary" description="Plain-language definitions for model architecture, local runtimes, CUDA, ROCm, Vulkan, GGUF, quantization, and inference memory.">
+  <main class="mx-auto max-w-4xl px-6 pt-40 pb-24">
+    <p class="eyebrow mb-4">AI · Reference</p>
+    <h1 class="text-display-lg text-strong">AI glossary</h1>
+    <p class="text-body-lg text-default mt-6 max-w-prose">Plain-language definitions for the terms that appear in these articles. Start here when the machinery behind a coding assistant is unfamiliar.</p>
+    <p class="text-body text-default mt-4">For worked explanations, start with <a class="underline text-accent-700" href="/ai/beyond-transformers-model-architecture-families/">model architectures</a> or the <a class="underline text-accent-700" href="/series/local-ai-toolkit/">Local AI Toolkit</a>.</p>
+    <nav aria-label="Glossary terms" class="flex flex-wrap gap-3 my-8">
+      {aiGlossary.map(({ id, term }) => <a class="text-accent-700 underline py-2" href={`#${id}`}>{term}</a>)}
+    </nav>
+    <dl>
+      {aiGlossary.map(({ id, term, definition }) => (
+        <div id={id} class="glossary-entry border-t border-default py-6">
+          <dt class="text-heading-md text-strong"><a href={`#${id}`}>{term}</a></dt>
+          <dd class="text-body-lg text-default mt-3">{definition}</dd>
+        </div>
+      ))}
+    </dl>
+    <aside class="mt-8 text-body text-muted">
+      <p>These definitions describe concepts. Exact defaults and compatibility depend on the selected model, provider, and runtime.</p>
+      <p class="mt-4">Further reading: <a class="underline" href="https://huggingface.co/docs/transformers/main/cache_explanation">Hugging Face on attention caching</a>, <a class="underline" href="https://docs.vllm.ai/en/stable/features/automatic_prefix_caching/">vLLM on prefix reuse</a>, and <a class="underline" href="https://docs.vllm.ai/en/stable/configuration/optimization/">vLLM on scheduling</a>.</p>
+    </aside>
+  </main>
+</SiteShell>
+
+<style>
+  .glossary-entry { scroll-margin-top: var(--space-32); }
+  .glossary-entry:target { background: var(--accent-50); }
+</style>

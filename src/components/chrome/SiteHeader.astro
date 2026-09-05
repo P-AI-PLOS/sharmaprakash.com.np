@@ -57,6 +57,7 @@ import { siteConfig } from "~/data/site";
   </button>
   <ul class="space-y-6 list-none text-2xl text-on-inverse">
     <li><a href="/" class="link-underline">Home</a></li>
+    <li><a href="/about/" class="link-underline" aria-current={Astro.url.pathname === "/about/" ? "page" : undefined}>About</a></li>
     <li><a href="/blog/page/1/" class="link-underline">Essays</a></li>
     <li><a href="/tools/opportunity-solution-tree/" class="link-underline">Free tool</a></li>
     <li><a href="/contact/" class="link-underline">Contact</a></li>

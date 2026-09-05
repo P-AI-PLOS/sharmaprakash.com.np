@@ -1,0 +1,7 @@
+{
+  "database": "dolt",
+  "backend": "dolt",
+  "dolt_mode": "embedded",
+  "dolt_database": "sharmaprakash_astro",
+  "project_id": "34f056d6-4fd7-406a-9155-808aa7f6794b"
+}

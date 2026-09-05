@@ -1,0 +1,43 @@
+<script>
+  import "../../scripts/ai-diagrams.mjs";
+</script>
+
+<style is:global>
+  ai-diagram {
+    display: block;
+    margin-block: var(--space-8);
+    padding: var(--space-4);
+    border: 1px solid var(--border-strong);
+    border-radius: var(--radius-lg);
+    background: var(--surface-raised);
+    font-family: Arial, sans-serif;
+    color: var(--text-default);
+  }
+  ai-diagram .ai-visual, ai-diagram > img { max-width: 100%; margin: 0 auto; }
+  ai-diagram svg { display: block; width: 100%; height: auto; }
+  ai-diagram .ai-options { display: grid; gap: var(--space-4); margin-block: var(--space-4); }
+  ai-diagram label { display: grid; gap: var(--space-2); font-size: 1rem; font-weight: 600; }
+  ai-diagram label.ai-checkbox { display: flex; align-items: center; }
+  ai-diagram select, ai-diagram button {
+    font: inherit;
+    font-size: 1rem;
+    color: var(--text-strong);
+    background: var(--surface-base);
+    border: 1px solid var(--border-strong);
+    border-radius: var(--radius-md);
+    padding: var(--space-3);
+    max-width: 100%;
+    min-width: 0;
+  }
+  ai-diagram input[type="range"] { width: 100%; accent-color: var(--accent-700); min-height: var(--space-10); }
+  ai-diagram input[type="checkbox"] { accent-color: var(--accent-700); width: var(--space-5); height: var(--space-5); }
+  ai-diagram .ai-actions { display: flex; flex-wrap: wrap; gap: var(--space-2); }
+  ai-diagram button { cursor: pointer; }
+  ai-diagram button:not(:disabled):hover { background: var(--accent-100); }
+  ai-diagram button:disabled { opacity: 0.55; cursor: default; }
+  ai-diagram :is(button, input, select):focus-visible { outline: 3px solid var(--accent-700); outline-offset: var(--space-1); }
+  .prose-post ai-diagram :is(.ai-explanation, .ai-motion-note) { margin-block: var(--space-4) 0; font-size: 1rem; line-height: 1.6; }
+  .prose-post ai-diagram .ai-motion-note { color: var(--text-muted-on-raised); font-size: 0.875rem; }
+  ai-diagram .ai-visual .active rect { transition: fill var(--dur-normal) var(--ease-out-quad); }
+  @media (prefers-reduced-motion: reduce) { ai-diagram * { transition: none !important; animation: none !important; } }
+</style>

@@ -14,9 +14,13 @@ import PodcastPlayer from "~/components/blog/PodcastPlayer.astro";
 import { podcastEpisodes } from "~/data/podcast";
 
 export const getStaticPaths = (async () => {
-  return Object.entries(seriesRegistry).map(([slug, meta]) => ({
-    params: { slug },
-    props: { slug, meta },
+  const entries = await Promise.all(
+    Object.entries(seriesRegistry).map(async ([slug, meta]) => ({
+      slug, meta, parts: await getSeriesPosts(slug),
+    })),
+  );
+  return entries.filter(({ parts }) => parts.length > 0).map(({ slug, meta }) => ({
+    params: { slug }, props: { slug, meta },
   }));
 }) satisfies GetStaticPaths;
 
@@ -34,6 +38,10 @@ const cover = meta.cover;
 const firstDate = first ? formatBlogDate(first.data.date) : "";
 const partWord = parts.length === 1 ? "part" : "parts";
 const pad = (n: number) => String(n).padStart(2, "0");
+const companionSlug = slug === "ai-stack" ? "running-ai-yourself"
+  : slug === "running-ai-yourself" ? "ai-stack" : undefined;
+const companion = companionSlug && (await getSeriesPosts(companionSlug)).length > 0
+  ? { slug: companionSlug, ...seriesRegistry[companionSlug] } : undefined;
 ---
 
 <SiteShell title={`${meta.title} · Series`} description={meta.description}>
@@ -43,6 +51,11 @@ const pad = (n: number) => String(n).padStart(2, "0");
         <p class="eyebrow mb-3">Series</p>
         <h1 class="text-display-lg text-strong">{meta.title}</h1>
         <p class="mt-5 text-body-lg text-muted max-w-reading">{meta.description}</p>
+        {companion && (
+          <p class="mt-4 text-body text-muted">
+            Continue exploring: <a class="underline" href={`/series/${companion.slug}/`}>{companion.title}</a>.
+          </p>
+        )}
         {parts.length > 0 && (
           <p class="mt-4 text-caption text-faint">
             {parts.length} {partWord}

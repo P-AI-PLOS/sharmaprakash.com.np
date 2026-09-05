@@ -35,7 +35,8 @@ const entries: SeriesEntry[] = await Promise.all(
   }),
 );
 
-entries.sort((a, b) => b.latestDate - a.latestDate);
+const publishedEntries = entries.filter((entry) => entry.partCount > 0);
+publishedEntries.sort((a, b) => b.latestDate - a.latestDate);
 ---
 
 <SiteShell title={`Series · ${headTitle.blogsTitle}`}>
@@ -53,11 +54,11 @@ entries.sort((a, b) => b.latestDate - a.latestDate);
 
   <section class="pb-24">
     <div class="mx-auto max-w-7xl px-6 lg:px-12">
-      {entries.length === 0 ? (
+      {publishedEntries.length === 0 ? (
         <p class="text-muted">No series yet.</p>
       ) : (
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {entries.map((entry, i) => (
+          {publishedEntries.map((entry, i) => (
             <ScrollReveal delay={80 * i}>
               <SeriesCatalogCard
                 slug={entry.slug}
