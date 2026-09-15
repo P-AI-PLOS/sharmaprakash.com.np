@@ -30,7 +30,7 @@ You can click either diagram in this article to enlarge it, then press Escape to
 
 Internet access comes through a WorldLink CPE into a UniFi Dream Router 7. The UDR7 handles routing between the home networks and also provides Wi-Fi on 2.4, 5 and 6 GHz. Its wired connection to the USW Enterprise 8 PoE runs at 2.5 Gbps.
 
-The Enterprise switch serves the household side, including two separate access points: the Ground Floor U6 LR, assigned the name `sanctuary`, and the Prabin Floor AC Pro, assigned `quinjet`. These vessel names are selected for the lab; the live controller labels are pending a rename. Both provide 2.4 and 5 GHz coverage, while the guest Wi-Fi is available only through the ground-floor AP. The Prabin Floor AP appears in the controller as `U7PG2`; despite the name, it is a Wi-Fi 5 device.
+The Enterprise switch serves the household side, including two separate access points: the Ground Floor U6 LR, named `sanctuary`, and the Prabin Floor AC Pro, named `quinjet`. These are their live UniFi names, with gigabit uplinks on ports 4 and 7 respectively. Both provide 2.4 and 5 GHz coverage, while the guest Wi-Fi is available only through the ground-floor AP. The Prabin Floor AP uses the model code `U7PG2`; despite the code, it is a Wi-Fi 5 device.
 
 ## The small machines doing the work
 

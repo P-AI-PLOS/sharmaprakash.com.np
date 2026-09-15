@@ -68,10 +68,10 @@
 <text x="602" y="938" font-size="17" fill="#334155" font-weight="400">NAS + Knowhere depend on Asgard OVS.</text>
 <text x="602" y="966" font-size="17" fill="#334155" font-weight="400">Manual OVS reboot persistence unverified.</text>
 <text x="602" y="994" font-size="17" fill="#334155" font-weight="400">VM placement may change within the pool.</text>
-<path d="M1550 220 H1660" fill="none" stroke="#9b7724" stroke-width="4" stroke-dasharray="9 7"/>
-<text x="1575" y="200" font-size="16" fill="#946018" font-weight="400">port 7</text>
-<path d="M1550 295 H1600 V565 H1660" fill="none" stroke="#9b7724" stroke-width="4" stroke-dasharray="9 7"/>
-<text x="1610" y="535" font-size="16" fill="#946018" font-weight="400">port 4</text>
+<path d="M1550 220 H1660" fill="none" stroke="#16818b" stroke-width="4"/>
+<text x="1558" y="200" font-size="16" fill="#16818b" font-weight="400">1G / port 7</text>
+<path d="M1550 295 H1600 V565 H1660" fill="none" stroke="#16818b" stroke-width="4"/>
+<text x="1485" y="535" font-size="16" fill="#16818b" font-weight="400">1G / port 4</text>
 <rect x="1660" y="125" width="440" height="250" rx="16" fill="#ffffff" stroke="#cbd5e1" stroke-width="2"/>
 <image x="1790" y="133" width="180" height="105" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNDAgMTQwIj4KPGVsbGlwc2UgY3g9IjEyMCIgY3k9IjgxIiByeD0iNzkiIHJ5PSI0MyIgZmlsbD0iI2NiZDVlMSIvPgo8ZWxsaXBzZSBjeD0iMTIwIiBjeT0iNzAiIHJ4PSI3OSIgcnk9IjQzIiBmaWxsPSIjZjhmYWZjIiBzdHJva2U9IiM5NGEzYjgiIHN0cm9rZS13aWR0aD0iMyIvPgo8ZWxsaXBzZSBjeD0iMTIwIiBjeT0iNzAiIHJ4PSIyOCIgcnk9IjE1IiBmaWxsPSJub25lIiBzdHJva2U9IiMzOGJkZjgiIHN0cm9rZS13aWR0aD0iNCIvPgo8cGF0aCBkPSJNMzAgNDdxLTE0IDIyIDAgNDRNMjEwIDQ3cTE0IDIyIDAgNDQiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzhkYTVjMSIgc3Ryb2tlLXdpZHRoPSIzIi8+Cjwvc3ZnPgo="/>
 <text x="1682" y="265" font-size="23" fill="#12243c" font-weight="700">quinjet / AC Pro</text>
@@ -95,7 +95,7 @@
 <text x="1682" y="1058" font-size="17" fill="#334155" font-weight="400">Status / Homepage / Dozzle test services</text>
 <text x="1682" y="1085" font-size="17" fill="#334155" font-weight="400">Beszel / SSH / Screen Sharing</text>
 <text x="1682" y="1160" font-size="16" fill="#6d46a2" font-weight="400">Wi-Fi membership; AP association not pinned</text>
-<text x="1682" y="1190" font-size="16" fill="#64748b" font-weight="400">AP names allocated; controller rename pending</text>
+<text x="1682" y="1190" font-size="16" fill="#64748b" font-weight="400">AP names and 1G uplinks verified in UniFi</text>
 <rect x="50" y="1060" width="1500" height="145" rx="16" fill="#eef1f5" stroke="#cbd5e1" stroke-width="2"/>
 <image x="65" y="1070" width="135" height="80" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNDAgMTQwIj4KPHBhdGggZD0iTTE4IDU3IDQyIDI5SDIwNEwyMjMgNTdaIiBmaWxsPSIjZGJlNGVlIiBzdHJva2U9IiM3MTgyOTgiIHN0cm9rZS13aWR0aD0iMyIvPgo8cmVjdCB4PSIxOCIgeT0iNTciIHdpZHRoPSIyMDUiIGhlaWdodD0iNTMiIHJ4PSI1IiBmaWxsPSIjOTRhM2I4IiBzdHJva2U9IiM1MjY0N2EiIHN0cm9rZS13aWR0aD0iMyIvPgo8cGF0aCBkPSJNMzAgNzJoMTh2MjBIMzB6TTUzIDcyaDE4djIwSDUzek03NiA3MmgxOHYyMEg3NnpNOTkgNzJoMTh2MjBIOTl6TTEyMiA3MmgxOHYyMEgxMjJ6TTE0NSA3MmgxOHYyMEgxNDV6TTE2OCA3MmgxOHYyMEgxNjh6TTE5MSA3MmgxOHYyMEgxOTF6IiBmaWxsPSIjMjQzNDQ4Ii8+CjxwYXRoIGQ9Ik0zMyAxMDBoMTBtMTMgMGgxMG0xMyAwaDEwbTEzIDBoMTBtMTMgMGgxMG0xMyAwaDEwbTEzIDBoMTBtMTMgMGgxMCIgc3Ryb2tlPSIjNjRmNWNhIiBzdHJva2Utd2lkdGg9IjMiLz4KPC9zdmc+Cg=="/>
 <text x="210" y="1095" font-size="19" fill="#334155" font-weight="700">Powered-off fallback</text>
