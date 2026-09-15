@@ -460,7 +460,7 @@ function inferenceFlow() {
 }
 
 function modelFamilies() {
-  return ["attention · Llama", "recurrence · RWKV", "convolution · WaveNet", "state space · Mamba", "hybrid · Jamba"]
+  return ["attention · Gemma", "recurrence · RWKV", "convolution · WaveNet", "state space · Mamba", "hybrid · Qwen3.8"]
     .map((label, i) => diagramBox(1030, 110 + i * 104, 610, label, i === 4)).join("");
 }
 

@@ -1,0 +1,112 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="2100" height="1510" viewBox="0 0 2100 1510" role="img" aria-labelledby="title"><title id="title">October homelab upgrade with illustrated hardware, Titan and network links</title><rect width="2100" height="1510" fill="#f5f8fc"/><g font-family="Arial,sans-serif">
+<text x="50" y="50" font-size="34" fill="#172b46" font-weight="700">homelab / 10G backbone + 2.5G compute</text>
+<text x="50" y="82" font-size="18" fill="#64748b" font-weight="400">Hardware, network links and XCP-ng pools</text>
+<path d="M250 165 V125 H1750 V165" fill="none" stroke="#0f8a82" stroke-width="4"/>
+<text x="910" y="114" font-size="18" fill="#0f8a82" font-weight="400">2.5G / household uplink</text>
+<path d="M450 280 H550" fill="none" stroke="#2563eb" stroke-width="4"/>
+<text x="467" y="260" font-size="20" fill="#2563eb" font-weight="700">10G</text>
+<path d="M950 280 H1050" fill="none" stroke="#2563eb" stroke-width="4"/>
+<text x="967" y="260" font-size="20" fill="#2563eb" font-weight="700">10G</text>
+<rect x="50" y="165" width="400" height="290" rx="16" fill="#ffffff" stroke="#cbd5e1" stroke-width="2"/>
+<image x="160" y="177" width="180" height="105" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNDAgMTQwIj4KPHBhdGggZD0iTTg0IDMwUTEyMCAxMCAxNTYgMzBWMTEzUTEyMCAxMzUgODQgMTEzWiIgZmlsbD0iI2UyZThmMCIgc3Ryb2tlPSIjOTRhM2I4IiBzdHJva2Utd2lkdGg9IjMiLz4KPGVsbGlwc2UgY3g9IjEyMCIgY3k9IjMwIiByeD0iMzYiIHJ5PSIxMiIgZmlsbD0iI2Y4ZmFmYyIgc3Ryb2tlPSIjOTRhM2I4IiBzdHJva2Utd2lkdGg9IjMiLz4KPHBhdGggZD0iTTg3IDQ0UTEyMCA2MCAxNTMgNDQiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzM4YmRmOCIgc3Ryb2tlLXdpZHRoPSI0Ii8+CjxjaXJjbGUgY3g9IjEyMCIgY3k9Ijg1IiByPSI3IiBmaWxsPSIjMzhiZGY4Ii8+PHBhdGggZD0iTTE3NyA0NXEyMiAyMCAwIDQwbTEzLTU0cTM4IDM0IDAgNjgiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzhkYTVjMSIgc3Ryb2tlLXdpZHRoPSI0Ii8+Cjwvc3ZnPgo="/>
+<text x="72" y="313" font-size="24" fill="#172b46" font-weight="700">UniFi Dream Router 7</text>
+<text x="72" y="349" font-size="19" fill="#334155" font-weight="400">Gateway + built-in AP</text>
+<text x="72" y="379" font-size="19" fill="#334155" font-weight="400">Wi-Fi / 2.4 · 5 · 6 GHz</text>
+<text x="72" y="409" font-size="19" fill="#334155" font-weight="400">Servers native uplink</text>
+<rect x="550" y="165" width="400" height="290" rx="16" fill="#ffffff" stroke="#cbd5e1" stroke-width="2"/>
+<image x="660" y="177" width="180" height="105" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNDAgMTQwIj4KPHBhdGggZD0iTTE4IDU3IDQyIDI5SDIwNEwyMjMgNTdaIiBmaWxsPSIjZGJlNGVlIiBzdHJva2U9IiM3MTgyOTgiIHN0cm9rZS13aWR0aD0iMyIvPgo8cmVjdCB4PSIxOCIgeT0iNTciIHdpZHRoPSIyMDUiIGhlaWdodD0iNTMiIHJ4PSI1IiBmaWxsPSIjOTRhM2I4IiBzdHJva2U9IiM1MjY0N2EiIHN0cm9rZS13aWR0aD0iMyIvPgo8cGF0aCBkPSJNMzAgNzJoMTh2MjBIMzB6TTUzIDcyaDE4djIwSDUzek03NiA3MmgxOHYyMEg3NnpNOTkgNzJoMTh2MjBIOTl6TTEyMiA3MmgxOHYyMEgxMjJ6TTE0NSA3MmgxOHYyMEgxNDV6TTE2OCA3MmgxOHYyMEgxNjh6TTE5MSA3MmgxOHYyMEgxOTF6IiBmaWxsPSIjMjQzNDQ4Ii8+CjxwYXRoIGQ9Ik0zMyAxMDBoMTBtMTMgMGgxMG0xMyAwaDEwbTEzIDBoMTBtMTMgMGgxMG0xMyAwaDEwbTEzIDBoMTBtMTMgMGgxMCIgc3Ryb2tlPSIjNjRmNWNhIiBzdHJva2Utd2lkdGg9IjMiLz4KPC9zdmc+Cg=="/>
+<text x="572" y="313" font-size="24" fill="#172b46" font-weight="700">TRENDnet TEG-S562</text>
+<text x="572" y="349" font-size="19" fill="#334155" font-weight="400">Dedicated server switch</text>
+<text x="572" y="379" font-size="19" fill="#334155" font-weight="400">4 × multigig RJ45 / 2 × SFP+</text>
+<text x="572" y="409" font-size="19" fill="#334155" font-weight="400">All six ports occupied</text>
+<rect x="1050" y="165" width="400" height="290" rx="16" fill="#ffffff" stroke="#cbd5e1" stroke-width="2"/>
+<image x="1160" y="177" width="180" height="105" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNDAgMTQwIj4KPHJlY3QgeD0iOCIgeT0iMzAiIHdpZHRoPSIyMjQiIGhlaWdodD0iODUiIHJ4PSI1IiBmaWxsPSIjOTRhM2I4IiBzdHJva2U9IiMzMzQxNTUiIHN0cm9rZS13aWR0aD0iMyIvPgo8cmVjdCB4PSIyNCIgeT0iMzciIHdpZHRoPSIxOTIiIGhlaWdodD0iNzEiIHJ4PSIzIiBmaWxsPSIjMjUzNDQ5Ii8+CjxnIGZpbGw9IiM1NjY3N2UiIHN0cm9rZT0iIzE3MmI0NiIgc3Ryb2tlLXdpZHRoPSIyIj48cGF0aCBkPSJNMzAgNDRoNDB2MjRIMzB6TTc2IDQ0aDQwdjI0SDc2ek0xMjIgNDRoNDB2MjRIMTIyek0xNjggNDRoNDB2MjRIMTY4ek0zMCA3Nmg0MHYyNEgzMHpNNzYgNzZoNDB2MjRINzZ6TTEyMiA3Nmg0MHYyNEgxMjJ6TTE2OCA3Nmg0MHYyNEgxNjh6Ii8+PC9nPgo8cGF0aCBkPSJNMzYgNjFoMjRNODIgNjFoMjRNMTI4IDYxaDI0TTE3NCA2MWgyNE0zNiA5M2gyNE04MiA5M2gyNE0xMjggOTNoMjRNMTc0IDkzaDI0IiBzdHJva2U9IiMxODI1MzgiIHN0cm9rZS13aWR0aD0iMyIvPgo8ZyBmaWxsPSIjNTVkNWMxIj48Y2lyY2xlIGN4PSI2MyIgY3k9IjUxIiByPSIyIi8+PGNpcmNsZSBjeD0iMTA5IiBjeT0iNTEiIHI9IjIiLz48Y2lyY2xlIGN4PSIxNTUiIGN5PSI1MSIgcj0iMiIvPjxjaXJjbGUgY3g9IjIwMSIgY3k9IjUxIiByPSIyIi8+PGNpcmNsZSBjeD0iNjMiIGN5PSI4MyIgcj0iMiIvPjxjaXJjbGUgY3g9IjEwOSIgY3k9IjgzIiByPSIyIi8+PC9nPgo8cGF0aCBkPSJNMTYgNDd2MTZtMCAxOHYxNk0yMjQgNDd2MTZtMCAxOHYxNiIgc3Ryb2tlPSIjMzM0MTU1IiBzdHJva2Utd2lkdGg9IjMiLz4KPC9zdmc+Cg=="/>
+<text x="1072" y="313" font-size="24" fill="#172b46" font-weight="700">vyas / Synology RS1221+</text>
+<text x="1072" y="349" font-size="19" fill="#334155" font-weight="400">32 GB ECC / shared storage</text>
+<text x="1072" y="379" font-size="19" fill="#334155" font-weight="400">10G adapter + interconnect</text>
+<text x="1072" y="409" font-size="19" fill="#334155" font-weight="400">NFS / media / Tailscale</text>
+<rect x="1550" y="165" width="400" height="290" rx="16" fill="#ffffff" stroke="#cbd5e1" stroke-width="2"/>
+<image x="1660" y="177" width="180" height="105" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNDAgMTQwIj4KPHBhdGggZD0iTTE4IDU3IDQyIDI5SDIwNEwyMjMgNTdaIiBmaWxsPSIjZGJlNGVlIiBzdHJva2U9IiM3MTgyOTgiIHN0cm9rZS13aWR0aD0iMyIvPgo8cmVjdCB4PSIxOCIgeT0iNTciIHdpZHRoPSIyMDUiIGhlaWdodD0iNTMiIHJ4PSI1IiBmaWxsPSIjOTRhM2I4IiBzdHJva2U9IiM1MjY0N2EiIHN0cm9rZS13aWR0aD0iMyIvPgo8cGF0aCBkPSJNMzAgNzJoMTh2MjBIMzB6TTUzIDcyaDE4djIwSDUzek03NiA3MmgxOHYyMEg3NnpNOTkgNzJoMTh2MjBIOTl6TTEyMiA3MmgxOHYyMEgxMjJ6TTE0NSA3MmgxOHYyMEgxNDV6TTE2OCA3MmgxOHYyMEgxNjh6TTE5MSA3MmgxOHYyMEgxOTF6IiBmaWxsPSIjMjQzNDQ4Ii8+CjxwYXRoIGQ9Ik0zMyAxMDBoMTBtMTMgMGgxMG0xMyAwaDEwbTEzIDBoMTBtMTMgMGgxMG0xMyAwaDEwbTEzIDBoMTBtMTMgMGgxMCIgc3Ryb2tlPSIjNjRmNWNhIiBzdHJva2Utd2lkdGg9IjMiLz4KPC9zdmc+Cg=="/>
+<text x="1572" y="313" font-size="24" fill="#172b46" font-weight="700">USW Enterprise 8 PoE</text>
+<text x="1572" y="349" font-size="19" fill="#334155" font-weight="400">Managed household network</text>
+<text x="1572" y="379" font-size="19" fill="#334155" font-weight="400">APs / VLANs / PoE</text>
+<text x="1572" y="409" font-size="19" fill="#334155" font-weight="400">2.5G uplink to UDR7</text>
+<rect x="50" y="610" width="760" height="385" rx="16" fill="#eaf2fa" stroke="#cbd5e1" stroke-width="2"/>
+<rect x="840" y="610" width="760" height="385" rx="16" fill="#edf1f6" stroke="#cbd5e1" stroke-width="2"/>
+<text x="72" y="645" font-size="23" fill="#172b46" font-weight="700">marvel-earth / AMD pool / 96 GB RAM</text>
+<text x="862" y="645" font-size="23" fill="#172b46" font-weight="700">marvel-cosmos / Intel pool</text>
+<path d="M590 455 V490 H225 V675" fill="none" stroke="#0f8a82" stroke-width="4"/>
+<path d="M650 455 V515 H635 V675" fill="none" stroke="#0f8a82" stroke-width="4"/>
+<path d="M800 455 V515 H1045 V675" fill="none" stroke="#0f8a82" stroke-width="4"/>
+<path d="M900 455 V490 H1390 V675" fill="none" stroke="#b66a08" stroke-width="4"/>
+<text x="240" y="579" font-size="20" fill="#0f8a82" font-weight="700">2.5G</text>
+<text x="650" y="579" font-size="20" fill="#0f8a82" font-weight="700">2.5G</text>
+<text x="1060" y="579" font-size="20" fill="#0f8a82" font-weight="700">2.5G</text>
+<text x="1405" y="579" font-size="20" fill="#b66a08" font-weight="700">1G</text>
+<rect x="65" y="619" width="570" height="39" rx="16" fill="#eaf2fa" stroke="#cbd5e1" stroke-width="2"/>
+<text x="77" y="646" font-size="23" fill="#172b46" font-weight="700">marvel-earth / AMD pool / 96 GB RAM</text>
+<rect x="855" y="619" width="440" height="39" rx="16" fill="#edf1f6" stroke="#cbd5e1" stroke-width="2"/>
+<text x="867" y="646" font-size="23" fill="#172b46" font-weight="700">marvel-cosmos / Intel pool</text>
+<rect x="70" y="675" width="330" height="290" rx="16" fill="#ffffff" stroke="#cbd5e1" stroke-width="2"/>
+<image x="145" y="687" width="180" height="105" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNDAgMTQwIj4KPHBhdGggZD0iTTMwIDM1IDYyIDE1SDIwM0wyMTggMzVWMTE2SDMwWiIgZmlsbD0iIzY0NzQ4YiIgc3Ryb2tlPSIjMjUzNDQ5IiBzdHJva2Utd2lkdGg9IjMiLz4KPHJlY3QgeD0iMjUiIHk9IjM1IiB3aWR0aD0iMTkwIiBoZWlnaHQ9Ijg4IiByeD0iOSIgZmlsbD0iIzI2MzQ0OSIgc3Ryb2tlPSIjMTUyMDMwIiBzdHJva2Utd2lkdGg9IjMiLz4KPHBhdGggZD0iTTQ4IDU1SDE2OU00OCA2MkgxNjlNNDggNjlIMTY5IiBzdHJva2U9IiM3NDg2OWUiIHN0cm9rZS13aWR0aD0iMyIvPgo8cmVjdCB4PSI1MCIgeT0iOTEiIHdpZHRoPSIyNSIgaGVpZ2h0PSIxMCIgcng9IjIiIGZpbGw9IiMzMjk0ZDQiLz48cmVjdCB4PSI4NiIgeT0iOTEiIHdpZHRoPSIyNSIgaGVpZ2h0PSIxMCIgcng9IjIiIGZpbGw9IiMzMjk0ZDQiLz4KPGNpcmNsZSBjeD0iMTg0IiBjeT0iOTQiIHI9IjkiIGZpbGw9IiMxYjI4M2EiIHN0cm9rZT0iIzU1ZDVjMSIgc3Ryb2tlLXdpZHRoPSIzIi8+CjxwYXRoIGQ9Ik00NSAxMjV2N00xOTMgMTI1djciIHN0cm9rZT0iIzE1MjAzMCIgc3Ryb2tlLXdpZHRoPSI3Ii8+Cjwvc3ZnPgo="/>
+<text x="92" y="823" font-size="24" fill="#172b46" font-weight="700">shield / UM760 Slim</text>
+<text x="92" y="859" font-size="19" fill="#334155" font-weight="400">48 GB DDR5-5600</text>
+<text x="92" y="889" font-size="19" fill="#334155" font-weight="400">2 TB SSD</text>
+<text x="92" y="919" font-size="19" fill="#334155" font-weight="400">2.5GbE host connection</text>
+<rect x="450" y="675" width="330" height="290" rx="16" fill="#ffffff" stroke="#cbd5e1" stroke-width="2"/>
+<image x="525" y="687" width="180" height="105" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNDAgMTQwIj4KPHBhdGggZD0iTTMwIDM1IDYyIDE1SDIwM0wyMTggMzVWMTE2SDMwWiIgZmlsbD0iIzY0NzQ4YiIgc3Ryb2tlPSIjMjUzNDQ5IiBzdHJva2Utd2lkdGg9IjMiLz4KPHJlY3QgeD0iMjUiIHk9IjM1IiB3aWR0aD0iMTkwIiBoZWlnaHQ9Ijg4IiByeD0iOSIgZmlsbD0iIzI2MzQ0OSIgc3Ryb2tlPSIjMTUyMDMwIiBzdHJva2Utd2lkdGg9IjMiLz4KPHBhdGggZD0iTTQ4IDU1SDE2OU00OCA2MkgxNjlNNDggNjlIMTY5IiBzdHJva2U9IiM3NDg2OWUiIHN0cm9rZS13aWR0aD0iMyIvPgo8cmVjdCB4PSI1MCIgeT0iOTEiIHdpZHRoPSIyNSIgaGVpZ2h0PSIxMCIgcng9IjIiIGZpbGw9IiMzMjk0ZDQiLz48cmVjdCB4PSI4NiIgeT0iOTEiIHdpZHRoPSIyNSIgaGVpZ2h0PSIxMCIgcng9IjIiIGZpbGw9IiMzMjk0ZDQiLz4KPGNpcmNsZSBjeD0iMTg0IiBjeT0iOTQiIHI9IjkiIGZpbGw9IiMxYjI4M2EiIHN0cm9rZT0iIzU1ZDVjMSIgc3Ryb2tlLXdpZHRoPSIzIi8+CjxwYXRoIGQ9Ik00NSAxMjV2N00xOTMgMTI1djciIHN0cm9rZT0iIzE1MjAzMCIgc3Ryb2tlLXdpZHRoPSI3Ii8+Cjwvc3ZnPgo="/>
+<text x="472" y="823" font-size="24" fill="#172b46" font-weight="700">stark / UM880 Plus</text>
+<text x="472" y="859" font-size="19" fill="#334155" font-weight="400">48 GB DDR5-5600 / 2 TB SSD</text>
+<text x="472" y="889" font-size="19" fill="#334155" font-weight="400">XCP-ng host / AI workload role</text>
+<text x="472" y="919" font-size="19" fill="#334155" font-weight="400">2.5GbE host connection</text>
+<rect x="860" y="675" width="330" height="290" rx="16" fill="#ffffff" stroke="#cbd5e1" stroke-width="2"/>
+<image x="935" y="687" width="180" height="105" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNDAgMTQwIj4KPHBhdGggZD0iTTMwIDM1IDYyIDE1SDIwM0wyMTggMzVWMTE2SDMwWiIgZmlsbD0iIzY0NzQ4YiIgc3Ryb2tlPSIjMjUzNDQ5IiBzdHJva2Utd2lkdGg9IjMiLz4KPHJlY3QgeD0iMjUiIHk9IjM1IiB3aWR0aD0iMTkwIiBoZWlnaHQ9Ijg4IiByeD0iOSIgZmlsbD0iIzI2MzQ0OSIgc3Ryb2tlPSIjMTUyMDMwIiBzdHJva2Utd2lkdGg9IjMiLz4KPHBhdGggZD0iTTQ4IDU1SDE2OU00OCA2MkgxNjlNNDggNjlIMTY5IiBzdHJva2U9IiM3NDg2OWUiIHN0cm9rZS13aWR0aD0iMyIvPgo8cmVjdCB4PSI1MCIgeT0iOTEiIHdpZHRoPSIyNSIgaGVpZ2h0PSIxMCIgcng9IjIiIGZpbGw9IiMzMjk0ZDQiLz48cmVjdCB4PSI4NiIgeT0iOTEiIHdpZHRoPSIyNSIgaGVpZ2h0PSIxMCIgcng9IjIiIGZpbGw9IiMzMjk0ZDQiLz4KPGNpcmNsZSBjeD0iMTg0IiBjeT0iOTQiIHI9IjkiIGZpbGw9IiMxYjI4M2EiIHN0cm9rZT0iIzU1ZDVjMSIgc3Ryb2tlLXdpZHRoPSIzIi8+CjxwYXRoIGQ9Ik00NSAxMjV2N00xOTMgMTI1djciIHN0cm9rZT0iIzE1MjAzMCIgc3Ryb2tlLXdpZHRoPSI3Ii8+Cjwvc3ZnPgo="/>
+<text x="882" y="823" font-size="24" fill="#172b46" font-weight="700">asgard</text>
+<text x="882" y="859" font-size="19" fill="#334155" font-weight="400">Celeron J4125 / 16 GB</text>
+<text x="882" y="889" font-size="19" fill="#334155" font-weight="400">459 GB local SR</text>
+<text x="882" y="919" font-size="19" fill="#334155" font-weight="400">2.5GbE host connection</text>
+<rect x="1240" y="675" width="330" height="290" rx="16" fill="#ffffff" stroke="#cbd5e1" stroke-width="2"/>
+<image x="1315" y="687" width="180" height="105" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNDAgMTQwIj4KPHBhdGggZD0iTTMwIDM1IDYyIDE1SDIwM0wyMTggMzVWMTE2SDMwWiIgZmlsbD0iIzY0NzQ4YiIgc3Ryb2tlPSIjMjUzNDQ5IiBzdHJva2Utd2lkdGg9IjMiLz4KPHJlY3QgeD0iMjUiIHk9IjM1IiB3aWR0aD0iMTkwIiBoZWlnaHQ9Ijg4IiByeD0iOSIgZmlsbD0iIzI2MzQ0OSIgc3Ryb2tlPSIjMTUyMDMwIiBzdHJva2Utd2lkdGg9IjMiLz4KPHBhdGggZD0iTTQ4IDU1SDE2OU00OCA2MkgxNjlNNDggNjlIMTY5IiBzdHJva2U9IiM3NDg2OWUiIHN0cm9rZS13aWR0aD0iMyIvPgo8cmVjdCB4PSI1MCIgeT0iOTEiIHdpZHRoPSIyNSIgaGVpZ2h0PSIxMCIgcng9IjIiIGZpbGw9IiMzMjk0ZDQiLz48cmVjdCB4PSI4NiIgeT0iOTEiIHdpZHRoPSIyNSIgaGVpZ2h0PSIxMCIgcng9IjIiIGZpbGw9IiMzMjk0ZDQiLz4KPGNpcmNsZSBjeD0iMTg0IiBjeT0iOTQiIHI9IjkiIGZpbGw9IiMxYjI4M2EiIHN0cm9rZT0iIzU1ZDVjMSIgc3Ryb2tlLXdpZHRoPSIzIi8+CjxwYXRoIGQ9Ik00NSAxMjV2N00xOTMgMTI1djciIHN0cm9rZT0iIzE1MjAzMCIgc3Ryb2tlLXdpZHRoPSI3Ii8+Cjwvc3ZnPgo="/>
+<text x="1262" y="823" font-size="24" fill="#172b46" font-weight="700">knowhere</text>
+<text x="1262" y="859" font-size="19" fill="#334155" font-weight="400">Intel N150 / 12 GB</text>
+<text x="1262" y="889" font-size="19" fill="#334155" font-weight="400">459 GB local SR</text>
+<text x="1262" y="919" font-size="19" fill="#334155" font-weight="400">1GbE host connection</text>
+<path d="M1950 270 H2040 V600 H1980" fill="none" stroke="#b66a08" stroke-width="4"/>
+<path d="M1950 375 H2010 V885 H1980" fill="none" stroke="#b66a08" stroke-width="4"/>
+<rect x="1650" y="500" width="330" height="270" rx="16" fill="#ffffff" stroke="#cbd5e1" stroke-width="2"/>
+<image x="1725" y="512" width="180" height="105" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNDAgMTQwIj4KPGVsbGlwc2UgY3g9IjEyMCIgY3k9IjgxIiByeD0iNzkiIHJ5PSI0MyIgZmlsbD0iI2NiZDVlMSIvPgo8ZWxsaXBzZSBjeD0iMTIwIiBjeT0iNzAiIHJ4PSI3OSIgcnk9IjQzIiBmaWxsPSIjZjhmYWZjIiBzdHJva2U9IiM5NGEzYjgiIHN0cm9rZS13aWR0aD0iMyIvPgo8ZWxsaXBzZSBjeD0iMTIwIiBjeT0iNzAiIHJ4PSIyOCIgcnk9IjE1IiBmaWxsPSJub25lIiBzdHJva2U9IiMzOGJkZjgiIHN0cm9rZS13aWR0aD0iNCIvPgo8cGF0aCBkPSJNMzAgNDdxLTE0IDIyIDAgNDRNMjEwIDQ3cTE0IDIyIDAgNDQiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzhkYTVjMSIgc3Ryb2tlLXdpZHRoPSIzIi8+Cjwvc3ZnPgo="/>
+<text x="1672" y="648" font-size="24" fill="#172b46" font-weight="700">quinjet / AC Pro</text>
+<text x="1672" y="684" font-size="19" fill="#334155" font-weight="400">Prabin floor / Wi-Fi 5</text>
+<text x="1672" y="714" font-size="19" fill="#334155" font-weight="400">2.4 + 5 GHz</text>
+<text x="1672" y="744" font-size="19" fill="#334155" font-weight="400">1G max Ethernet uplink</text>
+<rect x="1650" y="785" width="330" height="270" rx="16" fill="#ffffff" stroke="#cbd5e1" stroke-width="2"/>
+<image x="1725" y="797" width="180" height="105" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNDAgMTQwIj4KPGVsbGlwc2UgY3g9IjEyMCIgY3k9IjgxIiByeD0iNzkiIHJ5PSI0MyIgZmlsbD0iI2NiZDVlMSIvPgo8ZWxsaXBzZSBjeD0iMTIwIiBjeT0iNzAiIHJ4PSI3OSIgcnk9IjQzIiBmaWxsPSIjZjhmYWZjIiBzdHJva2U9IiM5NGEzYjgiIHN0cm9rZS13aWR0aD0iMyIvPgo8ZWxsaXBzZSBjeD0iMTIwIiBjeT0iNzAiIHJ4PSIyOCIgcnk9IjE1IiBmaWxsPSJub25lIiBzdHJva2U9IiMzOGJkZjgiIHN0cm9rZS13aWR0aD0iNCIvPgo8cGF0aCBkPSJNMzAgNDdxLTE0IDIyIDAgNDRNMjEwIDQ3cTE0IDIyIDAgNDQiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzhkYTVjMSIgc3Ryb2tlLXdpZHRoPSIzIi8+Cjwvc3ZnPgo="/>
+<text x="1672" y="933" font-size="24" fill="#172b46" font-weight="700">sanctuary / U6 LR</text>
+<text x="1672" y="969" font-size="19" fill="#334155" font-weight="400">Ground floor / Wi-Fi 6</text>
+<text x="1672" y="999" font-size="19" fill="#334155" font-weight="400">2.4 + 5 GHz / guest SSID</text>
+<text x="1672" y="1029" font-size="19" fill="#334155" font-weight="400">1G max Ethernet uplink</text>
+<text x="50" y="1040" font-size="21" fill="#172b46" font-weight="700">Servers / VLAN 10 • native access links • separate Intel and AMD pools</text>
+<rect x="50" y="1090" width="1930" height="295" rx="16" fill="#f0ecfa" stroke="#cbd5e1" stroke-width="2"/>
+<image x="80" y="1160" width="190" height="120" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNDAgMTQwIj4KPHBhdGggZD0iTTI2IDgxIDY1IDQ0SDE5MUwyMTYgODBaIiBmaWxsPSIjZGNlM2VjIiBzdHJva2U9IiM2NDc0OGIiIHN0cm9rZS13aWR0aD0iMyIvPgo8cGF0aCBkPSJNMjYgODFIMjE2VjkxUTEyMCAxMDMgMjYgOTFaIiBmaWxsPSIjOTRhM2I4IiBzdHJva2U9IiM1MjY0N2EiIHN0cm9rZS13aWR0aD0iMyIvPgo8cGF0aCBkPSJNMzkgODZoMjJtNiAwaDEybTEwNSAwaDE3IiBzdHJva2U9IiMzMzQxNTUiIHN0cm9rZS13aWR0aD0iMyIvPgo8cGF0aCBkPSJNOTggOTJoMzgiIHN0cm9rZT0iIzY0NzQ4YiIgc3Ryb2tlLXdpZHRoPSIzIi8+CjxwYXRoIGQ9Ik0zNiA1OXEtMTMtMTQgMC0yOG0tMTEgMzNxLTIzLTE5IDAtMzkiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzhiNWNmNiIgc3Ryb2tlLXdpZHRoPSIzIi8+Cjwvc3ZnPgo="/>
+<text x="80" y="1132" font-size="23" fill="#6d46a2" font-weight="700">Standalone macOS utility host / outside both XCP-ng pools</text>
+<text x="305" y="1180" font-size="24" fill="#172b46" font-weight="700">titan / 2018 MacBook Pro / clamshell</text>
+<text x="305" y="1218" font-size="20" fill="#334155" font-weight="400">6 cores / 12 threads / 16 GB RAM / ~250 GB SSD</text>
+<text x="305" y="1256" font-size="20" fill="#334155" font-weight="400">Colima: 2 vCPU / 4 GiB RAM / 60 GiB disk</text>
+<text x="305" y="1294" font-size="20" fill="#334155" font-weight="400">Local status, Homepage and Dozzle test services</text>
+<text x="305" y="1332" font-size="20" fill="#334155" font-weight="400">Beszel monitoring / SSH / Screen Sharing</text>
+<rect x="1120" y="1155" width="820" height="185" rx="16" fill="#ffffff" stroke="#cbd5e1" stroke-width="2"/>
+<path d="M900 1230 H1120" fill="none" stroke="#8054b5" stroke-width="4" stroke-dasharray="9 7"/>
+<text x="940" y="1208" font-size="20" fill="#8054b5" font-weight="700">Wi-Fi</text>
+<text x="1142" y="1195" font-size="23" fill="#6d46a2" font-weight="700">Trusted / VLAN 20 / 192.168.20.10</text>
+<text x="1142" y="1233" font-size="19" fill="#334155" font-weight="400">Wireless membership / no fixed AP association shown</text>
+<text x="1142" y="1271" font-size="19" fill="#334155" font-weight="400">Independent of the server switch and XCP-ng pools</text>
+<text x="1142" y="1309" font-size="19" fill="#334155" font-weight="400">AirPlay requires a logged-in graphical session</text>
+<path d="M50 1435 h55" fill="none" stroke="#2563eb" stroke-width="4"/>
+<text x="120" y="1442" font-size="18" fill="#2563eb" font-weight="700">10G</text>
+<path d="M240 1435 h55" fill="none" stroke="#0f8a82" stroke-width="4"/>
+<text x="310" y="1442" font-size="18" fill="#0f8a82" font-weight="700">2.5G</text>
+<path d="M440 1435 h55" fill="none" stroke="#b66a08" stroke-width="4"/>
+<text x="510" y="1442" font-size="18" fill="#b66a08" font-weight="700">1G</text>
+<path d="M620 1435 h55" fill="none" stroke="#8054b5" stroke-width="4" stroke-dasharray="9 7"/>
+<text x="690" y="1442" font-size="18" fill="#8054b5" font-weight="700">Wi-Fi / logical membership</text>
+</g></svg>

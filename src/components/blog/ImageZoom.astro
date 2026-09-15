@@ -1,0 +1,79 @@
+<blog-image-zoom>
+  <dialog class="image-zoom" aria-label="Enlarged image" data-pagefind-ignore>
+    <div class="image-zoom-toolbar">
+      <span class="text-body-sm">Press Esc to return to the article</span>
+      <button type="button" class="btn btn-secondary-inverse" autofocus>Close ✕</button>
+    </div>
+    <img class="image-zoom-image" alt="" />
+  </dialog>
+</blog-image-zoom>
+
+<script>
+  class BlogImageZoom extends HTMLElement {
+    connectedCallback() {
+      const dialog = this.querySelector('dialog')!;
+      const preview = dialog.querySelector('img')!;
+      const controller = new AbortController();
+      const { signal } = controller;
+      let opener: HTMLElement | null = null;
+      let overflow = '';
+      const restore = () => {
+        if (!opener) return;
+        document.documentElement.style.overflow = overflow;
+        opener.focus({ preventScroll: true });
+        opener = null;
+        preview.removeAttribute('src');
+      };
+      this.cleanup = () => {
+        dialog.close();
+        restore();
+        controller.abort();
+      };
+      dialog.addEventListener('close', restore, { signal });
+      dialog.querySelector('button')!.addEventListener('click', () => dialog.close(), { signal });
+      dialog.addEventListener('click', (event) => {
+        if (event.target === dialog || event.target === preview) dialog.close();
+      }, { signal });
+      document.addEventListener('astro:before-swap', this.cleanup, { signal, once: true });
+      document.querySelectorAll<HTMLImageElement>('.prose-post img, img[data-post-image]').forEach((image) => {
+        const link = image.closest('a');
+        // Leave navigation links and interactive diagram controls intact.
+        if (image.closest('button, ai-diagram')) return;
+        if (link && link.href !== image.src && link.href !== image.currentSrc) return;
+        const trigger: HTMLElement = link ?? image;
+        trigger.classList.add('image-zoom-trigger');
+        trigger.setAttribute('aria-haspopup', 'dialog');
+        trigger.setAttribute('aria-label', `Enlarge image: ${image.alt || 'Article image'}`);
+        if (!link) {
+          trigger.setAttribute('role', 'button');
+          trigger.tabIndex = 0;
+        }
+        const open = () => {
+          if (dialog.open) return;
+          opener = trigger;
+          overflow = document.documentElement.style.overflow;
+          preview.src = link?.href || image.currentSrc || image.src;
+          preview.alt = image.alt;
+          dialog.showModal();
+          document.documentElement.style.overflow = 'hidden';
+        };
+        trigger.addEventListener('click', (event) => {
+          if (event.ctrlKey || event.metaKey || event.shiftKey || event.altKey) return;
+          event.preventDefault();
+          open();
+        }, { signal });
+        trigger.addEventListener('keydown', (event) => {
+          if (event.key === ' ' || (!link && event.key === 'Enter')) {
+            event.preventDefault();
+            open();
+          }
+        }, { signal });
+      });
+    }
+    cleanup = () => {};
+    disconnectedCallback() { this.cleanup(); }
+  }
+  if (!customElements.get('blog-image-zoom')) {
+    customElements.define('blog-image-zoom', BlogImageZoom);
+  }
+</script>

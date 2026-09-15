@@ -60,6 +60,7 @@ const tags = post.data.tags ?? [];
 <figure class="mx-auto max-w-5xl px-6 lg:px-0 mb-12">
   <img
     src={cover}
+    data-post-image
     alt={post.data.title}
     class="w-full rounded-xl object-cover aspect-[21/9]"
     transition:name={`cover-${post.id}`}

@@ -389,6 +389,14 @@ Series flow: define in `src/data/series.ts` → add `series` + `seriesOrder` to 
 
 ---
 
+### 7.12 Article image zoom
+
+Blog cover and body images open a viewport-sized native dialog. Image links keep
+their original destinations without JavaScript and on modified clicks. A zoom-in
+cursor and keyboard focus ring mark the triggers. Escape, Close, or the surrounding
+backdrop dismisses the viewer and returns focus without scrolling the article.
+The viewer uses the inverse surface, existing spacing tokens, and no animation.
+
 ## 8. Page archetypes
 
 ```

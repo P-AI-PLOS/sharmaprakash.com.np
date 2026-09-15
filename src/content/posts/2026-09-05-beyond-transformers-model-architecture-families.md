@@ -4,7 +4,7 @@ date: "2026-09-05T17:00:00+05:45"
 category: ["AI"]
 categories: ["ai"]
 directory: ai
-excerpt: "A practical guide to attention, recurrent, convolutional, state-space, and hybrid models—with Llama, BERT, RWKV, WaveNet, Mamba, and Jamba as examples."
+excerpt: "A practical guide to model architectures, with a map of where Qwen3.8, MiniMax-M3, GLM-5.3, Gemma 4, RWKV, and Mamba fit—and how dense and MoE differ."
 tags: ["model architecture", "Transformers", "RWKV", "Mamba", "inference"]
 cover: "/images/blog/ai/beyond-transformers-model-architecture-families.png"
 thumb: "/images/blog/ai/beyond-transformers-model-architecture-families.png"
@@ -19,17 +19,17 @@ What would a model without attention do instead? Would it still generate text? W
 
 The useful starting point is **how information moves through a sequence**. A sequence might be words, code tokens, or audio samples. Some models look back at individual positions. Some carry information forward in a compact state. Others combine patterns from nearby positions. These choices affect what the model can access directly and what the inference server needs to retain.
 
-This is a map of sequence-model architectures, not a catalogue of every machine-learning method. The examples include familiar model families and influential historical systems. They are not equally popular, equally capable, or interchangeable chat assistants. Specific versions are named deliberately: a brand can change architecture between releases.
+This is a map of sequence-model architectures, not a catalogue of every machine-learning method. The open-weight comparison uses an August 31, 2026 cutoff. Older examples are retained to explain distinct mechanisms: BERT for bidirectional encoding, LSTMs for gated recurrence, WaveNet and ConvS2S for convolution, and Mamba for pure state-space processing. They are not equally popular, equally capable, or interchangeable chat assistants. Specific versions are named deliberately: a brand can change architecture between releases.
 
 ## The five families at a glance
 
 | Family | Main way of using earlier information | Recognizable examples | What to keep in mind |
 | --- | --- | --- | --- |
-| Attention / Transformer | Compare token representations and combine relevant information | Llama 3.1; BERT | BERT is an encoder, not a next-token chat assistant |
+| Attention / Transformer | Compare token representations and combine relevant information | Gemma 4; BERT (historical encoder example) | BERT is an encoder, not a next-token chat assistant |
 | Recurrent | Update a state as each element arrives | RWKV; the original LSTM sequence-to-sequence model | Modern recurrence can support parallel training |
 | Convolutional | Combine nearby positions through learned filters | WaveNet; ConvS2S | WaveNet generates audio; ConvS2S also uses attention |
 | State-space | Evolve a structured state through the sequence | Mamba; Mamba-2 | Compact state does not mean perfect recall |
-| Hybrid | Combine multiple sequence mechanisms | Jamba; Nemotron-H | Memory and execution depend on the actual layer mix |
+| Hybrid | Combine multiple sequence mechanisms | Qwen3.8-Flash-Next; Nemotron 3 Super | Memory and execution depend on the actual layer mix |
 
 The sections below link to the original papers and model documentation. Treat the families as useful groupings, not sealed boxes: state-space models can run recurrently, RWKV connects recurrence with linear attention, and attention can be added to other architectures.
 
@@ -43,7 +43,7 @@ Suppose a prompt contains “The invoice belongs to Acme” followed much later 
 
 A useful analogy is a notebook whose earlier pages remain available for consultation. The original Transformer made attention the central sequence mechanism, replacing recurrence and convolution in that role. Its other components still do essential work: a Transformer is more than an attention operation. [The Transformer paper](https://arxiv.org/abs/1706.03762).
 
-**Llama 3.1** is a concrete decoder-only Transformer family. Its causal attention prevents a position from reading future tokens, and its text-generation process predicts a continuation. Meta's model card explicitly documents the architecture and grouped-query attention. [Llama 3.1 model card](https://huggingface.co/meta-llama/Llama-3.1-8B).
+**Gemma 4** is a current open-weight Transformer example in this August 2026 snapshot. Its language backbone combines local sliding-window attention with global attention; the 31B version is dense, while the 26B A4B version uses mixture of experts. Both still generate text through an autoregressive decoder. [Gemma 4 model card](https://ai.google.dev/gemma/docs/core/model_card_4).
 
 **BERT** shows why “Transformer” and “chatbot” are different categories. BERT is a bidirectional Transformer encoder: its representations can use context from both sides of a word. It was designed for language-understanding tasks, with masked-language-model pretraining, rather than the ordinary chat loop of appending one token at a time. [BERT paper](https://arxiv.org/abs/1810.04805).
 
@@ -89,9 +89,9 @@ That property is attractive for long streams. It does not give the model infinit
 
 Instead of choosing one sequence mechanism for every layer, a hybrid can mix them.
 
-**Jamba** interleaves Transformer and Mamba layers and adds mixture-of-experts computation in some layers. Its architecture is explicitly a combination, not an attention model renamed after a state-space model. [Jamba paper](https://arxiv.org/abs/2403.19887).
+**Qwen3.8-Flash-Next** combines Gated DeltaNet linear attention with Qwen Sparse Attention. This is a current example of a hybrid that does not use Mamba. Its exact layer mix appears in the open-weight model table below. [Qwen model card](https://huggingface.co/Qwen/Qwen3.8-Flash-Next).
 
-**NVIDIA Nemotron-H** is another documented Mamba-Transformer hybrid family. NVIDIA describes models that combine Mamba-2, attention, and feed-forward layers. Use the specific “Nemotron-H” name when making this claim; the broader Nemotron brand is not enough to identify one architecture. [NVIDIA's Nemotron-H research page](https://research.nvidia.com/labs/adlr/nemotronh/).
+**NVIDIA Nemotron 3 Super** illustrates the Mamba-based branch of hybrids. Its documented architecture combines Mamba-2, attention, and LatentMoE computation. This 2026 release provides a concrete contrast with Qwen's Gated DeltaNet approach. [Nemotron 3 Super model card](https://huggingface.co/nvidia/NVIDIA-Nemotron-3-Super-120B-A12B-BF16).
 
 For inference, think of a hybrid as maintaining the state required by each component. Attention layers can retain keys and values, while state-space layers retain their own recurrent state. Fewer attention layers can reduce the attention-cache contribution compared with an otherwise comparable model using attention throughout. The actual saving depends on dimensions, precision, context length, and the layer mix.
 
@@ -103,17 +103,45 @@ Model names often mix several classifications into one phrase. Separating them m
 
 | Label | The question it answers | Example |
 | --- | --- | --- |
-| Transformer, recurrent, state-space, hybrid | How does information move across the sequence? | Llama 3.1, RWKV, Mamba, Jamba |
-| Dense or mixture of experts | Which parameter groups do the computation? | Mixtral 8x7B uses selected experts |
+| Transformer, recurrent, state-space, hybrid | How does information move across the sequence? | Gemma 4, RWKV, Mamba, Qwen3.8-Flash-Next |
+| Dense or mixture of experts | Which parameter groups do the computation? | Gemma 4 26B A4B uses selected experts |
 | Autoregressive or diffusion | How is an output constructed? | Next-token continuation or iterative denoising |
 | Text, audio, image, multimodal | What kinds of input/output does it handle? | WaveNet produces audio |
 | Base, instruction-tuned, reasoning-focused | How has it been trained or adapted to behave? | These labels alone do not specify the backbone |
 
-**Mixtral 8x7B** is a Transformer with sparse mixture-of-experts layers. Its router selects two feed-forward experts per token at each layer. MoE therefore does not compete with attention as a way to connect sequence positions: they do different work inside the same model. Active parameters also differ from total parameters, which matters when estimating compute and weight storage. [Mixtral paper](https://arxiv.org/abs/2401.04088).
+**Gemma 4 26B A4B** is a Transformer with mixture-of-experts computation. MoE does not compete with attention as a way to connect sequence positions: they do different work inside the same model. Active parameters also differ from total parameters, which matters when estimating compute and weight storage. [Gemma 4 model card](https://ai.google.dev/gemma/docs/core/model_card_4).
 
 **Diffusion** describes a different generation process, commonly explained as learning to reverse a sequence of noise-corruption steps. It can use a Transformer backbone: **DiT**, the Diffusion Transformer, is an explicit example. A list that treats “Transformer” and “diffusion” as mutually exclusive model types mixes architecture with generation method. [Diffusion Transformer paper](https://arxiv.org/abs/2212.09748).
 
 Likewise, a “reasoning model” label does not reveal whether its sequence mechanism uses attention, recurrence, or a hybrid. An agent adds another layer of distinction: tools, retrieval, and orchestration around a model do not, by themselves, tell you its internal architecture.
+
+## Where popular open-weight models fit: August 2026
+
+**Snapshot: August 31, 2026.** These are recent open-weight releases available by that cutoff, rather than older generations chosen just because their names are familiar. The links point to the publishers' model cards. For multimodal models, the classification describes the language backbone; image and audio processing can add other components.
+
+| Open-weight model | Where it fits in this article | Dense or MoE? |
+| --- | --- | --- |
+| [Qwen3.8-Flash-Next](https://huggingface.co/Qwen/Qwen3.8-Flash-Next) | **Hybrid**: Gated DeltaNet linear attention plus Qwen Sparse Attention (QSA) | MoE, with additional n-gram embeddings |
+| [Qwen3.8-2.4T-A95B](https://huggingface.co/Qwen/Qwen3.8-2.4T-A95B) | **Hybrid**: Gated DeltaNet plus gated full attention | MoE |
+| [MiniMax-M3](https://huggingface.co/MiniMaxAI/MiniMax-M3) | **Transformer** with MiniMax Sparse Attention (MSA) | MoE |
+| [GLM-5.3](https://huggingface.co/zai-org/GLM-5.3) | **Transformer** with sparse attention | MoE |
+| [GLM-5.3-Flash](https://huggingface.co/zai-org/GLM-5.3-Flash) | **Hybrid**: sparse attention combined with linear attention | MoE |
+| [Gemma 4 31B](https://ai.google.dev/gemma/docs/core/model_card_4) | **Transformer** with local sliding-window and global attention | Dense |
+| [Gemma 4 26B A4B](https://ai.google.dev/gemma/docs/core/model_card_4) | **Transformer** with local sliding-window and global attention | MoE |
+
+These names are **release families, not architecture categories**. Even two releases under the same version number can belong in different rows of the architecture map.
+
+**Qwen's two releases are both hybrids, with different attention layers.** Qwen3.8-Flash-Next repeats three Gated DeltaNet layers followed by a QSA layer. QSA selects small blocks of context for attention. Qwen3.8-2.4T-A95B instead pairs Gated DeltaNet with gated full attention. Gated DeltaNet is not simply another name for Mamba. The Flash-Next card calls it an experimental architecture preview; the hosted Qwen3.8-Flash service also has features beyond the downloadable checkpoint. [Flash-Next architecture](https://huggingface.co/Qwen/Qwen3.8-Flash-Next#model-overview), [Max-class checkpoint](https://huggingface.co/Qwen/Qwen3.8-2.4T-A95B#model-overview).
+
+**MiniMax-M3 uses sparse attention, which is still attention.** Its MSA mechanism changes which context receives attention computation. That is different from replacing those layers with a recurrent state update. MoE describes its expert computation, so M3 can be both an attention-based Transformer and an MoE model. [MiniMax-M3 model card](https://huggingface.co/MiniMaxAI/MiniMax-M3).
+
+**GLM makes the version suffix especially important.** GLM-5.3 uses the sparse-attention MoE architecture identified in its [published configuration](https://huggingface.co/zai-org/GLM-5.3/blob/main/config.json). GLM-5.3-Flash introduces a different backbone combining sparse and linear attention. The Flash release is therefore not merely the same architecture with fewer parameters. Thinking modes and reasoning-effort settings are yet another distinction: they do not identify the sequence mechanism. [GLM-5.3-Flash architecture](https://huggingface.co/zai-org/GLM-5.3-Flash#introduction).
+
+**Gemma separates attention design from expert routing.** Gemma 4 offers both dense and MoE variants. Its documentation calls the mix of local and global attention “hybrid attention,” but both mechanisms remain attention: this article groups those models under Transformers. Read what is being combined before interpreting the word *hybrid*. [Gemma 4 model card](https://ai.google.dev/gemma/docs/core/model_card_4).
+
+One older Gemma example remains useful for a distinct mechanism: **[RecurrentGemma](https://ai.google.dev/gemma/docs/recurrentgemma)** uses Griffin, combining gated linear recurrence with local attention. It belongs in the broader hybrid group. It is included to explain that architectural difference, not as a current flagship recommendation.
+
+Open weights tell you that model weights are available under the release's license. They do not specify an architecture, guarantee that the training data is available, or mean that the model fits your computer. For the practical difference between total parameters, active parameters, and download size, see [GGUF, quantization, dense, and MoE](/ai/gguf-quantization-dense-moe-model-files/).
 
 ## What this changes when you use a model
 
@@ -123,7 +151,7 @@ Measure the answer alongside the resource use. Record the exact model version an
 
 For an attention model, inspect its context and cache design. For a recurrent or state-space model, inspect its state requirements and test retention of distant details. For a hybrid, account for both. For every family, verify that the runtime actually supports the model and its chosen precision.
 
-When you next read “an attention-based model,” pause at the qualifier. The explanation is describing a particular way to connect information across a sequence. Llama, RWKV, WaveNet, Mamba, and Jamba give you concrete reference points for asking what changes when that mechanism changes.
+When you next read “an attention-based model,” pause at the qualifier. The explanation is describing a particular way to connect information across a sequence. Gemma, RWKV, WaveNet, Mamba, and Qwen give you concrete reference points for asking what changes when that mechanism changes.
 
 ## A visual learning path from 3Blue1Brown
 

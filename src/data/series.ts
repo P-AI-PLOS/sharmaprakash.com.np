@@ -14,6 +14,12 @@ export interface SeriesMeta {
 }
 
 export const seriesRegistry: Record<string, SeriesMeta> = {
+  "building-my-homelab": {
+    title: "Building My Homelab",
+    description:
+      "Inside my home infrastructure: the hardware, network topology, storage and virtual machines, followed by the move to 10G networking and two Minisforum XCP-ng hosts.",
+    cover: "/images/blog/building-my-homelab/network.png",
+  },
   "local-ai-toolkit": {
     title: "Local AI Toolkit: Runtimes, GPU Backends, and Model Files",
     description:

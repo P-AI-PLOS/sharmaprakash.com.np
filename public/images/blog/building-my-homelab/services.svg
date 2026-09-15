@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="2150" height="1100" viewBox="0 0 2150 1100" role="img" aria-labelledby="title"><title id="title">homelab / remote access &amp; core services</title><g font-family="Arial, sans-serif">
+<rect width="2150" height="1100" fill="#f5f8fc"/>
+<text x="50" y="52" font-size="32" fill="#12243c" font-weight="700">homelab / remote access &amp; core services</text>
+<text x="50" y="84" font-size="17" fill="#64748b" font-weight="400">02 / Logical view • purple dashed lines show the Tailscale access path, not physical cables or unrestricted access</text>
+<rect x="50" y="135" width="440" height="240" rx="16" fill="#ffffff" stroke="#cbd5e1" stroke-width="2"/>
+<image x="180" y="143" width="180" height="105" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNDAgMTQwIj4KPHJlY3QgeD0iNDIiIHk9IjE1IiB3aWR0aD0iMTU2IiBoZWlnaHQ9Ijk2IiByeD0iNyIgZmlsbD0iIzMzNDE1NSIvPjxyZWN0IHg9IjUwIiB5PSIyMyIgd2lkdGg9IjE0MCIgaGVpZ2h0PSI3OCIgcng9IjIiIGZpbGw9IiNkNGU4ZjYiLz4KPHBhdGggZD0iTTQyIDExMSAxOSAxMjhRMTIwIDE0MCAyMjEgMTI4TDE5OCAxMTFaIiBmaWxsPSIjOTRhM2I4IiBzdHJva2U9IiM1MjY0N2EiIHN0cm9rZS13aWR0aD0iMiIvPgo8cGF0aCBkPSJNMTAxIDExOWgzOCIgc3Ryb2tlPSIjNTI2NDdhIiBzdHJva2Utd2lkdGg9IjQiLz4KPC9zdmc+Cg=="/>
+<text x="72" y="275" font-size="23" fill="#12243c" font-weight="700">Remote phone / laptop</text>
+<text x="72" y="304" font-size="18" fill="#52647a" font-weight="400">Tailscale-connected client</text>
+<text x="72" y="337" font-size="17" fill="#334155" font-weight="400">Outside home / internet access</text>
+<rect x="580" y="135" width="440" height="270" rx="16" fill="#ffffff" stroke="#cbd5e1" stroke-width="2"/>
+<image x="710" y="143" width="180" height="105" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNDAgMTQwIj4KPHJlY3QgeD0iOCIgeT0iMzAiIHdpZHRoPSIyMjQiIGhlaWdodD0iODUiIHJ4PSI1IiBmaWxsPSIjOTRhM2I4IiBzdHJva2U9IiMzMzQxNTUiIHN0cm9rZS13aWR0aD0iMyIvPgo8cmVjdCB4PSIyNCIgeT0iMzciIHdpZHRoPSIxOTIiIGhlaWdodD0iNzEiIHJ4PSIzIiBmaWxsPSIjMjUzNDQ5Ii8+CjxnIGZpbGw9IiM1NjY3N2UiIHN0cm9rZT0iIzE3MmI0NiIgc3Ryb2tlLXdpZHRoPSIyIj48cGF0aCBkPSJNMzAgNDRoNDB2MjRIMzB6TTc2IDQ0aDQwdjI0SDc2ek0xMjIgNDRoNDB2MjRIMTIyek0xNjggNDRoNDB2MjRIMTY4ek0zMCA3Nmg0MHYyNEgzMHpNNzYgNzZoNDB2MjRINzZ6TTEyMiA3Nmg0MHYyNEgxMjJ6TTE2OCA3Nmg0MHYyNEgxNjh6Ii8+PC9nPgo8cGF0aCBkPSJNMzYgNjFoMjRNODIgNjFoMjRNMTI4IDYxaDI0TTE3NCA2MWgyNE0zNiA5M2gyNE04MiA5M2gyNE0xMjggOTNoMjRNMTc0IDkzaDI0IiBzdHJva2U9IiMxODI1MzgiIHN0cm9rZS13aWR0aD0iMyIvPgo8ZyBmaWxsPSIjNTVkNWMxIj48Y2lyY2xlIGN4PSI2MyIgY3k9IjUxIiByPSIyIi8+PGNpcmNsZSBjeD0iMTA5IiBjeT0iNTEiIHI9IjIiLz48Y2lyY2xlIGN4PSIxNTUiIGN5PSI1MSIgcj0iMiIvPjxjaXJjbGUgY3g9IjIwMSIgY3k9IjUxIiByPSIyIi8+PGNpcmNsZSBjeD0iNjMiIGN5PSI4MyIgcj0iMiIvPjxjaXJjbGUgY3g9IjEwOSIgY3k9IjgzIiByPSIyIi8+PC9nPgo8cGF0aCBkPSJNMTYgNDd2MTZtMCAxOHYxNk0yMjQgNDd2MTZtMCAxOHYxNiIgc3Ryb2tlPSIjMzM0MTU1IiBzdHJva2Utd2lkdGg9IjMiLz4KPC9zdmc+Cg=="/>
+<text x="602" y="275" font-size="23" fill="#12243c" font-weight="700">vyas / subnet router</text>
+<text x="602" y="304" font-size="18" fill="#52647a" font-weight="400">Native DSM Tailscale package</text>
+<text x="602" y="337" font-size="17" fill="#334155" font-weight="400">LAN 192.168.10.9</text>
+<text x="602" y="364" font-size="17" fill="#334155" font-weight="400">Tailnet 100.86.252.72</text>
+<rect x="1110" y="135" width="440" height="270" rx="16" fill="#f0ecfa" stroke="#b7a6da" stroke-width="2"/>
+<text x="1132" y="174" font-size="23" fill="#6d46a2" font-weight="700">Routed home networks</text>
+<text x="1132" y="213" font-size="18" fill="#334155" font-weight="400">192.168.2.0/24   Default</text>
+<text x="1132" y="244" font-size="18" fill="#334155" font-weight="400">192.168.10.0/24 Servers</text>
+<text x="1132" y="275" font-size="18" fill="#334155" font-weight="400">192.168.20.0/24 Trusted</text>
+<text x="1132" y="306" font-size="18" fill="#334155" font-weight="400">192.168.40.0/24 IoT</text>
+<text x="1132" y="337" font-size="18" fill="#334155" font-weight="400">192.168.45.0/24 Cameras</text>
+<text x="1132" y="386" font-size="16" fill="#6d46a2" font-weight="400">Route prefixes ≠ LAN subnet sizes</text>
+<rect x="1660" y="135" width="440" height="390" rx="16" fill="#ffffff" stroke="#cbd5e1" stroke-width="2"/>
+<image x="1790" y="143" width="180" height="105" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNDAgMTQwIj4KPHBhdGggZD0iTTI2IDgxIDY1IDQ0SDE5MUwyMTYgODBaIiBmaWxsPSIjZGNlM2VjIiBzdHJva2U9IiM2NDc0OGIiIHN0cm9rZS13aWR0aD0iMyIvPgo8cGF0aCBkPSJNMjYgODFIMjE2VjkxUTEyMCAxMDMgMjYgOTFaIiBmaWxsPSIjOTRhM2I4IiBzdHJva2U9IiM1MjY0N2EiIHN0cm9rZS13aWR0aD0iMyIvPgo8cGF0aCBkPSJNMzkgODZoMjJtNiAwaDEybTEwNSAwaDE3IiBzdHJva2U9IiMzMzQxNTUiIHN0cm9rZS13aWR0aD0iMyIvPgo8cGF0aCBkPSJNOTggOTJoMzgiIHN0cm9rZT0iIzY0NzQ4YiIgc3Ryb2tlLXdpZHRoPSIzIi8+CjxwYXRoIGQ9Ik0zNiA1OXEtMTMtMTQgMC0yOG0tMTEgMzNxLTIzLTE5IDAtMzkiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzhiNWNmNiIgc3Ryb2tlLXdpZHRoPSIzIi8+Cjwvc3ZnPgo="/>
+<text x="1682" y="275" font-size="23" fill="#12243c" font-weight="700">titan / 192.168.20.10</text>
+<text x="1682" y="304" font-size="18" fill="#52647a" font-weight="400">Standalone macOS / Trusted VLAN 20</text>
+<text x="1682" y="337" font-size="17" fill="#334155" font-weight="400">Clamshell MacBook Pro / light utilities</text>
+<text x="1682" y="364" font-size="17" fill="#334155" font-weight="400">Colima: 2 vCPU / 4 GiB / 60 GiB</text>
+<text x="1682" y="391" font-size="17" fill="#334155" font-weight="400">Loopback-only status / Homepage / Dozzle</text>
+<text x="1682" y="418" font-size="17" fill="#334155" font-weight="400">Native Beszel host + container metrics</text>
+<text x="1682" y="445" font-size="17" fill="#334155" font-weight="400">SSH / Screen Sharing</text>
+<text x="1682" y="472" font-size="17" fill="#334155" font-weight="400">AirPlay requires a graphical login</text>
+<text x="1682" y="565" font-size="20" fill="#6d46a2" font-weight="700">Trusted Wi-Fi membership</text>
+<text x="1682" y="598" font-size="17" fill="#334155" font-weight="400">192.168.20.0/28 / outside XCP-ng pools</text>
+<text x="1682" y="631" font-size="17" fill="#334155" font-weight="400">No specific AP association asserted</text>
+<text x="1682" y="674" font-size="17" fill="#334155" font-weight="400">Local test services are not LAN web endpoints.</text>
+<text x="1682" y="707" font-size="17" fill="#334155" font-weight="400">Titan is not the Tailscale subnet router.</text>
+<path d="M490 258 H580" fill="none" stroke="#8653bf" stroke-width="4" stroke-dasharray="9 7"/>
+<path d="M1020 258 H1110" fill="none" stroke="#8653bf" stroke-width="4" stroke-dasharray="9 7"/>
+<text x="495" y="235" font-size="16" fill="#6d46a2" font-weight="400">tailnet</text>
+<text x="1033" y="235" font-size="16" fill="#6d46a2" font-weight="400">routes</text>
+<path d="M800 405 V530" fill="none" stroke="#8653bf" stroke-width="4" stroke-dasharray="9 7"/>
+<text x="830" y="453" font-size="17" fill="#6d46a2" font-weight="400">Forward into LAN via Asgard OVS</text>
+<text x="830" y="482" font-size="17" fill="#6d46a2" font-weight="400">Split DNS: home → 192.168.10.8</text>
+<rect x="50" y="445" width="440" height="315" rx="16" fill="#eaf0f8" stroke="#cbd5e1" stroke-width="2"/>
+<text x="72" y="485" font-size="23" fill="#334155" font-weight="700">What access depends on</text>
+<text x="72" y="525" font-size="17" fill="#334155" font-weight="400">Vyas package + power + internet</text>
+<text x="72" y="559" font-size="17" fill="#334155" font-weight="400">Asgard forwarding / LAN connectivity</text>
+<text x="72" y="593" font-size="17" fill="#334155" font-weight="400">Approved routes + tailnet policy</text>
+<text x="72" y="627" font-size="17" fill="#334155" font-weight="400">Heimdall for .home DNS and proxy</text>
+<text x="72" y="661" font-size="17" fill="#334155" font-weight="400">Destination service and firewall rules</text>
+<text x="72" y="723" font-size="16" fill="#946018" font-weight="400">No redundant subnet router documented</text>
+<rect x="580" y="530" width="440" height="230" rx="16" fill="#ffffff" stroke="#cbd5e1" stroke-width="2"/>
+<text x="602" y="573" font-size="23" fill="#334155" font-weight="700">heimdall / 192.168.10.8</text>
+<text x="602" y="610" font-size="18" fill="#334155" font-weight="400">VM on Asgard</text>
+<text x="602" y="646" font-size="19" fill="#334155" font-weight="400">AdGuard / .home DNS</text>
+<text x="602" y="680" font-size="19" fill="#334155" font-weight="400">Caddy / .home reverse proxy</text>
+<text x="602" y="723" font-size="17" fill="#64748b" font-weight="400">Beszel + Kuma / monitoring hubs</text>
+<rect x="1110" y="530" width="440" height="230" rx="16" fill="#ffffff" stroke="#cbd5e1" stroke-width="2"/>
+<text x="1132" y="573" font-size="23" fill="#334155" font-weight="700">Application destinations</text>
+<text x="1132" y="614" font-size="18" fill="#334155" font-weight="400">Heimdall utility services</text>
+<text x="1132" y="650" font-size="18" fill="#334155" font-weight="400">Cosmo applications</text>
+<text x="1132" y="686" font-size="18" fill="#334155" font-weight="400">Vyas services / Jellyfin</text>
+<text x="1132" y="723" font-size="16" fill="#64748b" font-weight="400">Overview only; see inventory for all services</text>
+<path d="M1020 650 H1110" fill="none" stroke="#64748b" stroke-width="4"/>
+<text x="1035" y="627" font-size="16" fill="#334155" font-weight="400">proxy</text>
+<rect x="50" y="810" width="1500" height="210" rx="16" fill="#fff7e8" stroke="#dec599" stroke-width="2"/>
+<text x="72" y="849" font-size="23" fill="#946018" font-weight="700">Boundaries &amp; evidence</text>
+<text x="72" y="884" font-size="18" fill="#334155" font-weight="400">Family is not reachable through this documented route set; Guest is not advertised. An exit node is not required for home routes.</text>
+<text x="72" y="918" font-size="18" fill="#334155" font-weight="400">Vyas recovery notes record approved routes and split DNS. This diagram does not re-verify provider state or remote phone access.</text>
+<text x="72" y="952" font-size="18" fill="#334155" font-weight="400">The watchdog is source-only / not installed. No automatic recovery or redundant router is implied by this diagram.</text>
+<text x="72" y="986" font-size="18" fill="#334155" font-weight="400">Cellular acceptance remains open: with Wi-Fi off and Tailscale connected, test homepage.home and vault.home.</text>
+<text x="50" y="1062" font-size="16" fill="#64748b" font-weight="400">Sources: inventory/homelab.md#remote-access-tailscale • stacks/vyas-tailscale/README.md • docs/network/README.md</text>
+</g></svg>
