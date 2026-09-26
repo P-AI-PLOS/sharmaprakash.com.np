@@ -11,7 +11,7 @@ seriesOrder: 3
 cover: "/images/blog/campsite-for-agents/deploying-campsite-with-kamal/cover.png"
 thumb: "/images/blog/campsite-for-agents/deploying-campsite-with-kamal/thumb.png"
 use_featured_image: false
-draft: true
+draft: false
 comments: true
 share: true
 ---

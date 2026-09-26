@@ -11,7 +11,7 @@ seriesOrder: 2
 cover: "/images/blog/campsite-for-agents/where-campsite-runs-in-my-homelab/cover.png"
 thumb: "/images/blog/campsite-for-agents/where-campsite-runs-in-my-homelab/thumb.png"
 use_featured_image: false
-draft: true
+draft: false
 comments: true
 share: true
 ---

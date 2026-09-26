@@ -11,7 +11,7 @@ seriesOrder: 5
 cover: "/images/blog/campsite-for-agents/letting-coding-agents-build-campsite/cover.png"
 thumb: "/images/blog/campsite-for-agents/letting-coding-agents-build-campsite/thumb.png"
 use_featured_image: false
-draft: true
+draft: false
 comments: true
 share: true
 ---

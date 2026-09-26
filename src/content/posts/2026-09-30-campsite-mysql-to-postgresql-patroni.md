@@ -11,7 +11,7 @@ seriesOrder: 4
 cover: "/images/blog/campsite-for-agents/campsite-mysql-to-postgresql-patroni/cover.png"
 thumb: "/images/blog/campsite-for-agents/campsite-mysql-to-postgresql-patroni/thumb.png"
 use_featured_image: false
-draft: true
+draft: false
 comments: true
 share: true
 ---

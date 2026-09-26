@@ -11,7 +11,7 @@ seriesOrder: 1
 cover: "/images/blog/campsite-for-agents/why-i-self-host-campsite-for-ai-agents/cover.png"
 thumb: "/images/blog/campsite-for-agents/why-i-self-host-campsite-for-ai-agents/thumb.png"
 use_featured_image: false
-draft: true
+draft: false
 comments: true
 share: true
 ---
