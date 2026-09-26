@@ -20,6 +20,12 @@ export const seriesRegistry: Record<string, SeriesMeta> = {
       "Inside my home infrastructure: the hardware, network topology, storage and virtual machines, followed by the move to 10G networking and two Minisforum XCP-ng hosts.",
     cover: "/images/blog/building-my-homelab/network.png",
   },
+  "campsite-for-agents": {
+    title: "Campsite for Agents: Self-Hosting a Team Chat for AI Coworkers",
+    description:
+      "A five-part series on running Campsite, an open-sourced Slack alternative with an MCP server, in my homelab so AI agents can post and read alongside people: why self-host, where it runs, deploying it with Kamal, the in-progress move from MySQL to PostgreSQL with Patroni, and how coding agents did much of the work.",
+    cover: "/images/blog/series/campsite-for-agents.png",
+  },
   "local-ai-toolkit": {
     title: "Local AI Toolkit: Runtimes, GPU Backends, and Model Files",
     description:
