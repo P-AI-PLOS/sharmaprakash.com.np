@@ -1,0 +1,35 @@
+{
+  "recorded_on": "2026-09-26",
+  "host": "Minisforum UM880 Plus; Ubuntu; Radeon 780M Vulkan; 96 GB installed RAM",
+  "native": {
+    "build": "b10982",
+    "commit": "fc82583e6",
+    "model": {
+      "file": "Qwen3.8-27B-UD-Q4_K_M.gguf",
+      "bytes": 16464440224,
+      "sha256": "322e194ff79741c7baa497c240f677f54b201b0efab44ca8e50f122b39123482"
+    },
+    "draft": {
+      "file": "mtp-Qwen3.8-27B-Q4_0.gguf",
+      "bytes": 1369590656,
+      "sha256": "50d9ce5a6da381bbcfb31061cf73df94a90e6faf8efeddee379a9cb8f1501c6e"
+    }
+  },
+  "ollama": {
+    "version": "0.34.4",
+    "tag": "qwen3.8:27b",
+    "digest": "aaee06c39dcf2437cde036998d960e1fc1494b8191be7cc9657d01e509097813",
+    "model_blob_sha256": "f5f1dd8920d417aac2718b0bda3403da274301efdd6760b4f0f4b864ff2ad57d",
+    "manifest_runner": "llamacpp",
+    "parameters": {
+      "min_p": 0,
+      "presence_penalty": 0,
+      "repeat_penalty": 1,
+      "temperature": 1,
+      "top_k": 20,
+      "top_p": 0.95,
+      "draft_num_predict": 4
+    }
+  },
+  "provenance_note": "Native weight hashes and Ollama manifest were read back after the benchmark, not captured by the original runner. Benchmark request options override packaged parameters, including temperature=0. Exact original download URLs and full OS/driver/compiler provenance are not captured; matching filenames alone is insufficient."
+}

@@ -1,0 +1,86 @@
+[
+  {
+    "runtime": "native",
+    "case": "code",
+    "repeat": 0,
+    "assertions_passed": true
+  },
+  {
+    "runtime": "native",
+    "case": "code",
+    "repeat": 1,
+    "assertions_passed": true
+  },
+  {
+    "runtime": "native",
+    "case": "intel",
+    "repeat": 0,
+    "valid_json": true,
+    "required_keys": true
+  },
+  {
+    "runtime": "native",
+    "case": "intel",
+    "repeat": 1,
+    "valid_json": true,
+    "required_keys": true
+  },
+  {
+    "runtime": "native",
+    "case": "plan_code",
+    "repeat": 0,
+    "hit_token_cap": true,
+    "python_syntax_valid": false,
+    "completion_verified": false
+  },
+  {
+    "runtime": "native",
+    "case": "plan_code",
+    "repeat": 1,
+    "hit_token_cap": true,
+    "python_syntax_valid": false,
+    "completion_verified": false
+  },
+  {
+    "runtime": "ollama",
+    "case": "code",
+    "repeat": 0,
+    "assertions_passed": true
+  },
+  {
+    "runtime": "ollama",
+    "case": "code",
+    "repeat": 1,
+    "assertions_passed": true
+  },
+  {
+    "runtime": "ollama",
+    "case": "intel",
+    "repeat": 0,
+    "valid_json": true,
+    "required_keys": true
+  },
+  {
+    "runtime": "ollama",
+    "case": "intel",
+    "repeat": 1,
+    "valid_json": true,
+    "required_keys": true
+  },
+  {
+    "runtime": "ollama",
+    "case": "plan_code",
+    "repeat": 0,
+    "hit_token_cap": true,
+    "python_syntax_valid": true,
+    "completion_verified": false
+  },
+  {
+    "runtime": "ollama",
+    "case": "plan_code",
+    "repeat": 1,
+    "hit_token_cap": true,
+    "python_syntax_valid": false,
+    "completion_verified": false
+  }
+]

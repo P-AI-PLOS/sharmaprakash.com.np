@@ -1,0 +1,25 @@
+[Unit]
+Description=Shuri optimized Qwen3.8-27B Vulkan inference
+After=network-online.target shuri-ai-firewall.service
+Wants=network-online.target
+StartLimitIntervalSec=120
+StartLimitBurst=3
+
+[Service]
+Type=simple
+User=prakash
+Group=prakash
+SupplementaryGroups=render video
+ExecStart=/usr/local/libexec/shuri-qwen38
+Restart=on-failure
+RestartSec=10
+TimeoutStopSec=30
+MemoryHigh=32G
+MemoryMax=40G
+MemorySwapMax=0
+Nice=10
+NoNewPrivileges=true
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target
