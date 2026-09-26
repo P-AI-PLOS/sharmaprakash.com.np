@@ -55,7 +55,7 @@ The Ollama alternative was version **0.34.4**, serving `qwen3.8:27b` with its pa
 
 It was not literally zero configuration. On this AMD integrated GPU, our Ollama service had Vulkan and integrated-GPU support explicitly enabled. For the test, I also set context size, thread count, sampling, and model residency. We checked that the model was fully placed on the GPU.
 
-But I was taking responsibility for much less of the model packaging and launch configuration.
+But I was taking responsibility for much less of the model packaging and launch configuration. A later inspection of the installed Ollama manifest identified its runner as `llamacpp`, too. This was direct management versus a packaged serving path, with different artifacts and settings—not proof that two entirely unrelated engines had raced.
 
 ## First, fix the comparison
 
@@ -149,6 +149,99 @@ For my next model, I want to reverse the sequence:
 I went into this wanting a faster local AI server. I came out with a better understanding of the server, a useful benchmark, and a reason to run less infrastructure.
 
 There is something very homelab about doing all the work yourself, learning why each knob exists, and then deciding that “download the model and use Ollama” is a perfectly good outcome.
+
+
+## Reproduction notebook: the settings I want to come back to
+
+The story is useful; the configuration is what future me will need. I have preserved a [snapshot at commit `591e85f`](https://github.com/P-AI-PLOS/sharmaprakash.com.np/tree/591e85fa070c06f46c495935eb41e6e200a8aa04/public/downloads/qwen38-native-vs-ollama), including the runner, service files, raw results, and a small script that recomputes the table. The fixed commit matters: a future edit to this blog or an upstream model tag should not quietly change the evidence behind these numbers.
+
+### My direct llama.cpp configuration
+
+This is the successful GPU branch of my launcher, expressed with paths in variables. I have changed the bind address to loopback in this example and kept the API key as a file reference. The [original launcher snapshot](https://github.com/P-AI-PLOS/sharmaprakash.com.np/blob/591e85fa070c06f46c495935eb41e6e200a8aa04/public/downloads/qwen38-native-vs-ollama/serve-qwen38.sh) preserves the actual host paths, address, Vulkan detection, and conditional draft-model handling. No credential value is included.
+
+```bash
+AI_ROOT="$HOME/ai"
+LLAMA_BIN="$AI_ROOT/bin/llama-b10982"
+KEY_FILE="/path/to/private-api-key-file"
+
+"$LLAMA_BIN/llama-server" \
+  --model "$AI_ROOT/models/Qwen3.8-27B-UD-Q4_K_M.gguf" \
+  --alias qwen3.8-27b --host 127.0.0.1 --port 8080 \
+  --api-key-file "$KEY_FILE" \
+  --ctx-size 32768 --parallel 1 \
+  --threads 8 --threads-batch 16 \
+  --batch-size 2048 --ubatch-size 512 \
+  --cache-type-k f16 --cache-type-v f16 \
+  --reasoning auto --reasoning-format deepseek --cache-prompt --prio 2 \
+  --gpu-layers all --flash-attn on \
+  --spec-draft-model "$AI_ROOT/models/mtp-Qwen3.8-27B-Q4_0.gguf" \
+  --spec-type draft-mtp --spec-draft-n-max 3 --spec-draft-ngl all
+```
+
+The build was **b10982**, commit **`fc82583e6`**. The main GGUF was 16,464,440,224 bytes; the separate draft file was 1,369,590,656 bytes. The [environment record](/downloads/qwen38-native-vs-ollama/environment.json) contains their SHA-256 hashes, read back after the benchmark. Matching a filename alone is not enough.
+
+The service also imposed `MemoryHigh=32G`, `MemoryMax=40G`, `MemorySwapMax=0`, and `Nice=10`. Those details are in the [native systemd unit](/downloads/qwen38-native-vs-ollama/shuri-qwen38.service). The snippet above does not recreate those systemd controls, install dependencies, or configure a firewall. It is a readable record of the inference flags.
+
+### The Ollama configuration I actually compared
+
+Here is the shell equivalent of my [Ollama user service](/downloads/qwen38-native-vs-ollama/shuri-ollama.service). The binary is explicitly versioned; substituting whichever `ollama` happens to be on `PATH` would weaken the comparison.
+
+```bash
+AI_ROOT="$HOME/ai"
+export OLLAMA_HOST=127.0.0.1:11434
+export OLLAMA_MODELS="$AI_ROOT/ollama-models"
+export OLLAMA_MAX_LOADED_MODELS=1
+export OLLAMA_NUM_PARALLEL=1
+export OLLAMA_KEEP_ALIVE=0
+export OLLAMA_VULKAN=1
+export OLLAMA_IGPU_ENABLE=1
+
+"$AI_ROOT/ollama-v0.34.4/bin/ollama" serve
+```
+
+The installed tag was **`qwen3.8:27b`**, with manifest digest **`aaee06c39dcf2437cde036998d960e1fc1494b8191be7cc9657d01e509097813`**. Its packaged `draft_num_predict` was **4**. The environment record also preserves its model-blob digest and parameter readback. A fresh pull of the same tag later is not guaranteed to retrieve the same artifact.
+
+The service default unloads models after use. The benchmark overrides it with `keep_alive: "15m"`, so loading time does not contaminate every measured request. These are the Ollama generation fields from the runner; `prompt` is filled with the actual native-rendered string before sending:
+
+```json
+{
+  "model": "qwen3.8:27b",
+  "prompt": "<the identical rendered prompt used for native>",
+  "raw": true,
+  "stream": true,
+  "keep_alive": "15m",
+  "think": false,
+  "options": {
+    "num_ctx": 32768, "num_predict": 256,
+    "temperature": 0, "seed": 42, "num_thread": 8
+  }
+}
+```
+
+The native request uses `/completion` with the same prompt, `n_predict: 256`, `temperature: 0`, `seed: 42`, `stream: true`, and `cache_prompt: true`. The runner gets the template from native `/apply-template` with `enable_thinking: false`; if it still ends with an open `<think>` marker, it closes that marker. Both servers receive that resulting string. The saved prompt hashes let me check that this was actually true.
+
+### Rerun the measurement, or just inspect it
+
+The [benchmark runner](/downloads/qwen38-native-vs-ollama/benchmark_shuri_qwen38.py) contains all three prompts and the complete service sequence. Download it alongside the [snapshot README](/downloads/qwen38-native-vs-ollama/README.md). From the download directory, the equivalent of my original invocation is:
+
+```bash
+ssh -o BatchMode=yes prakash@192.168.10.15 'python3 - --apply' \
+  < benchmark_shuri_qwen38.py > rerun-results.jsonl
+```
+
+**This command interrupts real services on my host.** It is not a portable installation recipe. It requires the existing model files, units, native API-key file, noninteractive service privileges, and hostname `shuri`. It stops competing GPU workloads, benchmarks native then Ollama, and attempts to restore the previously active services in `finally`. I still verify service state and an authenticated endpoint response afterward. Future me needs an approved maintenance window; anyone adapting this needs to review the host-specific assumptions first.
+
+For inspection with no GPU work or service changes, download [the final receipt](/downloads/qwen38-native-vs-ollama/results.jsonl) and [the summarizer](/downloads/qwen38-native-vs-ollama/summarize.py), then run:
+
+```bash
+python3 summarize.py results.jsonl
+```
+
+It checks the saved prompt hashes and reproduces the generation-rate table. The [initial receipt with unmatched cache settings](/downloads/qwen38-native-vs-ollama/initial-unmatched-cache-results.jsonl) is preserved separately, so I can revisit the mistake without confusing it with the final evidence. [Output smoke-check results](/downloads/qwen38-native-vs-ollama/response-checks.json) and [file integrity hashes](/downloads/qwen38-native-vs-ollama/SHA256SUMS) are included too.
+
+This is a concrete baseline, not a fully hermetic build. I did not preserve the original weight download URLs, every driver and OS package version, or all compiler options. The weight hashes were collected afterward. A fixed seed also does not promise identical output across engine versions or configurations.
+
+When I revisit this, I want to keep the original receipt intact, record the new environment, and change one variable at a time. More repetitions, matched weight artifacts, draft decoding on versus off, and a larger output budget for completed coding tasks are useful next experiments—not improvements I have already demonstrated.
 
 ---
 
