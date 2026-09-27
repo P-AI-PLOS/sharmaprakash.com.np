@@ -156,6 +156,22 @@ const HEADERS = {
     glyph: "link",
     diagram: "parallel-workspaces",
   },
+  "2026-09-27-two-codex-accounts-one-session-history": {
+    chip: "AI · DEVELOPER SETUP",
+    chipWidth: 275,
+    headline: ["Two Codex Accounts,", "One Session History"],
+    headlineSize: 54,
+    subline: [
+      "Separate logins. Shared rollouts.",
+      "Switch accounts with a session ID.",
+    ],
+    sublineSize: 25,
+    pill: "codex · codexp",
+    pillWidth: 500,
+    pillTextSize: 23,
+    glyph: "link",
+    diagram: "codex-session-sharing",
+  },
   "2026-08-16-claude-code-many-users-one-debian-box": {
     chip: "AI · SYSADMIN",
     chipWidth: 172,
@@ -189,6 +205,7 @@ const diagrams = {
   "prefill-slices": prefillSlices,
   "serving-shapes": servingShapes,
   "parallel-workspaces": parallelWorkspaces,
+  "codex-session-sharing": codexSessionSharing,
   "policy-stack": policyStack,
   none: () => "",
 };
@@ -547,6 +564,21 @@ function parallelWorkspaces() {
     <text x="1080" y="512" fill="${palette.ink50}" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="700" letter-spacing="0.5">agents · skills · hooks</text>
     <circle cx="1187" cy="397" r="9" fill="${palette.surface}" stroke="${palette.ink300}" stroke-width="3"/>
     <circle cx="1475" cy="397" r="9" fill="${palette.surface}" stroke="${palette.ink300}" stroke-width="3"/>
+  </g>`;
+}
+
+function codexSessionSharing() {
+  return `
+  <g>
+    <path d="M1172 295 V402 M1478 295 V402" fill="none" stroke="${palette.ink300}" stroke-width="3" stroke-linecap="round" stroke-dasharray="10 10"/>
+    ${workspaceCard(1042, 175, "~/.codex")}
+    ${workspaceCard(1352, 175, "~/.codex-p")}
+    <rect x="1047" y="402" width="572" height="135" rx="24" fill="${palette.navy}" stroke="${palette.ink500}" stroke-width="2" filter="url(#mini-shadow)"/>
+    <rect x="1080" y="429" width="96" height="8" rx="4" fill="${palette.amber500}"/>
+    <rect x="1080" y="455" width="203" height="8" rx="4" fill="${palette.ink300}"/>
+    <text x="1080" y="515" fill="${palette.ink50}" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="700">shared sessions / images</text>
+    <circle cx="1172" cy="402" r="9" fill="${palette.surface}" stroke="${palette.ink300}" stroke-width="3"/>
+    <circle cx="1478" cy="402" r="9" fill="${palette.surface}" stroke="${palette.ink300}" stroke-width="3"/>
   </g>`;
 }
 

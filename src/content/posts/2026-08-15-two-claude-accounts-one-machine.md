@@ -7,7 +7,7 @@ directory: ai
 excerpt: "Your work seat and your personal seat can both stay logged in, run at the same time, and share every agent and skill you've written — because CLAUDE_CONFIG_DIR quietly namespaces the credential entry by a hash of the directory. Here's the mechanism, the full setup for bash and zsh, and a prompt you can paste to have Claude build it for you."
 cover: "/images/blog/ai/two-claude-accounts-one-machine.png"
 thumb: "/images/blog/ai/two-claude-accounts-one-machine.png"
-last_modified_at: "2026-08-15T10:00:00+05:45"
+last_modified_at: "2026-09-27T22:00:00+05:45"
 use_featured_image: true
 tags:
   - claude-code
@@ -20,6 +20,8 @@ If you have a Claude subscription through work and another one you pay for yours
 There's a clean fix, and it's one environment variable. `CLAUDE_CONFIG_DIR` points Claude Code at a different configuration directory, and — this is the part that isn't in any doc I could find — when you set it, Claude Code automatically gives that workspace **its own credential entry**. Not a shared one it overwrites. Its own. Both accounts stay authenticated indefinitely, and you can run them side by side in two terminal tabs on two different subscriptions.
 
 By the end of this post you'll have a `claudep` command sitting next to your normal `claude`, sharing every agent, skill, and hook you've written, with completely separate sessions, history, and login. The last section is a prompt you can paste into Claude Code to have it do the whole thing for you.
+
+**September 2026 update:** My current Claude setup also shares `projects/`, `sessions/`, and `history.jsonl` between the two homes so I can resume by ID from either account. The isolated-session recipe below remains a valid starting point when conversations need to stay separate. I used the same explicit choice in a [Codex companion post](/ai/two-codex-accounts-one-session-history/).
 
 One framing note before the mechanics: this is for two seats you legitimately hold — the work-and-personal split is the canonical case, and it's the one Anthropic's own terms are easiest to satisfy. It is not a trick for pooling quota across accounts you don't own.
 
