@@ -42,8 +42,8 @@ The Intel XCP-ng pool is called `marvel-cosmos`. Talokan forms the separate AMD 
 | `asgard` | Intel Celeron J4125, four cores | 16 GB | Approximately 459 GB local SR | XCP-ng pool member |
 | `talokan` | Minisforum UM760 Slim, Ryzen 5 7640HS | 96 GB (2 × 48 GB) | 2 TB NVMe | Single-host `vibranium` XCP-ng pool |
 | `shuri` | Minisforum UM880 Plus, Ryzen 7 8845HS / Radeon 780M | 64 GB (2 × 32 GB) | 2 TB Crucial T700 | Ubuntu, gaming, local AI and Incus |
-| `vyas` | Synology RS1221+ | 32 GB ECC | Six occupied drive bays | NAS, shared storage, selected services and VMM guests |
-| `titan` | 2018 Intel MacBook Pro, six cores / twelve threads | 16 GB | Approximately 250 GB SSD | Standalone macOS utility host on Trusted Wi-Fi |
+| `vyas` | Synology RS1221+ | 32 GB ECC | 9.49 TiB usable / RAID5 | NAS, shared storage, selected services and VMM guests |
+| `titan` | 2018 Intel MacBook Pro, six cores / twelve threads | 16 GB | 250.7 GB SSD | Standalone macOS utility host on Trusted Wi-Fi |
 
 An SR is XCP-ng's storage repository: the place it keeps virtual disks. The two hypervisors retain local storage, and both can access the shared NFS repository on Vyas.
 
@@ -55,13 +55,13 @@ The names make daily operations easier to follow. “Heimdall's DNS is unavailab
 
 ## Vyas keeps the data—and runs a few services too
 
-Vyas is a Synology RS1221+, a rackmount NAS with eight bays and four built-in 1GbE ports. Six bays are occupied: four 4 TB disks form a RAID5 storage pool, and two 1 TB disks form a separate RAID1 pool used for VM backups.
+Vyas is a Synology RS1221+, a rackmount NAS with eight bays and four built-in 1GbE ports. Its four-disk RAID5 array provides **9.49 TiB of usable filesystem capacity** (10.43 TB) on `/volume1`, verified on September 27, 2026. This is total capacity, not remaining free space. Approximately 1 TiB of pool space remains unallocated and is excluded; the former `/volume2` backup volume is no longer mounted.
 
 The NAS provides shared files, media storage and the `vyas-xcpng` NFS repository. It also hosts VMM guests, which makes it part of their runtime path, not merely somewhere they write backups at night.
 
 Vyas runs Jellyfin and Xen Orchestra, along with the Cosmo, Friday and Edith VMM guests. Cosmo hosts applications and LiteLLM; Friday and Edith handle agent workloads. The primary amd64 build machine runs on Talokan, as does Mantis for Elasticsearch.
 
-Separating the backup disks from the main storage pool is useful, but both pools still live in the same NAS. It is a local recovery tier, not protection against losing the entire NAS. More drive bays and RAID do not remove that distinction.
+Backups stored on Vyas share the NAS failure domain with its primary data. They provide a local recovery tier, but protection against losing the entire NAS requires a separate copy.
 
 ## Titan: a MacBook Pro with a smaller job
 

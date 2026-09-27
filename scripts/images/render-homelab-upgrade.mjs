@@ -68,14 +68,14 @@ device(40, 150, 350, "router", "WorldLink", "ISP gateway / 192.168.1.254", ["UDR
 device(470, 150, 390, "router", "UDR7", "UniFi Dream Router 7", ["192.168.2.1 / routing + firewall", "Built-in Wi-Fi: 2.4 / 5 / 6 GHz"]);
 device(1730, 150, 390, "switch", "Enterprise 8", "USW Enterprise 8 PoE", ["p7 → Quinjet / 1G trunk", "p4 → Sanctuary / 1G trunk"]);
 device(1100, 530, 390, "switch", "TEG-S562", "TRENDnet / unmanaged", ["4 × multigig RJ45 / 2 × SFP+", "Untagged Servers / VLAN 10", "All six ports occupied"]);
-device(40, 980, 380, "mini-pc", "shuri", "UM880 Plus / 192.168.10.15", ["64 GB / 2 × 32 GB / 5600 MT/s", "Ubuntu / Radeon 780M / 2 TB", "Gaming / local AI / Incus"]);
-device(470, 980, 370, "mini-pc", "talokan", "UM760 Slim / 192.168.10.28", ["96 GB / 2 × 48 GB / 5600 MT/s", "Single-host pool / 2 TB NVMe", "Builders / runners / infra VMs"]);
+device(40, 980, 380, "minisforum", "shuri", "UM880 Plus / 192.168.10.15", ["64 GB / 2 × 32 GB / 5600 MT/s", "Ubuntu / Radeon 780M / 2 TB", "Gaming / local AI / Incus"]);
+device(470, 980, 370, "minisforum", "talokan", "UM760 Slim / 192.168.10.28", ["96 GB / 2 × 48 GB / 5600 MT/s", "Single-host pool / 2 TB NVMe", "Builders / runners / infra VMs"]);
 device(900, 980, 370, "mini-pc", "asgard", "J4125 / 192.168.10.11", ["16 GB / 459 GB local SR", "Pool member / eth1 uplink", "Heimdall / K3s control"]);
 device(1320, 980, 370, "mini-pc", "knowhere", "N150 / 192.168.10.10", ["12 GB / 459 GB local SR", "Pool master / eth1 uplink", "Quill / Factory"]);
-device(1750, 980, 360, "rack-nas", "vyas", "RS1221+ / 192.168.10.9", ["32 GB ECC / NFS / backups", "10G adapter + interconnect", "Media / VMM / Tailscale"]);
+device(1750, 980, 360, "rack-nas", "vyas", "RS1221+ / 192.168.10.9", ["32 GB ECC / NFS / backups", "10G adapter + interconnect", "Media / VMM / Tailscale", "9.49 TiB usable / RAID5"]);
 device(2180, 180, 400, "access-point", "quinjet", "AC Pro / Prabin floor", ["Wi-Fi 5 / 2.4 + 5 GHz", "Enterprise port 7 / 1G max", "SSID → VLAN mapping below"]);
 device(2180, 580, 400, "access-point", "sanctuary", "U6 LR / ground floor", ["Wi-Fi 6 / 2.4 + 5 GHz", "Enterprise port 4 / 1G max", "Guest SSID currently disabled"]);
-device(2180, 980, 400, "clamshell-laptop", "titan", "MacBook Pro / 192.168.20.10", ["16 GB / standalone macOS", "Wi-Fi through a Trusted SSID", "AP may vary"]);
+device(2180, 980, 400, "clamshell-laptop", "titan", "MacBook Pro / 192.168.20.10", ["16 GB / 250.7 GB SSD", "Wi-Fi through a Trusted SSID", "Standalone macOS / AP may vary"]);
 
 box(40, 1300, 1250, 445);
 text(64, 1342, "VLANs / separate networks on shared cables", 25, "#12243c", true);

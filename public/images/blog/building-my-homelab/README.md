@@ -55,3 +55,20 @@ rsvg-convert -o public/images/blog/building-my-homelab/upgrade.png public/images
 
 The user-supplied inspiration screenshot is not a publication asset and is not
 copied into this site.
+
+## Storage capacity labels
+
+Vyas shows **9.49 TiB usable** (10.43 TB): the mounted `/volume1` filesystem
+reported 10,187,381,148 KiB via `df -k` on 2026-09-27. This is total filesystem
+capacity, not free space or raw disk capacity. LVM reports approximately 1 TiB
+unallocated in `vg1`; that reserve is excluded. `/volume2` is not mounted and
+is excluded from the total. The live RAID5 array has four active members.
+
+Titan shows **250.7 GB SSD**, the physical drive capacity recorded in the
+homelab inventory. SSH authentication prevented a fresh capacity check in this
+session; the label does not claim usable or free filesystem space.
+
+`assets/minisforum.svg` distinguishes Shuri and Talokan with a compact silver cube chassis,
+a black front panel and side vents. It is original family-style schematic artwork,
+not an exact model or port-layout drawing. Asgard and Knowhere retain the dark
+`mini-pc.svg` illustration. Both topology views embed the Minisforum asset.
