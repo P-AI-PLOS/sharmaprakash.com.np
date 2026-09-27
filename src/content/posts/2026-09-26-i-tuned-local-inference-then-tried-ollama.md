@@ -27,7 +27,7 @@ All that work, and I had not earned a clear performance advantage over the packa
 
 The goal was practical. I wanted local models for intel work, blog writing, and lighter coding tasks: implementing plans that more capable models had already worked out. I was trying to build a useful local worker, not win a benchmark leaderboard.
 
-Shuri has 96 GB of installed RAM and a Radeon 780M integrated GPU. That gives me room to experiment with model sizes, but fitting a model and serving it quickly are separate questions. The GPU uses shared system memory; this is a mini PC, not a dedicated inference server with a large discrete accelerator.
+Shuri has 64 GB of installed RAM (2 × 32 GB, dual channel at 5600 MT/s) and a Radeon 780M integrated GPU. That gives me room to experiment with model sizes, but fitting a model and serving it quickly are separate questions. The GPU uses shared system memory; this is a mini PC, not a dedicated inference server with a large discrete accelerator. The benchmark results below were recorded with 96 GB installed; they have not been rerun on the current 64 GB configuration.
 
 For this comparison, the model was Qwen3.8-27B in roughly four-bit form.
 
