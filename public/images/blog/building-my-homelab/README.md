@@ -18,7 +18,7 @@ preserved. The
 the local `assets/` illustrations copied from the homelab diagram assets.
 Edit the renderer for layout and content changes, then run
 `node scripts/images/render-homelab-upgrade.mjs` before regenerating its PNG.
-The upgrade uses the current diagram's 2640 × 1840 canvas, typography, compact
+The upgrade uses the current diagram's 2640 × 1780 canvas, typography, compact
 device cards and VLAN table. Shuri stays standalone; Talokan's `vibranium`
 group sits beside `marvel-cosmos`, containing Asgard and Knowhere. Compute and
 Vyas sit below the gateway and switches; wireless equipment sits on the right.
@@ -32,7 +32,7 @@ Enterprise port 7 serves Quinjet and port 4 serves Sanctuary; replacement
 connections use endpoint and speed labels without assigning new port numbers.
 
 Link colors are blue for 10G, teal for 2.5G and amber for 1G.
-Both AP uplinks use amber with a `1G max` label, based on the official
+Both AP uplinks use amber with a `1G max` label on the Enterprise card, based on the official
 [U6-LR specifications](https://techspecs.ui.com/unifi/wifi/u6-lr) and
 [AC Pro specifications](https://techspecs.ui.com/unifi/wifi/uap-ac-pro).
 These are hardware limits, not fresh live negotiated-speed checks.

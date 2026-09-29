@@ -29,9 +29,9 @@ function group(x, y, width, height, label, fill, color, labelY) {
   text(x + 22, labelY, label, 23, color, true);
 }
 
-out.push('<svg xmlns="http://www.w3.org/2000/svg" width="2640" height="1840" viewBox="0 0 2640 1840" role="img" aria-labelledby="title desc"><title id="title">homelab / 10G backbone + 2.5G compute</title><desc id="desc">UDR7 connects to the unmanaged TEG-S562 and Vyas at 10G. Shuri, Talokan and Asgard connect at 2.5G; Knowhere at 1G. Servers use untagged VLAN 10. The managed Enterprise network carries household VLAN trunks. Titan uses Trusted Wi-Fi without a fixed AP association.</desc><rect width="2640" height="1840" fill="#f5f8fc"/><g font-family="Arial, sans-serif">');
-text(50, 52, 'homelab / 10G backbone + 2.5G compute', 32, '#12243c', true);
-text(50, 84, 'Talokan 96 GB / Shuri 64 GB • physical connections above / VLAN membership below', 17, '#64748b');
+out.push('<svg xmlns="http://www.w3.org/2000/svg" width="2640" height="1780" viewBox="0 0 2640 1780" role="img" aria-labelledby="title desc"><title id="title">homelab</title><desc id="desc">UDR7 connects to the unmanaged TEG-S562 and Vyas at 10G. Shuri, Talokan and Asgard connect at 2.5G; Knowhere at 1G. Servers use untagged VLAN 10. The managed Enterprise network carries household VLAN trunks. Titan uses Trusted Wi-Fi without a fixed AP association.</desc><rect width="2640" height="1780" fill="#f5f8fc"/><g font-family="Arial, sans-serif">');
+text(50, 52, 'homelab', 32, '#12243c', true);
+text(50, 84, 'Physical connections / VLAN membership', 17, '#64748b');
 for (const [x, label, color] of [[1760, '1G', speed.gigabit], [1970, '2.5G', speed.multi], [2210, '10G', speed.ten]]) {
   wire(`M${x} 66 h60`, color);
   text(x + 76, 72, label, 20, color, true);
@@ -66,15 +66,15 @@ for (const [source, turn, target, label, color, labelX] of links) {
 }
 device(40, 150, 350, "router", "WorldLink", "ISP gateway / 192.168.1.254", ["UDR7 WAN / 1G"]);
 device(470, 150, 390, "router", "UDR7", "UniFi Dream Router 7", ["192.168.2.1 / routing + firewall", "Built-in Wi-Fi: 2.4 / 5 / 6 GHz"]);
-device(1730, 150, 390, "switch", "Enterprise 8", "USW Enterprise 8 PoE", ["p7 → Quinjet / 1G trunk", "p4 → Sanctuary / 1G trunk"]);
+device(1730, 150, 390, "switch", "Enterprise 8", "USW Enterprise 8 PoE", ["p7 → Quinjet / 1G max trunk", "p4 → Sanctuary / 1G max trunk"]);
 device(1100, 530, 390, "switch", "TEG-S562", "TRENDnet / unmanaged", ["4 × multigig RJ45 / 2 × SFP+", "Untagged Servers / VLAN 10", "All six ports occupied"]);
 device(40, 980, 380, "minisforum", "shuri", "UM880 Plus / 192.168.10.15", ["64 GB / 2 × 32 GB / 5600 MT/s", "Ubuntu / Radeon 780M / 2 TB", "Gaming / local AI / Incus"]);
 device(470, 980, 370, "minisforum", "talokan", "UM760 Slim / 192.168.10.28", ["96 GB / 2 × 48 GB / 5600 MT/s", "Single-host pool / 2 TB NVMe", "Builders / runners / infra VMs"]);
 device(900, 980, 370, "mini-pc", "asgard", "J4125 / 192.168.10.11", ["16 GB / 459 GB local SR", "Pool member / eth1 uplink", "Heimdall / K3s control"]);
 device(1320, 980, 370, "mini-pc", "knowhere", "N150 / 192.168.10.10", ["12 GB / 459 GB local SR", "Pool master / eth1 uplink", "Quill / Factory"]);
 device(1750, 980, 360, "rack-nas", "vyas", "RS1221+ / 192.168.10.9", ["32 GB ECC / NFS / backups", "10G adapter + interconnect", "Media / VMM / Tailscale", "9.49 TiB usable / RAID5"]);
-device(2180, 180, 400, "access-point", "quinjet", "AC Pro / Prabin floor", ["Wi-Fi 5 / 2.4 + 5 GHz", "Enterprise port 7 / 1G max", "SSID → VLAN mapping below"]);
-device(2180, 580, 400, "access-point", "sanctuary", "U6 LR / ground floor", ["Wi-Fi 6 / 2.4 + 5 GHz", "Enterprise port 4 / 1G max", "Guest SSID currently disabled"]);
+device(2180, 180, 400, "access-point", "quinjet", "AC Pro / Prabin floor", ["Wi-Fi 5 / 2.4 + 5 GHz", "SSID → VLAN mapping below"]);
+device(2180, 580, 400, "access-point", "sanctuary", "U6 LR / ground floor", ["Wi-Fi 6 / 2.4 + 5 GHz"]);
 device(2180, 980, 400, "clamshell-laptop", "titan", "MacBook Pro / 192.168.20.10", ["16 GB / 250.7 GB SSD", "Wi-Fi through a Trusted SSID", "Standalone macOS / AP may vary"]);
 
 box(40, 1300, 1250, 445);
@@ -121,9 +121,7 @@ text(1354, 1510, 'The UDR7 supplies Servers VLAN 10 as the native, untagged netw
 text(1354, 1560, 'SERVER ACCESS / all four compute hosts + Vyas', 20, speed.multi, true);
 text(1354, 1594, 'TEG-S562 connections use untagged traffic. Household trunks stay on Enterprise.', 20);
 text(1354, 1644, 'WIRELESS / SSID selects VLAN', 20, '#6d46a2', true);
-text(1354, 1678, 'Trusted → 20 / Family → 30 / IoT → 40 / Cameras → 45. Guest 50 is disabled.', 20);
+text(1354, 1678, 'Trusted → 20 / Family → 30 / IoT → 40 / Cameras → 45 / Guest → 50', 20);
 text(1354, 1715, 'UDR7 firewall policy controls traffic between networks. A trunk is not permission.', 18);
-text(40, 1790, '10G server backbone / 2.5G compute / managed household VLANs / independent AP uplinks', 18, '#64748b');
-text(40, 1820, 'Talokan: 96 GB / Shuri: 64 GB / dual-channel DDR5 at 5600 MT/s • AP labels show Ethernet hardware limits', 16, '#64748b');
 out.push('</g></svg>');
 writeFileSync(fileURLToPath(new URL('upgrade.svg', root)), out.join('\n') + '\n');
