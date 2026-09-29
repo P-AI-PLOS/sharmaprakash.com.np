@@ -16,7 +16,7 @@ comments: true
 share: true
 ---
 
-In [the first part](/homelab/why-i-self-host-campsite-for-ai-agents/) I explained why my AI agents talk to each other, and to me, through a self-hosted copy of Campsite. This part is about the machines underneath it.
+I use Campsite as a shared workspace where my agents and I can read and write updates. This article focuses on the machines underneath that setup; [the background on why I chose a self-hosted team workspace for agent conversations is here](/homelab/why-i-self-host-campsite-for-ai-agents/).
 
 The short version: three purpose-built virtual machines, spread over two hypervisor pools, with the NAS holding files and git. It's small, it's private, and it is not highly available. Knowing exactly where it isn't is most of the point of this post.
 
@@ -30,7 +30,7 @@ Campsite touches four physical machines:
 - **asgard** and **knowhere**, the two small Intel hosts that form a second XCP-ng pool;
 - **vyas**, the Synology NAS, which provides storage, backup space, the Forgejo git server and S3-compatible object storage through Garage.
 
-A separate builder VM does image builds and runs the private container registry. More on that in [the Kamal part](/homelab/deploying-campsite-with-kamal/).
+A separate builder VM does image builds and runs the private container registry. [The deployment walkthrough explains how Kamal builds and releases each runtime](/homelab/deploying-campsite-with-kamal/).
 
 ## Three VMs, three jobs
 
@@ -80,7 +80,7 @@ Groot got the same treatment for the database: a dedicated 40 GiB data disk for 
 
 ## Capacity from readbacks, not memory
 
-The PostgreSQL work in [part 4](/homelab/campsite-mysql-to-postgresql-patroni/) needs room for a second, isolated copy of the API and web app on Quill. Quill had 4 GiB and, inside the guest, 861 MB available. That wasn't going to be enough.
+The PostgreSQL migration needs room for a second, isolated copy of the API and web app on Quill. [The migration write-up describes the dual-database tests, data-copy checks and Patroni layout](/homelab/campsite-mysql-to-postgresql-patroni/). Quill had 4 GiB and, inside the guest, 861 MB available. That wasn't going to be enough.
 
 Before changing anything, I read the free memory of each host from the hypervisor API rather than from my notes:
 
@@ -136,7 +136,7 @@ The recovery targets I've written down are a 24-hour recovery point and an 8-hou
 
 The homelab itself has been doing its own testing for me. During this work, one hypervisor host went down and came back, and a VLAN became unreachable from my laptop in the middle of a rollout. Each time, I stopped and re-verified what was running before carrying on.
 
-Next up: [how Campsite gets onto these machines with Kamal](/homelab/deploying-campsite-with-kamal/), and why the background worker deploys separately from the API.
+For the release process, see [how the Kamal configuration separates API and worker deployments, pins images to commits and checks secrets before release](/homelab/deploying-campsite-with-kamal/).
 
 <!--
 # Image prompt

@@ -16,7 +16,7 @@ comments: true
 share: true
 ---
 
-[Part 2](/homelab/where-campsite-runs-in-my-homelab/) put Campsite's pieces on three VMs. This part is about how code gets there.
+[The infrastructure overview explains where Campsite's services run across three VMs and why they are placed in separate failure domains](/homelab/where-campsite-runs-in-my-homelab/). Here I focus on how code gets there.
 
 I use [Kamal](https://kamal-deploy.org/) for all of it. There's no second deployment path: no hand-run `docker run`, no script that SSHes in and restarts things. Kamal uses SSH to reach the hosts, but SSH is its transport, not a procedure of its own. Commands run directly on a host are reserved for provisioning and break-glass recovery, and each one is a separately approved change.
 
@@ -130,7 +130,7 @@ A health endpoint returning 200 isn't the same as a working product, and I've wr
 - **Exact commit tags from a clean worktree.** The tag should answer "what's running?" without a follow-up question.
 - **A preflight that checks names, never values.** It's safe to run anywhere, including inside an agent session.
 
-That last point matters for [part 5](/homelab/letting-coding-agents-build-campsite/), where a lot of this work was done by coding agents. Before that, [part 4](/homelab/campsite-mysql-to-postgresql-patroni/) covers the biggest change the new release process has had to carry so far: moving from MySQL to PostgreSQL.
+That last point matters because coding agents handled much of this implementation; [the engineering account describes how their work was divided into lanes and verified before merge](/homelab/letting-coding-agents-build-campsite/). The biggest change this release process has had to carry so far is the database move; [the migration account covers dual-adapter testing, data-copy validation and the PostgreSQL HA setup](/homelab/campsite-mysql-to-postgresql-patroni/).
 
 <!--
 # Image prompt

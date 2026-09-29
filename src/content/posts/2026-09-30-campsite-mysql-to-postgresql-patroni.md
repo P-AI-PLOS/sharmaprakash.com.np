@@ -20,7 +20,7 @@ share: true
 
 The first real project after I ended Campsite's patch-only stewardship on 23 September was the database. Campsite has run on MySQL since its days on PlanetScale. I'm moving it to PostgreSQL.
 
-[Part 3](/homelab/deploying-campsite-with-kamal/) covered how releases work. This part covers a change big enough to test that process: what MySQL was quietly doing for the application, how I got the test suite passing on both databases, why I dropped pgloader, and the high-availability cluster that is now running across three hosts.
+[The deployment walkthrough describes the Kamal release process and its safeguards for migrations, workers and immutable images](/homelab/deploying-campsite-with-kamal/). The database move is a change big enough to test that process: what MySQL was quietly doing for the application, how I got the test suite passing on both databases, why I dropped pgloader, and the high-availability cluster that is now running across three hosts.
 
 ## Why move at all?
 
@@ -109,7 +109,7 @@ On 26 September a [Patroni](https://patroni.readthedocs.io/) cluster came up acr
 
 The three etcd members sit on three different physical hosts. Patroni only lets a member lead while it can talk to a majority of etcd, so losing any one host can't produce two leaders.
 
-`pg-b` is a small Debian VM: 2 vCPU, 2 GiB of memory and its own 40 GiB data disk. As [part 2](/homelab/where-campsite-runs-in-my-homelab/) explained, it's on asgard because talokan had no room and a standby on the primary's host wouldn't protect against much. The witness was first meant to run on the NAS; I moved it to Quill because Docker on the Synology isn't usable as a Kamal host.
+`pg-b` is a small Debian VM: 2 vCPU, 2 GiB of memory and its own 40 GiB data disk. [The infrastructure overview explains the host placement and failure domains behind this choice](/homelab/where-campsite-runs-in-my-homelab/): it is on asgard because talokan had no room, and a standby on the primary's host would not protect against much. The witness was first meant to run on the NAS; I moved it to Quill because Docker on the Synology isn't usable as a Kamal host.
 
 Synchronous mode is on but not strict. A commit waits for the standby while the standby is up. If the standby goes down, the leader keeps serving rather than stopping writes.
 
@@ -149,7 +149,7 @@ In order:
 
 The nightly shadow refresh is the part I'm most looking forward to. It turns every night into a full rehearsal of the cutover, on real data.
 
-[Part 5](/homelab/letting-coding-agents-build-campsite/) is about who did this work, because much of it was done by coding agents, with me and an orchestrating agent checking every result.
+[A separate engineering account describes how coding agents divided this work into implementation lanes, and how I checked each result before merge](/homelab/letting-coding-agents-build-campsite/).
 
 <!--
 # Image prompt

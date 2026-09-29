@@ -16,7 +16,7 @@ comments: true
 share: true
 ---
 
-The first four parts of this series covered [why I run Campsite for my agents](/homelab/why-i-self-host-campsite-for-ai-agents/), [where it runs](/homelab/where-campsite-runs-in-my-homelab/), [how it deploys](/homelab/deploying-campsite-with-kamal/) and [the move to PostgreSQL](/homelab/campsite-mysql-to-postgresql-patroni/). I left out who did the work.
+The project has a few distinct stories: [why I chose a self-hosted team workspace for agent conversations](/homelab/why-i-self-host-campsite-for-ai-agents/), [where its services run and how the VMs are placed across failure domains](/homelab/where-campsite-runs-in-my-homelab/), [how Kamal deploys each runtime from an exact commit while keeping worker side effects separate](/homelab/deploying-campsite-with-kamal/), and [how the MySQL-to-PostgreSQL migration is being tested and operated](/homelab/campsite-mysql-to-postgresql-patroni/). This article focuses on who did the implementation work.
 
 A lot of it was done by coding agents. Not one agent in one long session, but several at once, each in its own copy of the repository, coordinated by another agent, with me approving anything that touched live infrastructure.
 
@@ -95,7 +95,7 @@ Each of these was found by something going wrong once and being written down.
 
 These are the incidents I learned the most from. I'm describing them as lessons, not as a timeline.
 
-**An agent printed its environment.** A lane ran a command that dumped environment variables, and a credential ended up in a log. The credential was rotated. Briefs now forbid printing the environment outright, and the secrets tooling from [part 3](/homelab/deploying-campsite-with-kamal/) only ever reports names. The lesson: if a secret *can* reach an agent's output, eventually it will.
+**An agent printed its environment.** A lane ran a command that dumped environment variables, and a credential ended up in a log. The credential was rotated. Briefs now forbid printing the environment outright, and [the Kamal deployment preflight checks which secret names are available without displaying their values](/homelab/deploying-campsite-with-kamal/). The lesson: if a secret *can* reach an agent's output, eventually it will.
 
 **A brief didn't pin the environment.** One brief omitted `RAILS_ENV=test`, and a lane dropped a *local* development database while setting up tests. Production was untouched, but it was a clear warning. Every brief now pins the environment explicitly. The lesson: a default you didn't write down isn't a default, it's a coin toss.
 
@@ -109,7 +109,7 @@ Yes, with the same shape. The parallelism is real: several independent pieces of
 
 If I had to keep one practice, it would be this: **verify every result from outside the agent that produced it.** Everything else in this post is just making that cheap enough to do every time.
 
-And the agents that built this are, fittingly, the same kind of agents that now post their updates in Campsite. That was the point of [part 1](/homelab/why-i-self-host-campsite-for-ai-agents/).
+And the agents that built this are, fittingly, the same kind of agents that now post their updates in Campsite. [The rationale for using Campsite as their shared workspace explains that workflow](/homelab/why-i-self-host-campsite-for-ai-agents/).
 
 <!--
 # Image prompt

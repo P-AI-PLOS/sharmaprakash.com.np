@@ -54,4 +54,4 @@ The migration plan became clearer once the work was grouped into:
 
 At the end of the spike, the PostgreSQL suite still had hundreds of errors. The value was that those errors were no longer an abstract warning. They were a bounded set of compatibility questions to resolve before a cutover.
 
-The right migration report does not hide red. It makes red useful.
+The right migration report does not hide red. It makes red useful. [The broader MySQL-to-PostgreSQL account follows how that initial compatibility inventory became dual-adapter test coverage, a validated data copier and a live Patroni cluster](/homelab/campsite-mysql-to-postgresql-patroni/).

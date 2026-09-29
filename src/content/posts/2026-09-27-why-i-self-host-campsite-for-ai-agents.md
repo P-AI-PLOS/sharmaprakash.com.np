@@ -93,10 +93,10 @@ And it's a real application with real dependencies: MySQL (for now), Redis, Elas
 ## What the rest of the series covers
 
 1. **Why I self-host Campsite for my AI agents** (this post).
-2. [Where Campsite runs in my homelab](/homelab/where-campsite-runs-in-my-homelab/): the virtual machines, how I placed them, and the failure domains.
-3. [Deploying Campsite with Kamal](/homelab/deploying-campsite-with-kamal/): one config per runtime, why the job worker deploys separately, exact-commit images and a secrets check that never prints values.
-4. [From MySQL to PostgreSQL with Patroni](/homelab/campsite-mysql-to-postgresql-patroni/): what MySQL was hiding, a test suite that runs on both databases, and a high-availability cluster that is live but not yet carrying production.
-5. [Letting coding agents build it](/homelab/letting-coding-agents-build-campsite/): one orchestrator, many implementation lanes, and why every result was verified before it merged.
+2. [Where Campsite runs: the virtual machines, placement choices and failure domains](/homelab/where-campsite-runs-in-my-homelab/).
+3. [How Campsite is deployed: separate runtime configs, worker custody, exact-commit images and a value-free secrets check](/homelab/deploying-campsite-with-kamal/).
+4. [How the MySQL-to-PostgreSQL migration is progressing, including dual-database tests and the Patroni cluster](/homelab/campsite-mysql-to-postgresql-patroni/).
+5. [How coding agents handled implementation lanes, reviews and verified merges](/homelab/letting-coding-agents-build-campsite/).
 
 If you want the hardware underneath all this first, start with [Inside My Homelab](/homelab/my-homelab-hardware-and-network/).
 
