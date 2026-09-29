@@ -24,7 +24,11 @@ The first real project after I ended Campsite's patch-only stewardship on 23 Sep
 
 ## Why move at all?
 
-The dataset is tiny. At the last release: 46 users, 768 posts and 5,230 messages, about 19.7 MB as a compressed dump. Size isn't the reason. Lock-in is.
+There is no scaling crisis here. At the last release, Campsite had 46 users, 768 posts and 5,230 messages; the compressed database dump was about 19.7 MB. MySQL handles that comfortably. Moving databases will not make the product faster in any way users are waiting for.
+
+The reason is that the database outlived the environment it was chosen for. Campsite inherited a PlanetScale-era MySQL setup, then moved into my homelab. Its configuration still described a primary and replica even though that replica had been discontinued. The application also relied on MySQL's defaults and functions in ways the Ruby code did not make visible. I was maintaining a self-hosted database while carrying assumptions from a managed database service.
+
+That mismatch creates work every time the database needs attention. A developer has to know that case-insensitive identity matching comes from a collation, that cursor pagination relies on MySQL's NULL order, and that a set of raw SQL calls only runs on MySQL. Until we tested another engine, those were undocumented parts of the application contract. Moving while the database is small gives me a chance to write those rules down and test them before a future change or recovery depends on them.
 
 The application depended on MySQL in three ways, only one of which was visible in the code:
 
@@ -34,7 +38,11 @@ The application depended on MySQL in three ways, only one of which was visible i
 
 The third one is easy to grep for. The first two are what I mean by "hidden": switch the database, and logins, list order and pagination could change without a single error.
 
-PostgreSQL gives me things I want: schema changes that roll back inside a transaction if a migration fails, a mature high-availability story with Patroni, and point-in-time recovery. It also opens the option of testing PostgreSQL's own full-text search as a replacement for the separate Elasticsearch VM. That's a separate decision for later.
+PostgreSQL is the target because it gives this self-hosted setup a path to transactional schema changes and a conventional HA and point-in-time recovery toolchain. Those are reasons to do the work, not claims that recovery is already solved: backups and failover drills are still ahead. Replacing Elasticsearch with PostgreSQL search is explicitly out of scope; it is not a justification for this migration.
+
+There is a real counterargument. For a one-or-two-user app, adding Patroni, etcd and pgBackRest may cost more attention than the reliability they return. I am treating this as an exploration with a fallback: if the shadow run shows the operational burden outweighs the benefit, the design can be reduced to one PostgreSQL member without throwing away the portability work.
+
+The timing makes the risk manageable. The database is small enough for a planned offline copy, MySQL can keep serving while the PostgreSQL version is tested separately, and the old MySQL volume can remain available for rollback. I can compare both engines before asking users to trust the cutover.
 
 The rule for the whole migration: **no user-facing behaviour changes.** If anything looks different after cutover (who can log in with which email, the order of a list, how pages paginate), that's a bug.
 
