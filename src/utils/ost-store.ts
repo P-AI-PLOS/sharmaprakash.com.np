@@ -22,6 +22,12 @@ import {
 export interface OstSolution {
   id: string;
   text: string;
+  assumptions: OstAssumption[];
+}
+
+export interface OstAssumption {
+  id: string;
+  text: string;
   experiments: OstExperiment[];
 }
 
@@ -57,9 +63,11 @@ const LEGACY_TREE_KEY = "ost-tree-builder";
 
 export const EMPTY_TREE: OstTree = { outcome: "", opportunities: [] };
 
+export const newAssumption = (text: string): OstAssumption => ({ id: uid("asm"), text, experiments: [] });
+
 export const newExperiment = (text: string): OstExperiment => ({ id: uid("exp"), text });
 
-export const newSolution = (text: string): OstSolution => ({ id: uid("sol"), text, experiments: [] });
+export const newSolution = (text: string): OstSolution => ({ id: uid("sol"), text, assumptions: [] });
 
 export const newOpportunity = (text: string): OstOpportunity => ({
   id: uid("opp"),
@@ -71,10 +79,11 @@ export const newOpportunity = (text: string): OstOpportunity => ({
 export const contextKeyFor = (source: OstSource): string =>
   source.type === "course" ? `course:${source.courseSlug}:${source.chapterSlug}` : "standalone";
 
-/** The shapes this store used to persist, before the D9 migration. */
-type LegacySolution = string | OstSolution;
-type LegacyOpportunity = Omit<OstOpportunity, "id" | "solutions"> &
-  Partial<Pick<OstOpportunity, "id">> & { solutions?: LegacySolution[] };
+/** The shape persisted by the original single-tree builder. */
+type LegacyOpportunity = Omit<OstOpportunity, "id" | "solutions"> & {
+  id?: string;
+  solutions?: (string | { id?: string; text: string })[];
+};
 type LegacyTree = { outcome: string; opportunities?: LegacyOpportunity[] };
 type LegacyRecord = Omit<OstRecord, "productId" | "tree"> &
   Partial<Pick<OstRecord, "productId">> & { tree: LegacyTree };
@@ -149,18 +158,11 @@ const backfillIds = (store: Record<string, OstRecord>): Record<string, OstRecord
       ...opp,
       id: opp.id ?? uid("opp"),
       target: Boolean(opp.target),
-      solutions: (opp.solutions ?? []).map((sol) => {
-        if (typeof sol === "string") return newSolution(sol);
-        const legacySolution = sol as OstSolution;
-        return {
-          ...legacySolution,
-          id: legacySolution.id ?? uid("sol"),
-          experiments: (legacySolution.experiments ?? []).map((experiment) => ({
-            ...experiment,
-            id: experiment.id ?? uid("exp"),
-          })),
-        };
-      }),
+      solutions: (opp.solutions ?? []).map((sol) =>
+        typeof sol === "string"
+          ? newSolution(sol)
+          : { id: sol.id ?? uid("sol"), text: sol.text, assumptions: [] },
+      ),
     })) as OstOpportunity[];
   }
 

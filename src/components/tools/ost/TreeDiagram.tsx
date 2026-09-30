@@ -11,13 +11,13 @@
 import { useEffect, useRef, useState } from "react";
 import Tree from "react-d3-tree";
 import type { CustomNodeElementProps, RawNodeDatum } from "react-d3-tree";
-import { Flag, Compass, Lightbulb, Target, FlaskConical } from "lucide-react";
+import { Flag, Compass, Lightbulb, Target, FlaskConical, Brain } from "lucide-react";
 
 export type TreeDirection = "top-down" | "left-right" | "right-left";
 
 interface DiagramOpportunity {
   text: string;
-  solutions: { id: string; text: string; experiments: { id: string; text: string }[] }[];
+  solutions: { id: string; text: string; assumptions: { id: string; text: string; experiments: { id: string; text: string }[] }[] }[];
   target: boolean;
 }
 
@@ -33,6 +33,7 @@ const NODE_KIND_ICON = {
   outcome: Flag,
   opportunity: Compass,
   solution: Lightbulb,
+  assumption: Brain,
   experiment: FlaskConical,
 } as const;
 
@@ -56,9 +57,13 @@ const toRawData = (outcome: string, opportunities: DiagramOpportunity[]): RawNod
     children: opp.solutions.map((sol) => ({
       name: sol.text,
       attributes: { kind: "solution" },
-      children: sol.experiments.map((experiment) => ({
-        name: experiment.text,
-        attributes: { kind: "experiment" },
+      children: sol.assumptions.map((assumption) => ({
+        name: assumption.text,
+        attributes: { kind: "assumption" },
+        children: assumption.experiments.map((experiment) => ({
+          name: experiment.text,
+          attributes: { kind: "experiment" },
+        })),
       })),
     })),
   })),

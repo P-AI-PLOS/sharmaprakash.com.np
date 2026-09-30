@@ -18,6 +18,7 @@ import {
   createTree,
   deleteTree,
   listTrees,
+  newAssumption,
   newOpportunity,
   newExperiment,
   newSolution,
@@ -43,7 +44,7 @@ interface TreeBuilderProps {
   showDashboard?: boolean;
 }
 
-// Same icon language as the tree diagram: 🚩 outcome, 🧭 opportunity, 🎯 target opportunity, 💡 solution, 🧪 experiment.
+// The Markdown uses explicit node names so exports remain clear without emoji support.
 const toMarkdown = (tree: OstTree): string => {
   const lines = [
     `# Opportunity solution tree`,
@@ -55,7 +56,8 @@ const toMarkdown = (tree: OstTree): string => {
     `- **Opportunity**: A customer need, pain, or desire that may contribute to the outcome.`,
     `- **Target opportunity**: The opportunity currently selected for focused work.`,
     `- **Solution**: A product idea intended to address its parent opportunity.`,
-    `- **Experiment**: A test or activity to learn whether a solution is worth pursuing.`,
+    `- **Assumption**: A belief about why a solution may work, stated so it can be tested.`,
+    `- **Experiment**: A test designed to gather evidence about a specific assumption.`,
     ``,
     `## Tree`,
   ];
@@ -63,7 +65,10 @@ const toMarkdown = (tree: OstTree): string => {
     lines.push(`- ${opp.target ? "**Target opportunity**" : "**Opportunity**"}: ${opp.text}`);
     opp.solutions.forEach((sol) => {
       lines.push(`  - **Solution**: ${sol.text}`);
-      sol.experiments.forEach((experiment) => lines.push(`    - **Experiment**: ${experiment.text}`));
+      sol.assumptions.forEach((assumption) => {
+        lines.push(`    - **Assumption**: ${assumption.text}`);
+        assumption.experiments.forEach((experiment) => lines.push(`      - **Experiment**: ${experiment.text}`));
+      });
     });
   });
   return lines.join("\n");
@@ -84,6 +89,7 @@ export default function TreeBuilder({
   const [records, setRecords] = useState<OstRecord[]>([]);
   const [oppDraft, setOppDraft] = useState("");
   const [solDrafts, setSolDrafts] = useState<Record<number, string>>({});
+  const [assumptionDrafts, setAssumptionDrafts] = useState<Record<string, string>>({});
   const [experimentDrafts, setExperimentDrafts] = useState<Record<string, string>>({});
   const [copied, setCopied] = useState(false);
   const [direction, setDirection] = useState<TreeDirection>("top-down");
@@ -188,14 +194,30 @@ export default function TreeBuilder({
     setSolDrafts((d) => ({ ...d, [i]: "" }));
   };
 
-  const addExperiment = (opportunityIndex: number, solutionId: string) => {
-    const text = (experimentDrafts[solutionId] ?? "").trim();
+  const addAssumption = (opportunityIndex: number, solutionId: string) => {
+    const text = (assumptionDrafts[solutionId] ?? "").trim();
     if (!text) return;
     setTree((t) => ({
       ...t,
       opportunities: t.opportunities.map((opportunity, index) => index === opportunityIndex
         ? { ...opportunity, solutions: opportunity.solutions.map((solution) => solution.id === solutionId
-          ? { ...solution, experiments: [...solution.experiments, newExperiment(text)] }
+          ? { ...solution, assumptions: [...solution.assumptions, newAssumption(text)] }
+          : solution) }
+        : opportunity),
+    }));
+    setAssumptionDrafts((drafts) => ({ ...drafts, [solutionId]: "" }));
+  };
+
+  const addExperiment = (opportunityIndex: number, solutionId: string, assumptionId: string) => {
+    const text = (experimentDrafts[assumptionId] ?? "").trim();
+    if (!text) return;
+    setTree((t) => ({
+      ...t,
+      opportunities: t.opportunities.map((opportunity, index) => index === opportunityIndex
+        ? { ...opportunity, solutions: opportunity.solutions.map((solution) => solution.id === solutionId
+          ? { ...solution, assumptions: solution.assumptions.map((assumption) => assumption.id === assumptionId
+            ? { ...assumption, experiments: [...assumption.experiments, newExperiment(text)] }
+            : assumption) }
           : solution) }
         : opportunity),
     }));
@@ -212,18 +234,38 @@ export default function TreeBuilder({
       : opportunity) }));
   };
 
-  const editExperiment = (i: number, solutionId: string, experimentId: string, text: string) => {
+  const editAssumption = (i: number, solutionId: string, assumptionId: string, text: string) => {
     setTree((t) => ({ ...t, opportunities: t.opportunities.map((opportunity, index) => index === i
       ? { ...opportunity, solutions: opportunity.solutions.map((solution) => solution.id === solutionId
-        ? { ...solution, experiments: solution.experiments.map((experiment) => experiment.id === experimentId ? { ...experiment, text } : experiment) }
+        ? { ...solution, assumptions: solution.assumptions.map((assumption) => assumption.id === assumptionId ? { ...assumption, text } : assumption) }
         : solution) }
       : opportunity) }));
   };
 
-  const removeExperiment = (i: number, solutionId: string, experimentId: string) => {
+  const editExperiment = (i: number, solutionId: string, assumptionId: string, experimentId: string, text: string) => {
     setTree((t) => ({ ...t, opportunities: t.opportunities.map((opportunity, index) => index === i
       ? { ...opportunity, solutions: opportunity.solutions.map((solution) => solution.id === solutionId
-        ? { ...solution, experiments: solution.experiments.filter((experiment) => experiment.id !== experimentId) }
+        ? { ...solution, assumptions: solution.assumptions.map((assumption) => assumption.id === assumptionId
+          ? { ...assumption, experiments: assumption.experiments.map((experiment) => experiment.id === experimentId ? { ...experiment, text } : experiment) }
+          : assumption) }
+        : solution) }
+      : opportunity) }));
+  };
+
+  const removeAssumption = (i: number, solutionId: string, assumptionId: string) => {
+    setTree((t) => ({ ...t, opportunities: t.opportunities.map((opportunity, index) => index === i
+      ? { ...opportunity, solutions: opportunity.solutions.map((solution) => solution.id === solutionId
+        ? { ...solution, assumptions: solution.assumptions.filter((assumption) => assumption.id !== assumptionId) }
+        : solution) }
+      : opportunity) }));
+  };
+
+  const removeExperiment = (i: number, solutionId: string, assumptionId: string, experimentId: string) => {
+    setTree((t) => ({ ...t, opportunities: t.opportunities.map((opportunity, index) => index === i
+      ? { ...opportunity, solutions: opportunity.solutions.map((solution) => solution.id === solutionId
+        ? { ...solution, assumptions: solution.assumptions.map((assumption) => assumption.id === assumptionId
+          ? { ...assumption, experiments: assumption.experiments.filter((experiment) => experiment.id !== experimentId) }
+          : assumption) }
         : solution) }
       : opportunity) }));
   };
@@ -355,16 +397,29 @@ export default function TreeBuilder({
                       Remove
                     </button>
                     </div>
-                    {sol.experiments.map((experiment) => (
-                      <div key={experiment.id} className="flex items-center gap-2 pl-5">
-                        <span aria-hidden="true">🧪</span>
-                        <input aria-label="Experiment" value={experiment.text} onChange={(e) => editExperiment(i, sol.id, experiment.id, e.target.value)} className="min-w-0 flex-1 border-0 bg-transparent p-0 text-caption text-muted focus:outline-none focus:ring-1 focus:ring-accent-600" />
-                        <button type="button" onClick={() => removeExperiment(i, sol.id, experiment.id)} aria-label={`Remove experiment: ${experiment.text}`} className="shrink-0 text-caption text-faint link-underline">Remove</button>
+                    {sol.assumptions.map((assumption) => (
+                      <div key={assumption.id} className="grid gap-2 border-l-2 border-accent-200 pl-3">
+                        <div className="flex items-center gap-2">
+                          <span aria-hidden="true">🧠</span>
+                          <input aria-label="Assumption" value={assumption.text} onChange={(e) => editAssumption(i, sol.id, assumption.id, e.target.value)} className="min-w-0 flex-1 border-0 bg-transparent p-0 text-caption font-medium text-strong focus:outline-none focus:ring-1 focus:ring-accent-600" />
+                          <button type="button" onClick={() => removeAssumption(i, sol.id, assumption.id)} aria-label={`Remove assumption: ${assumption.text}`} className="shrink-0 text-caption text-faint link-underline">Remove</button>
+                        </div>
+                        {assumption.experiments.map((experiment) => (
+                          <div key={experiment.id} className="flex items-center gap-2 pl-5">
+                            <span aria-hidden="true">🧪</span>
+                            <input aria-label="Experiment" value={experiment.text} onChange={(e) => editExperiment(i, sol.id, assumption.id, experiment.id, e.target.value)} className="min-w-0 flex-1 border-0 bg-transparent p-0 text-caption text-muted focus:outline-none focus:ring-1 focus:ring-accent-600" />
+                            <button type="button" onClick={() => removeExperiment(i, sol.id, assumption.id, experiment.id)} aria-label={`Remove experiment: ${experiment.text}`} className="shrink-0 text-caption text-faint link-underline">Remove</button>
+                          </div>
+                        ))}
+                        <div className="flex gap-2 pl-5">
+                          <input type="text" value={experimentDrafts[assumption.id] ?? ""} placeholder="Add an experiment for this assumption…" aria-label="Add experiment" onChange={(e) => setExperimentDrafts((drafts) => ({ ...drafts, [assumption.id]: e.target.value }))} onKeyDown={(e) => e.key === "Enter" && addExperiment(i, sol.id, assumption.id)} className={inputClass} />
+                          <button type="button" onClick={() => addExperiment(i, sol.id, assumption.id)} className="btn btn-secondary shrink-0 !py-2">Add experiment</button>
+                        </div>
                       </div>
                     ))}
                     <div className="flex gap-2 pl-5">
-                      <input type="text" value={experimentDrafts[sol.id] ?? ""} placeholder="Add an experiment…" aria-label="Add experiment" onChange={(e) => setExperimentDrafts((drafts) => ({ ...drafts, [sol.id]: e.target.value }))} onKeyDown={(e) => e.key === "Enter" && addExperiment(i, sol.id)} className={inputClass} />
-                      <button type="button" onClick={() => addExperiment(i, sol.id)} className="btn btn-secondary shrink-0 !py-2">Add</button>
+                      <input type="text" value={assumptionDrafts[sol.id] ?? ""} placeholder="Add an assumption about why this solution will work…" aria-label="Add assumption" onChange={(e) => setAssumptionDrafts((drafts) => ({ ...drafts, [sol.id]: e.target.value }))} onKeyDown={(e) => e.key === "Enter" && addAssumption(i, sol.id)} className={inputClass} />
+                      <button type="button" onClick={() => addAssumption(i, sol.id)} className="btn btn-secondary shrink-0 !py-2">Add assumption</button>
                     </div>
                   </li>
                 ))}
