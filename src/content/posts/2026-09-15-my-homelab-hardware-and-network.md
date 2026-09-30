@@ -26,11 +26,11 @@ This is the first article in a series about building and operating my home infra
 
 [![My homelab topology: Talokan with 96 GB and Shuri with 64 GB of dual-channel memory, alongside UniFi networking, Asgard, Knowhere, Vyas and Titan.](/images/blog/building-my-homelab/network.svg)](/images/blog/building-my-homelab/network.svg)
 
-You can click either diagram in this article to enlarge it, then press Escape to carry on reading. Amber cables are 1 Gbps, teal cables are 2.5 Gbps and blue cables are 10 Gbps. Asgard and Knowhere share the `marvel-cosmos` box, with Talokan's `vibranium` pool beside them. The right-hand column separates Wi-Fi access points from Trusted clients: Titan connects through a Trusted SSID, and its AP may vary. The table below separates VLAN membership from physical cabling.
+The diagrams are clickable if you want to zoom in; press Escape to return. Cable colors show link speed: amber for 1 Gbps, teal for 2.5 Gbps and blue for 10 Gbps. The main distinction I want to make visible is that the Intel hosts share one XCP-ng pool, Talokan is in its own AMD pool, and Titan connects over Trusted Wi-Fi rather than joining either pool.
 
 Internet access comes through a WorldLink CPE into a UniFi Dream Router 7. The UDR7 handles routing between the home networks and also provides Wi-Fi on 2.4, 5 and 6 GHz. Its SFP+ connection to the USW Enterprise 8 PoE runs at 10 Gbps.
 
-The Enterprise switch serves the household side, including two separate access points: the Ground Floor U6 LR, named `sanctuary`, and the Prabin Floor AC Pro, named `quinjet`. These are their live UniFi names, with gigabit uplinks on ports 4 and 7 respectively. Both provide 2.4 and 5 GHz coverage. The guest SSID is assigned to the ground-floor AP but is currently disabled. The Prabin Floor AP uses the model code `U7PG2`; despite the code, it is a Wi-Fi 5 device.
+The Enterprise switch serves the household side through two access points: `sanctuary` on the ground floor and `quinjet` on the Prabin floor. Both provide 2.4 and 5 GHz coverage over gigabit uplinks. I keep them on the managed switch with the household networks, separate from the server connections.
 
 ## The small machines doing the work
 
@@ -49,17 +49,17 @@ An SR is XCP-ng's storage repository: the place it keeps virtual disks. The two 
 
 Knowhere runs Quill and Factory. Asgard runs Heimdall, which looks after DNS, the reverse proxy and monitoring. Cosmo runs on Vyas VMM and hosts applications and LiteLLM. Talokan carries the primary build VM, runners and several infrastructure guests; Shuri runs GPU workloads directly alongside its Incus guests.
 
-Both Minisforum machines have channels A and B populated, and firmware reports 5600 MT/s on all four DIMMs. Together they provide 160 GB of installed RAM. Xen sees about 93.8 GiB on Talokan and Linux sees about 59.6 GiB on Shuri after reserved memory. Talokan's SSH command `free -m` shows only the small management domain; `xl info` reports the whole host. Existing guest limits remain separate from installed capacity.
+I put 96 GB in Talokan because it carries my XCP-ng guests. Shuri's 64 GB has to serve Ubuntu, the Radeon 780M, games, inference and Incus together. Across both machines that's 160 GB installed, but it isn't one shared pool: each host has its own work, reservations and VM limits.
 
 The names make daily operations easier to follow. “Heimdall's DNS is unavailable” tells me considerably more than “one of the Debian VMs is having a problem.” But a name is only useful when I also know its host, address, storage and dependencies.
 
 ## Vyas keeps the data—and runs a few services too
 
-Vyas is a Synology RS1221+, a rackmount NAS with eight bays and four built-in 1GbE ports. Its four-disk RAID5 array provides **9.49 TiB of usable filesystem capacity** (10.43 TB) on `/volume1`, verified on September 27, 2026. This is total capacity, not remaining free space. Approximately 1 TiB of pool space remains unallocated and is excluded; the former `/volume2` backup volume is no longer mounted.
+Vyas is a Synology RS1221+, a rackmount NAS with eight bays and four built-in 1GbE ports. Its four-disk RAID5 array gives me **9.49 TiB of usable filesystem capacity** (10.43 TB) on `/volume1`. That's the volume's total capacity, not its free space; about 1 TiB in the storage pool remains unallocated.
 
 The NAS provides shared files, media storage and the `vyas-xcpng` NFS repository. It also hosts VMM guests, which makes it part of their runtime path, not merely somewhere they write backups at night.
 
-Vyas runs Jellyfin and Xen Orchestra, along with the Cosmo, Friday and Edith VMM guests. Cosmo hosts applications and LiteLLM; Friday and Edith handle agent workloads. The primary amd64 build machine runs on Talokan, as does Mantis for Elasticsearch.
+Vyas does more than store files. It runs Jellyfin and Xen Orchestra, and hosts the VMM guests Cosmo, Friday and Edith. Cosmo serves my applications and LiteLLM; Friday and Edith take the agent workloads. I keep the primary amd64 builder and Mantis for Elasticsearch on Talokan.
 
 Backups stored on Vyas share the NAS failure domain with its primary data. They provide a local recovery tier, but protection against losing the entire NAS requires a separate copy.
 
@@ -67,7 +67,7 @@ Backups stored on Vyas share the NAS failure domain with its primary data. They 
 
 There is also a 2018 Intel MacBook Pro running in clamshell mode, named `titan`. It has six cores, twelve threads, 16 GB of RAM and an approximately 250 GB SSD. It sits on Trusted Wi-Fi, VLAN 20, at `192.168.20.10`, outside the XCP-ng pool. The diagram shows its wireless network membership without tying it to a particular access point.
 
-Titan runs a small Colima environment limited to two virtual CPUs, 4 GiB of memory and a 60 GiB disk. Inside are three lightweight test services: `titan-status`, `titan-homepage` and `titan-dozzle`. They listen only on the Mac's loopback interface, so these are local utility checks rather than replacement public dashboards for the lab. A native Beszel agent reports host and container metrics.
+I use Titan for small macOS utilities, not as another always-on server. Its Colima environment has modest CPU, memory and disk limits; the status, Homepage and Dozzle test services listen only on the Mac itself. Beszel gives me a view of the host and containers without turning those local checks into public dashboards.
 
 SSH and Screen Sharing provide remote administration. AirPlay is available while a graphical session is logged in; it is not something I can depend on at the login window after a reboot.
 
@@ -77,11 +77,11 @@ The Mac has a useful role, but it is deliberately a light one. Sustained load ca
 
 The server network is VLAN 10, using `192.168.10.0/26`. Vyas connects to port 2 of the USW-24-G2, Knowhere to port 4 and Asgard to port 23. Port 24 uplinks to Enterprise port 5. These are gigabit paths with VLAN 10 tagged. The USW-24-G2 is online and pending retirement when its replacement connections are accepted.
 
-The NAS network path is independent of Asgard's Open vSwitch forwarding. Shuri is wired to UDR7 port 2 and Talokan to port 3, both at 2.5 Gbps. UniFi's live client MAC mappings establish these connections.
+I wanted the NAS path to keep working when Asgard is down, so Vyas no longer depends on Asgard's Open vSwitch forwarding. Shuri and Talokan connect directly to the UDR7 at 2.5 Gbps; the switch and host roles are easier to reason about when storage traffic doesn't pass through a compute machine.
 
-A trunk carries several VLANs over one cable, with a tag identifying each network. Vyas and the Intel hosts use tagged VLAN 10. On the two UDR7 server ports, untagged traffic joins VLAN 10 directly. Wi-Fi clients select a network through their SSID: Trusted is VLAN 20, Family 30, IoT 40 and Cameras 45. The UDR7 firewall decides which traffic can cross between those networks.
+A VLAN lets me keep device groups separate while sharing the physical network. Servers use VLAN 10, while Trusted, Family, IoT and Cameras use VLANs 20, 30, 40 and 45. The UDR7 applies the rules between them; Wi-Fi devices join the appropriate network through their SSID.
 
-Before maintenance, I check which guests and services depend on the host. More RAM gives me room for workloads, while switches, DNS and shared storage still determine whether those workloads can reach each other.
+Before I take a host down, I check what depends on it. Extra memory gives me more choices about where workloads live, but it does not remove their reliance on DNS, switches or shared storage.
 
 ## Reaching my services when I'm away from home
 
@@ -95,8 +95,6 @@ There are still several ways for that access to break: Vyas, the internet connec
 
 ## Dividing the work
 
-Talokan's 96 GB gives the XCP-ng guests room to grow. Shuri's 64 GB serves Ubuntu, the Radeon 780M, gaming, inference and Incus. Dual-channel memory is already configured by the hardware; allocating more RAM to a VM or service is a separate workload decision.
-
-The useful part is having explicit roles and budgets. A build can consume its VM allocation while the inference service keeps its own limit, and neither needs every byte of installed memory assigned in advance.
+I keep VM and service limits explicit. That lets a build use its budget without treating all of Talokan as available, and keeps Shuri's inference workload from crowding out the OS, games or Incus guests.
 
 In the next part, I'll walk through the 10G backbone, the 2.5G host connections and how the two Minisforum hosts fit that network. Capacity, connectivity and recovery each need their own checks.
