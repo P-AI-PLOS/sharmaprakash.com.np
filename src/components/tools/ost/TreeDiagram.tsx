@@ -81,7 +81,7 @@ function DiagramNode({ nodeDatum, mirrored }: CustomNodeElementProps & { mirrore
     <foreignObject x={-width / 2} y={-height / 2} width={width} height={height} style={{ overflow: "visible" }}>
       <div
         style={mirrored ? { transform: "scaleX(-1)" } : undefined}
-        className={`relative flex h-full items-start gap-2 rounded-lg border p-3 text-caption leading-snug shadow-sm ${style.card}`}
+        className={`relative flex min-h-[84px] h-auto items-start gap-2 rounded-lg border p-3 text-caption leading-snug shadow-sm ${style.card}`}
       >
         {isTarget && (
           <span className="absolute -right-2 -top-2 flex items-center gap-1 rounded-full border border-accent-600 bg-accent-600 px-1.5 py-0.5 text-[10px] font-semibold leading-none text-white shadow-sm">
@@ -90,7 +90,7 @@ function DiagramNode({ nodeDatum, mirrored }: CustomNodeElementProps & { mirrore
           </span>
         )}
         <KindIcon size={16} strokeWidth={2} className={`mt-0.5 shrink-0 ${style.icon}`} aria-hidden="true" />
-        <span className="line-clamp-3 font-medium">{nodeDatum.name}</span>
+        <span className="whitespace-normal break-words font-medium">{nodeDatum.name}</span>
       </div>
     </foreignObject>
   );
