@@ -221,7 +221,7 @@ export default function TreeBuilder({
           : solution) }
         : opportunity),
     }));
-    setExperimentDrafts((drafts) => ({ ...drafts, [solutionId]: "" }));
+    setExperimentDrafts((drafts) => ({ ...drafts, [assumptionId]: "" }));
   };
 
   const editOpportunity = (i: number, text: string) => {
