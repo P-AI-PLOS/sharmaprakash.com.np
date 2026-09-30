@@ -45,12 +45,25 @@ interface TreeBuilderProps {
 
 // Same icon language as the tree diagram: 🚩 outcome, 🧭 opportunity, 🎯 target opportunity, 💡 solution, 🧪 experiment.
 const toMarkdown = (tree: OstTree): string => {
-  const lines = [`# Opportunity solution tree`, ``, `**Outcome:** 🚩 ${tree.outcome || "(not set)"}`, ``];
+  const lines = [
+    `# Opportunity solution tree`,
+    ``,
+    `## Outcome`,
+    tree.outcome || "(not set)",
+    ``,
+    `## Legend`,
+    `- **Opportunity**: A customer need, pain, or desire that may contribute to the outcome.`,
+    `- **Target opportunity**: The opportunity currently selected for focused work.`,
+    `- **Solution**: A product idea intended to address its parent opportunity.`,
+    `- **Experiment**: A test or activity to learn whether a solution is worth pursuing.`,
+    ``,
+    `## Tree`,
+  ];
   tree.opportunities.forEach((opp) => {
-    lines.push(`- ${opp.target ? "🎯 " : "🧭 "}${opp.text}`);
+    lines.push(`- ${opp.target ? "**Target opportunity**" : "**Opportunity**"}: ${opp.text}`);
     opp.solutions.forEach((sol) => {
-      lines.push(`  - 💡 ${sol.text}`);
-      sol.experiments.forEach((experiment) => lines.push(`    - 🧪 ${experiment.text}`));
+      lines.push(`  - **Solution**: ${sol.text}`);
+      sol.experiments.forEach((experiment) => lines.push(`    - **Experiment**: ${experiment.text}`));
     });
   });
   return lines.join("\n");
