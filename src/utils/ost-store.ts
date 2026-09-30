@@ -22,6 +22,12 @@ import {
 export interface OstSolution {
   id: string;
   text: string;
+  experiments: OstExperiment[];
+}
+
+export interface OstExperiment {
+  id: string;
+  text: string;
 }
 
 export interface OstOpportunity {
@@ -51,7 +57,9 @@ const LEGACY_TREE_KEY = "ost-tree-builder";
 
 export const EMPTY_TREE: OstTree = { outcome: "", opportunities: [] };
 
-export const newSolution = (text: string): OstSolution => ({ id: uid("sol"), text });
+export const newExperiment = (text: string): OstExperiment => ({ id: uid("exp"), text });
+
+export const newSolution = (text: string): OstSolution => ({ id: uid("sol"), text, experiments: [] });
 
 export const newOpportunity = (text: string): OstOpportunity => ({
   id: uid("opp"),
@@ -141,9 +149,18 @@ const backfillIds = (store: Record<string, OstRecord>): Record<string, OstRecord
       ...opp,
       id: opp.id ?? uid("opp"),
       target: Boolean(opp.target),
-      solutions: (opp.solutions ?? []).map((sol) =>
-        typeof sol === "string" ? newSolution(sol) : { ...sol, id: sol.id ?? uid("sol") },
-      ),
+      solutions: (opp.solutions ?? []).map((sol) => {
+        if (typeof sol === "string") return newSolution(sol);
+        const legacySolution = sol as OstSolution;
+        return {
+          ...legacySolution,
+          id: legacySolution.id ?? uid("sol"),
+          experiments: (legacySolution.experiments ?? []).map((experiment) => ({
+            ...experiment,
+            id: experiment.id ?? uid("exp"),
+          })),
+        };
+      }),
     })) as OstOpportunity[];
   }
 
