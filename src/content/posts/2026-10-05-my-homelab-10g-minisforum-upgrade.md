@@ -119,3 +119,7 @@ The next measurements are the ones agents actually feel: disk throughput on Vyas
 An AI shed doesn't need to be one big machine. Mine is a few small, always-on hosts that share fast storage behind one Tailscale entry point. The 10G link goes where traffic converges, on the NAS. The 2.5G links go to the hosts doing the work, and the slower machines keep their roles.
 
 I want to be able to say where each agent runs, how its data moves, and what happens when one piece is unavailable. The diagram and the measurements above are how I check that.
+
+## Coming next in this series
+
+Next, I'll add a Minisforum DEG1 dock with a discrete graphics card to the shed for local LLMs, and compare it with the Radeon 780M that Shuri uses today. After that, I'll show how my software factories run inside these VMs: where each agent lives, how tasks reach it, and how its work turns into commits.
