@@ -1,122 +1,121 @@
 ---
-title: "Planning a Multigig Homelab: 10G Networking and 160 GB Across Two Minisforum Hosts"
+title: "Building My AI Shed: A 10G Server Backbone and 160 GB Across Two Minisforum Hosts"
 date: "2026-10-15T18:00:00+05:45"
 directory: homelab
 category: ["Homelab"]
 categories: ["technical"]
-tags: ["homelab", "10GbE", "2.5GbE", "Minisforum", "XCP-ng", "Synology"]
-excerpt: "The multigig upgrade I'm planning for my homelab: a dedicated 10G server backbone, 2.5G compute links, and clearer roles for two Minisforum hosts."
+tags: ["homelab", "10GbE", "2.5GbE", "Minisforum", "XCP-ng", "Synology", "AI agents", "Tailscale"]
+excerpt: "Why I moved my homelab to a 10G server backbone: an always-on AI shed on my tailnet, where agents, builders and local models share fast storage. Includes measured throughput."
 series: building-my-homelab
 seriesOrder: 2
-cover: "/images/blog/building-my-homelab/upgrade.png"
-thumb: "/images/blog/building-my-homelab/upgrade.png"
+cover: "/images/blog/building-my-homelab/ai-shed-10g.png"
+thumb: "/images/blog/building-my-homelab/ai-shed-10g.png"
 use_featured_image: true
 draft: false
 comments: true
 share: true
 ---
 
-In [the first part of this series](/homelab/my-homelab-hardware-and-network/), the most interesting line in the network diagram ran through Asgard. That small XCP-ng host does two jobs: runs virtual machines and forwards traffic for the NAS and Knowhere. I want to take the forwarding job away from a machine that I also need to maintain as a hypervisor.
+DHH put the idea in one line:
 
-The upgrade I'm planning gives those connections a dedicated switch. Talokan and Shuri are the natural endpoints for faster compute links: Talokan runs my XCP-ng guests, while Shuri stays on Ubuntu for gaming and local AI. Each already has a 2 TB SSD.
+> Every developer needs an AI shed: An always-on machine running on their tailscale network where the majority of their herdr agents are running.
+>
+> — [DHH (@dhh)](https://x.com/dhh/status/2106755814421565495)
 
-As of September 30, 2026, the switch cutover, Vyas's 10G adapter and interconnect, and acceptance of the new host links are not verified as complete. The rates below describe the intended layout, not measured throughput.
+That is the reason for this upgrade. My coding and assistant agents should not live on the laptop I close at night. They should run on machines that stay on, reach shared storage quickly, and are available from anywhere on my Tailscale network.
 
-I don't need every device to run at 10G. The goal is a mixed-speed network: 10G where traffic converges, 2.5G to the newer compute hosts, and 1G where the existing hardware still calls for it.
+In [the first part of this series](/homelab/my-homelab-hardware-and-network/), the most interesting line in the network diagram ran through Asgard: a small XCP-ng host that also forwarded traffic for the NAS and Knowhere. That was fine for media and a few services. It was the wrong shape for an AI shed, where agents, builders and CI runners all hit storage at once.
 
-## The topology I want to build
+The shed is now built: a dedicated server switch, a 10G link into the NAS, two Minisforum hosts with 160 GB of memory between them, and a 40G USB4 link joining those two hosts.
 
-[![Homelab upgrade: UDR7 and Vyas connect through TEG-S562 at 10G; standalone Shuri, Talokan in vibranium, and Asgard in marvel-cosmos connect at 2.5G, with Knowhere at 1G. Quinjet and Sanctuary sit above Titan on Trusted VLAN 20.](/images/blog/building-my-homelab/upgrade.svg)](/images/blog/building-my-homelab/upgrade.svg)
+## What runs in the shed
 
-I plan to use the TRENDnet TEG-S562 for the server connections. Its two SFP+ ports would serve the UDR7 uplink and Vyas, while its four copper ports would connect Asgard, Knowhere, the UM760 Slim and the UM880 Plus.
+The agents are spread across several always-on hosts instead of one large machine:
 
-In the diagram, I separate the planned server links from the managed household network. The TEG-S562 would carry untagged Servers VLAN 10 traffic; the Enterprise switch would continue to handle household trunks and access points. Quinjet and Sanctuary stay on Enterprise ports 7 and 4, and Titan remains on Wi-Fi without a fixed AP association.
+| Host | Agent-facing work |
+|---|---|
+| talokan (UM760 Slim, 96 GB) | Research and discovery agent factories, a personal assistant agent, an OpenShell sandbox for untrusted agent runs, the image builder and CI runners |
+| shuri (UM880 Plus, 64 GB) | Local inference on the Radeon 780M through llama.cpp, plus a K3s CI worker in Incus |
+| knowhere | The dispatcher that hands tasks to agents |
+| vyas (Synology RS1221+) | Shared storage, backups, a project-agent VM, and the Tailscale subnet router |
+
+Vyas advertises the server network to my tailnet, so each of these machines is reachable from my phone or laptop without opening a port to the internet. That covers the "on their tailscale network" half of DHH's definition. The "always-on" half is why the agent guests are set to start with their hosts.
+
+## The network as built
+
+[![Homelab as built: Enterprise switch port 10 connects to the TEG-S562 at 10G optical; Vyas connects at 10G SFP+; Shuri, Talokan and Asgard connect at 2.5G and Knowhere at 1G; Shuri and Talokan also share a USB4 host link. UDR7 to Enterprise is a 2.5G trunk.](/images/blog/building-my-homelab/ai-shed-10g.svg)](/images/blog/building-my-homelab/ai-shed-10g.svg)
+
+The TRENDnet TEG-S562 is the shed's switch. It is unmanaged and carries only the Servers network (VLAN 10), untagged. One SFP+ port takes a 10G optical uplink from the managed UniFi Enterprise switch; the other connects Vyas's 10GbE card. The four copper ports connect the compute hosts.
 
 | Connection | Link rate | Job |
 |---|---|---|
-| UDR7 → TEG-S562 | 10 Gbps | Server-network uplink |
-| TEG-S562 → Vyas | 10 Gbps | Shared storage and NAS traffic |
-| TEG-S562 → talokan (UM760 Slim) | 2.5 Gbps | AMD XCP-ng host |
-| TEG-S562 → shuri (UM880 Plus) | 2.5 Gbps | Ubuntu gaming / AI / Incus host |
-| TEG-S562 → Asgard | 2.5 Gbps | Existing Intel compute host |
-| TEG-S562 → Knowhere | 1 Gbps | Existing Intel compute host |
-| UDR7 → Enterprise 8 PoE | 2.5 Gbps | Household, AP and PoE network |
-| Enterprise 8 PoE → sanctuary (Ground Floor U6 LR) | 1 Gbps maximum | AP Ethernet uplink |
-| Enterprise 8 PoE → quinjet (Prabin Floor AC Pro) | 1 Gbps maximum | AP Ethernet uplink |
+| Enterprise port 10 → TEG-S562 | 10 Gbps optical | Server-network uplink |
+| TEG-S562 → Vyas | 10 Gbps SFP+ | Shared storage, NFS VM storage, backups |
+| TEG-S562 → talokan | 2.5 Gbps | AMD XCP-ng host for agent VMs |
+| TEG-S562 → shuri | 2.5 Gbps | Ubuntu host for local inference and CI |
+| TEG-S562 → asgard | 2.5 Gbps | Intel XCP-ng host |
+| TEG-S562 → knowhere | 1 Gbps | Intel XCP-ng host (gigabit NIC) |
+| shuri ↔ talokan | 40G USB4 | Direct host-to-host link |
+| UDR7 → Enterprise 8 PoE | 2.5 Gbps | Router trunk for every VLAN |
+| Enterprise → both access points | 1 Gbps maximum | AP uplinks |
 
-Both access points have gigabit Ethernet limits, as specified in Ubiquiti's
-[U6-LR](https://techspecs.ui.com/unifi/wifi/u6-lr) and
-[AC Pro](https://techspecs.ui.com/unifi/wifi/uap-ac-pro) documentation.
-The amber AP links in the diagram show those hardware limits, not a fresh
-measurement of their negotiated speed. Their Wi-Fi radio rates are separate.
+“10G” describes the backbone and the storage link, not every device. Knowhere's gigabit NIC stays a gigabit NIC on a multigig switch. The UDR7-to-Enterprise trunk is 2.5G, so anything that leaves the server network, including internet traffic and routing to other VLANs, is still limited to 2.5G. Traffic between servers stays inside the TRENDnet and never touches that trunk.
 
-Knowhere will remain a gigabit machine; plugging its gigabit NIC into a multigig switch won't make it a 2.5G NIC. The Minisforum hosts are intended to connect at 2.5G. “10G homelab” would describe the backbone and storage link, not every device.
+## Measured throughput
 
-I have the OM3 cable and matched SFP+ modules for the planned UDR7-to-switch fibre link. Vyas still needs a compatible 10G adapter and interconnect; its built-in ports are 1GbE. Both optical ports would be occupied in this layout.
+I tested the shed with iperf3 against Vyas, using four parallel streams per host. These are network numbers, memory to memory, with no disks involved.
+
+| Test (Gb/s) | shuri | talokan | asgard | knowhere | Total |
+|---|---:|---:|---:|---:|---:|
+| One host at a time, either direction | 2.35 | 2.35 | 2.35 | 0.94 | — |
+| All four at once, writing to Vyas | 2.35 | 2.35 | 2.35 | 0.94 | 7.99 |
+| All four at once, reading from Vyas | 1.54 | 1.37 | 2.08 | 0.81 | 5.80 |
+
+Every host reaches its own line rate. When writing to the NAS, Vyas took the full 8 Gb/s that these four hosts can send, with its CPU around 79% busy handling the traffic. I can't saturate 10G yet, because the senders add up to 8.5 Gb/s.
+
+Reading from the NAS is the weak spot. Four hosts at once stopped near 5.8 Gb/s while Vyas's CPU sat around 91% idle, so the processor is not the limit. My leading guess is the unmanaged switch dropping packets when 10G of traffic squeezes into 2.5G ports, but I haven't confirmed it.
+
+In practice, the disks will matter more. Vyas serves this cluster from four 5,400-rpm-class drives. My estimate, not yet measured, is roughly 3.5–5 Gb/s for large sequential reads from that array, and far lower for the random I/O of VM disks. A single 2.5G host can be fed in full, but several agents reading at once will likely hit the drives before they hit the network.
 
 ## Two small hosts, 160 GB of installed RAM
 
-The machines have different jobs, and both memory channels are populated:
-
 | Host hardware | Installed memory | Installed SSD | Network |
 |---|---|---|---|
-| talokan / Minisforum UM760 Slim | 96 GB DDR5-5600 (2 × 48 GB) | 2 TB | 2.5GbE |
-| shuri / Minisforum UM880 Plus | 64 GB DDR5-5600 (2 × 32 GB) | 2 TB | 2.5GbE |
+| talokan / Minisforum UM760 Slim | 96 GB DDR5-5600 (2 × 48 GB) | 2 TB | 2.5GbE + USB4 |
+| shuri / Minisforum UM880 Plus | 64 GB DDR5-5600 (2 × 32 GB) | 2 TB | 2.5GbE + USB4 |
 
-Together, they provide 160 GB of installed memory and 4 TB of nominal local SSD capacity. Talokan is the single-host `vibranium` XCP-ng pool; Shuri runs Ubuntu directly, with the Radeon 780M available to games and local inference, plus Incus guests. Each workload still has to fit its own host and resource limits.
+Agents are memory-hungry in a boring way: each one is a VM or container with a runtime, a checkout, language servers and a test suite. The older 12 GB and 16 GB Intel hosts filled up quickly with persistent services. Talokan's 96 GB lets each agent factory, builder and sandbox have its own VM with a clear budget. Shuri's 64 GB is shared between the integrated GPU and local models.
 
-I chose the 96 GB / 64 GB split because the older 12 GB and 16 GB hosts leave little room once persistent services are running. The added capacity gives me room to separate build jobs, applications and experiments into workloads with clear budgets. Installed memory isn't automatically available to every VM, and Shuri's workloads still share one host, so I won't move a service until its dependencies and limits make sense there.
+Installed memory isn't automatically available to every VM. Talokan deliberately overcommits CPU and memory for bursty guests, and each workload still has to fit its host.
 
 ## An AMD pool and a standalone Ubuntu host
 
-Talokan is the sole member of the AMD `vibranium` XCP-ng pool. Asgard and Knowhere belong to the Intel `marvel-cosmos` pool. Shuri sits outside both pools and runs Ubuntu on bare metal.
+Talokan is the sole member of the AMD `vibranium` XCP-ng pool. Asgard and Knowhere form the Intel `marvel-cosmos` pool. XCP-ng does not support mixing Intel and AMD hosts in one pool, so the split is a hardware boundary, not a preference. Matching hypervisors alone is not enough; hosts must also meet the [pool requirements](https://docs.xcp-ng.org/management/hosts-pools/).
 
-This split gives Talokan room for builders, runners and application VMs while Shuri keeps direct access to its integrated GPU. The Radeon 780M uses system memory, but I have not measured a before-and-after performance change from this configuration.
+Shuri sits outside both pools and runs Ubuntu on bare metal, which keeps the Radeon 780M directly available to games and local inference. Its Incus guests have their own management and lifecycle.
 
-I keep Talokan separate from the Intel pool because XCP-ng does not support mixing Intel and AMD hosts in one pool. Matching hypervisors alone is not enough; host configuration and software versions must also meet the [pool requirements](https://docs.xcp-ng.org/management/hosts-pools/).
-
-Xen Orchestra provides the management view across the XCP-ng pools. Moving a workload from the Intel machines to Talokan is a migration decision. Shuri's Incus guests have a separate management and lifecycle boundary.
-
-The local SSDs also remain local storage. A pool does not automatically mirror those disks or combine them into shared storage. Shared VM disks and backups need their own deliberate configuration.
+The USB4 cable between the two is a direct host-to-host route. Shuri uses the kernel's native Thunderbolt networking; Talokan passes its USB4 controller through to a small gateway VM.
 
 ## Keeping the unmanaged switch on one network
 
-Because the TEG-S562 is unmanaged, I plan to keep its role simple: the UDR7 connection would supply Servers VLAN 10 as the native network, and the switch would carry server traffic only.
+The TEG-S562 has no management interface, so its role stays simple. Enterprise port 10 sends Servers VLAN 10 as its native network and blocks tagged VLANs, which makes the TRENDnet a Servers-only access switch. Asgard and Knowhere keep VLAN 10 inside their Open vSwitch bridges and send untagged frames on the wire.
 
-The managed Enterprise switch continues to handle the household and wireless side, where multiple VLANs and PoE are useful. The two standalone APs stay there. The server switch is not the distribution point for the Trusted, Family, IoT, Cameras and Guest networks.
-
-The cutover would also change the host configuration. The current arrangement carries tagged VLAN 10 over the direct Asgard links; the planned Servers access layout uses untagged traffic on those physical connections. I need to change the host-side assumptions along with the cables.
+The managed Enterprise switch still handles the household side, where multiple VLANs and PoE matter. The Trusted, Family, IoT, Cameras and Guest networks never touch the server switch.
 
 ## Titan stays on the macOS side
 
-The clamshell MacBook Pro, `titan`, still has a place in the lab. It is a 2018 Intel machine with six cores, twelve threads, 16 GB of memory and an approximately 250 GB SSD. It stays on Trusted Wi-Fi, VLAN 20, at `192.168.20.10`; it is not a member of either XCP-ng pool and does not use a port on the TEG-S562.
+The clamshell 2018 MacBook Pro, `titan`, stays on Trusted Wi-Fi (VLAN 20). It is not a member of either XCP-ng pool and does not use a port on the TEG-S562. Its Colima environment is limited to two virtual CPUs, 4 GiB of RAM and a 60 GiB disk. It does light macOS utility work; agent workloads run on Talokan, and GPU workloads run on Shuri.
 
-Its Colima environment is limited to two virtual CPUs, 4 GiB of RAM and a 60 GiB disk. The local status, Homepage and Dozzle test services remain loopback-only, while native Beszel monitoring reports on the host and containers. SSH and Screen Sharing handle administration; AirPlay requires a logged-in graphical session.
+## What the shed does not solve
 
-The network upgrade does not turn Titan into a multigig wired server. Its role remains light macOS utility work, with heavier VM workloads on Talokan and GPU workloads on Shuri. That distinction is why the diagram puts it in its own Trusted Wi-Fi section rather than inside a compute-pool boundary.
+Vyas is still my storage anchor and Tailscale subnet router, and Heimdall still supplies `.home` DNS and the reverse proxy. A faster network doesn't remove those dependencies. If Vyas goes down, the shed loses its storage and its remote access at the same time.
 
-The AP layout also follows the house: `quinjet` is above `sanctuary`, which serves the ground floor. That ordering is a location reminder, not a claim that one AP forwards traffic through the other. Each has its own Ethernet uplink to the Enterprise switch.
+The NAS is also a shared failure domain. A backup on a second pool inside the same chassis is still inside the same chassis. Two compute hosts are not evidence of application failover either; nothing here has been tested for that.
 
-## What faster links actually buy
+The next measurements are the ones agents actually feel: disk throughput on Vyas, NFS copies from a single host, and how the shed recovers when one of its dependencies disappears.
 
-The arithmetic gives a useful ceiling. Before protocol overhead, 1 Gbps is 125 MB/s, 2.5 Gbps is 312.5 MB/s, and 10 Gbps is 1,250 MB/s. These are link-rate conversions, not benchmark results from my lab.
+## Why this shape
 
-A single transfer from a Minisforum host is still constrained by that host's 2.5G connection. The faster NAS connection is useful when several clients are active, and when another endpoint can actually use the larger pipe. Disk layout, file sizes, CPU work and the storage protocol still affect the result.
+An AI shed doesn't need to be one big machine. Mine is a few small, always-on hosts that share fast storage behind one Tailscale entry point. The 10G link goes where traffic converges, on the NAS. The 2.5G links go to the hosts doing the work, and the slower machines keep their roles.
 
-The dedicated switch should make maintenance simpler: Vyas and Knowhere would no longer need Asgard to forward their traffic. Taking Asgard down would still affect its VMs, but its forwarding bridge would no longer sit in the physical path between the NAS and the other host.
-
-That separation is the improvement I care about, even before measuring a file-copy speed.
-
-## What this upgrade does not solve
-
-Even after the cutover, Vyas would remain my storage anchor and Tailscale subnet router. Heimdall would still supply `.home` DNS and the reverse proxy. Faster Ethernet doesn't remove those dependencies.
-
-The NAS also remains a shared failure domain for the services and disks it holds. A backup on a second pool inside the same chassis is still inside the same chassis. And two compute hosts are not evidence that application failover has been configured or tested.
-
-Once the links are in place, I want to measure how quickly one host reaches shared storage, what happens when both hosts are busy, and how recovery behaves when a dependency disappears. Link speed, useful throughput and recovery answer different questions.
-
-## A better foundation for the next experiment
-
-If the plan works as intended, the lab will have a clearer shape: dedicated switching, a faster storage path, 96 GB for Talokan's XCP-ng guests and 64 GB for Shuri's Ubuntu workloads. The smaller Intel machines still have a place, and the household wireless network keeps its managed PoE switch.
-
-That is the standard I want for this upgrade. I want to be able to explain where a workload runs, how its data moves, and what happens when one piece is unavailable. The diagram helps me test whether the design makes those answers clear before I move the cables.
+I want to be able to say where each agent runs, how its data moves, and what happens when one piece is unavailable. The diagram and the measurements above are how I check that.

@@ -72,3 +72,9 @@ session; the label does not claim usable or free filesystem space.
 a black front panel and side vents. It is original family-style schematic artwork,
 not an exact model or port-layout drawing. Asgard and Knowhere retain the dark
 `mini-pc.svg` illustration. Both topology views embed the Minisforum asset.
+
+`ai-shed-10g.svg` is the as-built publication snapshot used by the part 2
+article, copied from the homelab repository's `docs/network/network.svg`;
+`ai-shed-10g.png` is rendered from it with `rsvg-convert -w 2640`. Refresh
+both together from that source. `upgrade.svg` and its renderer are the
+earlier planning view and are no longer referenced by an article.
