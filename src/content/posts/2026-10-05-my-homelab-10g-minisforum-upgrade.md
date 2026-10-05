@@ -1,6 +1,6 @@
 ---
 title: "Building My AI Shed: A 10G Server Backbone and 160 GB Across Two Minisforum Hosts"
-date: "2026-10-15T18:00:00+05:45"
+date: "2026-10-05T09:30:00+05:45"
 directory: homelab
 category: ["Homelab"]
 categories: ["technical"]
