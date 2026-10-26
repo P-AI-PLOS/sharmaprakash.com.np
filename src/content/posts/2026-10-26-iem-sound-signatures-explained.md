@@ -13,7 +13,7 @@ tags:
   - harman-target
 series: pocket-hi-fi
 seriesOrder: 1
-draft: true
+draft: false
 comments: true
 share: true
 ---

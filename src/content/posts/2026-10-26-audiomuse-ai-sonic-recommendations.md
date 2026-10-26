@@ -19,7 +19,7 @@ comments: true
 share: true
 series: homelab-music
 seriesOrder: 4
-draft: true
+draft: false
 ---
 
 The [field guide](/technical-notes/homelab-music-recommendations-field-guide/)

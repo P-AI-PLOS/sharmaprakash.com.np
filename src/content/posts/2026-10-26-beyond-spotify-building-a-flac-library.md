@@ -13,7 +13,7 @@ tags:
   - rockbox
 series: pocket-hi-fi
 seriesOrder: 7
-draft: true
+draft: false
 comments: true
 share: true
 ---

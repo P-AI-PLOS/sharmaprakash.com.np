@@ -16,7 +16,7 @@ tags:
 use_featured_image: false
 comments: true
 share: true
-draft: true
+draft: false
 series: homelab-music
 seriesOrder: 3
 ---

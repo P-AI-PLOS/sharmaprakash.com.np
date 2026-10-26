@@ -13,7 +13,7 @@ tags:
   - walkman
 series: pocket-hi-fi
 seriesOrder: 8
-draft: true
+draft: false
 comments: true
 share: true
 ---

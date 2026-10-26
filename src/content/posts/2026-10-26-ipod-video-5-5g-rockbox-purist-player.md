@@ -13,7 +13,7 @@ tags:
   - spotify
 series: pocket-hi-fi
 seriesOrder: 6
-draft: true
+draft: false
 comments: true
 share: true
 ---

@@ -19,7 +19,7 @@ comments: true
 share: true
 series: homelab-music
 seriesOrder: 5
-draft: true
+draft: false
 ---
 
 The earlier parts of this series built the inputs. The

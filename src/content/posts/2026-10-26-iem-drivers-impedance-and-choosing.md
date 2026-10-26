@@ -13,7 +13,7 @@ tags:
   - buying-guide
 series: pocket-hi-fi
 seriesOrder: 3
-draft: true
+draft: false
 comments: true
 share: true
 ---
