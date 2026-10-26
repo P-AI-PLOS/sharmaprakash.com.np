@@ -18,6 +18,8 @@ tags:
 use_featured_image: false
 comments: true
 share: true
+series: homelab-music
+seriesOrder: 1
 ---
 
 There is no single “music recommendation algorithm”. A useful system is a

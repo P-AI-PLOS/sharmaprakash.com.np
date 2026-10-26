@@ -38,6 +38,18 @@ export const seriesRegistry: Record<string, SeriesMeta> = {
       "Six practical explainers following a coding assistant from its first repository question to a shared local service: inference, memory budgets, PCIe topology, prompt caching, scheduling, and hardware placement.",
     cover: "/images/blog/ai/what-happens-when-you-send-an-ai-prompt.png",
   },
+  "homelab-music": {
+    title: "Homelab Music: Discovery on a Library You Own",
+    description:
+      "Building Spotify-style music discovery at home: the signals and trade-offs, track-aware scrobbling, sending every listen to ListenBrainz, sonic analysis with AudioMuse-AI, and using AI to make recommendations from your own history.",
+    cover: "/images/blog/building-my-homelab/network.png", // TODO: replace with a dedicated homelab-music cover
+  },
+  "pocket-hi-fi": {
+    title: "Pocket Hi-Fi: Sound Signatures, IEMs and the iPod",
+    description:
+      "An eight-part guide to purist portable listening: sound signatures, reading frequency-response graphs, IEM drivers and impedance, fit and eartips, DACs and players, the iPod Video 5.5G with Rockbox, building a FLAC library you own, and pairing IEMs with the iPod.",
+    cover: "/images/blog/building-my-homelab/network.png", // TODO: replace with a dedicated pocket-hi-fi cover
+  },
   "agent-ready-react": {
     title: "Agent-ready React",
     description:

@@ -15,6 +15,8 @@ tags:
 use_featured_image: false
 comments: true
 share: true
+series: homelab-music
+seriesOrder: 2
 ---
 
 Most music history systems assume that one playable item equals one song. That
