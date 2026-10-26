@@ -12,13 +12,13 @@ tags:
   - measurements
   - harman-target
 series: pocket-hi-fi
-seriesOrder: 2
+seriesOrder: 3
 draft: false
 comments: true
 share: true
 ---
 
-The [first part](/technical-notes/iem-sound-signatures-explained/) said to read graphs, not adjectives. This post is how. A frequency-response graph looks precise, but it only means something if you know what it was measured on, what it is being compared against, and which parts of it are reliable.
+The [part on sound signatures](/technical-notes/iem-sound-signatures-explained/) said to read graphs, not adjectives. This post is how. A frequency-response graph looks precise, but it only means something if you know what it was measured on, what it is being compared against, and which parts of it are reliable.
 
 ## What the axes mean
 

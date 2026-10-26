@@ -12,7 +12,7 @@ tags:
   - dap
   - spotify
 series: pocket-hi-fi
-seriesOrder: 5
+seriesOrder: 6
 draft: false
 comments: true
 share: true
@@ -101,11 +101,11 @@ Balanced is useful, not essential. Many IEMs ship with swappable 3.5 mm and 4.4 
 
 ## Hi-res and MQA, honestly
 
-CD quality, 16-bit/44.1 kHz, already covers the range of human hearing with a noise floor below what you hear in normal listening. Higher sample rates and bit depths help in the studio, where audio is processed many times. For playback, controlled blind tests rarely show a reliable difference. MQA, the "folded" hi-res format once used by Tidal, added licensing and complexity without a clear audible benefit, and Tidal has since moved to plain FLAC. Spotify's 24-bit/44.1 kHz lossless is enough. Mastering, the IEM and the fit matter more than the number after the slash.
+CD quality, 16-bit/44.1 kHz, already covers the range of human hearing; [part 1](/technical-notes/what-you-can-actually-hear/) explains why, and why hi-res helps in the studio rather than at playback. MQA, the "folded" hi-res format once used by Tidal, added licensing and complexity without a clear audible benefit, and Tidal has since moved to plain FLAC. Spotify's 24-bit/44.1 kHz lossless is enough. Mastering, the IEM and the fit matter more than the number after the slash.
 
 ## Bluetooth codecs, briefly
 
-Bluetooth compresses audio again, even when the file is lossless. Codecs differ in how much data they send:
+Bluetooth compresses audio again, even when the file is lossless; [part 1](/technical-notes/what-you-can-actually-hear/) shows what that means for AirPods Pro and the Sony WH-1000XM4. Codecs differ in how much data they send:
 
 | Codec | Typical bitrate | Notes |
 |---|---|---|

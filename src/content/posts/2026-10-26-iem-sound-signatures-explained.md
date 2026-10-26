@@ -12,7 +12,7 @@ tags:
   - sound-signature
   - harman-target
 series: pocket-hi-fi
-seriesOrder: 1
+seriesOrder: 2
 draft: false
 comments: true
 share: true
@@ -84,11 +84,12 @@ If you want accuracy but miss weight in the low end, you are looking for Harman 
 
 The next parts build on this vocabulary:
 
-1. **Sound signatures** (this post)
-2. **Reading a frequency-response graph:** targets, ear gain and why measurements disagree
-3. **IEMs:** drivers, impedance and choosing by signature
-4. **Fit, eartips and cables:** the cheapest upgrade most people skip
-5. **Sources:** DAC dongles, digital audio players and output impedance
-6. **The iPod Video 5.5G** as a purist player, with Rockbox
-7. **Beyond Spotify:** building a FLAC library you own
-8. **Pairing IEMs with the 5.5G**, and how it compares with a modern Sony Walkman
+1. **[What you can actually hear](/technical-notes/what-you-can-actually-hear/):** sample rate, bit depth, bitrate and Bluetooth
+2. **Sound signatures** (this post)
+3. **Reading a frequency-response graph:** targets, ear gain and why measurements disagree
+4. **IEMs:** drivers, impedance and choosing by signature
+5. **Fit, eartips and cables:** the cheapest upgrade most people skip
+6. **Sources:** DAC dongles, digital audio players and output impedance
+7. **The iPod Video 5.5G** as a purist player, with Rockbox
+8. **Beyond Spotify:** building a FLAC library you own
+9. **Pairing IEMs with the 5.5G**, and how it compares with a modern Sony Walkman

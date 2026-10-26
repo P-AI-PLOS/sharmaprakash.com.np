@@ -12,7 +12,7 @@ tags:
   - flac
   - spotify
 series: pocket-hi-fi
-seriesOrder: 6
+seriesOrder: 7
 draft: false
 comments: true
 share: true
@@ -20,7 +20,7 @@ share: true
 
 My main music player is an iPod Video from 2006. It has no Wi-Fi, no recommendations and no app that wants my attention. It plays FLAC files from my own library, lasts for days, and does exactly what I ask.
 
-This post explains why this particular iPod, what was changed inside it, and the settings that make it a purist player. Parts 2 to 5 of this series covered the vocabulary; this is where it meets a real device.
+This post explains why this particular iPod, what was changed inside it, and the settings that make it a purist player. Parts 1 to 6 of this series covered the vocabulary; this is where it meets a real device.
 
 ## Why the 5.5G
 
@@ -36,7 +36,7 @@ Apple sold the fifth-generation iPod, the "iPod Video", from 2005. The **5.5G** 
 | Stock battery | About 600 mAh, rated about 14 h of audio |
 | Outputs | 3.5 mm headphone jack, 30-pin dock connector |
 
-The reason people still hunt for this model is the **Wolfson** audio codec. Later iPod Classics moved to a different codec, and the 5G/5.5G Wolfson generation is the one listeners tend to describe as fuller and more natural. That reputation is subjective, and I would not claim one is measurably better; what matters to me is that the 5.5G drives ordinary IEMs well and has no hiss I can hear with mine. Part 8 covers IEM pairing in detail.
+The reason people still hunt for this model is the **Wolfson** audio codec. Later iPod Classics moved to a different codec, and the 5G/5.5G Wolfson generation is the one listeners tend to describe as fuller and more natural. That reputation is subjective, and I would not claim one is measurably better; what matters to me is that the 5.5G drives ordinary IEMs well and has no hiss I can hear with mine. Part 9 covers IEM pairing in detail.
 
 The 5.5G also added a brighter screen and gapless playback over the 5G.
 
@@ -113,7 +113,7 @@ Rockbox can record, play games, run demos and show a file manager. I removed all
 root menu order: wps, playlists, database
 ```
 
-That is the Now Playing screen, Playlists and the database browser. Rockbox 4.0 always appends Settings, which keeps themes reachable. The game and demo plugins and their data are deleted from the iPod, except PictureFlow for browsing covers. The theme is a variant of Themify 2 in iPod blue and grey.
+That is the Now Playing screen, Playlists and the database browser. Rockbox 4.0 always appends Settings, which keeps themes reachable. The game and demo plugins and their data are deleted from the iPod, except PictureFlow for browsing covers. The theme, which I call gutheme, is Themify 2's layout in the colours of the classic iPod: white background, black text, a blue gradient on the selected row, and a glossy blue progress bar. Now Playing also shows a small badge such as `FLAC 44.1 kHz`; Rockbox's skin language can show the format and sample rate, but not the bit depth.
 
 Two power settings matter with a big battery:
 

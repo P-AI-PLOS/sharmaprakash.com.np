@@ -12,7 +12,7 @@ tags:
   - musicbrainz
   - rockbox
 series: pocket-hi-fi
-seriesOrder: 7
+seriesOrder: 8
 draft: false
 comments: true
 share: true
@@ -95,7 +95,7 @@ Albums are mastered at very different loudness. Shuffle a quiet 1970s record nex
 - **Track gain** levels every song individually. Good for shuffle.
 - **Album gain** levels whole albums but keeps the loud and quiet songs within an album in proportion. Good for album listening.
 
-Both Picard (with its ReplayGain plugin) and beets can write ReplayGain tags. On my iPod, Rockbox uses track gain in shuffle and leaves albums alone, with clipping prevention on. Part 6 lists the full settings.
+Both Picard (with its ReplayGain plugin) and beets can write ReplayGain tags. On my iPod, Rockbox uses track gain in shuffle and leaves albums alone, with clipping prevention on. Part 7 lists the full settings.
 
 ## Album art for the iPod
 
@@ -109,27 +109,25 @@ Keep the full-size art in your master library and generate small baseline copies
 
 ## Hi-res and the iPod
 
-The iPod's codec is 16-bit. Rockbox will play 24-bit/96 kHz FLAC, but the PP5021C chip has to resample it in software, which costs battery and can stutter at the highest sample rates. Dithering handles the reduction to 16-bit cleanly, but you gain nothing audible on this player. For the iPod, 16-bit/44.1 kHz copies are the sensible choice; keep hi-res masters elsewhere if you buy them.
+The iPod's codec runs at 16-bit/44.1 kHz. Rockbox plays 24-bit/96 kHz and 192 kHz FLAC, but the PP5021C chip resamples it in software, which costs battery and can stutter at the highest rates. Dithering keeps the reduction to 16-bit clean. [Part 1](/technical-notes/what-you-can-actually-hear/) explains why you lose nothing audible: buy at CD quality, and keep hi-res only when it is a better master.
 
 ## From library to iPod
 
 My library lives on a NAS and is served by [Navidrome](https://www.navidrome.org/), a self-hosted music server with a web player and Subsonic-compatible apps. Playlists are built there, from the whole library, and exported as `.m3u` files. The iPod playlist is one of them, a little over 850 tracks.
 
-Getting those onto the iPod has one wrinkle, because my iPod still has Apple's firmware alongside Rockbox:
+The iPod runs Rockbox only for music. Finder syncs nothing to it, so there is no Apple database to work around:
 
-1. **Finder sync** handles the ALAC and AAC parts of the library. Finder renames files into hidden folders and keeps playlists in Apple's iTunes database, which Rockbox cannot read.
-2. **FLAC files are copied directly** into a `Music/` folder on the iPod in Apple disk mode. Music.app cannot import FLAC, so Finder never sees them.
-3. **A script rebuilds Rockbox playlists.** It reads the Apple database and writes one `.m3u8` per Apple playlist into `/Playlists`, then appends the FLAC entries from the matching Navidrome playlist. It also writes a `FLAC.m3u8` listing every FLAC on the device.
+1. **Songs are copied as files.** The iPod's `Music/` folder mirrors the library's `Artist/Album` layout, so a song has the same path on the NAS and on the iPod. Copies are made in Apple disk mode.
+2. **Playlists come from Music.app.** I curate playlists in Music.app, which references the files on the NAS in place. A script reads each playlist, copies any song the iPod is missing, and writes one `.m3u8` per playlist into `/Playlists`.
+3. **FLAC is added from fixed lists.** Music.app cannot import FLAC, so FLAC entries are appended from the matching Navidrome playlist. A `FLAC.m3u8` lists only the FLACs my playlists use, not every album on the card.
 
-On Rockbox I open playlists from the Playlists menu. The largest is about 900 tracks, well inside Rockbox's default limit of 10,000.
-
-If you run Rockbox only, it is simpler: copy album folders, copy `.m3u8` playlists with paths relative to the iPod, done. No database, no Finder.
+On Rockbox I open playlists from the Playlists menu, and the playlist viewer shows songs by their title and album tags rather than file names. The largest playlist is about 900 tracks, well inside Rockbox's default limit of 10,000.
 
 ## What it costs
 
 Owning a library costs money and time that streaming does not: buying albums, ripping, checking tags. In return you get files that cannot be removed from a catalogue, play anywhere, and sound the same in twenty years. For me, the playlist-rebuilding step was also the moment I found out which of my "favourites" I actually wanted to keep.
 
-Part 8 closes the series: pairing IEMs with the 5.5G, and how it compares with a modern Sony Walkman.
+Part 9 closes the series: pairing IEMs with the 5.5G, and how it compares with a modern Sony Walkman.
 
 ## Sources
 

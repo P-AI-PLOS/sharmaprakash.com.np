@@ -12,13 +12,13 @@ tags:
   - rockbox
   - walkman
 series: pocket-hi-fi
-seriesOrder: 8
+seriesOrder: 9
 draft: false
 comments: true
 share: true
 ---
 
-This is the last part of the series. The earlier posts covered sound signatures, graphs, IEMs, fit, sources, the iPod Video 5.5G with Rockbox, and building a FLAC library. This one puts them together: which IEMs to plug into the iPod, what a modern Sony Walkman changes, and how much of that difference you will hear.
+This is the last part of the series. The earlier posts covered what you can actually hear, sound signatures, graphs, IEMs, fit, sources, the iPod Video 5.5G with Rockbox, and building a FLAC library. This one puts them together: which IEMs to plug into the iPod, what a modern Sony Walkman changes, and how much of that difference you will hear.
 
 The short answer: less than the price gap suggests. With a well-tuned single dynamic driver IEM and lossless files, most people struggle to tell a good old player from a good new one in a blind test. The gap opens up with certain IEMs, and that is what this post is about.
 
@@ -36,9 +36,9 @@ The Sony side here means the current high-end Walkmans. The NW-ZX707 is the one 
 | Streaming | None | Android, Wi-Fi, streaming apps |
 | Price | Second-hand plus a storage mod | About $900 to $3,700 |
 
-The 16/44.1 limit matters less than it looks. CD quality already covers the range of human hearing; part 7 explained why a FLAC rip of a CD is the honest ceiling for most libraries. Hi-res files give you headroom for studio work, not an audible upgrade for most listening.
+The 16/44.1 limit matters less than it looks. CD quality already covers the range of human hearing; part 1 explained why a FLAC rip of a CD is the honest ceiling for most libraries. Hi-res files give you headroom for studio work, not an audible upgrade for most listening.
 
-The row that matters is output impedance.
+The row that matters is output impedance. For a category-by-category score of the two players, including battery, storage and value, see [A $900 Sony Walkman vs my modded 2006 iPod](/technical-notes/sony-walkman-vs-modded-ipod-video-scorecard/).
 
 ## Why output impedance decides the pairing
 
@@ -54,7 +54,7 @@ On the Sony, I would expect a low output impedance from a current high-end playe
 
 ## Which IEMs suit which player
 
-These picks come from my own shortlist, sorted by signature (part 1) and by how forgiving they are of the source.
+These picks come from my own shortlist, sorted by signature (part 2) and by how forgiving they are of the source.
 
 | Signature | Pick | Approx. price | Drivers | Best on |
 |---|---|---|---|---|
@@ -78,7 +78,7 @@ More drivers does not mean better sound. It gives the designer more control, but
 For a purist who sometimes wants bass, at both ends of the budget:
 
 1. **Crinear Daybreak** first. Neutral, works on both players, and the cheapest way to hear what your library sounds like without colour.
-2. **Eartips** before anything else expensive. Part 4 covered why; a seal problem costs more sound than any player upgrade.
+2. **Eartips** before anything else expensive. Part 5 covered why; a seal problem costs more sound than any player upgrade.
 3. **Softears Volume S** when you want bass. It keeps a reasonable midrange while adding weight, and it is a safer pairing with the iPod than a big BA set.
 4. **Thieaudio Origin** instead of the Volume S if quality matters more than price.
 5. **A Sony Walkman** only once you want a multi-BA IEM like the RSV, 4.4 mm balanced, or streaming. Buy the player for the IEM, not the other way round.
@@ -114,7 +114,7 @@ Where a difference is unlikely: a good single-DD IEM, lossless files, matched vo
 
 ## The series in one paragraph
 
-Pick a signature you like (part 1) and confirm it on a graph (part 2). Buy one well-tuned IEM (part 3) and make it fit (part 4). Use a source with low output impedance for complex IEMs (part 5), or a Rockbox iPod for simple ones (part 6). Feed either with lossless files you own (part 7). Then stop shopping and listen.
+Know what you can actually hear (part 1), so the numbers on a box stop deciding for you. Pick a signature you like (part 2) and confirm it on a graph (part 3). Buy one well-tuned IEM (part 4) and make it fit (part 5). Use a source with low output impedance for complex IEMs (part 6), or a Rockbox iPod for simple ones (part 7). Feed either with lossless files you own (part 8). Then stop shopping and listen.
 
 ## Sources
 

@@ -12,7 +12,7 @@ tags:
   - cables
   - balanced
 series: pocket-hi-fi
-seriesOrder: 4
+seriesOrder: 5
 draft: false
 comments: true
 share: true

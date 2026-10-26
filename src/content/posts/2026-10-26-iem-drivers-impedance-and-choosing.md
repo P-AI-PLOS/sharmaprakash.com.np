@@ -12,13 +12,13 @@ tags:
   - impedance
   - buying-guide
 series: pocket-hi-fi
-seriesOrder: 3
+seriesOrder: 4
 draft: false
 comments: true
 share: true
 ---
 
-IEM listings lead with driver counts: "1DD + 4BA + 2EST". That line tells you how the earphone is built. It does not tell you how it sounds. The tuning does that, and the tuning is what the first part of this series was about.
+IEM listings lead with driver counts: "1DD + 4BA + 2EST". That line tells you how the earphone is built. It does not tell you how it sounds. The tuning does that, and the tuning is what [the part on sound signatures](/technical-notes/iem-sound-signatures-explained/) was about.
 
 This post covers what the driver types are, what the impedance and sensitivity numbers on the box mean, and why some IEMs sound different on different players. It ends with picks for each signature.
 
