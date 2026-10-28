@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 390" role="img" aria-labelledby="title desc">
+  <title id="title">A good IEM seal and a leaking seal</title>
+  <desc id="desc">Two simplified ear canal cross-sections show an eartip closing the canal in a good seal, while a gap in the second lets low-frequency air escape.</desc>
+  <style>text{font-family:Arial,sans-serif;fill:#F8FAFC}.muted{fill:#CBD5E1}.panel{fill:#0F172A;stroke:#475569;stroke-width:2}.canal{fill:#1E293B;stroke:#94A3B8;stroke-width:3}.tip{fill:#F59E0B;stroke:#FDE68A;stroke-width:2}.shell{fill:#334155;stroke:#CBD5E1;stroke-width:2}.sound{fill:none;stroke:#38BDF8;stroke-width:5;stroke-linecap:round}.leak{fill:none;stroke:#FB7185;stroke-width:5;stroke-dasharray:9 8;stroke-linecap:round}</style>
+  <rect class="panel" x="1" y="1" width="958" height="388" rx="20"/>
+  <text x="42" y="48" font-size="25" font-weight="700">The tip closes the air space in your ear canal</text>
+  <g transform="translate(30 70)">
+    <rect class="panel" x="0" y="0" width="430" height="275" rx="16"/>
+    <text x="24" y="38" font-size="19" font-weight="700">Good seal</text><text class="muted" x="24" y="64" font-size="15">Air stays contained; bass is preserved</text>
+    <rect class="canal" x="112" y="105" width="276" height="100" rx="48"/>
+    <rect class="shell" x="30" y="130" width="103" height="50" rx="24"/><rect class="shell" x="122" y="145" width="85" height="20" rx="9"/>
+    <path class="tip" d="M196 117 Q222 155 196 193 L216 193 Q241 155 216 117Z"/>
+    <path class="sound" d="M68 155 H101 M85 139 V171 M101 145 L112 155 L101 165"/>
+    <text x="245" y="244" font-size="15">No gap around the tip</text>
+  </g>
+  <g transform="translate(500 70)">
+    <rect class="panel" x="0" y="0" width="430" height="275" rx="16"/>
+    <text x="24" y="38" font-size="19" font-weight="700">Leaking seal</text><text class="muted" x="24" y="64" font-size="15">Low-frequency air escapes; bass thins</text>
+    <rect class="canal" x="112" y="105" width="276" height="100" rx="48"/>
+    <rect class="shell" x="30" y="130" width="103" height="50" rx="24"/><rect class="shell" x="122" y="145" width="85" height="20" rx="9"/>
+    <path class="tip" d="M196 117 Q222 155 196 193 L216 193 Q241 155 216 117Z"/>
+    <path class="leak" d="M69 155 H103 M103 155 C124 155 128 104 166 98 H260"/>
+    <path d="M253 90 L269 98 L253 106" fill="none" stroke="#FB7185" stroke-width="4"/>
+    <text x="236" y="244" font-size="15">Air escapes through the gap</text>
+  </g>
+</svg>

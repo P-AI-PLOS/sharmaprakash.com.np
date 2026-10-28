@@ -80,16 +80,16 @@ There is no wrong pairing, but some are easier:
 
 If you want accuracy but miss weight in the low end, you are looking for Harman or neutral-with-bass. That is where most of my own listening sits, and it is the starting point for the IEM picks later in this series.
 
-## What comes next
+## The nine-part guide
 
-The next parts build on this vocabulary:
+Read in order for the full path from audio basics to a working player, or jump to the topic you need:
 
 1. **[What you can actually hear](/technical-notes/what-you-can-actually-hear/):** sample rate, bit depth, bitrate and Bluetooth
 2. **Sound signatures** (this post)
-3. **Reading a frequency-response graph:** targets, ear gain and why measurements disagree
-4. **IEMs:** drivers, impedance and choosing by signature
-5. **Fit, eartips and cables:** the cheapest upgrade most people skip
-6. **Sources:** DAC dongles, digital audio players and output impedance
-7. **The iPod Video 5.5G** as a purist player, with Rockbox
-8. **Beyond Spotify:** building a FLAC library you own
-9. **Pairing IEMs with the 5.5G**, and how it compares with a modern Sony Walkman
+3. **[Reading a frequency-response graph](/technical-notes/reading-iem-frequency-response-graphs/):** targets, ear gain and why measurements disagree
+4. **[IEM drivers, impedance and choosing by signature](/technical-notes/iem-drivers-impedance-and-choosing/)**
+5. **[Fit, eartips and cables](/technical-notes/iem-fit-eartips-and-cables/):** the cheapest upgrade most people skip
+6. **[DAC dongles, DAPs and output impedance](/technical-notes/dac-dongles-daps-and-output-impedance/)**
+7. **[The iPod Video 5.5G](/technical-notes/ipod-video-5-5g-rockbox-purist-player/):** a purist player with Rockbox
+8. **[Beyond Spotify](/technical-notes/beyond-spotify-building-a-flac-library/):** build a FLAC library you own
+9. **[Pairing IEMs with the 5.5G](/technical-notes/pairing-iems-ipod-vs-sony-walkman/):** compare it with a modern Sony Walkman

@@ -23,7 +23,7 @@ share: true
 
 This is the last part of the series. The earlier posts covered what you can actually hear, sound signatures, graphs, IEMs, fit, sources, the iPod Video 5.5G with Rockbox, and building a FLAC library. This one puts them together: which IEMs to plug into the iPod, what a modern Sony Walkman changes, and how much of that difference you will hear.
 
-The short answer: less than the price gap suggests. With a well-tuned single dynamic driver IEM and lossless files, most people struggle to tell a good old player from a good new one in a blind test. The gap opens up with certain IEMs, and that is what this post is about.
+The short answer: the difference in sound may be smaller than the price gap suggests. With an easy-to-drive IEM, lossless files and matched volume, I expect the difference to be small. I have not run a blind comparison of these players; the clearest reasons to choose the Sony are IEMs that need a lower-impedance source or more power, plus its modern features.
 
 ## The two players
 
@@ -41,9 +41,9 @@ The Sony side here means the current high-end Walkmans. The NW-ZX707 is the one 
 
 The 16/44.1 limit matters less than it looks. CD quality already covers the range of human hearing; part 1 explained why a FLAC rip of a CD is the honest ceiling for most libraries. Hi-res files give you headroom for studio work, not an audible upgrade for most listening.
 
-The row that matters is output impedance. For a category-by-category score of the two players, including battery, storage and value, see [A $900 Sony Walkman vs my modded 2006 iPod](/technical-notes/sony-walkman-vs-modded-ipod-video-scorecard/).
+For IEM pairing, output impedance is the row to watch. For a category-by-category comparison of the two players, see [A $900 Sony Walkman vs my modded 2006 iPod](/technical-notes/sony-walkman-vs-modded-ipod-video-scorecard/).
 
-## Why output impedance decides the pairing
+## How output impedance can change the pairing
 
 An IEM's impedance is not a single number. Its spec sheet quotes one figure, but the real impedance moves up and down with frequency, especially in multi-driver sets where a crossover splits the range between balanced armatures.
 
@@ -76,6 +76,13 @@ The pattern behind the table:
 
 More drivers does not mean better sound. It gives the designer more control, but the result is only as good as the tuning. Choose by signature first, then by source.
 
+With my own IEMs, the 5.5G drives them well and I hear no hiss. That is my experience with the sets I use, not a guarantee for every IEM; very sensitive models can make noise that I do not hear with mine.
+
+<figure>
+<img src="/images/blog/audio/pocket-hi-fi/pairing-guide.svg" alt="A pairing guide: an easy-to-drive IEM with a fairly flat impedance curve is likely to suit the iPod; a demanding IEM with low impedance dips is safer with a low-output-impedance source that has enough power." loading="lazy" width="960" height="380" />
+<figcaption>Use the curve and power needs as a starting point, then listen with the IEM you actually own.</figcaption>
+</figure>
+
 ## A buying order
 
 For a purist who sometimes wants bass, at both ends of the budget:
@@ -96,7 +103,7 @@ The purist goal is the same on both: let the file and the IEM speak, and switch 
 |---|---|---|
 | Equaliser | Off | Off |
 | Tone controls | Bass and treble at 0 | Off |
-| Enhancement | Crossfeed off | DSEE and ClearAudio+ off |
+| Enhancement | Meier crossfeed on, as in Part 7 | DSEE and ClearAudio+ off |
 | Bypass mode | Not applicable | Direct Source on, which skips the processing |
 | Dithering | On, for sources above 16-bit | Not applicable |
 | Volume | Keep digital volume below clipping | Keep it in the normal range; use high gain only if needed |
@@ -113,7 +120,7 @@ Where a difference is likely:
 - **Very demanding IEMs or headphones.** More power and a balanced output help.
 - **Lossy or poorly mastered files.** Neither player fixes them. A FLAC rip of a good CD does more than any upgrade here.
 
-Where a difference is unlikely: a good single-DD IEM, lossless files, matched volume. Most of the $900 goes into features (streaming, storage, a screen, balanced output) and into the chance to use IEMs the iPod handles badly, not into a cleaner sound with an easy IEM.
+Where I expect a difference to be small: an easy-to-drive single-DD IEM, lossless files and matched volume. The Sony's price buys streaming, storage, a modern screen and a balanced output, as well as compatibility with IEMs the iPod may not pair with as well.
 
 ## The series in one paragraph
 

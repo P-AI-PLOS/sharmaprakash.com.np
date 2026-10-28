@@ -23,7 +23,7 @@ share: true
 
 Spotify Premium now streams lossless FLAC. Spotify started rolling it out in September 2025, at up to 24-bit/44.1 kHz, at no extra cost. Many people then play that stream through a phone's Bluetooth or a cheap adapter. The file is no longer the weak link. The playback chain is.
 
-This part covers that chain: what turns a file into sound, what to buy, and the one number that decides whether an IEM sounds as it was tuned.
+This part covers that chain: what turns a file into sound, what to buy, and how a source's output impedance can change an IEM's tuning.
 
 ## What a DAC and an amp do
 
@@ -33,6 +33,11 @@ Music files are numbers. Earphones need a changing voltage. Two stages sit betwe
 |---|---|---|
 | **DAC** (digital-to-analogue converter) | Turns the samples into an analogue signal | Noise, distortion; rarely audible in modern chips |
 | **Amplifier** | Gives that signal enough voltage and current to drive the earphone | Hiss, clipping at volume, tuning changes from high output impedance |
+
+<figure>
+<img src="/images/blog/audio/pocket-hi-fi/signal-chain.svg" alt="The audio path runs from music file through player, DAC and amplifier to the IEM. The amplifier stage is where output impedance, noise and available power affect some pairings." loading="lazy" width="1000" height="350" />
+<figcaption>The file is one part of the chain; the source and the IEM also have to work well together.</figcaption>
+</figure>
 
 With IEMs, the amplifier stage usually matters more than the DAC chip. Modern DAC chips measure well below audible limits. Output impedance, noise and power vary much more.
 
@@ -67,7 +72,7 @@ Sony's current high-end Walkmans show the range. The NW-ZX707 launched at a US s
 
 ## The 1/8 output-impedance rule
 
-This is the number that matters most for IEMs.
+Output impedance matters most when an IEM's impedance changes across frequencies, as it often does in multi-driver designs.
 
 Every source has an output impedance. It sits in series with the earphone, so the earphone and the source form a voltage divider. If the earphone's impedance changes across frequency, as multi-driver IEMs do, the divider changes the tuning. The part on IEM drivers explains why.
 

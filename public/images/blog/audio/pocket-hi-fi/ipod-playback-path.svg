@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 310" role="img" aria-labelledby="title desc">
+  <title id="title">Hi-res FLAC playback on the iPod Video</title>
+  <desc id="desc">Rockbox can read a 24-bit, 96 kilohertz FLAC file, but the iPod Video's audio path resamples it to 44.1 kilohertz before the Wolfson codec and 3.5 millimetre headphone output.</desc>
+  <style>text{font-family:Arial,sans-serif;fill:#F8FAFC}.muted{fill:#CBD5E1}.darkText{fill:#0F172A}.panel{fill:#0F172A;stroke:#475569;stroke-width:2}.box{fill:#1E293B;stroke:#64748B;stroke-width:2}.accent{fill:#FEF3C7;stroke:#B45309;stroke-width:3}.wire{stroke:#94A3B8;stroke-width:4;fill:none}</style>
+  <rect class="panel" x="1" y="1" width="958" height="308" rx="20"/>
+  <text x="38" y="47" font-size="25" font-weight="700">What the iPod does with a hi-res file</text>
+  <g text-anchor="middle"><rect class="box" x="35" y="105" width="190" height="90" rx="12"/><text x="130" y="142" font-size="19">24-bit / 96 kHz</text><text class="muted" x="130" y="170" font-size="16">FLAC file</text>
+  <rect class="accent" x="285" y="105" width="250" height="90" rx="12"/><text class="darkText" x="410" y="140" font-size="18">Rockbox playback</text><text class="darkText" x="410" y="170" font-size="15">resamples to 44.1 kHz</text>
+  <rect class="box" x="595" y="105" width="170" height="90" rx="12"/><text x="680" y="140" font-size="18">Wolfson codec</text><text class="muted" x="680" y="170" font-size="15">16-bit / 44.1 kHz</text>
+  <rect class="box" x="825" y="105" width="100" height="90" rx="12"/><text x="875" y="140" font-size="18">3.5 mm</text><text class="muted" x="875" y="170" font-size="15">IEMs</text></g>
+  <path class="wire" d="M225 150 H280 M535 150 H590 M765 150 H820"/><path d="M270 142 L284 150 L270 158 M580 142 L594 150 L580 158 M810 142 L824 150 L810 158" fill="none" stroke="#94A3B8" stroke-width="3"/>
+  <text class="muted" x="40" y="250" font-size="16">The file plays, but its extra resolution does not reach the headphone output.</text>
+  <text class="muted" x="40" y="278" font-size="16">For this player, CD-quality FLAC avoids unnecessary resampling work.</text>
+</svg>

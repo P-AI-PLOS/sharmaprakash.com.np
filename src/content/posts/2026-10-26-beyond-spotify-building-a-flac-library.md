@@ -126,6 +126,11 @@ The iPod runs Rockbox only for music. Finder syncs nothing to it, so there is no
 
 On Rockbox I open playlists from the Playlists menu, and the playlist viewer shows songs by their title and album tags rather than file names. The largest playlist is about 900 tracks, well inside Rockbox's default limit of 10,000.
 
+<figure>
+<img src="/images/blog/audio/pocket-hi-fi/library-flow.svg" alt="CDs and lossless downloads become a tagged FLAC master library. Navidrome serves it, while selected files and playlists are copied to the Rockbox iPod." loading="lazy" width="1000" height="380" />
+<figcaption>Keep the lossless master, then use the server and player as two ways to reach it.</figcaption>
+</figure>
+
 ## What it costs
 
 Owning a library costs money and time that streaming does not: buying albums, ripping, checking tags. In return you get files that cannot be removed from a catalogue, play anywhere, and sound the same in twenty years. For me, the playlist-rebuilding step was also the moment I found out which of my "favourites" I actually wanted to keep.

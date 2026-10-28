@@ -31,11 +31,11 @@ The scores are my judgement, not lab results. Where a number comes from a spec s
 | Firmware | Rockbox 4.0 | Android |
 | DAC | Wolfson WM8758, 16-bit/44.1 kHz | Modern DAC, hi-res PCM and DSD |
 | Storage | SD cards on a flash adapter (64 GB fitted; a 1 TB card is confirmed working on this model) | 64 GB built in (about 47 GB usable) plus microSD |
-| Battery | 2000 mAh replacement | Sony rates about 23 h for 24-bit/96 kHz FLAC |
+| Battery | Labelled 2000 mAh; performance still under test | Sony rates about 23 h for 24-bit/96 kHz FLAC |
 | Outputs | 3.5 mm | 3.5 mm and 4.4 mm balanced |
 | Wireless | None | Wi-Fi, Bluetooth with LDAC |
 
-The iPod is not a stock iPod. The flash adapter removes the hard drive, the 2000 mAh battery is more than three times the original, and Rockbox replaces Apple's firmware. Those three changes remove the weaknesses people usually cite against old iPods.
+The iPod is not a stock iPod. The flash adapter removes the hard drive, the replacement battery is labelled 2000 mAh, and Rockbox replaces Apple's firmware. The battery's real-world performance is still under test.
 
 ## The scorecard
 
@@ -43,12 +43,12 @@ Scores out of 10.
 
 | Category | My iPod | Walkman | Why |
 |---|---|---|---|
-| Sound with easy IEMs | 7.5 | 9 | With a single dynamic driver and lossless files, the gap is small. The Walkman is cleaner and quieter. |
+| Sound with easy IEMs | 7.5 | 9 | With a single dynamic driver and lossless files, the gap is small. I hear no hiss from the iPod with my own IEMs. |
 | Sound with demanding IEMs or headphones | 5 | 9 | The biggest gap. The iPod's output impedance and limited power show here. |
-| Background noise | 6.5 | 9 | Fine with ordinary IEMs; very sensitive ones can reveal hiss on the iPod. |
+| Background noise | 6.5 | 9 | I hear no hiss with my IEMs; very sensitive ones may reveal hiss that I do not hear with mine. |
 | Power | 5 | 8 | No balanced output on the iPod. |
 | Formats | 9 | 10 | Rockbox plays FLAC and almost everything else. Hi-res is resampled to 44.1 kHz. |
-| Battery life | 9 | 7 | My estimate is 40–55 h of 16-bit FLAC, not yet timed. Sony rates about 23 h. |
+| Battery life | — | 7 | The iPod's replacement cell is labelled 2000 mAh but remains under test; so far it seems closer to 1000 mAh performance. Sony rates about 23 h. |
 | Storage | 9 | 8 | Up to 1 TB inside the iPod against 64 GB plus a card. |
 | Standby | 10 | 7 | Rockbox switches off completely. An Android player drains in standby. |
 | Features | 6 | 9 | No streaming or Bluetooth on the iPod. It does have ReplayGain, crossfeed, scrobbling and a custom theme. |
@@ -56,9 +56,9 @@ Scores out of 10.
 | Stability | 9 | 9 | Rockbox's 5G port is its most mature. |
 | Repairability | 8 | 7 | Cheap, standard parts and settings kept in version control. |
 | Value | 10 | 5 | A used iPod and parts against $900. |
-| **Overall** | **8** | **8.5** | |
+| **Overall (provisional)** | **—** | **8.5** | The iPod's battery score is pending further testing. |
 
-The overall scores are close, but they are close for different reasons. The iPod wins on battery, storage, standby, controls and value. The Walkman wins on everything to do with the analogue output and on modern features.
+The iPod and Walkman win for different reasons. The iPod wins on storage, standby, controls and value. The Walkman wins on features and on IEM pairings that benefit from lower output impedance or more power. I am leaving the iPod's overall score open until I finish testing its replacement battery.
 
 ## Where the Walkman earns its price
 
@@ -73,7 +73,7 @@ The real advantages are in the analogue stage after the DAC:
 
 ## Where the iPod wins
 
-- **Battery and standby.** With a big cell and Rockbox's true power-off, the iPod can sit in a drawer for months and still play for days.
+- **Standby.** Rockbox switches the iPod fully off, so it can sit in a drawer for months without the standby drain of an Android player.
 - **Storage.** A flash adapter takes cards far larger than the Walkman's internal memory.
 - **Focus.** A click wheel, no notifications, no apps, a menu with three items. It is a music player and nothing else.
 - **Cost of mistakes.** If it breaks, the parts are cheap and the whole configuration rebuilds from a script.
@@ -94,7 +94,7 @@ And some buyers simply enjoy owning a beautifully made object, the way people bu
 
 Run a blind test before spending $900. Use the same IEMs, match the volume of both players with a meter or a test tone (a louder player almost always sounds "better"), and have someone else switch between them without telling you which is which. If you cannot pick the Walkman reliably, you have saved the money. If you can, you know exactly what you are paying for.
 
-My conclusion for my own listening: with IEMs chosen to suit it, the modded iPod is as good as the Walkman where it counts for me, and better on battery, storage and standby. I would buy the Walkman for a demanding IEM, not for the files.
+My conclusion for my own listening: with IEMs chosen to suit it, the modded iPod is as good as the Walkman where it counts for me, and better on storage and standby. Battery runtime is still under test. I would buy the Walkman for a demanding IEM, not for the files.
 
 ## Sources
 

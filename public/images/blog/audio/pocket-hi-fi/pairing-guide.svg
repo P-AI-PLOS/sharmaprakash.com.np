@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 380" role="img" aria-labelledby="title desc">
+  <title id="title">A practical IEM and player pairing guide</title>
+  <desc id="desc">A simple dynamic-driver IEM with a fairly flat impedance curve is likely to pair well with the iPod Video. A multi-driver IEM with low impedance dips or a demanding headphone is safer with a low-output-impedance source that has enough power. Check measurements and listen with your own IEMs.</desc>
+  <style>text{font-family:Arial,sans-serif;fill:#F8FAFC}.muted{fill:#CBD5E1}.darkText{fill:#0F172A}.panel{fill:#0F172A;stroke:#475569;stroke-width:2}.box{fill:#1E293B;stroke:#64748B;stroke-width:2}.accent{fill:#FEF3C7;stroke:#B45309;stroke-width:3}.wire{stroke:#94A3B8;stroke-width:4;fill:none}</style>
+  <rect class="panel" x="1" y="1" width="958" height="378" rx="20"/>
+  <text x="38" y="48" font-size="25" font-weight="700">Pair the IEM to the source you need</text>
+  <rect class="box" x="300" y="78" width="360" height="74" rx="12"/><text x="480" y="109" font-size="18" text-anchor="middle">Check the IEM's impedance curve</text><text class="muted" x="480" y="134" font-size="15" text-anchor="middle">and whether your source has enough power</text>
+  <path class="wire" d="M480 152 V184 M480 184 H250 V208 M480 184 H710 V208"/><path d="M242 198 L250 212 L258 198 M702 198 L710 212 L718 198" fill="none" stroke="#94A3B8" stroke-width="3"/>
+  <rect class="accent" x="38" y="218" width="424" height="100" rx="14"/><text class="darkText" x="250" y="250" font-size="19" text-anchor="middle">Fairly flat curve · easy to drive</text><text class="darkText" x="250" y="280" font-size="16" text-anchor="middle">The 5.5G is a reasonable match for many</text><text class="darkText" x="250" y="302" font-size="16" text-anchor="middle">single-DD IEMs; listen for hiss with yours.</text>
+  <rect class="box" x="498" y="218" width="424" height="100" rx="14"/><text x="710" y="250" font-size="19" text-anchor="middle">Low impedance dips · high power need</text><text class="muted" x="710" y="280" font-size="16" text-anchor="middle">Choose a low-output-impedance source</text><text class="muted" x="710" y="302" font-size="16" text-anchor="middle">with enough power, such as the Walkman.</text>
+  <text class="muted" x="38" y="350" font-size="15">A guide, not a guarantee: check measurements and audition the actual pairing.</text>
+</svg>

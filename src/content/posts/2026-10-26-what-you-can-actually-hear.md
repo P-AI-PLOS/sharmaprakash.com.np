@@ -56,6 +56,11 @@ To capture one vibration of a sound wave, you need at least two samples: one nea
 
 That is why the CD's 44.1 kHz is not an arbitrary number. It is just over twice the top of human hearing, with a little room left for the filter that removes everything above the limit.
 
+<figure>
+<img src="/images/blog/audio/pocket-hi-fi/sample-rate-bandwidth.svg" alt="Frequency ranges on one scale: human hearing reaches about 20 kHz, 44.1 kHz audio has a 22.05 kHz Nyquist limit, and 96 kHz audio has a 48 kHz limit." loading="lazy" width="960" height="330" />
+<figcaption>CD audio reaches just beyond the usual upper limit of human hearing.</figcaption>
+</figure>
+
 ## Bit depth: how precisely each sample is stored
 
 Each sample is a number. **Bit depth** is how many bits that number has, which sets how finely the loudness of each sample can be described. More bits mean a lower noise floor and a wider **dynamic range**: the gap between the loudest sound the format can hold and its own background noise.
@@ -124,7 +129,7 @@ None of this makes Bluetooth bad. On a bus or a street, good AAC is hard to tell
 
 ## What this means for the rest of the series
 
-- **16-bit/44.1 kHz lossless** is the honest ceiling for a listening library. Buy or rip at CD quality; keep hi-res only when it is a better master.
+- **CD-quality lossless** is a sound default for a listening library. Buy or rip at CD quality; choose hi-res when it gives you a master you prefer, not just a larger number.
 - **Avoid low-bitrate lossy files** and anything converted from one lossy format to another. That is where real, audible damage lives.
 - **Spend on the parts you can hear:** the signature of your earphones, their fit, and a source that suits them. Those are the next parts of this series.
 

@@ -47,7 +47,7 @@ export const seriesRegistry: Record<string, SeriesMeta> = {
   "pocket-hi-fi": {
     title: "Pocket Hi-Fi: Sound Signatures, IEMs and the iPod",
     description:
-      "A nine-part guide to purist portable listening: what you can actually hear, sound signatures, reading frequency-response graphs, IEM drivers and impedance, fit and eartips, DACs and players, the iPod Video 5.5G with Rockbox, building a FLAC library you own, and pairing IEMs with the iPod.",
+      "A practical guide to portable listening: understand which audio differences matter, choose and fit IEMs, pick a source, build a FLAC library you own, and put it on a Rockbox iPod.",
     cover: "/images/blog/building-my-homelab/network.png", // TODO: replace with a dedicated pocket-hi-fi cover
   },
   "agent-ready-react": {

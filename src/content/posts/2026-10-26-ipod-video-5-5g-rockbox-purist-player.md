@@ -21,7 +21,7 @@ comments: true
 share: true
 ---
 
-My main music player is an iPod Video from 2006. It has no Wi-Fi, no recommendations and no app that wants my attention. It plays FLAC files from my own library, lasts for days, and does exactly what I ask.
+My main music player is an iPod Video from 2006. It has no Wi-Fi, no recommendations and no app that wants my attention. It plays FLAC files from my own library and does exactly what I ask. I am still testing its replacement battery, so I cannot yet say how long it plays between charges.
 
 This post explains why this particular iPod, what was changed inside it, and the settings that make it a purist player. Parts 1 to 6 of this series covered the vocabulary; this is where it meets a real device.
 
@@ -39,7 +39,7 @@ Apple sold the fifth-generation iPod, the "iPod Video", from 2005. The **5.5G** 
 | Stock battery | About 600 mAh, rated about 14 h of audio |
 | Outputs | 3.5 mm headphone jack, 30-pin dock connector |
 
-The reason people still hunt for this model is the **Wolfson** audio codec. Later iPod Classics moved to a different codec, and the 5G/5.5G Wolfson generation is the one listeners tend to describe as fuller and more natural. That reputation is subjective, and I would not claim one is measurably better; what matters to me is that the 5.5G drives ordinary IEMs well and has no hiss I can hear with mine. Part 9 covers IEM pairing in detail.
+The reason people still hunt for this model is the **Wolfson** audio codec. Later iPod Classics moved to a different codec, and the 5G/5.5G Wolfson generation is the one listeners tend to describe as fuller and more natural. That reputation is subjective, and I would not claim one is measurably better; what matters to me is that the 5.5G drives ordinary IEMs well and has no hiss I can hear with mine. [Part 9](/technical-notes/pairing-iems-ipod-vs-sony-walkman/) covers IEM pairing in detail.
 
 The 5.5G also added a brighter screen and gapless playback over the 5G.
 
@@ -50,11 +50,11 @@ A 20-year-old hard drive is the weak point of any vintage iPod. Mine was replace
 | Part | Stock | Fitted |
 |---|---|---|
 | Storage | 1.8 in hard drive | 64 GB SD card on a 40-pin ZIF flash adapter (dual SD slot) |
-| Battery | About 600 mAh | 2000 mAh |
+| Battery | About 600 mAh | Labelled 2000 mAh; performance still under test |
 
 The flash adapter plugs into the same connector the hard drive used, so the iPod sees an ordinary disk. There are no moving parts left, it is silent, and it survives being dropped far better.
 
-I have not timed the battery yet. Scaling the stock rating by capacity, and allowing for flash drawing less than a spinning disk, gives an estimate of roughly 40–55 hours of 16-bit FLAC with the screen off. Treat that as an estimate until I run a proper playback test.
+I am still testing the replacement battery. In my latest test, it seemed to perform more like a 1000 mAh cell than a 2000 mAh one, so I do not yet have a reliable playback-runtime figure. If further tests confirm the shortfall, I will replace it; I am also considering importing a 2800 mAh cell from the US. Its stated capacity will need to prove itself in use too.
 
 Two warnings from living with it:
 
@@ -71,6 +71,11 @@ Apple's firmware still works, and I kept version 1.3 installed alongside Rockbox
 - **It exposes the audio path.** Equaliser, crossfeed, ReplayGain and dithering are all settings you can see and switch off.
 
 I run **Rockbox 4.0**, released on 1 April 2025 as the project's first release since 2019. Installing it means adding the Rockbox bootloader and the matching release build to the iPod; the release zip is kept with my backups so the exact build can be reinstalled. Rockbox needs a FAT32 iPod, and this one already was.
+
+<figure>
+<img src="/images/blog/audio/pocket-hi-fi/ipod-playback-path.svg" alt="A 24-bit, 96 kHz FLAC file is resampled by Rockbox to 44.1 kHz, then passes through the iPod's 16-bit Wolfson codec to its 3.5 mm output." loading="lazy" width="960" height="310" />
+<figcaption>Rockbox can play hi-res FLAC, but this iPod sends audio to its headphone jack at 44.1 kHz.</figcaption>
+</figure>
 
 ## The purist settings
 
@@ -121,7 +126,7 @@ That is the Now Playing screen, Playlists and the database browser. Rockbox 4.0 
 Two power settings matter with a big battery:
 
 - **Idle power-off after 10 minutes**, and **backlight off after 10 seconds**. The screen is the biggest battery drain.
-- **Battery capacity set to 2000 mAh**, so the battery meter is accurate for the new cell.
+- **Battery capacity set to 2000 mAh** to match the cell's label. The pack's actual performance is still under test.
 
 There is also an escape hatch: booting with the hold switch on resets every setting to its default. If an experiment goes wrong, I do not need a computer to recover.
 
@@ -144,9 +149,9 @@ The result is that if the iPod dies, a replacement takes one install and one scr
 Spotify is excellent at what it does: endless catalogue, good recommendations, one tap. What I gave up by leaving it is discovery. What I got back:
 
 - **Lossless audio** from files I own, which do not disappear when a licence changes.
-- **Days of battery** instead of a phone that drains while streaming.
+- **Music without a phone**; the iPod's battery life is still under test.
 - **No interruptions.** No notifications, no autoplay deciding what comes next.
-- **Listening history I keep.** Rockbox logs every play to a file, and a script submits those plays to ListenBrainz when I connect the iPod. How that works, and the server behind the library, is covered in the separate Homelab Music series.
+- **Listening history I keep.** Rockbox logs every play to a file, and a script submits those plays to ListenBrainz when I connect the iPod. How that works, and the server behind the library, is covered in the separate [Homelab Music series](/series/homelab-music/).
 
 Getting the music onto it legally and well tagged is its own project. That is the next post.
 

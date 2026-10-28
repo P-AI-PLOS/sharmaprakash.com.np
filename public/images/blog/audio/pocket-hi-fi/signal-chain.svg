@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 350" role="img" aria-labelledby="title desc">
+  <title id="title">The path from music file to IEM</title>
+  <desc id="desc">A music file passes through player software, a digital-to-analogue converter and a headphone amplifier before reaching the IEM. Output impedance can alter some IEMs, while amplifier noise and power affect hiss and volume headroom.</desc>
+  <style>text{font-family:Arial,sans-serif;fill:#F8FAFC}.muted{fill:#CBD5E1}.darkText{fill:#0F172A}.panel{fill:#0F172A;stroke:#475569;stroke-width:2}.box{fill:#1E293B;stroke:#64748B;stroke-width:2}.accent{fill:#FEF3C7;stroke:#B45309;stroke-width:3}.wire{stroke:#94A3B8;stroke-width:4;fill:none}.wirea{stroke:#F59E0B;stroke-width:4;fill:none}</style>
+  <rect class="panel" x="1" y="1" width="998" height="348" rx="20"/>
+  <text x="38" y="47" font-size="25" font-weight="700">Where the sound can change</text>
+  <g font-size="18" text-anchor="middle"><rect class="box" x="30" y="95" width="165" height="75" rx="12"/><text x="112" y="126">Music file</text><text class="muted" x="112" y="151" font-size="14">FLAC / AAC</text>
+  <rect class="box" x="230" y="95" width="165" height="75" rx="12"/><text x="312" y="126">Player</text><text class="muted" x="312" y="151" font-size="14">decode / volume</text>
+  <rect class="box" x="430" y="95" width="165" height="75" rx="12"/><text x="512" y="126">DAC</text><text class="muted" x="512" y="151" font-size="14">digital → analogue</text>
+  <rect class="accent" x="630" y="95" width="165" height="75" rx="12"/><text class="darkText" x="712" y="126">Amplifier</text><text class="darkText" x="712" y="151" font-size="14">noise · power · impedance</text>
+  <rect class="box" x="830" y="95" width="140" height="75" rx="12"/><text x="900" y="126">IEM</text><text class="muted" x="900" y="151" font-size="14">your ears</text></g>
+  <path class="wire" d="M195 132 H225 M395 132 H425 M595 132 H625 M795 132 H825"/><path d="M218 124 L230 132 L218 140 M418 124 L430 132 L418 140 M618 124 L630 132 L618 140 M818 124 L830 132 L818 140" fill="none" stroke="#94A3B8" stroke-width="3"/>
+  <path class="wirea" d="M712 171 V210 H285 M712 210 H900 V176"/>
+  <rect class="box" x="210" y="228" width="270" height="76" rx="12"/><text x="345" y="259" font-size="17" text-anchor="middle">High output impedance</text><text class="muted" x="345" y="283" font-size="15" text-anchor="middle">can shift tuning on some IEMs</text>
+  <rect class="box" x="510" y="228" width="210" height="76" rx="12"/><text x="615" y="259" font-size="17" text-anchor="middle">Noise floor</text><text class="muted" x="615" y="283" font-size="15" text-anchor="middle">may be heard as hiss</text>
+  <rect class="box" x="750" y="228" width="220" height="76" rx="12"/><text x="860" y="259" font-size="17" text-anchor="middle">Available power</text><text class="muted" x="860" y="283" font-size="15" text-anchor="middle">sets volume headroom</text>
+</svg>

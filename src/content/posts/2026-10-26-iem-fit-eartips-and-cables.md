@@ -34,6 +34,11 @@ Signs of a poor seal:
 - The sound changes when you chew, talk or turn your head.
 - One side sounds bassier than the other.
 
+<figure>
+<img src="/images/blog/audio/pocket-hi-fi/iem-seal.svg" alt="Simplified ear canal cross-sections compare a sealed eartip, which keeps bass pressure in, with a loose tip that lets low-frequency air escape." loading="lazy" width="960" height="390" />
+<figcaption>A small leak can reduce bass even when the IEM itself is working properly. Ear canals vary; this is a simplified diagram.</figcaption>
+</figure>
+
 The graphs from [the previous part on frequency response](/technical-notes/reading-iem-frequency-response-graphs/) assume a perfect seal. If your fit leaks, no graph describes what you hear.
 
 ## Insertion depth

@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 330" role="img" aria-labelledby="title desc">
+  <title id="title">Sample rate and frequency range</title>
+  <desc id="desc">A frequency scale compares the human hearing range, the 22.05 kilohertz Nyquist limit of CD audio, and the 48 kilohertz limit of 96 kilohertz audio.</desc>
+  <style>text{font-family:Arial,sans-serif;fill:#F8FAFC}.muted{fill:#CBD5E1}.axis{stroke:#94A3B8;stroke-width:2}.tick{stroke:#94A3B8;stroke-width:2}.hearing{fill:#38BDF8}.cd{fill:#F59E0B}.hires{fill:#A78BFA}.panel{fill:#0F172A;stroke:#475569;stroke-width:2}</style>
+  <rect class="panel" x="1" y="1" width="958" height="328" rx="20"/>
+  <text x="44" y="48" font-size="25" font-weight="700">How much frequency range does the file carry?</text>
+  <text class="muted" x="44" y="81" font-size="17">Frequency scale · 0–50 kHz</text>
+  <line class="axis" x1="190" y1="280" x2="870" y2="280"/>
+  <g font-size="16" text-anchor="middle"><line class="tick" x1="190" y1="272" x2="190" y2="289"/><text class="muted" x="190" y="312">0</text><line class="tick" x1="462" y1="272" x2="462" y2="289"/><text class="muted" x="430" y="312">20 kHz</text><line class="tick" x1="490" y1="272" x2="490" y2="289"/><text class="muted" x="527" y="312">22.05 kHz</text><line class="tick" x1="843" y1="272" x2="843" y2="289"/><text class="muted" x="843" y="312">48 kHz</text></g>
+  <text x="44" y="132" font-size="18">Human hearing</text><rect class="hearing" x="190" y="108" width="272" height="28" rx="8"/><text x="478" y="129" font-size="16">to about 20 kHz</text>
+  <text x="44" y="187" font-size="18">CD · 44.1 kHz</text><rect class="cd" x="190" y="163" width="300" height="28" rx="8"/><text x="506" y="184" font-size="16">Nyquist limit: 22.05 kHz</text>
+  <text x="44" y="242" font-size="18">96 kHz audio</text><rect class="hires" x="190" y="218" width="653" height="28" rx="8"/><text x="655" y="239" font-size="16">Nyquist limit: 48 kHz</text>
+</svg>

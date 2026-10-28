@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 380" role="img" aria-labelledby="title desc">
+  <title id="title">From music purchases to the library and iPod</title>
+  <desc id="desc">Owned CDs and lossless downloads become a FLAC master library, which is tagged and scanned for ReplayGain. Navidrome serves the library, while selected files and playlists are copied to the Rockbox iPod.</desc>
+  <style>text{font-family:Arial,sans-serif;fill:#F8FAFC}.muted{fill:#CBD5E1}.darkText{fill:#0F172A}.panel{fill:#0F172A;stroke:#475569;stroke-width:2}.box{fill:#1E293B;stroke:#64748B;stroke-width:2}.accent{fill:#FEF3C7;stroke:#B45309;stroke-width:3}.wire{stroke:#94A3B8;stroke-width:4;fill:none}.wirea{stroke:#F59E0B;stroke-width:4;fill:none}</style>
+  <rect class="panel" x="1" y="1" width="998" height="378" rx="20"/>
+  <text x="38" y="48" font-size="25" font-weight="700">One owned library, two ways to listen</text>
+  <g text-anchor="middle"><rect class="box" x="38" y="90" width="230" height="74" rx="12"/><text x="153" y="121" font-size="18">CDs you own</text><text class="muted" x="153" y="146" font-size="15">accurate rip</text>
+  <rect class="box" x="38" y="194" width="230" height="74" rx="12"/><text x="153" y="225" font-size="18">Lossless downloads</text><text class="muted" x="153" y="250" font-size="15">DRM-free files</text>
+  <rect class="accent" x="350" y="135" width="270" height="100" rx="14"/><text class="darkText" x="485" y="170" font-size="20">FLAC master library</text><text class="darkText" x="485" y="198" font-size="15">tags · ReplayGain · artwork</text>
+  <rect class="box" x="720" y="86" width="235" height="82" rx="12"/><text x="837" y="120" font-size="19">Navidrome</text><text class="muted" x="837" y="146" font-size="15">server and playlists</text>
+  <rect class="box" x="720" y="221" width="235" height="82" rx="12"/><text x="837" y="255" font-size="19">Rockbox iPod</text><text class="muted" x="837" y="281" font-size="15">selected files + playlists</text></g>
+  <path class="wire" d="M268 127 H342 M268 231 C305 231 305 202 342 202 M620 160 C666 160 666 127 712 127"/><path class="wirea" d="M620 210 C666 210 666 262 712 262"/>
+  <path d="M334 119 L350 127 L334 135 M334 194 L350 202 L334 210 M704 119 L720 127 L704 135" fill="none" stroke="#94A3B8" stroke-width="3"/><path d="M704 254 L720 262 L704 270" fill="none" stroke="#F59E0B" stroke-width="3"/>
+  <text class="muted" x="350" y="330" font-size="16">Keep the lossless master; sync only the files and playlists the iPod needs.</text>
+</svg>
