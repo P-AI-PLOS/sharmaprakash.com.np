@@ -13,6 +13,9 @@ tags:
   - balanced
 series: pocket-hi-fi
 seriesOrder: 5
+cover: "/images/blog/audio/iem-fit-eartips-and-cables.webp"
+thumb: "/images/blog/audio/iem-fit-eartips-and-cables.webp"
+use_featured_image: true
 draft: false
 comments: true
 share: true

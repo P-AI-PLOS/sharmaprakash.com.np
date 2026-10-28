@@ -13,6 +13,9 @@ tags:
   - ipod
 series: pocket-hi-fi
 seriesOrder: 1
+cover: "/images/blog/audio/what-you-can-actually-hear.webp"
+thumb: "/images/blog/audio/what-you-can-actually-hear.webp"
+use_featured_image: true
 draft: false
 comments: true
 share: true

@@ -13,6 +13,9 @@ tags:
   - spotify
 series: pocket-hi-fi
 seriesOrder: 7
+cover: "/images/blog/audio/ipod-video-5-5g-rockbox-purist-player.webp"
+thumb: "/images/blog/audio/ipod-video-5-5g-rockbox-purist-player.webp"
+use_featured_image: true
 draft: false
 comments: true
 share: true

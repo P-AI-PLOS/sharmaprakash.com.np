@@ -11,6 +11,9 @@ tags:
   - rockbox
   - walkman
   - iem
+cover: "/images/blog/audio/sony-walkman-vs-modded-ipod-video-scorecard.webp"
+thumb: "/images/blog/audio/sony-walkman-vs-modded-ipod-video-scorecard.webp"
+use_featured_image: true
 draft: false
 comments: true
 share: true

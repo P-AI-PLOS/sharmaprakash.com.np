@@ -13,7 +13,9 @@ tags:
   - ipod
   - music
   - homelab
-use_featured_image: false
+cover: "/images/blog/audio/scrobbling-everything-to-listenbrainz.webp"
+thumb: "/images/blog/audio/scrobbling-everything-to-listenbrainz.webp"
+use_featured_image: true
 comments: true
 share: true
 draft: false

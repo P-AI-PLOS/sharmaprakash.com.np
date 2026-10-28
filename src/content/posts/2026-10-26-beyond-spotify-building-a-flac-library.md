@@ -13,6 +13,9 @@ tags:
   - rockbox
 series: pocket-hi-fi
 seriesOrder: 8
+cover: "/images/blog/audio/beyond-spotify-building-a-flac-library.webp"
+thumb: "/images/blog/audio/beyond-spotify-building-a-flac-library.webp"
+use_featured_image: true
 draft: false
 comments: true
 share: true

@@ -13,6 +13,9 @@ tags:
   - harman-target
 series: pocket-hi-fi
 seriesOrder: 3
+cover: "/images/blog/audio/reading-iem-frequency-response-graphs.webp"
+thumb: "/images/blog/audio/reading-iem-frequency-response-graphs.webp"
+use_featured_image: true
 draft: false
 comments: true
 share: true

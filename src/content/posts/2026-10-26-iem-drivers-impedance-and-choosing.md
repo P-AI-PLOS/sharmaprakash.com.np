@@ -13,6 +13,9 @@ tags:
   - buying-guide
 series: pocket-hi-fi
 seriesOrder: 4
+cover: "/images/blog/audio/iem-drivers-impedance-and-choosing.webp"
+thumb: "/images/blog/audio/iem-drivers-impedance-and-choosing.webp"
+use_featured_image: true
 draft: false
 comments: true
 share: true

@@ -14,7 +14,9 @@ tags:
   - listenbrainz
   - ollama
   - audio-analysis
-use_featured_image: false
+cover: "/images/blog/audio/audiomuse-ai-sonic-recommendations.webp"
+thumb: "/images/blog/audio/audiomuse-ai-sonic-recommendations.webp"
+use_featured_image: true
 comments: true
 share: true
 series: homelab-music

@@ -13,6 +13,9 @@ tags:
   - walkman
 series: pocket-hi-fi
 seriesOrder: 9
+cover: "/images/blog/audio/pairing-iems-ipod-vs-sony-walkman.webp"
+thumb: "/images/blog/audio/pairing-iems-ipod-vs-sony-walkman.webp"
+use_featured_image: true
 draft: false
 comments: true
 share: true

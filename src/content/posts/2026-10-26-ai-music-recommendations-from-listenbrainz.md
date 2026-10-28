@@ -14,7 +14,9 @@ tags:
   - llm
   - privacy
   - navidrome
-use_featured_image: false
+cover: "/images/blog/audio/ai-music-recommendations-from-listenbrainz.webp"
+thumb: "/images/blog/audio/ai-music-recommendations-from-listenbrainz.webp"
+use_featured_image: true
 comments: true
 share: true
 series: homelab-music

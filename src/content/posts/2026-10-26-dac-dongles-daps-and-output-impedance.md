@@ -13,6 +13,9 @@ tags:
   - spotify
 series: pocket-hi-fi
 seriesOrder: 6
+cover: "/images/blog/audio/dac-dongles-daps-and-output-impedance.webp"
+thumb: "/images/blog/audio/dac-dongles-daps-and-output-impedance.webp"
+use_featured_image: true
 draft: false
 comments: true
 share: true
