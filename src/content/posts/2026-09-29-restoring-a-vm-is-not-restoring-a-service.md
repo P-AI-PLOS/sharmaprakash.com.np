@@ -6,6 +6,7 @@ category: ["Homelab"]
 categories: ["technical"]
 excerpt: "A virtual machine can boot while its database, workers, or network assumptions remain broken. An isolated restore needs application-level proof."
 tags: ["homelab", "virtualization", "backup", "disaster recovery", "PostgreSQL"]
+last_modified_at: "2026-11-04T10:00:00+05:45"
 draft: false
 ---
 
@@ -59,3 +60,9 @@ For a service backed by a VM, I now treat “restore succeeded” as a set of cl
 There may be more for a particular system: object storage, identity providers, DNS, payment processors, or user-visible browser flows. The point is to name those dependencies rather than let a boot screen imply that they were tested.
 
 Recovery evidence should describe exactly what was restored and what was exercised. That makes the next outage less dependent on optimism.
+
+## Make the verification record reusable
+
+Keep the artifact identifier, isolation setup, observation time, and fresh test-action identifier together. Record excluded dependencies explicitly. A receipt copied inside the backup is historical evidence; the application check needs a result created after restoration.
+
+Separate the outcomes in the record: guest booted, data checked, representative work completed, and external integrations untested. This gives a later drill something specific to repeat without converting a partial test into a blanket recovery claim.
