@@ -9,7 +9,7 @@ tags: ["homelab", "practical guide"]
 use_featured_image: true
 cover: /images/blog/editorial/homelab-restore-test-checklist/cover.png
 thumb: /images/blog/editorial/homelab-restore-test-checklist/thumb.png
-draft: false
+draft: true
 ---
 
 A restore drill becomes easier to postpone when its scope is “prove the entire homelab is recoverable.” That is a large, ambiguous job. Start with one service and one recovery artifact instead.

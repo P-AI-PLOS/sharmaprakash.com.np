@@ -22,7 +22,12 @@ share: true
 series: homelab-music
 seriesOrder: 4
 draft: false
+last_modified_at: "2026-11-05T21:20:00+05:45"
 ---
+
+**Update, 5 November 2026:** This post describes my original small-sample
+setup. AudioMuse now runs on Shuri, and the full-library pass has completed.
+[Here is what scaling the analysis taught me](/technical-notes/scaling-audiomuse-album-analysis/).
 
 The [field guide](/technical-notes/homelab-music-recommendations-field-guide/)
 that opened this series split music recommendation into separate signals:

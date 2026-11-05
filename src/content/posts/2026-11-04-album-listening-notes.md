@@ -9,7 +9,7 @@ tags: ["audio", "practical guide"]
 use_featured_image: true
 cover: "/images/blog/editorial/portable-music-player-comparison-checklist/cover.png"
 thumb: "/images/blog/editorial/portable-music-player-comparison-checklist/thumb.png"
-draft: false
+draft: true
 ---
 
 Listening notes are useful when they help you return to music. They become less useful when every album needs a score, a genre taxonomy, and a paragraph written while the next track is already playing.

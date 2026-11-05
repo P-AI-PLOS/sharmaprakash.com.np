@@ -9,7 +9,7 @@ tags: ["product", "practical guide"]
 use_featured_image: true
 cover: "/images/blog/editorial/product-decisions/cover.png"
 thumb: "/images/blog/editorial/product-decisions/thumb.png"
-draft: false
+draft: true
 ---
 
 The first answer in a customer interview is often a summary: “It takes too long,” “we need automation,” or “the team does not use it.” The useful detail usually appears in the follow-up.

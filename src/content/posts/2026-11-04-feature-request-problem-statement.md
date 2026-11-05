@@ -9,7 +9,7 @@ tags: ["product", "practical guide"]
 use_featured_image: true
 cover: "/images/blog/editorial/product-decisions/cover.png"
 thumb: "/images/blog/editorial/product-decisions/thumb.png"
-draft: false
+draft: true
 ---
 
 “Can you add an export button?” is a useful request, but it leaves several possible problems unresolved. The person might need a monthly report, a one-time migration, or a way to share a single record. Those needs can lead to different solutions.

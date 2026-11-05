@@ -9,7 +9,7 @@ tags: ["audio", "practical guide"]
 use_featured_image: true
 cover: /images/blog/editorial/portable-music-player-comparison-checklist/cover.png
 thumb: /images/blog/editorial/portable-music-player-comparison-checklist/thumb.png
-draft: false
+draft: true
 ---
 
 Comparing two portable music players can turn into comparing everything at once: different headphones, different releases of the same album, different settings, and a different mood by the end of the evening.

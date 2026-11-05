@@ -9,7 +9,7 @@ tags: ["audio", "practical guide"]
 use_featured_image: true
 cover: "/images/blog/editorial/portable-music-player-comparison-checklist/cover.png"
 thumb: "/images/blog/editorial/portable-music-player-comparison-checklist/thumb.png"
-draft: false
+draft: true
 ---
 
 A playlist looks portable because it is a list of songs. In practice, its entries may point to local paths, application-specific identifiers, or a particular service's catalog. Moving the list can expose those hidden assumptions.

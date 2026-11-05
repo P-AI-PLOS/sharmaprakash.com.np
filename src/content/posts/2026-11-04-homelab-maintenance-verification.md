@@ -9,7 +9,7 @@ tags: ["homelab", "practical guide"]
 use_featured_image: true
 cover: "/images/blog/editorial/homelab-restore-test-checklist/cover.png"
 thumb: "/images/blog/editorial/homelab-restore-test-checklist/thumb.png"
-draft: false
+draft: true
 ---
 
 A scheduled job can run successfully while the maintenance you care about remains unfinished. The scheduler may have launched a wrapper, the wrapper may have recorded a result, and a machine may still be waiting for a reboot. These are separate observations.

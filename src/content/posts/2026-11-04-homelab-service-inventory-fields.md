@@ -9,7 +9,7 @@ tags: ["homelab", "practical guide"]
 use_featured_image: true
 cover: "/images/blog/editorial/homelab-restore-test-checklist/cover.png"
 thumb: "/images/blog/editorial/homelab-restore-test-checklist/thumb.png"
-draft: false
+draft: true
 ---
 
 A list of virtual machines tells you where operating systems run. It does not necessarily tell you where an application keeps its data, how it is deployed, or what will break when its host disappears. A useful service inventory answers the questions that come up during a change.

@@ -9,7 +9,7 @@ tags: ["developer", "practical guide"]
 use_featured_image: true
 cover: "/images/blog/editorial/developer-workflows/cover.png"
 thumb: "/images/blog/editorial/developer-workflows/thumb.png"
-draft: false
+draft: true
 ---
 
 Code reviews become confusing when evidence is presented without saying what it proves. A screenshot can show a layout. A unit test can establish behavior under controlled inputs. A deployment log can show that a platform accepted an artifact. None of these automatically proves the others.

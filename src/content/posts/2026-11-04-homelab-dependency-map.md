@@ -9,7 +9,7 @@ tags: ["homelab", "practical guide"]
 use_featured_image: true
 cover: "/images/blog/editorial/homelab-restore-test-checklist/cover.png"
 thumb: "/images/blog/editorial/homelab-restore-test-checklist/thumb.png"
-draft: false
+draft: true
 ---
 
 A network diagram and a service dependency map solve different problems. The first can tell you which machines are connected. The second should tell you why a user action fails when a particular service disappears.

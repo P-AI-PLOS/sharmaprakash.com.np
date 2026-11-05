@@ -9,7 +9,7 @@ tags: ["audio", "practical guide"]
 use_featured_image: true
 cover: "/images/blog/editorial/portable-music-player-comparison-checklist/cover.png"
 thumb: "/images/blog/editorial/portable-music-player-comparison-checklist/thumb.png"
-draft: false
+draft: true
 ---
 
 Metadata cleanup feels harmless because the audio still plays. Yet a bulk tagging change can split albums, erase useful release information, or make a carefully arranged library difficult to navigate.

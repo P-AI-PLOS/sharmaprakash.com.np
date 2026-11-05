@@ -9,7 +9,7 @@ tags: ["developer", "practical guide"]
 use_featured_image: true
 cover: "/images/blog/editorial/developer-workflows/cover.png"
 thumb: "/images/blog/editorial/developer-workflows/thumb.png"
-draft: false
+draft: true
 ---
 
 A bug report often begins with “it stopped working.” That is a reasonable first signal, but it is not yet a reproducible problem. The next step is to turn the observation into a bounded experiment another person can run.

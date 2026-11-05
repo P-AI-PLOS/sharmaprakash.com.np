@@ -9,7 +9,7 @@ tags: ["audio", "practical guide"]
 use_featured_image: true
 cover: "/images/blog/editorial/portable-music-player-comparison-checklist/cover.png"
 thumb: "/images/blog/editorial/portable-music-player-comparison-checklist/thumb.png"
-draft: false
+draft: true
 ---
 
 A music folder structure should make the library easy to inspect and move. It does not need to encode every fact about a recording in the path. Trying to do that usually creates long names and inconsistent exceptions.

@@ -9,7 +9,7 @@ tags: ["product", "practical guide"]
 use_featured_image: true
 cover: "/images/blog/editorial/product-decisions/cover.png"
 thumb: "/images/blog/editorial/product-decisions/thumb.png"
-draft: false
+draft: true
 ---
 
 A roadmap shows what a team intends to do. It rarely explains why one option was chosen over another. A short decision log fills that gap, especially when the same question returns months later.

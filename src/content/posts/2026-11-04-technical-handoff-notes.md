@@ -9,7 +9,7 @@ tags: ["developer", "practical guide"]
 use_featured_image: true
 cover: "/images/blog/editorial/developer-workflows/cover.png"
 thumb: "/images/blog/editorial/developer-workflows/thumb.png"
-draft: false
+draft: true
 ---
 
 A handoff note is not a diary. The next person needs to know where the work stands, which evidence is reliable, and what action will move it forward. They rarely need every command that led there.

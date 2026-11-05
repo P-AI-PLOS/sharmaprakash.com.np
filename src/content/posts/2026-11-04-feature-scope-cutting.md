@@ -9,7 +9,7 @@ tags: ["product", "practical guide"]
 use_featured_image: true
 cover: "/images/blog/editorial/product-decisions/cover.png"
 thumb: "/images/blog/editorial/product-decisions/thumb.png"
-draft: false
+draft: true
 ---
 
 A deadline approaches and the feature is too large. The easiest cuts are often visible details: a validation message, an error state, or a small accessibility behavior. Those cuts can leave the main workflow looking complete while making it unreliable to use.

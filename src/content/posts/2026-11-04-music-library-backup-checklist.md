@@ -9,7 +9,7 @@ tags: ["audio", "practical guide"]
 use_featured_image: true
 cover: "/images/blog/editorial/portable-music-player-comparison-checklist/cover.png"
 thumb: "/images/blog/editorial/portable-music-player-comparison-checklist/thumb.png"
-draft: false
+draft: true
 ---
 
 A music library is more than a directory of audio. It may also contain carefully corrected tags, playlists, cover art, listening history, and the configuration that makes a server or player useful.

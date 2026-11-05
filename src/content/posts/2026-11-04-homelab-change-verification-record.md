@@ -9,7 +9,7 @@ tags: ["homelab", "practical guide"]
 use_featured_image: true
 cover: "/images/blog/editorial/homelab-restore-test-checklist/cover.png"
 thumb: "/images/blog/editorial/homelab-restore-test-checklist/thumb.png"
-draft: false
+draft: true
 ---
 
 A successful build and a successful deployment are different events. So are a completed deployment command and a working user flow. A useful change record connects them without requiring a long incident report for every routine update.

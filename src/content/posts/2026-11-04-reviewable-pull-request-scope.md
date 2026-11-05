@@ -9,7 +9,7 @@ tags: ["developer", "practical guide"]
 use_featured_image: true
 cover: "/images/blog/editorial/developer-workflows/cover.png"
 thumb: "/images/blog/editorial/developer-workflows/thumb.png"
-draft: false
+draft: true
 ---
 
 A small pull request is not automatically easy to review. Moving a handful of lines across an undocumented boundary can be harder to assess than a larger, coherent change. The useful unit is a behavior a reviewer can understand and verify.

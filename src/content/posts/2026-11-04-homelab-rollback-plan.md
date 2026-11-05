@@ -9,7 +9,7 @@ tags: ["homelab", "practical guide"]
 use_featured_image: true
 cover: "/images/blog/editorial/homelab-restore-test-checklist/cover.png"
 thumb: "/images/blog/editorial/homelab-restore-test-checklist/thumb.png"
-draft: false
+draft: true
 ---
 
 “We can roll back” is easy to say when a change only exists in a branch. It becomes a harder statement after a service has accepted new writes or a configuration change has reached several machines.

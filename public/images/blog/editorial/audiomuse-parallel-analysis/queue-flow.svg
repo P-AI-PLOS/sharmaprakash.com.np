@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="520" viewBox="0 0 1440 520" role="img" aria-label="Navidrome supplies albums to one high-priority coordinator, which maintains up to 40 album jobs in the default queue for 36 workers; the workers share PostgreSQL connections">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#0b1d2b"/><stop offset="1" stop-color="#17233f"/></linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#5ce0c5"/><stop offset="1" stop-color="#61b4ff"/></linearGradient>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0L10 5L0 10" fill="#68c8d8"/></marker>
+  </defs>
+  <rect width="1440" height="520" rx="32" fill="url(#bg)"/>
+  <g fill="#152f43" stroke="#5792a5" stroke-width="2">
+    <rect x="54" y="86" width="252" height="212" rx="24"/>
+    <rect x="394" y="86" width="252" height="212" rx="24"/>
+    <rect x="734" y="86" width="252" height="212" rx="24"/>
+    <rect x="1074" y="86" width="312" height="212" rx="24"/>
+    <rect x="504" y="385" width="432" height="92" rx="24"/>
+  </g>
+  <g stroke="#68c8d8" stroke-width="4" fill="none" marker-end="url(#arrow)">
+    <path d="M306 192H382"/><path d="M646 192H722"/><path d="M986 192H1062"/>
+    <path d="M1230 304V350H720V373"/>
+  </g>
+  <g font-family="Inter, ui-sans-serif, system-ui, sans-serif" text-anchor="middle">
+    <text x="180" y="144" fill="#61dec7" font-size="18" font-weight="700" letter-spacing="2">LIBRARY</text>
+    <text x="180" y="195" fill="#f2f7fb" font-size="34" font-weight="700">Navidrome</text>
+    <text x="180" y="239" fill="#b9d0dd" font-size="20">1,728 selected albums</text>
+    <text x="520" y="144" fill="#61dec7" font-size="18" font-weight="700" letter-spacing="2">HIGH PRIORITY</text>
+    <text x="520" y="195" fill="#f2f7fb" font-size="29" font-weight="700">1 coordinator</text>
+    <text x="520" y="239" fill="#b9d0dd" font-size="20">dispatches album jobs</text>
+    <text x="860" y="144" fill="#61dec7" font-size="18" font-weight="700" letter-spacing="2">DEFAULT QUEUE</text>
+    <text x="860" y="195" fill="#f2f7fb" font-size="31" font-weight="700">40 in flight</text>
+    <text x="860" y="239" fill="#b9d0dd" font-size="20">running + waiting</text>
+    <text x="1230" y="144" fill="#61dec7" font-size="18" font-weight="700" letter-spacing="2">ALBUM WORK</text>
+    <text x="1230" y="195" fill="#f2f7fb" font-size="32" font-weight="700">36 workers</text>
+    <text x="1230" y="239" fill="#b9d0dd" font-size="20">one album claim at a time</text>
+    <text x="720" y="424" fill="#f2f7fb" font-size="25" font-weight="700">PostgreSQL</text>
+    <text x="720" y="454" fill="#b9d0dd" font-size="18">queue, progress, analysis data, connections</text>
+  </g>
+  <g fill="url(#accent)">
+    <circle cx="1142" cy="273" r="5"/><circle cx="1167" cy="273" r="5"/><circle cx="1192" cy="273" r="5"/>
+    <circle cx="1217" cy="273" r="5"/><circle cx="1242" cy="273" r="5"/><circle cx="1267" cy="273" r="5"/>
+    <circle cx="1292" cy="273" r="5"/><circle cx="1317" cy="273" r="5"/>
+  </g>
+</svg>

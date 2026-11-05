@@ -9,7 +9,7 @@ tags: ["product", "practical guide"]
 use_featured_image: true
 cover: "/images/blog/editorial/product-decisions/cover.png"
 thumb: "/images/blog/editorial/product-decisions/thumb.png"
-draft: false
+draft: true
 ---
 
 A dashboard can make an ambiguous number look authoritative. “Active users” is a common example: active in what way, over which period, and with which accounts included?

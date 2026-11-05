@@ -9,7 +9,7 @@ tags: ["developer", "practical guide"]
 use_featured_image: true
 cover: "/images/blog/editorial/developer-workflows/cover.png"
 thumb: "/images/blog/editorial/developer-workflows/thumb.png"
-draft: false
+draft: true
 ---
 
 A local machine can host both a useful application database and a disposable test database. The dangerous assumption is that a command named “test” must know which one you intended.

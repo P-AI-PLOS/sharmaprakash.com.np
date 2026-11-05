@@ -9,7 +9,7 @@ tags: ["developer", "practical guide"]
 use_featured_image: true
 cover: "/images/blog/editorial/developer-workflows/cover.png"
 thumb: "/images/blog/editorial/developer-workflows/thumb.png"
-draft: false
+draft: true
 ---
 
 Technical documentation becomes misleading when future plans are written in the present tense. A diagram can look complete while a key integration remains unbuilt. A security statement can describe the desired boundary rather than the actual code paths.

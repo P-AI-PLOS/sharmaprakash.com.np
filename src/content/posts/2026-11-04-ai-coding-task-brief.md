@@ -9,7 +9,7 @@ tags: ["developer", "practical guide"]
 use_featured_image: true
 cover: "/images/blog/editorial/developer-workflows/cover.png"
 thumb: "/images/blog/editorial/developer-workflows/thumb.png"
-draft: false
+draft: true
 ---
 
 An AI coding task becomes easier to evaluate when its brief describes the outcome and the boundaries. A long prompt full of implementation guesses can make the work less clear, especially when those guesses contradict the repository.

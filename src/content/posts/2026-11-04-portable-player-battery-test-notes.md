@@ -9,7 +9,7 @@ tags: ["audio", "practical guide"]
 use_featured_image: true
 cover: "/images/blog/editorial/portable-music-player-comparison-checklist/cover.png"
 thumb: "/images/blog/editorial/portable-music-player-comparison-checklist/thumb.png"
-draft: false
+draft: true
 ---
 
 “The battery lasted all day” is a useful personal impression. It is not a reproducible runtime result. If you want to compare two runs, the conditions around the number matter as much as the number itself.

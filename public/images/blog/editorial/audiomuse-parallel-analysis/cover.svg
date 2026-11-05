@@ -1,0 +1,96 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1915" height="821" viewBox="0 0 1915 821" role="img" aria-label="Audio waveforms flowing through a job queue into a grid of parallel workers">
+  <defs>
+    <linearGradient id="background" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#081423"/>
+      <stop offset="0.58" stop-color="#12243a"/>
+      <stop offset="1" stop-color="#1d1c3f"/>
+    </linearGradient>
+    <linearGradient id="signal" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#4fe6c1"/>
+      <stop offset="1" stop-color="#4aa7ff"/>
+    </linearGradient>
+    <linearGradient id="worker" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#264a68"/>
+      <stop offset="1" stop-color="#20294d"/>
+    </linearGradient>
+    <radialGradient id="glow">
+      <stop offset="0" stop-color="#4fe6c1" stop-opacity="0.26"/>
+      <stop offset="1" stop-color="#4fe6c1" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="grid" width="48" height="48" patternUnits="userSpaceOnUse">
+      <path d="M48 0H0V48" fill="none" stroke="#8aa8c5" stroke-opacity="0.075" stroke-width="1"/>
+    </pattern>
+    <filter id="soft-glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="13"/>
+    </filter>
+  </defs>
+  <rect width="1915" height="821" fill="url(#background)"/>
+  <rect width="1915" height="821" fill="url(#grid)"/>
+  <circle cx="421" cy="400" r="340" fill="url(#glow)"/>
+  <circle cx="1514" cy="370" r="440" fill="url(#glow)" opacity="0.45"/>
+
+  <!-- Thirty-six worker tiles: a visible count without introducing tiny text. -->
+  <g stroke="#85bdd2" stroke-opacity="0.3" stroke-width="2">
+    <rect x="1117" y="127" width="108" height="76" rx="16" fill="url(#worker)"/>
+    <rect x="1237" y="127" width="108" height="76" rx="16" fill="url(#worker)"/>
+    <rect x="1357" y="127" width="108" height="76" rx="16" fill="url(#worker)"/>
+    <rect x="1477" y="127" width="108" height="76" rx="16" fill="url(#worker)"/>
+    <rect x="1597" y="127" width="108" height="76" rx="16" fill="url(#worker)"/>
+    <rect x="1717" y="127" width="108" height="76" rx="16" fill="url(#worker)"/>
+    <rect x="1117" y="219" width="108" height="76" rx="16" fill="url(#worker)"/>
+    <rect x="1237" y="219" width="108" height="76" rx="16" fill="url(#worker)"/>
+    <rect x="1357" y="219" width="108" height="76" rx="16" fill="url(#worker)"/>
+    <rect x="1477" y="219" width="108" height="76" rx="16" fill="url(#worker)"/>
+    <rect x="1597" y="219" width="108" height="76" rx="16" fill="url(#worker)"/>
+    <rect x="1717" y="219" width="108" height="76" rx="16" fill="url(#worker)"/>
+    <rect x="1117" y="311" width="108" height="76" rx="16" fill="url(#worker)"/>
+    <rect x="1237" y="311" width="108" height="76" rx="16" fill="url(#worker)"/>
+    <rect x="1357" y="311" width="108" height="76" rx="16" fill="url(#worker)"/>
+    <rect x="1477" y="311" width="108" height="76" rx="16" fill="url(#worker)"/>
+    <rect x="1597" y="311" width="108" height="76" rx="16" fill="url(#worker)"/>
+    <rect x="1717" y="311" width="108" height="76" rx="16" fill="url(#worker)"/>
+    <rect x="1117" y="403" width="108" height="76" rx="16" fill="url(#worker)"/>
+    <rect x="1237" y="403" width="108" height="76" rx="16" fill="url(#worker)"/>
+    <rect x="1357" y="403" width="108" height="76" rx="16" fill="url(#worker)"/>
+    <rect x="1477" y="403" width="108" height="76" rx="16" fill="url(#worker)"/>
+    <rect x="1597" y="403" width="108" height="76" rx="16" fill="url(#worker)"/>
+    <rect x="1717" y="403" width="108" height="76" rx="16" fill="url(#worker)"/>
+    <rect x="1117" y="495" width="108" height="76" rx="16" fill="url(#worker)"/>
+    <rect x="1237" y="495" width="108" height="76" rx="16" fill="url(#worker)"/>
+    <rect x="1357" y="495" width="108" height="76" rx="16" fill="url(#worker)"/>
+    <rect x="1477" y="495" width="108" height="76" rx="16" fill="url(#worker)"/>
+    <rect x="1597" y="495" width="108" height="76" rx="16" fill="url(#worker)"/>
+    <rect x="1717" y="495" width="108" height="76" rx="16" fill="url(#worker)"/>
+    <rect x="1117" y="587" width="108" height="76" rx="16" fill="url(#worker)"/>
+    <rect x="1237" y="587" width="108" height="76" rx="16" fill="url(#worker)"/>
+    <rect x="1357" y="587" width="108" height="76" rx="16" fill="url(#worker)"/>
+    <rect x="1477" y="587" width="108" height="76" rx="16" fill="url(#worker)"/>
+    <rect x="1597" y="587" width="108" height="76" rx="16" fill="url(#worker)"/>
+    <rect x="1717" y="587" width="108" height="76" rx="16" fill="url(#worker)"/>
+  </g>
+  <g fill="#53e5c8">
+    <circle cx="1171" cy="165" r="9"/><circle cx="1291" cy="165" r="9"/><circle cx="1411" cy="165" r="9"/><circle cx="1531" cy="165" r="9"/><circle cx="1651" cy="165" r="9"/><circle cx="1771" cy="165" r="9"/>
+    <circle cx="1171" cy="257" r="9"/><circle cx="1291" cy="257" r="9"/><circle cx="1411" cy="257" r="9"/><circle cx="1531" cy="257" r="9"/><circle cx="1651" cy="257" r="9"/><circle cx="1771" cy="257" r="9"/>
+    <circle cx="1171" cy="349" r="9"/><circle cx="1291" cy="349" r="9"/><circle cx="1411" cy="349" r="9"/><circle cx="1531" cy="349" r="9"/><circle cx="1651" cy="349" r="9"/><circle cx="1771" cy="349" r="9"/>
+    <circle cx="1171" cy="441" r="9"/><circle cx="1291" cy="441" r="9"/><circle cx="1411" cy="441" r="9"/><circle cx="1531" cy="441" r="9"/><circle cx="1651" cy="441" r="9"/><circle cx="1771" cy="441" r="9"/>
+    <circle cx="1171" cy="533" r="9"/><circle cx="1291" cy="533" r="9"/><circle cx="1411" cy="533" r="9"/><circle cx="1531" cy="533" r="9"/><circle cx="1651" cy="533" r="9"/><circle cx="1771" cy="533" r="9"/>
+    <circle cx="1171" cy="625" r="9"/><circle cx="1291" cy="625" r="9"/><circle cx="1411" cy="625" r="9"/><circle cx="1531" cy="625" r="9"/><circle cx="1651" cy="625" r="9"/><circle cx="1771" cy="625" r="9"/>
+  </g>
+
+  <path d="M555 410H1053" stroke="#53e5c8" stroke-width="8" stroke-linecap="round" opacity="0.28" filter="url(#soft-glow)"/>
+  <path d="M555 410H1040" stroke="url(#signal)" stroke-width="5" stroke-linecap="round" stroke-dasharray="5 19"/>
+  <path d="M1034 395L1061 410L1034 425" fill="none" stroke="#53e5c8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="642" y="322" width="268" height="176" rx="28" fill="#152b43" stroke="#5d8aa1" stroke-width="2"/>
+  <g fill="#54e5c8">
+    <circle cx="692" cy="365" r="10"/><circle cx="738" cy="365" r="10"/><circle cx="784" cy="365" r="10"/><circle cx="830" cy="365" r="10"/><circle cx="876" cy="365" r="10"/>
+    <circle cx="692" cy="411" r="10"/><circle cx="738" cy="411" r="10"/><circle cx="784" cy="411" r="10"/><circle cx="830" cy="411" r="10"/><circle cx="876" cy="411" r="10"/>
+    <circle cx="692" cy="457" r="10"/><circle cx="738" cy="457" r="10"/><circle cx="784" cy="457" r="10"/><circle cx="830" cy="457" r="10"/><circle cx="876" cy="457" r="10"/>
+  </g>
+
+  <g fill="none" stroke="url(#signal)" stroke-linecap="round">
+    <path d="M137 410C190 410 196 410 231 410C241 410 248 382 259 382C270 382 279 464 292 464C306 464 317 309 330 309C344 309 359 520 374 520C389 520 401 348 414 348C428 348 438 450 450 450C461 450 468 410 484 410H553" stroke-width="7"/>
+    <path d="M168 307C225 308 248 322 278 336M159 521C225 517 247 502 278 489" stroke-width="2" opacity="0.32"/>
+  </g>
+  <circle cx="329" cy="409" r="196" fill="none" stroke="#61cfd7" stroke-opacity="0.15" stroke-width="2"/>
+  <circle cx="329" cy="409" r="247" fill="none" stroke="#61cfd7" stroke-opacity="0.08" stroke-width="2"/>
+</svg>

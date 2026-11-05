@@ -9,7 +9,7 @@ tags: ["product", "practical guide"]
 use_featured_image: true
 cover: "/images/blog/editorial/product-decisions/cover.png"
 thumb: "/images/blog/editorial/product-decisions/thumb.png"
-draft: false
+draft: true
 ---
 
 A commit log is organized around implementation. Release notes should be organized around the user's experience. “Refactored import handler” may describe real work while telling a customer almost nothing.
