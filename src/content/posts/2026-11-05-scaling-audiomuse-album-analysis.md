@@ -4,7 +4,7 @@ date: "2026-11-05T21:15:00+05:45"
 category: ["Technical Notes"]
 categories: ["technical-notes"]
 directory: technical-notes
-excerpt: "My music library was taking too long to analyse, even after I moved AudioMuse to a bigger machine. The answer was more workers, a wider queue, and enough PostgreSQL connections to keep them busy."
+excerpt: "I moved AudioMuse to a bigger machine, scaled it to 40 workers, and timed a fresh full-library run. The result was faster, though nowhere near 40 times faster."
 tags:
   - homelab
   - music
@@ -19,6 +19,7 @@ use_featured_image: true
 comments: true
 share: true
 draft: false
+last_modified_at: "2026-11-06T01:02:00+05:45"
 ---
 
 My [first AudioMuse experiment](/technical-notes/audiomuse-ai-sonic-recommendations/)
@@ -72,34 +73,90 @@ CPU, database connections, and queue progress together. I also learned to
 check AudioMuse's queue page: once, Incus showed a worker container running
 while its queue processes had stopped after a database restart.
 
-I ended up with **36 worker containers**. The full analysis completed with
-**1,728 of 1,728 albums visited and zero failed albums**. AudioMuse then showed
-6,441 songs and 1,704 distinct albums in its database; those counts measure
-different things. The last part of the task rebuilt indexes after the album
-jobs finished, so a full album counter was not quite the end of the run.
+With 36 workers, the library pass eventually finished, but it had reused
+analysis saved during earlier attempts. That gave me a working library, not a
+clean timing comparison. I added four more workers, backed up the database,
+cleared its computed song analysis and indexes, and started the whole
+**1,728-album** pass again from the production web UI. The music-server
+settings and saved playlists stayed in place. This time I could watch the same
+run from its first album to its final index build.
 
-## What did the extra workers buy me?
+Early in that run, AudioMuse showed **40 album jobs running**. I checked their
+album identifiers in PostgreSQL: all 40 were different. The dashboard's song
+and album totals had already started growing, although the completed-album
+counter was still low. An album can add tracks for several minutes before its
+job finally completes.
 
-I wanted a number I could put next to the story, so I ran a separate test on
-**36 albums** against an isolated copy of AudioMuse's database. All 36 album
-jobs were claimed by different workers, none failed, and the complete task,
-including its final indexing work, took **8 minutes 12 seconds**. That is a
-measured result for this batch, not a full-library 36-worker benchmark.
+![AudioMuse's production dashboard showing 40 default-queue album jobs running during the full-library pass.](/images/blog/editorial/audiomuse-parallel-analysis/forty-workers-dashboard.png)
 
-The earlier attempt had reached roughly 336 albums when I cancelled it after
-88 minutes. Extending that observed rate over 1,728 albums gives a rough
-**7½-hour** finish time. The later task reported completion in about
-**17 minutes**, but it could skip work already saved by earlier attempts.
-Workers had also been added during the 88-minute stretch. Those two times
-show why the change felt dramatic; dividing them would not measure a clean
-36-versus-one-worker speedup. The isolated 36-album result is the repeatable
-number I can actually attach to a defined batch.
+At roughly the same moment, Shuri's `htop` showed the workers sharing its
+**eight physical cores (16 logical CPUs)**. Swap was heavily occupied, but
+available memory was still plentiful. I later added a second 8 GiB swap file
+as headroom; the change happened about 14 minutes into this run and is
+included in the timing below.
 
-The main lesson for my next long-running job is to inspect the whole path.
-Free CPU does not help if the app dispatches too few jobs. More workers do not
-help if PostgreSQL refuses their connections. And a running container is not
-proof that its worker process is taking jobs. Once I could see each of those
-limits, the big machine finally had work to do.
+![Shuri's htop view during the 40-worker run, showing CPU, memory, swap and AudioMuse worker processes.](/images/blog/editorial/audiomuse-parallel-analysis/shuri-htop-forty-workers.png)
+
+## The full run, every ten minutes
+
+I recorded the task status and host metrics every 30 seconds, then took the
+nearest sample to each ten-minute mark. CPU is total host use across all 16
+logical CPUs, not AudioMuse's use alone. PostgreSQL connections are spot
+counts, not a fixed allocation per worker.
+
+| Elapsed | Albums complete | Tracks stored | CPU busy | PostgreSQL connections |
+| ---: | ---: | ---: | ---: | ---: |
+| 10 min | 32 / 1,728 | 520 | 52% | 328 / 400 |
+| 20 min | 74 / 1,728 | 1,050 | 53% | 324 / 400 |
+| 30 min | 140 / 1,728 | 1,561 | 52% | 327 / 400 |
+| 40 min | 189 / 1,728 | 2,152 | 52% | 326 / 400 |
+| 50 min | 361 / 1,728 | 2,654 | 53% | 317 / 400 |
+| 60 min | 631 / 1,728 | 3,112 | 53% | 310 / 400 |
+| 70 min | 852 / 1,728 | 3,560 | 53% | 317 / 400 |
+| 80 min | 1,075 / 1,728 | 3,960 | 53% | 326 / 400 |
+| 90 min | 1,239 / 1,728 | 4,319 | 53% | 328 / 400 |
+| 100 min | 1,363 / 1,728 | 4,771 | 52% | 327 / 400 |
+| 110 min | 1,466 / 1,728 | 5,246 | 53% | 326 / 400 |
+| 120 min | 1,656 / 1,728 | 5,612 | 53% | 314 / 400 |
+| 130 min | 1,712 / 1,728 | 6,133 | 54% | 282 / 400 |
+| Finished: 137 min 36 sec | 1,728 / 1,728 | 6,321 | — | 248 / 400 |
+
+The task finished **SUCCESS with zero failed albums**. AudioMuse reported
+**seven tracks it could not analyse**. Album progress came in bursts: 40 jobs
+could be busy adding tracks while none had finished. Near the end, most workers
+became idle while the last few large albums ran. AudioMuse then rebuilt its
+indexes before marking the task complete.
+
+Across the sampled run, host CPU averaged about **52% of 16 logical CPUs**.
+The one-minute load average peaked at **141**, PostgreSQL connections peaked
+at **331 of 400**, and available memory never fell below **26.6 GiB**. A large
+worker count had moved the bottleneck away from the original connection limit,
+but it did not create 40 dedicated CPU cores.
+
+## Compared with one worker
+
+I did not make a single worker repeat the entire library. In the earlier run,
+before I created a second worker container, the only worker stored **307 tracks
+between 12:05 and 12:25 UTC**: about **15.4 tracks per minute**. Applying that
+rate to the 6,321 tracks in the fresh pass gives a rough **6 hours 52 minutes**
+for one worker. The measured 40-worker task took **2 hours 17 minutes
+36 seconds**, or about **3.0 times faster**.
+
+That single-worker number is an extrapolation from a 20-minute window, not a
+measured full run. Different albums take different amounts of work, and final
+indexing does not scale like album analysis. I would not promise the same
+speedup on another library. What the run did show is more useful to me:
+PostgreSQL admitted the workers, the queue assigned distinct albums, and
+Shuri stayed well clear of a memory limit. CPU contention, changing album
+sizes and the serial tail all limited the gain from adding workers; these
+measurements do not isolate one of them as the sole cause.
+
+For my next long-running job, I will inspect the whole path again. Free CPU
+does not help if the app dispatches too few jobs. More workers do not help if
+PostgreSQL refuses their connections. And a running container is not proof
+that its worker process is taking jobs. Seeing those limits separately made
+the extra hardware useful, even if the final speedup was more modest than the
+worker count suggested.
 
 ## References
 

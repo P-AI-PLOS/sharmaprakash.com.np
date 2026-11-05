@@ -22,12 +22,13 @@ share: true
 series: homelab-music
 seriesOrder: 4
 draft: false
-last_modified_at: "2026-11-05T21:20:00+05:45"
+last_modified_at: "2026-11-06T01:02:00+05:45"
 ---
 
-**Update, 5 November 2026:** This post describes my original small-sample
-setup. AudioMuse now runs on Shuri, and the full-library pass has completed.
-[Here is what scaling the analysis taught me](/technical-notes/scaling-audiomuse-album-analysis/).
+**Update, 6 November 2026:** This post began with a five-album experiment.
+AudioMuse now runs on Shuri, and a fresh full-library pass has finished:
+1,728 albums in 2 hours 17 minutes with 40 workers. I have updated the setup
+details below; [the scaling story and measurements are in a separate post](/technical-notes/scaling-audiomuse-album-analysis/).
 
 The [field guide](/technical-notes/homelab-music-recommendations-field-guide/)
 that opened this series split music recommendation into separate signals:
@@ -70,53 +71,42 @@ built on top of them:
 | Sonic Fingerprint | Averages embeddings of your most-played tracks, weighted by recency with a 30-day half-life, then finds neighbours | No |
 | Instant Playlist | A chat request becomes tool calls that query the library | Yes |
 
-Two caveats. I am quoting the current upstream documents, and the version I run
-may differ in detail. My Compose file also defaults `CLAP_ENABLED` to `false`,
-so I should not assume the CLAP-based text search and trait scores are active
-in my deployment.
+Two caveats. I am quoting the upstream documents, and the version I run may
+differ in detail. My live AudioMuse configuration has `CLAP_ENABLED=false`,
+so the CLAP-based text search and trait scores are not active here.
 
 ## How it runs in my homelab
 
-AudioMuse-AI runs as a Docker Compose project on `heimdall`, the VM that also
-runs Navidrome:
+AudioMuse-AI now runs in Incus containers on `shuri`. Navidrome is its
+separate music source:
 
-- **Three containers:** a Flask web/API service, a worker, and PostgreSQL 15.
-  The images are pinned by digest. PostgreSQL is internal to the Compose
-  network. The PostgreSQL password is generated once on the host and never
-  printed. There is no Redis because upstream moved the job queue into
-  PostgreSQL.
-- **Deployment through Ansible.** A playbook copies the pinned Compose file into
-  place, creates the private `.env` only if it is missing, pulls images and
-  waits for health checks. It refuses to run without an explicit confirmation
-  variable and the exact target host. This is my standard pattern for anything
-  that changes a real machine.
+- **Web app, workers and database.** A Flask container serves the UI and API,
+  40 worker containers take queue jobs, and a PostgreSQL 15 container stores
+  the catalogue and queue. The database is on the private Incus network.
+  There is no Redis in this setup.
 - **A dedicated, non-admin Navidrome account.** AudioMuse reads the library
   through Navidrome's API as its own service account, not as me.
-- **Scheduled analysis.** Incremental analysis runs on AudioMuse's own weekly
-  schedule. I did not write a cron job for it.
+- **Analysis from the UI.** I started the measured full-library run from
+  AudioMuse's web app and watched its progress there. Its cron table is
+  currently empty, so I am not claiming that a weekly analysis is scheduled.
 - **Only on the LAN.** I turned off AudioMuse's own login. Its UI and API
   are reachable only from trusted networks: the reverse proxy limits its
   hostname to trusted clients and nothing routes it to the internet. This is a
   deliberate trade-off. Anyone on my LAN can start a job.
 
-### The LLM lives on the GPU host
+### The LLM handles words, not album analysis
 
-The LLM side does not run on `heimdall`. AudioMuse is configured for an Ollama
-provider on `shuri`, a Minisforum UM880 Plus with a Radeon 780M and a lot of
-shared memory. The model is **Gemma 4 26B** (an MoE model), the same Ollama
-instance my other local tools use. It passed a plain completion test and
-AudioMuse's playlist-naming function.
+AudioMuse is configured for Ollama on `shuri`, using **Gemma 4 26B** for
+features such as playlist naming and chat. The audio feature extraction in
+the full-library run is separate from those LLM calls. Moving the app to
+Shuri did not make the album work fast by itself; adding queue workers and
+giving them database and dispatch capacity did.
 
-Before Gemma I ran a separate native Qwen3-4B service just for AudioMuse.
-Consolidating onto the shared Ollama instance meant one fewer service to run.
-The old Ansible play is still in the repository, but it now fails immediately
-with a message that the service is retired. There is a private rollback with
-the previous Compose definition and the changed model settings.
-
-One trap: AudioMuse imports its settings into PostgreSQL on first run, and
-those stored settings win over Compose environment variables. To change
-the model you use the setup wizard in the UI. Editing the Compose file alone
-does nothing.
+One trap: AudioMuse keeps settings in PostgreSQL, and those stored values can
+override container environment variables. I ran into that when the
+album-dispatch limit stayed at 25 despite changing worker configuration.
+Checking the effective setting in the app mattered more than checking the
+container definition.
 
 ### The Navidrome plugin
 
@@ -142,13 +132,18 @@ again on every upgrade.
 
 ### How much of the library it has seen
 
-This part matters for any claim about quality. The verified analysis run covered
-**five albums, 76 tracks**. Clustering on that set created two Navidrome
-playlists named `Bright Pop_automatic` and `Pop Energize_automatic`.
-Before the plugin existed, Similar Song returned ten ranked local tracks for a
-seed song. **I have not yet run a full-library analysis**, because it needs a
-reviewed runtime window. Everything below is from a small sample and from how
-the system is designed, not from a long evaluation.
+This part matters for any claim about quality. My original hands-on test
+covered **five albums and 76 tracks**. Clustering on that set created two
+Navidrome playlists named `Bright Pop_automatic` and
+`Pop Energize_automatic`. Before the plugin existed, Similar Song returned
+ten ranked local tracks for a seed song.
+
+The later fresh run visited **all 1,728 selected albums with zero failed
+albums**. The resulting catalogue has **6,321 unique songs, 1,702 distinct
+albums and seven tracks marked unanalyzable**. That establishes coverage; it
+does not retroactively turn my five-album listening test into a broad
+recommendation-quality evaluation. The judgments below still come from that
+small listening sample.
 
 ## Sonic similarity vs ListenBrainz collaborative recommendations
 
@@ -218,8 +213,9 @@ playlists on their next run anyway.
 
 - **Analyse a few albums first.** Check Similar Song on music you know well
   before spending hours on a full-library pass.
-- **Remember the stored settings.** After first run, change models in the
-  setup wizard, not in Compose.
+- **Remember the stored settings.** Check the effective app value after
+  changing a model or analysis limit; a saved value can override the
+  container environment.
 - **Put the LLM wherever you already run one.** Here it only names
   playlists and handles chat requests. Similarity and fingerprinting do not
   use it.
