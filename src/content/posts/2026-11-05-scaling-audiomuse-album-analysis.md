@@ -19,7 +19,7 @@ use_featured_image: true
 comments: true
 share: true
 draft: false
-last_modified_at: "2026-11-06T10:04:00+05:45"
+last_modified_at: "2026-11-06T10:13:00+05:45"
 ---
 
 ## TL;DR
@@ -28,13 +28,16 @@ last_modified_at: "2026-11-06T10:04:00+05:45"
   instead of depending on Spotify to decide what I hear next.
 - **Stack:** [Navidrome](https://www.navidrome.org/) serves my library;
   [AudioMuse-AI](https://github.com/NeptuneHub/AudioMuse-AI) analyses how it
-  sounds; PostgreSQL holds its queue and catalogue; and 40 Incus workers run
+  sounds; PostgreSQL holds its queue and catalogue; and 40
+  [Incus](https://linuxcontainers.org/incus/) workers run
   on Shuri. [ListenBrainz](https://listenbrainz.org/) supplies listening
   history elsewhere in the stack.
-- **Result:** A fresh pass visited **1,728 albums** with **zero failed album
-  jobs** in **2 hours 17 minutes 36 seconds**. AudioMuse now has **6,321 unique
-  songs** across **1,702 distinct albums**, with seven tracks it could not
-  analyse.
+- **Result:** I can now start an Instant Mix from a song in Navidrome and use
+  AudioMuse's sound-based matches across the analysed library, rather than
+  only my first five-album sample. The fresh pass covered **1,728 albums**
+  with **zero failed album jobs** in **2 hours 17 minutes 36 seconds**. Its
+  catalogue shows **6,321 unique songs** across **1,702 distinct albums**;
+  seven tracks could not be analysed.
 
 My [first AudioMuse experiment](/technical-notes/audiomuse-ai-sonic-recommendations/)
 used a small slice of my Navidrome library. The recommendations were promising,
@@ -141,6 +144,33 @@ indexes before marking the task complete.
 
 ![AudioMuse after the full-library run: 6,321 unique songs, 1,702 albums, seven unanalyzable tracks and empty worker queues.](/images/blog/editorial/audiomuse-parallel-analysis/audiomuse-full-library-result.png)
 
+## From analysed tracks to something I can play
+
+The completed job is a catalogue of sound features, not a playlist pushed
+wholesale into Navidrome. AudioMuse decodes each track, uses audio models to
+produce a numeric representation of its sound, and builds similarity indexes
+over those representations. When I pick a seed song in AudioMuse's **Similar
+Song** page, it can look up nearby tracks from my own library. I can turn
+those results into a Navidrome playlist if I want to keep them.
+
+There is also a shorter path inside the player. Navidrome has the AudioMuse
+plugin installed and selected first for sonic similarity. When I ask
+Navidrome for an **Instant Mix**, its plugin sends the seed song to AudioMuse,
+gets matching songs back, and hands them to Navidrome as a playable mix.
+Artist radio uses the same integration for artist similarity. I tested an
+Instant Mix from a Navidrome client; the full-library run gives that request
+a much wider pool of analysed tracks to search. It does not itself prove that
+every returned mix is good.
+
+The “AI” here is mostly the audio models that learn a representation of a
+song's sound. Finding neighbours in that representation does **not** require
+a large language model call for each recommendation. My separate Ollama
+configuration is for language tasks such as naming playlists and chat, not
+for extracting the sound features used by this run. ListenBrainz contributes
+a different kind of discovery: listening-history playlists imported through
+its own Navidrome plugin. AudioMuse does not feed its vectors into
+ListenBrainz, and Navidrome does not acquire new music from these mixes.
+
 Across the sampled run, host CPU averaged about **52% of 16 logical CPUs**.
 The one-minute load average peaked at **141**, PostgreSQL connections peaked
 at **331 of 400**, and available memory never fell below **26.6 GiB**. A large
@@ -177,7 +207,8 @@ losing the pleasure of finding music. Navidrome lets me play the files I own.
 ListenBrainz gives me a record of listening through my connected players.
 AudioMuse now has a sonic catalogue covering the library, so its similarity
 features and Navidrome Instant Mix can look beyond the handful of albums in
-my first test.
+my first test. I can seed a mix from a track I already like, hear nearby
+tracks that I already own, and save the worthwhile results as playlists.
 
 That does not prove its playlists know my taste better than Spotify did.
 It does mean the raw music, the listening signals and the sound-based
@@ -188,5 +219,7 @@ instead of waiting for someone else's catalogue to choose for me.
 ## References
 
 - [AudioMuse-AI source](https://github.com/NeptuneHub/AudioMuse-AI)
+- [AudioMuse-AI algorithm](https://github.com/NeptuneHub/AudioMuse-AI/blob/main/docs/ALGORITHM.md)
+- [AudioMuse-AI Navidrome plugin](https://github.com/NeptuneHub/AudioMuse-AI-NV-plugin)
 - [PostgreSQL connection settings](https://www.postgresql.org/docs/15/runtime-config-connection.html)
 - [PostgreSQL `SELECT` and `SKIP LOCKED`](https://www.postgresql.org/docs/15/sql-select.html)
