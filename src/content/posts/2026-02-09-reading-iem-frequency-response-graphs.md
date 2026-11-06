@@ -1,6 +1,6 @@
 ---
 title: "Reading a Frequency-Response Graph: Targets, Ear Gain and Why Measurements Disagree"
-date: "2026-10-26T10:10:00+05:45"
+date: "2026-02-09T10:00:00+05:45"
 category: ["Technical Notes"]
 categories: ["technical-notes"]
 directory: technical-notes
@@ -19,6 +19,7 @@ use_featured_image: true
 draft: false
 comments: true
 share: true
+last_modified_at: "2026-11-06T13:00:00+05:45"
 ---
 
 The [part on sound signatures](/technical-notes/iem-sound-signatures-explained/) said to read graphs, not adjectives. This post is how. A frequency-response graph looks precise, but it only means something if you know what it was measured on, what it is being compared against, and which parts of it are reliable.
@@ -30,7 +31,7 @@ The [part on sound signatures](/technical-notes/iem-sound-signatures-explained/)
 | Horizontal | Frequency, 20 Hz to 20 kHz | Logarithmic: each octave gets the same width |
 | Vertical | Loudness in dB | Usually normalised so curves line up near 500 Hz or 1 kHz |
 
-A few dB matters. A 3 dB lift across a wide band is clearly audible. A narrow 3 dB spike is often less obvious. Broad trends matter more than small wiggles.
+A few dB matters. A broad level change may be easier to notice than a narrow one. A narrow 3 dB spike is often less obvious. Broad trends matter more than small wiggles.
 
 Most graphs are normalised to the same level at one frequency. That makes two IEMs comparable, but it also means "more bass" on a graph is always relative to the midrange, not absolute.
 
@@ -72,21 +73,15 @@ Above about 8 kHz, small changes in how deep the IEM sits move peaks and dips ar
 
 The bass region has its own trap: a measurement with a leaky seal shows less bass than the IEM really makes. The same is true in your ear, which is the subject of the fit post later in the series.
 
-## Why rigs disagree
+## Comparing measurements
 
-Most hobbyist measurements use a coupler built to **IEC 60318-4**, often called a **711** coupler after the original design. It models the ear canal and eardrum impedance of an average adult. It is standardised for accuracy up to around 8–10 kHz, and it has a known resonance in the upper treble, around 13.5 kHz, that is part of the rig rather than the IEM.
+Compare results from the same rig and measurement procedure where possible. Couplers, insertion depth, seal and normalisation can all change the curve. A target needs to match the measurement system; a curve from one rig should not be treated as interchangeable with one from another.
 
-Newer and much more expensive rigs, such as Brüel & Kjær's **5128** head and torso simulator, use a more human-like ear canal and pinna. They are designed to be more accurate in the bass and further up the treble, and they produce visibly different curves for the same IEM, especially in the upper midrange and treble.
-
-The practical rules:
-
-- **Never compare graphs from different rigs.** A 711 graph and a 5128 graph of the same IEM can look like two different products.
-- **Never compare a graph against a target made for another rig.** Harman's 2019 in-ear target was defined for a 711-style setup; there are separate translations for the 5128.
-- **Even two 711 couplers differ.** Clones, ear-canal extensions and insertion depth all shift results, so trust comparisons made by one reviewer on one rig.
+Treble peaks are especially sensitive to fit and the rig. Avoid deciding on an earphone from one narrow peak or dip.
 
 ## Using comparison sites
 
-Sites built on the open-source "squig.link" graph tool let you overlay many IEMs measured by the same reviewer. They are the best free tool in the hobby if you use them carefully.
+Sites built on the open-source "squig.link" graph tool let you overlay many IEMs measured by the same reviewer. They are useful for comparisons within a consistent dataset.
 
 1. **Pick one database and stay in it.** Each site is one reviewer and one rig.
 2. **Load a target first.** Choose the target the site was built around, then add IEMs.
@@ -95,17 +90,11 @@ Sites built on the open-source "squig.link" graph tool let you overlay many IEMs
 5. **Look at the broad shape.** Bass shelf height, ear-gain height, overall treble energy. Ignore single spikes above 8 kHz.
 6. **Check for a "compensated" view.** Some sites show the IEM minus the target. A flat line there means "matches the target", not "flat sound".
 
-## Reading a graph in practice
+## Use the graph as a comparison
 
-A quick routine:
+Start with an earphone you know. Compare broad bass, midrange and treble differences, then check whether listening supports the difference you expected. A graph does not measure comfort or tell you which tuning you will prefer.
 
-1. Find the bass shelf. Is it level with the target, above or below? That is your bass quantity.
-2. Look at 1–3 kHz against the target. Too high sounds shouty; too low makes vocals distant.
-3. Look at 4–8 kHz. A big peak here often means sibilance or harshness.
-4. Glance at the region above 10 kHz for overall air, and do not overthink it.
-5. Remember the graph assumes a perfect seal and average ears. Yours are not average.
-
-That last point is why the next parts turn to the IEMs themselves and then to fit and eartips, which can change the bass more than any graph difference between two good IEMs.
+The [driver guide](/technical-notes/iem-drivers-impedance-and-choosing/) keeps the buying shortlist; [fit and eartips](/technical-notes/iem-fit-eartips-and-cables/) covers the part you can adjust without replacing the earphone.
 
 ## Sources
 

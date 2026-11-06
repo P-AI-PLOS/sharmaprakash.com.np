@@ -1,6 +1,6 @@
 ---
 title: "Scrobbling Everything to ListenBrainz: Navidrome, an iPod Running Rockbox, and Beyond"
-date: "2026-10-26T12:00:00+05:45"
+date: "2026-10-28T10:00:00+05:45"
 category: ["Technical Notes"]
 categories: ["technical-notes"]
 directory: technical-notes
@@ -19,18 +19,12 @@ use_featured_image: true
 comments: true
 share: true
 draft: false
-series: homelab-music
-seriesOrder: 3
-last_modified_at: "2026-11-06T10:04:00+05:45"
+series: "homelab-music"
+seriesOrder: 4
+last_modified_at: "2026-11-06T13:00:00+05:45"
 ---
 
-The [field guide](/technical-notes/homelab-music-recommendations-field-guide/)
-that opened this series argued that personal behaviour is one of the strongest
-recommendation signals a homelab can have. The
-[second part](/technical-notes/youtube-to-scrobble/) looked at why YouTube makes
-that signal hard to capture. This part is the practical one: how Navidrome
-sends listens to [ListenBrainz](https://listenbrainz.org/) and how I can
-import plays from a device that has no network connection at all.
+This guide covers the two listening-history paths in [my music setup](/audio/my-music-after-spotify/): connected Navidrome plays and saved iPod plays imported during sync.
 
 There are two players in my daily rotation:
 
@@ -39,7 +33,7 @@ There are two players in my daily rotation:
 - **an iPod Video running Rockbox**, which is offline by design and only meets
   a computer when I plug it in to sync.
 
-The first one is easy. The second one is the reason this post exists.
+Navidrome sends listens while connected. When I connect the iPod and sync, my existing scripts import its offline play log. I have run that sync workflow before.
 
 ## Why ListenBrainz is the sink
 
@@ -50,24 +44,29 @@ it keys listens to MusicBrainz recording IDs when it has them, a history built
 from well-tagged files is unusually precise: it records *which recording* you
 played, not just a string that looks like an artist and a title.
 
-That precision matters for the rest of this series. Every downstream
-consumer, whether a daily playlist, a sonic-similarity model or an AI asked to
-pick tonight's music, is reading this history. Garbage here is garbage
-everywhere.
+That precision matters for the rest of this series. Correct recording IDs help the playlist importer match suggestions to files I own. AudioMuse sound analysis is a separate path; it does not require these listening records.
 
 ## Navidrome: already done
 
 Navidrome ships a ListenBrainz agent. It is enabled by default
 (`ListenBrainz.Enabled`), and scrobbling needs only per-user authorization:
 each user links their own ListenBrainz token in their Navidrome profile. After
-that, every play from any Subsonic client that talks to Navidrome is
-submitted by the server, so the client app does not need to know ListenBrainz
-exists.
+that, Navidrome forwards scrobbles received from compatible clients. A client still needs to send the playback events.
 
 There is nothing homelab-specific to say beyond that, which is exactly how it
 should be. The interesting work is on the device that cannot phone home.
 
-## The iPod problem
+## Connect and check Navidrome
+
+**Prerequisites:** a ListenBrainz account and a working Navidrome user. In Personal Settings, enable ListenBrainz scrobbling and enter your own token in the prompt. Keep that token out of shared configuration examples. These are the [documented account-linking steps](https://www.navidrome.org/docs/usage/features/scrobbling/).
+
+Play a known track through the client you normally use, then check that it appears in your ListenBrainz history with the expected artist and time. Check the client sends scrobbles before assuming that a missing entry is a server problem.
+
+To bring playlists back, install a compatible [daily playlist importer release](https://github.com/kgarner7/navidrome-listenbrainz-daily-playlist). Enable plugins, place its `.ndp` file in the plugin folder, grant access to the intended user, and configure that user's Navidrome and ListenBrainz names plus the desired playlist types. Match the plugin release to your Navidrome version.
+
+**Check it works:** open an imported playlist and play a matched song. Missing songs may be absent from your library or lack the recording IDs the importer uses. That is separate from whether your listens are being submitted.
+
+## The iPod sync path
 
 The iPod runs Rockbox 4.0. I keep its main menu deliberately small, playback
 only, so the device behaves like a music player rather than a file manager.
@@ -244,7 +243,7 @@ That gives me the pieces of a loop. Navidrome sends listens to ListenBrainz.
 When I run the iPod importer after a sync, it can add offline plays. The
 playlist plugin brings ListenBrainz playlists back into Navidrome, and a
 later iPod sync can copy selected playlists to the player. The iPod import
-is a manual step, so I have not verified continuous coverage of its plays.
+runs as part of my connected sync workflow, rather than while the player is offline.
 
 ## Beyond these two players
 
@@ -258,19 +257,11 @@ The same pattern covers any source:
 - Prefer MusicBrainz recording IDs over strings whenever the file has them.
 
 YouTube remains the awkward case, for the reasons covered in
-[part 2](/technical-notes/youtube-to-scrobble/).
+[the YouTube note](/technical-notes/youtube-to-scrobble/).
 
-## What comes next
+## Where the history goes next
 
-With a clean listening history in place, the next two parts use it.
-**Part 4** covers AudioMuse-AI, which analyses the audio itself and finds
-tracks that *sound* related regardless of who has listened to them.
-**Part 5** puts the pieces together and uses AI to build recommendations from
-my own history, library and sonic analysis.
-
-If you are more interested in the iPod as a listening device, what Rockbox
-does for its sound, the FLAC library behind it and the IEMs it drives, the
-[Pocket Hi-Fi series](/series/pocket-hi-fi/) covers the audio side.
+The playlist importer supplies suggestions I can play in Navidrome. [AudioMuse](/technical-notes/audiomuse-ai-sonic-recommendations/) separately compares the sound of my files. My [daily workflow](/technical-notes/ai-music-recommendations-from-listenbrainz/) shows how I use both without treating them as one recommendation engine.
 
 ## Sources
 

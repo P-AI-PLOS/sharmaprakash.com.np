@@ -45,9 +45,9 @@ export const seriesRegistry: Record<string, SeriesMeta> = {
     cover: "/images/blog/building-my-homelab/network.png", // TODO: replace with a dedicated homelab-music cover
   },
   "pocket-hi-fi": {
-    title: "Music I Can Take Offline",
+    title: "Headphones and Digital Audio: Reference Notes",
     description:
-      "A library I own should travel with me. These posts follow my Rockbox iPod Video 5.5G, the files and playlists I take offline, and the headphones I actually enjoy, then go deeper on sound and equipment choices.",
+      "Concise references on audio formats, headphone tuning, fit, measurements and source compatibility. Price snapshots and buying shortlists are dated separately from the guides.",
     cover: "/images/blog/building-my-homelab/network.png", // TODO: replace with a dedicated pocket-hi-fi cover
   },
   "agent-ready-react": {

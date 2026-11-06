@@ -1,10 +1,10 @@
 ---
-title: "Your Phone Is the Weakest Link: DAC Dongles, DAPs and Output Impedance"
-date: "2026-10-26T10:40:00+05:45"
+title: "DACs, Music Players and Output Impedance"
+date: "2026-02-18T10:00:00+05:45"
 category: ["Technical Notes"]
 categories: ["technical-notes"]
 directory: technical-notes
-excerpt: "What a DAC and an amp do, why phones lost the headphone jack, how dongle DACs and dedicated players compare, the 1/8 output-impedance rule, balanced 4.4 mm, and an honest word on hi-res and Bluetooth codecs."
+excerpt: "A practical source guide covering output impedance, noise, power and connections, with a dated dongle price table."
 tags:
   - audio
   - iem
@@ -19,9 +19,10 @@ use_featured_image: true
 draft: false
 comments: true
 share: true
+last_modified_at: "2026-11-06T13:00:00+05:45"
 ---
 
-Spotify Premium now streams lossless FLAC. Spotify started rolling it out in September 2025, at up to 24-bit/44.1 kHz, at no extra cost. Many people then play that stream through a phone's Bluetooth or a cheap adapter. The file is no longer the weak link. The playback chain is.
+A player needs to provide a compatible output, enough clean level and usable volume control for the headphones attached to it. Price and DAC branding do not establish those things.
 
 This part covers that chain: what turns a file into sound, what to buy, and how a source's output impedance can change an IEM's tuning.
 
@@ -48,6 +49,8 @@ Most flagship phones dropped the 3.5 mm jack years ago. You now have two options
 Apple's USB-C to 3.5 mm adapter is a better starting point than its price suggests. Reference Audio Analyzer measured about 0.3 Ω output impedance and about 0.5 V RMS maximum output. That is low impedance and low power: fine for most IEMs, short of headroom for hard-to-drive headphones.
 
 ## Dongle DACs
+
+The prices below are an October 26, 2026 snapshot retained in this November revision, not prices from the February placement date.
 
 A dongle DAC is a small DAC and amp in a cable or stick. It plugs into the phone's USB-C port and powers itself from the phone.
 
@@ -86,7 +89,7 @@ The rule of thumb, popularised by the audio engineer and blogger NwAvGuy:
 | 16 Ω | 2 Ω |
 | 8 Ω | 1 Ω |
 
-The 1/8 ratio keeps the tuning change under about 1 dB, close to the smallest difference most people hear. It is a rule of thumb, not a law. A single dynamic driver with a flat impedance curve tolerates far more. A multi-BA set with a curve that dips to a few ohms needs a source well under 1 Ω to sound as tuned.
+The ratio is a screening guideline, not a universal audibility threshold. It is a rule of thumb, not a law. A single dynamic driver with a flat impedance curve tolerates far more. A multi-BA set with a curve that dips to a few ohms needs a source well under 1 Ω to sound as tuned.
 
 Use the lowest point on the IEM's impedance curve, not the single figure on the box, when you apply it.
 
@@ -107,27 +110,17 @@ In practice, balanced outputs often give more voltage and slightly better channe
 
 Balanced is useful, not essential. Many IEMs ship with swappable 3.5 mm and 4.4 mm plugs, which makes trying both cheap.
 
-## Hi-res and MQA, honestly
+## File formats
 
-CD quality, 16-bit/44.1 kHz, already covers the range of human hearing; [part 1](/technical-notes/what-you-can-actually-hear/) explains why, and why hi-res helps in the studio rather than at playback. MQA, the "folded" hi-res format once used by Tidal, added licensing and complexity without a clear audible benefit, and Tidal has since moved to plain FLAC. Spotify's 24-bit/44.1 kHz lossless is enough. Mastering, the IEM and the fit matter more than the number after the slash.
+The [sample rate and bit depth guide](/technical-notes/what-you-can-actually-hear/) explains the format numbers. A larger number on a file does not establish that a player will sound better.
 
-## Bluetooth codecs, briefly
+## Wired or wireless
 
-Bluetooth compresses audio again, even when the file is lossless; [part 1](/technical-notes/what-you-can-actually-hear/) shows what that means for AirPods Pro and the Sony WH-1000XM4. Codecs differ in how much data they send:
-
-| Codec | Typical bitrate | Notes |
-|---|---|---|
-| SBC | Varies | The baseline every device supports |
-| AAC | About 256 kbps | Apple's default; good on iPhones |
-| aptX HD | 576 kbps | Qualcomm; Android only |
-| aptX Adaptive | About 279–420 kbps, variable | Scales with signal conditions |
-| LDAC | 330, 660 or 990 kbps | Sony; 990 kbps drops out easily in busy radio areas |
-
-Good AAC or aptX is hard to tell from wired in a noisy street. For quiet, careful listening, wired still removes a variable. The iPod has no Bluetooth at all, which settles that question for it.
+A wired output and Bluetooth use different playback paths. Check the codec supported by both wireless devices and the mode actually negotiated. I use a cable with the iPod; [my Rockbox setup](/technical-notes/ipod-video-5-5g-rockbox-purist-player/) covers that device.
 
 ## What to buy
 
-- **Phone only, IEMs under about $200:** a low-impedance dongle such as the Apple adapter or the FiiO KA11. That fixes the weakest link for the least money.
+- **Phone only, IEMs under about $200:** a low-impedance dongle such as the Apple adapter or the FiiO KA11. Check that it supplies the level and connectors you need.
 - **Multi-BA or tribrid IEMs:** confirm the source is well under 1 Ω on the output you use.
 - **You want a separate device and an offline library:** a DAP. The next parts cover the iPod as a purist player and building a FLAC library you own.
 

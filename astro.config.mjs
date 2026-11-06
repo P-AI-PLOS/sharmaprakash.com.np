@@ -38,6 +38,7 @@ export default defineConfig({
     }),
   },
   redirects: {
+    "/technical-notes/sony-walkman-vs-modded-ipod-video-scorecard/": "/technical-notes/pairing-iems-ipod-vs-sony-walkman/",
     "/javascript/ie-alternative-to-inludes/": "/javascript/ie-alternative-to-includes/",
     "/technical-notes/ai-podcast-index-project-overview/": "/technical-notes/clipdex-project-overview/",
     "/technical-notes/react-frontend-for-podcast-index/": "/technical-notes/clipdex-react-frontend/",

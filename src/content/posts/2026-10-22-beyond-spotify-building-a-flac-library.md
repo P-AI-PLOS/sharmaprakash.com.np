@@ -1,6 +1,6 @@
 ---
 title: "Beyond Spotify: Building a FLAC Library You Own"
-date: "2026-10-26T11:00:00+05:45"
+date: "2026-10-22T10:00:00+05:45"
 category: ["Technical Notes"]
 categories: ["technical-notes"]
 directory: technical-notes
@@ -11,14 +11,15 @@ tags:
   - music-library
   - musicbrainz
   - rockbox
-series: pocket-hi-fi
-seriesOrder: 8
+series: "homelab-music"
+seriesOrder: 2
 cover: "/images/blog/audio/beyond-spotify-building-a-flac-library.webp"
 thumb: "/images/blog/audio/beyond-spotify-building-a-flac-library.webp"
 use_featured_image: true
 draft: false
 comments: true
 share: true
+last_modified_at: "2026-11-06T13:00:00+05:45"
 ---
 
 My [music after Spotify](/audio/my-music-after-spotify/) still has the parts I
@@ -104,7 +105,7 @@ Albums are mastered at very different loudness. Shuffle a quiet 1970s record nex
 - **Track gain** levels every song individually. Good for shuffle.
 - **Album gain** levels whole albums but keeps the loud and quiet songs within an album in proportion. Good for album listening.
 
-Both Picard (with its ReplayGain plugin) and beets can write ReplayGain tags. On my iPod, Rockbox uses track gain in shuffle and leaves albums alone, with clipping prevention on. Part 7 lists the full settings.
+Both Picard (with its ReplayGain plugin) and beets can write ReplayGain tags. On my iPod, Rockbox uses track gain in shuffle and leaves albums alone, with clipping prevention on. The [Rockbox guide](/technical-notes/ipod-video-5-5g-rockbox-purist-player/#my-playback-settings) lists my settings.
 
 ## Album art for the iPod
 
@@ -120,28 +121,36 @@ Keep the full-size art in your master library and generate small baseline copies
 
 The iPod's codec runs at 16-bit/44.1 kHz. Rockbox plays 24-bit/96 kHz and 192 kHz FLAC, but the PP5021C chip resamples it in software, which costs battery and can stutter at the highest rates. Dithering keeps the reduction to 16-bit clean. [Part 1](/technical-notes/what-you-can-actually-hear/) explains why you lose nothing audible: buy at CD quality, and keep hi-res only when it is a better master.
 
-## From library to iPod
+## Serving the files with Navidrome
 
-My library lives on a NAS and is served by [Navidrome](https://www.navidrome.org/), a self-hosted music server with a web player and Subsonic-compatible apps. Playlists are built there, from the whole library, and exported as `.m3u` files. The iPod playlist is one of them, a little over 850 tracks.
+The [official installation guide](https://www.navidrome.org/docs/installation/) covers supported installation methods. The essentials are a music directory the server can read, a persistent data directory for its database, and a user account for playback. Keep music backups separate from the application database backup.
 
-The iPod runs Rockbox only for music. Finder syncs nothing to it, so there is no Apple database to work around:
+After the first scan, check an album, a multi-disc release and a recording with several versions. Play a file before adding discovery plugins. In my setup the files live on the NAS; Navidrome is the player, not the source of new music.
 
-1. **Songs are copied as files.** The iPod's `Music/` folder mirrors the library's `Artist/Album` layout, so a song has the same path on the NAS and on the iPod. Copies are made in Apple disk mode.
-2. **Playlists come from Music.app.** I curate playlists in Music.app, which references the files on the NAS in place. A script reads each playlist, copies any song the iPod is missing, and writes one `.m3u8` per playlist into `/Playlists`.
-3. **FLAC is added from fixed lists.** Music.app cannot import FLAC, so FLAC entries are appended from the matching Navidrome playlist. A `FLAC.m3u8` lists only the FLACs my playlists use, not every album on the card.
+Next, connect [ListenBrainz](/technical-notes/scrobbling-everything-to-listenbrainz/) and configure [AudioMuse](/technical-notes/audiomuse-ai-sonic-recommendations/) separately. That makes a failed match or mix easier to trace.
 
-On Rockbox I open playlists from the Playlists menu, and the playlist viewer shows songs by their title and album tags rather than file names. The largest playlist is about 900 tracks, well inside Rockbox's default limit of 10,000.
+## Minimal Navidrome setup
 
-<figure>
-<img src="/images/blog/audio/pocket-hi-fi/library-flow.svg" alt="CDs and lossless downloads become a tagged FLAC master library. Navidrome serves it, while selected files and playlists are copied to the Rockbox iPod." loading="lazy" width="1000" height="380" />
-<figcaption>Keep the lossless master, then use the server and player as two ways to reach it.</figcaption>
-</figure>
+**Prerequisites:** an installed Navidrome release, a tagged test album, a readable music directory and a writable data directory. This is a standalone example, not an export of my NAS deployment.
 
-## What it costs
+1. Download [navidrome.example.toml](/downloads/audio-stack/navidrome.example.toml), change the two paths, and save it as `navidrome.toml`.
+2. Start the installed binary with `navidrome --configfile ./navidrome.toml`. The example listens only on the same machine at `http://127.0.0.1:4533`.
+3. Create the initial account in the web interface and let the library scan complete.
+4. Play the test album. Check its artist, track order and cover before adding plugins.
 
-Owning a library costs money and time that streaming does not: buying albums, ripping, checking tags. In return you get files that cannot be removed from a catalogue, play anywhere, and sound the same in twenty years. For me, the playlist-rebuilding step was also the moment I found out which of my "favourites" I actually wanted to keep.
+The [configuration reference](https://www.navidrome.org/docs/usage/configuration/options/) documents these settings and their environment-variable overrides. For a service, container or LAN deployment, use the [installation instructions](https://www.navidrome.org/docs/installation/) for that environment rather than assuming these example paths apply.
 
-Part 9 closes the series: pairing IEMs with the 5.5G, and how it compares with a modern Sony Walkman.
+**Check it works:** a full track plays, the album has the expected track count, and the library remains available after restarting Navidrome with the same data directory. My own music lives on the NAS; the example does not move or copy it.
+
+## From library to playback
+
+Navidrome serves my library from the NAS. A well-tagged file is easier to find there and easier for the [ListenBrainz importer](/technical-notes/scrobbling-everything-to-listenbrainz/) to match. [AudioMuse](/technical-notes/audiomuse-ai-sonic-recommendations/) analyses the audio for sound-based mixes.
+
+For offline listening, the [iPod setup guide](/technical-notes/ipod-video-5-5g-rockbox-purist-player/#library-and-playlist-sync) covers file and playlist copying. The 256 GB upgrade is intended to hold the whole library; curated playlists remain how I choose what to hear.
+
+## Maintaining the library
+
+The recurring work is checking recordings, correcting tags and keeping copies of files I want to retain. My [listening workflow](/technical-notes/ai-music-recommendations-from-listenbrainz/) explains how discoveries become additions and how ratings help me refine playlists.
 
 ## Sources
 

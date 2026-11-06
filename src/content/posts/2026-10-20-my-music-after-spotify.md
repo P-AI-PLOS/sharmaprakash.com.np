@@ -1,6 +1,6 @@
 ---
 title: "My Music After Spotify: Discovery, Ownership and an Offline iPod"
-date: "2026-11-06T12:15:00+05:45"
+date: "2026-10-20T10:00:00+05:45"
 category: ["Audio"]
 categories: ["audio"]
 directory: audio
@@ -18,6 +18,9 @@ use_featured_image: true
 draft: false
 comments: true
 share: true
+last_modified_at: "2026-11-06T13:00:00+05:45"
+series: "homelab-music"
+seriesOrder: 1
 ---
 
 I wanted to leave Spotify, but I didn't want to stop finding music. I liked opening an app without a song in mind and hearing something I wanted to play again. A folder of albums could hold my favourites, but I worried I would keep choosing the same ones.
@@ -39,3 +42,5 @@ Playlists are a big part of how I listen offline. I've built them around my list
 I enjoy the iPod's Wolfson sound with ordinary wired headphones. That's my preference, not a claim that it sounds better for everyone. My Sony WH-1000XM4 works for this too, connected with a headphone cable. I like sitting down with it and listening without much else to do.
 
 I take selected music and playlists from the same library into my car, too. I pick a playlist and let the songs play through. If I don't like a song in a playlist, I usually give it one star. Those ratings help me fine-tune the playlists later, so the next time I choose one, it has more of what I want to hear.
+
+The practical follow-up is [how I use the library, discovery tools and offline playlists](/technical-notes/ai-music-recommendations-from-listenbrainz/).

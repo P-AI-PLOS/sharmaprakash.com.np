@@ -1,6 +1,6 @@
 ---
 title: "AudioMuse-AI: Sonic-Analysis Recommendations on My Own Library"
-date: "2026-10-26T12:10:00+05:45"
+date: "2026-11-01T10:00:00+05:45"
 category: ["Technical Notes"]
 categories: ["technical-notes"]
 directory: technical-notes
@@ -19,10 +19,10 @@ thumb: "/images/blog/audio/audiomuse-ai-sonic-recommendations.webp"
 use_featured_image: true
 comments: true
 share: true
-series: homelab-music
-seriesOrder: 4
+series: "homelab-music"
+seriesOrder: 5
 draft: false
-last_modified_at: "2026-11-06T12:25:00+05:45"
+last_modified_at: "2026-11-06T13:00:00+05:45"
 ---
 
 When I choose a song in Navidrome, I want the next track to be something in my
@@ -35,13 +35,7 @@ This post began with a five-album experiment. AudioMuse now runs on Shuri,
 and a fresh full-library pass has finished: 1,728 albums in 2 hours 17 minutes
 with 40 workers. [The scaling story and measurements are in a separate post](/technical-notes/scaling-audiomuse-album-analysis/).
 
-The [field guide](/technical-notes/homelab-music-recommendations-field-guide/)
-that opened this series split music recommendation into separate signals:
-identity, metadata, behaviour, collaboration and sound. The
-[YouTube post](/technical-notes/youtube-to-scrobble/) and the
-[ListenBrainz post](/technical-notes/scrobbling-everything-to-listenbrainz/)
-dealt with behaviour: making sure every listen is recorded against the right
-recording.
+The [signals reference](/technical-notes/homelab-music-recommendations-field-guide/) explains how sound similarity differs from recording identity and listening history.
 
 This post is about the sound signal. AudioMuse-AI listens to the files I own
 and builds recommendations from what they sound like, not from who else played
@@ -139,57 +133,24 @@ again on every upgrade.
 
 ### How much of the library it has seen
 
-This part matters for any claim about quality. My original hands-on test
-covered **five albums and 76 tracks**. Clustering on that set created two
-Navidrome playlists named `Bright Pop_automatic` and
-`Pop Energize_automatic`. Before the plugin existed, Similar Song returned
-ten ranked local tracks for a seed song.
+My first listening test covered five albums and 76 tracks. The later full-library run produced 6,321 unique songs, with seven tracks marked unanalyzable. The [run measurements](/technical-notes/scaling-audiomuse-album-analysis/) describe coverage and throughput; they do not establish recommendation quality across the library.
 
-The later fresh run visited **all 1,728 selected albums with zero failed
-albums**. The resulting catalogue has **6,321 unique songs, 1,702 distinct
-albums and seven tracks marked unanalyzable**. That establishes coverage; it
-does not retroactively turn my five-album listening test into a broad
-recommendation-quality evaluation. The judgments below still come from that
-small listening sample.
+## Setup sequence and playback check
 
-## Sonic similarity vs ListenBrainz collaborative recommendations
+**Prerequisites:** a working Navidrome library, an AudioMuse instance that can reach it, and compatible releases of Navidrome, AudioMuse and the plugin. My deployment pins plugin v9; a new installation should check the [upstream compatibility notes](https://github.com/NeptuneHub/AudioMuse-AI-NV-plugin#how-to-install) rather than copy that pin blindly.
 
-I also import ListenBrainz playlists into Navidrome with a separate plugin
-that fetches Daily Jams, Weekly Jams and Weekly Exploration. It matches
-tracks only by MusicBrainz ID. The two systems answer different questions.
+1. Connect AudioMuse to Navidrome with a dedicated library account and analyse a small set of familiar albums.
+2. In Navidrome, enable plugins and install `audiomuseai.ndp` in its configured plugin folder. Back up the data directory before changing an existing installation.
+3. Enable the plugin in the admin UI and set the AudioMuse API URL reachable from the server. Supply an API token if your AudioMuse instance requires one.
+4. Put `audiomuseai` before other sonic-similarity agents in the agent order.
 
-| Question | AudioMuse-AI | ListenBrainz |
-| --- | --- | --- |
-| Evidence | The audio of files I own | Many people's listening histories |
-| Works on obscure or local music | Yes. Any file it can decode gets analysed | Only if the recording has MusicBrainz data and enough listeners |
-| Needs listening history | No (except Sonic Fingerprint) | Yes |
-| Finds "sounds like this" | Good at it | Only indirectly |
-| Finds "people who like this also like" | Cannot | Its main strength |
-| Crosses genre and language | Yes, sometimes in a good way | It follows listener communities |
-| Can recommend music I don't own | No | Yes, but the import only keeps tracks it can match |
-| Runs offline | Yes | No |
+**Check it works:** run Similar Song in AudioMuse, then Instant Mix on the same seed in Navidrome. Confirm that the returned songs play. If only the first works, inspect the plugin's URL, authentication and server logs before changing the analysis settings. Once that small test works, expand coverage; the [scaling case study](/technical-notes/scaling-audiomuse-album-analysis/) is a measurement of my deployment, not a required worker count.
 
-AudioMuse is good at Instant Mix: start from a track and stay in the same
-mood. It is the only signal that works for Nepali indie releases with almost no
-listeners elsewhere. ListenBrainz cannot recommend what nobody else has
-scrobbled.
+## Choosing a mix
 
-**Aurral has another role:** it is where I can browse discoveries and review
-requests for music beyond the files I own. Lidarr remains responsible for
-permanent artist and album management. AudioMuse helps me rediscover a song;
-Aurral helps me decide what to seek next; Navidrome is where I play the result.
+Instant Mix starts with a song I know and finds neighbours in the analysed library. A similar sound is not a guarantee that the language, mood or style will suit the moment. I listen and keep the mixes I enjoy.
 
-It is weaker at cultural context. Two tracks with similar tempo, energy and
-timbre can belong to different scenes, eras or languages, and a sound
-embedding does not know that. Clustering can produce playlists that are
-coherent but dull, and the names are the LLM's guess at a theme. ListenBrainz
-has the opposite problem. It knows what people pair together but nothing
-about how a track sounds, and it misses anything without MBIDs.
-
-So I use them for different jobs. AudioMuse handles "more like this, right
-now" inside the player. ListenBrainz handles the weekly discovery
-playlists. [Part 5](/technical-notes/ai-music-recommendations-from-listenbrainz/)
-covers combining them.
+For recommendations based on listening habits, I use the separate [ListenBrainz playlist importer](/technical-notes/scrobbling-everything-to-listenbrainz/#closing-the-loop-history-back-into-playlists). Requests for music outside my library belong to [my discovery workflow](/technical-notes/ai-music-recommendations-from-listenbrainz/#follow-a-suggestion-beyond-the-library).
 
 ## Cleaning up generated playlists
 

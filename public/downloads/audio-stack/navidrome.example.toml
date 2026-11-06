@@ -1,0 +1,6 @@
+# Minimal standalone example; replace paths before starting.
+# MusicFolder is read-only to the service; DataFolder must be writable.
+MusicFolder = "/srv/music"
+DataFolder = "/var/lib/navidrome"
+Address = "127.0.0.1"
+Port = 4533

@@ -1,6 +1,6 @@
 ---
-title: "I Replaced Spotify with a 2006 iPod"
-date: "2026-10-26T10:50:00+05:45"
+title: "My Rockbox iPod Video 5.5G: Hardware, Settings and Playlist Sync"
+date: "2026-10-24T10:00:00+05:45"
 category: ["Technical Notes"]
 categories: ["technical-notes"]
 directory: technical-notes
@@ -11,18 +11,19 @@ tags:
   - rockbox
   - flac
   - spotify
-series: pocket-hi-fi
-seriesOrder: 7
+series: "homelab-music"
+seriesOrder: 3
 cover: "/images/blog/audio/ipod-video-5-5g-rockbox-purist-player.webp"
 thumb: "/images/blog/audio/ipod-video-5-5g-rockbox-purist-player.webp"
 use_featured_image: true
 draft: false
 comments: true
 share: true
+last_modified_at: "2026-11-06T13:00:00+05:45"
 ---
 
 My main music player is an iPod Video from 2006. It has no Wi-Fi, no
-recommendations and no app that wants my attention. It plays selected files
+recommendations and no app that wants my attention. It plays files
 from the same library that powers [my at-home discovery setup](/audio/my-music-after-spotify/).
 For me, leaving Spotify also means being able to take that music somewhere
 without an internet connection. I am still testing its replacement battery,
@@ -34,7 +35,7 @@ noise cancellation when the headphones are powered on. I do not need a
 high-end IEM to enjoy a walk with it. That is a preference, not a claim that
 the DAC alone creates a measurable warmth or that the iPod supports Bluetooth.
 
-This post explains why this particular iPod, what was changed inside it, and the settings that make it a purist player. Parts 1 to 6 of this series covered the vocabulary; this is where it meets a real device.
+This post explains why this particular iPod, what was changed inside it, and the settings I use. Parts 1 to 6 of this series covered the vocabulary; this is where it meets a real device.
 
 ## Why the 5.5G
 
@@ -60,7 +61,7 @@ A 20-year-old hard drive is the weak point of any vintage iPod. Mine was replace
 
 | Part | Stock | Fitted |
 |---|---|---|
-| Storage | 1.8 in hard drive | 64 GB SD card on a 40-pin ZIF flash adapter (dual SD slot) |
+| Storage | 1.8 in hard drive | 64 GB SD card on a 40-pin ZIF flash adapter; 256 GB upgrade in progress |
 | Battery | About 600 mAh | Labelled 2000 mAh; performance still under test |
 
 The flash adapter plugs into the same connector the hard drive used, so the iPod sees an ordinary disk. There are no moving parts left, it is silent, and it survives being dropped far better.
@@ -88,9 +89,9 @@ I run **Rockbox 4.0**, released on 1 April 2025 as the project's first release s
 <figcaption>Rockbox can play hi-res FLAC, but this iPod sends audio to its headphone jack at 44.1 kHz.</figcaption>
 </figure>
 
-## The purist settings
+## My playback settings
 
-A purist player should not change the music. Every Rockbox option below is either off or there to protect the signal. This is the sound section of my settings file, exactly as it is on the iPod:
+These are my listening preferences. Crossfeed, crossfade and ReplayGain deliberately change playback; they are not a claim of an untouched signal. This is the sound section of my settings file, exactly as it is on the iPod:
 
 ```ini
 eq enabled: off
@@ -116,13 +117,13 @@ What each one does:
 
 ### The crossfeed trade-off
 
-Crossfeed is the one setting here that is not strictly "purist", and I have it on.
+I leave crossfeed on by preference.
 
 Recordings are mixed for speakers. With speakers, each ear hears both speakers, slightly delayed and filtered by your head. With IEMs, the left channel goes only to the left ear. Hard-panned mixes, especially older stereo recordings with drums on one side and vocals on the other, can sound unnatural and tiring that way.
 
 Crossfeed mixes a small, delayed, filtered amount of each channel into the other to imitate what speakers do. Rockbox offers a Meier mode, named after the crossfeed design by Jan Meier, and a custom mode.
 
-The cost: crossfeed changes the signal, narrows the stereo image a little, and on modern mixes made with headphones in mind it can make things sound slightly closed in. A strict purist turns it off. I leave it on because much of what I listen to is older and hard-panned, and long sessions are less tiring with it. If you try it, A/B a well-recorded album with it on and off and keep whichever you forget about.
+The cost: crossfeed changes the signal, narrows the stereo image a little, and on modern mixes made with headphones in mind it can make things sound slightly closed in. I leave it on because much of what I listen to is older and hard-panned, and long sessions are less tiring with it. If you try it, A/B a well-recorded album with it on and off and keep whichever you forget about.
 
 ## A player for playback only
 
@@ -153,18 +154,35 @@ All of the above lives in a git repository, not only on the iPod. A short Python
 
 Rockbox stores settings as plain `key: value` lines, which makes this easy. One trap: setting names change between Rockbox versions, and Rockbox silently ignores names it does not know. I check every name against the source code at the installed release tag before adding it.
 
-The result is that if the iPod dies, a replacement takes one install and one script run to behave identically.
+The saved settings and theme files give me a starting point for rebuilding the device; replacement hardware still needs testing.
 
-## The Spotify part
+## Check the device before a full sync
 
-Spotify is excellent at what it does: endless catalogue, good recommendations, one tap. What I gave up by leaving it is discovery. What I got back:
+**Prerequisites:** a compatible Rockbox installation, a backup of the player, and a mounted iPod in disk mode. The [Rockbox installation manual](https://www.rockbox.org/manual.shtml) owns the bootloader procedure; the snippets here do not install firmware.
 
-- **Lossless audio** from files I own, which do not disappear when a licence changes.
-- **Music without a phone**; the iPod's battery life is still under test.
-- **No interruptions.** No notifications, no autoplay deciding what comes next.
-- **Listening history I keep.** Rockbox logs every play to a file, and a script submits those plays to ListenBrainz when I connect the iPod. How that works, and the server behind the library, is covered in the separate [Homelab Music series](/series/homelab-music/).
+1. Copy one album and a small playlist using your chosen file-sync method.
+2. Eject the device, open the playlist in Rockbox and play a track. Check title, album and artwork.
+3. Enable play logging with [rockbox-playlog.example.cfg](/downloads/audio-stack/rockbox-playlog.example.cfg), loading it through Rockbox's configuration-file browser.
+4. After listening, reconnect and confirm `/.rockbox/playback.log` exists before attempting an import.
 
-Getting the music onto it legally and well tagged is its own project. That is the next post.
+My local scripts are separate tools: `sync_rockbox.py` manages settings and themes; `scrobble_listenbrainz.py` imports the saved plays. These are local project scripts, not commands installed by Rockbox. Both accept `--dry-run`. For example, from my homelab checkout, with the actual mount substituted:
+
+```sh
+ipod/sync_rockbox.py /Volumes/ipod --dry-run
+ipod/scrobble_listenbrainz.py /Volumes/ipod --tz Asia/Kathmandu --dry-run
+```
+
+**Check it works:** inspect the proposed changes and converted timestamps before running the connected sync workflow. The [import guide](/technical-notes/scrobbling-everything-to-listenbrainz/) explains credentials, accepted submissions and log archiving. Logging alone does not upload anything.
+
+## Library and playlist sync
+
+The files come from my [tagged music library](/technical-notes/beyond-spotify-building-a-flac-library/). My sync scripts copy music and write playlists for Rockbox. The earlier setup used selected files; the pending 256 GB upgrade is intended to hold the whole library.
+
+My playlists include Bollywood Top, Nepali, Hindi Indie and Forever Classics. I choose one offline and let it play. One-star ratings help me review songs I don't want in those lists later; this is not an automatic recommendation-training loop.
+
+When I connect the iPod and sync, the scripts also import its recorded plays into ListenBrainz. I have used this workflow. The [play-log import guide](/technical-notes/scrobbling-everything-to-listenbrainz/#the-ipod-sync-path) explains timestamps and submission handling.
+
+For the rest of the listening routine, see [how I use the stack](/technical-notes/ai-music-recommendations-from-listenbrainz/).
 
 ## Sources
 

@@ -1,5 +1,6 @@
 ---
 import type { GetStaticPaths } from "astro";
+import AudioStartHere from "~/components/blog/AudioStartHere.astro";
 import SiteShell from "~/layouts/SiteShell.astro";
 import ScrollReveal from "~/components/motion/ScrollReveal.astro";
 import { seriesRegistry } from "~/data/series";
@@ -51,6 +52,7 @@ const companion = companionSlug && (await getSeriesPosts(companionSlug)).length 
         <p class="eyebrow mb-3">Series</p>
         <h1 class="text-display-lg text-strong">{meta.title}</h1>
         <p class="mt-5 text-body-lg text-muted max-w-reading">{meta.description}</p>
+        {(slug === "homelab-music" || slug === "pocket-hi-fi") && <AudioStartHere />}
         {companion && (
           <p class="mt-4 text-body text-muted">
             Continue exploring: <a class="underline" href={`/series/${companion.slug}/`}>{companion.title}</a>.

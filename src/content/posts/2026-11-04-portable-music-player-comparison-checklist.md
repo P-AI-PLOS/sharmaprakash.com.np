@@ -16,7 +16,7 @@ Comparing two portable music players can turn into comparing everything at once:
 
 A useful comparison starts by narrowing the question. Are you choosing something for a walk, for a desk, or for listening to a full album without interruptions? Those are different jobs. A player can be pleasant for one and awkward for another.
 
-This is a comparison method, not a new listening test or a claim that one device sounds better. It is a companion to the [iPod and Sony Walkman scorecard](/technical-notes/sony-walkman-vs-modded-ipod-video-scorecard/).
+This is a comparison method, not a new listening test or a claim that one device sounds better. It is a companion to the [iPod and Sony Walkman scorecard](/technical-notes/pairing-iems-ipod-vs-sony-walkman/).
 
 ## Choose the decision first
 

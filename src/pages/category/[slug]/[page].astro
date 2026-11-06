@@ -1,5 +1,6 @@
 ---
 import type { GetStaticPaths } from "astro";
+import AudioStartHere from "~/components/blog/AudioStartHere.astro";
 import SiteShell from "~/layouts/SiteShell.astro";
 import PostsSidebar from "~/components/blog/PostsSidebar.astro";
 import SeriesStrip from "~/components/blog/SeriesStrip.astro";
@@ -53,6 +54,7 @@ const { posts, currentPage, totalPages, category, slug } = Astro.props as {
     <div class="mx-auto max-w-7xl px-6 lg:px-12">
       <p class="eyebrow mb-3">Category</p>
       <h1 class="text-display-lg text-strong capitalize">{category}</h1>
+        {(slug === "audio" && currentPage === 1) && <AudioStartHere />}
     </div>
   </section>
 

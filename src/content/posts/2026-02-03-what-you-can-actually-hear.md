@@ -1,10 +1,10 @@
 ---
 title: "What You Can Actually Hear: Sample Rate, Bit Depth and Bitrate"
-date: "2026-10-26T09:50:00+05:45"
+date: "2026-02-03T10:00:00+05:45"
 category: ["Technical Notes"]
 categories: ["technical-notes"]
 directory: technical-notes
-excerpt: "The limits of human hearing, why 44.1 kHz stores sound up to 22 kHz, what bit depth and bitrate really measure, lossy versus lossless, why hi-res exists, and what Bluetooth earphones like AirPods Pro and the Sony WH-1000XM4 do to your music."
+excerpt: "Sample rate, bit depth, bitrate and file formats: what the numbers mean and what they do not establish."
 tags:
   - audio
   - flac
@@ -19,17 +19,14 @@ use_featured_image: true
 draft: false
 comments: true
 share: true
+last_modified_at: "2026-11-06T13:00:00+05:45"
 ---
 
 Before IEMs, players and libraries, one question decides how much of the rest matters: what can a human ear actually hear? Most of the numbers printed on audio gear (44.1 kHz, 24-bit, 192 kHz, 990 kbps) answer a different question. This post sorts them out, so the rest of the series can spend money where it makes a difference.
 
-## The limits of hearing
+## What the numbers describe
 
-Human hearing covers roughly **20 Hz to 20 kHz**. That is the textbook range for a young person; the top end falls with age, and most adults hear little above 16 kHz. Above 20 kHz is ultrasound. Bats hear up to about 100 kHz; people do not.
-
-Loudness spans a much wider range. The quietest sound you can hear and the loudest you can bear without pain are more than 120 dB apart, but real listening happens in a far narrower band: a quiet room has a background of 30 dB or so, and nobody listens to music near the pain threshold for long.
-
-Keep those two facts in mind. Every digital format is a trade-off against them.
+Sample rate, bit depth and bitrate describe different properties of a file. None is a score for the performance, recording or mastering.
 
 ## Sample rate: how often the sound is measured
 
@@ -46,7 +43,7 @@ A sample rate of 44.1 kHz means 44,100 measurements of the waveform every second
 
 ### Why the highest pitch is half the sample rate
 
-To capture one vibration of a sound wave, you need at least two samples: one near the peak and one near the trough. With fewer, a fast wave cannot be told apart from a slower one. So the highest frequency a sample rate can store is **half** that rate. This is the **Nyquist limit**, from the sampling theorem.
+A band-limited signal can be reconstructed when the sample rate is greater than twice its highest frequency. Filtering is needed to prevent higher frequencies being mistaken for lower ones. Half the sample rate is the boundary, not a promise that a practical system passes every frequency up to it. This is the **Nyquist limit**, from the sampling theorem.
 
 | Sample rate | Highest frequency stored | Audible? |
 |---|---|---|
@@ -86,25 +83,15 @@ So a FLAC file's bitrate is trivia, while an MP3's bitrate is the most important
 
 **Lossless** formats (FLAC, ALAC, WAV) give back exactly the samples that went in. **Lossy** formats (MP3, AAC, Opus, Ogg Vorbis) discard information to save space.
 
-Modern lossy encoders are very good. At 256 kbps AAC or 320 kbps MP3, most people cannot reliably tell the file from the CD in a blind test. At 128 kbps and below, artefacts become audible on cymbals, applause and reverb tails. The real problems with lossy files are practical: a low-bitrate rip from a video site, or a file converted from one lossy format to another, loses detail every time. That is where the "screech" in old rips comes from.
+Lossy encoding removes information. Whether the difference is audible depends on the encoder, settings, recording and listener. Converting a lossy file to FLAC does not recover what was removed; repeated lossy encoding can introduce further artefacts.
 
 Lossless matters most as a **master copy**. You can make any lossy version from it later, at any bitrate, without stacking losses.
 
-## So why does hi-res exist?
+## Higher-resolution files
 
-If 16-bit/44.1 kHz covers human hearing, why sell 24-bit/96 kHz and 24-bit/192 kHz?
+Extra precision is useful during recording and processing. For playback, compare the actual release and master rather than assuming a higher-resolution version sounds better. Keep an original file if you want it for your archive; make a compatible copy when a player needs one.
 
-- **The studio needs headroom.** Recording, mixing and mastering process audio many times. Extra bit depth keeps rounding errors and noise far below the music while engineers work. Once the final master is done, that headroom has served its purpose.
-- **Different masters.** Hi-res releases are often new remasters. People hear the better mastering and credit it to the sample rate.
-- **Marketing.** Bigger numbers look better on a box and a store page.
-
-The listening evidence is thin. Meyer and Moran's 2007 study inserted a CD-quality bottleneck into high-resolution playback, and listeners could not detect it. Reiss's 2016 meta-analysis of 18 studies did find a small effect: trained listeners told the formats apart about 60 % of the time, where guessing gives 50 %. That is a real but subtle difference under careful test conditions, nothing like the one the marketing implies. Mastering, the earphones and the fit all matter far more than the number after the slash.
-
-### What my library looks like
-
-My own library has 1,512 FLAC files. **84 % are 16-bit/44.1 kHz**, ripped or bought at CD quality. The rest is a mix of 24-bit at 44.1–96 kHz and 121 tracks at 24-bit/192 kHz, mostly recent remasters such as the 2023 *The Dark Side of the Moon*.
-
-One album shows how labels mislead: a copy of Metallica's 1991 album is **16-bit at 96 kHz**. Genuine hi-res masters are 24-bit, so this is almost certainly a CD rip that was upsampled. It is bigger than the CD and contains nothing more.
+The [library guide](/technical-notes/beyond-spotify-building-a-flac-library/) covers formats and tagging. [Xiph’s Digital Show & Tell](https://xiph.org/video/vid2.shtml) demonstrates sampling, quantisation and dither.
 
 ## The player decides what you get anyway
 
