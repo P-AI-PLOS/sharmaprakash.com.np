@@ -76,7 +76,7 @@ declaring either one the winner.
 | Search and play anywhere at home | Navidrome serves the files on my NAS to its web player and compatible clients. |
 | A mix from one song | **Instant Mix** in Navidrome, backed by AudioMuse's sonic analysis of the actual audio. |
 | A fresh discovery playlist | ListenBrainz playlists and Aurral flows, shown in Navidrome where their tracks are available. |
-| Taking music offline | My iPod Video 5.5G running Rockbox carries a chosen part of the same library as files and playlists. |
+| Taking music offline | My iPod Video 5.5G running Rockbox carries selected files and playlists; I also take music from the same library into the car. |
 | Finding a song I don't own | Aurral helps me explore and request music; I check the exact recording before I add it to the permanent library. |
 
 None of these pieces needs to imitate Spotify's catalogue. I choose what
@@ -124,6 +124,10 @@ is another. It has flash storage and Rockbox, so I can copy over the music and
 playlists I want, including FLAC. It keeps playing without Wi-Fi, a phone or a
 service login. The iPod does not make recommendations while I'm out; I make a
 selection before I leave, and that is sometimes exactly what I want.
+
+I also use an offline selection from the same library in my car. A drive does
+not have to depend on mobile data or a streaming app staying connected. The
+car and the iPod are different players, but the music starts from files I keep.
 
 I like the 5.5G's Wolfson-based sound. “Warm” is how I describe my experience,
 not a measured promise that its DAC makes every headphone sound warmer. For
