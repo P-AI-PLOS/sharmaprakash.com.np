@@ -73,12 +73,10 @@ CPU, database connections, and queue progress together. I also learned to
 check AudioMuse's queue page: once, Incus showed a worker container running
 while its queue processes had stopped after a database restart.
 
-With 36 workers, the library pass eventually finished, but it had reused
-analysis saved during earlier attempts. That gave me a working library, not a
-clean timing comparison. I added four more workers, backed up the database,
-cleared its computed song analysis and indexes, and started the whole
-**1,728-album** pass again from the production web UI. The music-server
-settings and saved playlists stayed in place. This time I could watch the same
+I kept adding workers until I had **40**. To measure what that setup could do,
+I backed up the database, cleared its computed song analysis and indexes, and
+started a fresh **1,728-album** pass from the production web UI. The
+music-server settings and saved playlists stayed in place. I could watch this
 run from its first album to its final index build.
 
 Early in that run, AudioMuse showed **40 album jobs running**. I checked their
