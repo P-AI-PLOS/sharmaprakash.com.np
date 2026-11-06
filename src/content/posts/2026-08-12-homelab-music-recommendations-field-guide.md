@@ -33,7 +33,7 @@ My [library preparation guide](/technical-notes/beyond-spotify-building-a-flac-l
 
 AudioMuse analyses the audio and finds nearby tracks in its sound representations. It can work with songs that have little listening history. Similar sound does not establish shared language, cultural context or personal meaning.
 
-The [AudioMuse setup](/technical-notes/audiomuse-ai-sonic-recommendations/) connects that analysis to Navidrome's Instant Mix. The [scaling case study](/technical-notes/scaling-audiomuse-album-analysis/) measures analysis throughput, not how much I enjoy the matches.
+The [AudioMuse guide](/technical-notes/audiomuse-ai-sonic-recommendations/) connects that analysis to Navidrome's Instant Mix and records the full-library measurements. Those numbers measure throughput, not how much I enjoy the matches.
 
 ## Use listening history
 

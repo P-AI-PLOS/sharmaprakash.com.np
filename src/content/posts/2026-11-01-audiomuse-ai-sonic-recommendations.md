@@ -1,10 +1,10 @@
 ---
-title: "AudioMuse-AI: Sonic-Analysis Recommendations on My Own Library"
+title: "How I Use AudioMuse with Navidrome"
 date: "2026-11-01T10:00:00+05:45"
 category: ["Technical Notes"]
 categories: ["technical-notes"]
 directory: technical-notes
-excerpt: "How AudioMuse-AI analyses audio, how it runs in my homelab beside Navidrome with a local LLM on a separate GPU host, what its playlists are good and bad at compared with ListenBrainz, and how I clean up the playlists it generates."
+excerpt: "How sonic analysis gives my Navidrome library a playable Instant Mix, and what it took to analyse the whole collection."
 tags:
   - homelab
   - music
@@ -25,181 +25,130 @@ draft: false
 last_modified_at: "2026-11-06T13:00:00+05:45"
 ---
 
-When I choose a song in Navidrome, I want the next track to be something in my
-own library that I might have forgotten. That is the job I give
-[AudioMuse-AI](https://github.com/NeptuneHub/AudioMuse-AI): analyse the sound
-of my files and make a **sounds-like-this** mix available in my player. For
-the whole listening journey, start with [my music after Spotify](/audio/my-music-after-spotify/).
+When I want more music like the song playing, I use Instant Mix in Navidrome. [AudioMuse-AI](https://github.com/NeptuneHub/AudioMuse-AI) supplies the sound-based matches from files I already own. [My Music After Spotify](/audio/my-music-after-spotify/) explains why I wanted this; this guide covers the setup and the work needed to analyse my library.
 
-This post began with a five-album experiment. AudioMuse now runs on Shuri,
-and a fresh full-library pass has finished: 1,728 albums in 2 hours 17 minutes
-with 40 workers. [The scaling story and measurements are in a separate post](/technical-notes/scaling-audiomuse-album-analysis/).
+## What I use AudioMuse for
 
-The [signals reference](/technical-notes/homelab-music-recommendations-field-guide/) explains how sound similarity differs from recording identity and listening history.
+AudioMuse turns recordings into numerical descriptions of their sound and searches for similar tracks. Its Similar Song page lets me explore those matches directly. The Navidrome plugin makes them available inside the player as Instant Mix.
 
-This post is about the sound signal. AudioMuse-AI listens to the files I own
-and builds recommendations from what they sound like, not from who else played
-them. Below is what it analyses, how it runs in my homelab, where it helps, where
-it does not, and how I keep its output from piling up.
+My first listening test covered five albums and 76 tracks. Starting small let me check the results before committing to a full-library pass. Similarity is useful, but it does not guarantee that two songs share a language, cultural context or mood that fits the moment.
 
-## What AudioMuse-AI analyses
+Audio analysis and language models have different jobs here. My Ollama configuration uses Gemma 4 26B for features such as playlist naming and chat. Finding sound-based neighbours for Instant Mix does not require an LLM call for each song. My configuration has `CLAP_ENABLED=false`; I do not use its CLAP-based text search or trait scores.
 
-AudioMuse-AI describes itself as using "sonic analysis to rediscover forgotten
-songs" without relying on metadata or external services. Its algorithm document
-is more specific. On the current main branch it:
+## How it connects to Navidrome
 
-- decodes audio with librosa (PyAV as fallback) and computes basic features:
-  **tempo, energy and key/scale**;
-- runs models through ONNX Runtime. **MusiCNN** produces a 200-dimension track
-  embedding plus top mood labels. **DCLAP** produces a 512-dimension
-  audio embedding that can be compared with text;
-- scores six extra traits (danceable, aggressive, happy, party, relaxed, sad)
-  by comparing the audio with CLAP text embeddings;
-- optionally transcribes and embeds lyrics with Whisper-small and a multilingual
-  text model;
-- keeps a Chromaprint fingerprint for duplicate checks.
+In the deployment described here, AudioMuse runs in Incus containers on Shuri. A Flask app provides the UI and API, workers process album jobs, and PostgreSQL 15 holds the catalogue and queue. Navidrome remains the separate music source, accessed through a dedicated non-admin account.
 
-Those vectors go into similarity indexes stored in PostgreSQL. Features are
-built on top of them:
+My measured full-library run used 40 workers. That is a description of this run, not a starting requirement. Library analysis is scheduled separately from the daily discovery-playlist refresh.
 
-| Feature | What it does | Uses an LLM? |
-| --- | --- | --- |
-| Clustering | Groups sonically similar tracks into playlists. An evolutionary search tries K-Means, DBSCAN, GMM and Spectral configurations and scores them on cluster quality and mood diversity | Only for naming playlists |
-| Similar Song | Nearest neighbours of one track | No |
-| Song Path | A sequence of tracks that moves from one song to another | No |
-| Sonic Fingerprint | Averages embeddings of your most-played tracks, weighted by recency with a 30-day half-life, then finds neighbours | No |
-| Instant Playlist | A chat request becomes tool calls that query the library | Yes |
+The UI and API are restricted to trusted networks. I disabled AudioMuse's own login in that arrangement; this is not a configuration to copy onto an internet-facing service. The plugin needs network access to the API from the Navidrome server.
 
-Two caveats. I am quoting the upstream documents, and the version I run may
-differ in detail. My live AudioMuse configuration has `CLAP_ENABLED=false`,
-so the CLAP-based text search and trait scores are not active here.
-
-## How it runs in my homelab
-
-AudioMuse-AI now runs in Incus containers on `shuri`. Navidrome is its
-separate music source:
-
-- **Web app, workers and database.** A Flask container serves the UI and API,
-  40 worker containers take queue jobs, and a PostgreSQL 15 container stores
-  the catalogue and queue. The database is on the private Incus network.
-  There is no Redis in this setup.
-- **A dedicated, non-admin Navidrome account.** AudioMuse reads the library
-  through Navidrome's API as its own service account, not as me.
-- **Analysis from the UI and on a schedule.** I started the measured
-  full-library run from AudioMuse's web app and watched its progress there.
-  A weekly library analysis is scheduled for Sunday at 02:00 Kathmandu time;
-  the daily personal discovery playlists are refreshed separately by a
-  Navidrome plugin at 03:00.
-- **Only on the LAN.** I turned off AudioMuse's own login. Its UI and API
-  are reachable only from trusted networks: the reverse proxy limits its
-  hostname to trusted clients and nothing routes it to the internet. This is a
-  deliberate trade-off. Anyone on my LAN can start a job.
-
-### The LLM handles words, not album analysis
-
-AudioMuse is configured for Ollama on `shuri`, using **Gemma 4 26B** for
-features such as playlist naming and chat. The audio feature extraction in
-the full-library run is separate from those LLM calls. Moving the app to
-Shuri did not make the album work fast by itself; adding queue workers and
-giving them database and dispatch capacity did.
-
-One trap: AudioMuse keeps settings in PostgreSQL, and those stored values can
-override container environment variables. I ran into that when the
-album-dispatch limit stayed at 25 despite changing worker configuration.
-Checking the effective setting in the app mattered more than checking the
-container definition.
-
-### The Navidrome plugin
-
-AudioMuse-AI ships a Navidrome plugin. It adds **Instant Mix** (song
-similarity), **Radio** (artist similarity) and related-artist information,
-backed by AudioMuse's engine. I install release v9, pinned by checksum, with an
-Ansible playbook that:
-
-1. checks that the running Navidrome version is compatible;
-2. stops Navidrome and backs up its database;
-3. stages the plugin file and restarts;
-4. configures and enables the plugin and reorders Navidrome's agents.
-
-The order matters. Navidrome uses the first agent that supports sonic
-similarity, so `audiomuseai` comes first, ahead of the Last.fm and Deezer
-agents. Instant Mix from a client passed my acceptance test.
-
-I accepted one permission I'm not happy about. The plugin manifest asks for
-HTTP access to any host (`"*"`), which is broader than the ListenBrainz plugin's
-single host. I accepted it because the plugin calls only the AudioMuse URL I
-configure and Navidrome runs plugins in a WebAssembly sandbox. I review it
-again on every upgrade.
-
-### How much of the library it has seen
-
-My first listening test covered five albums and 76 tracks. The later full-library run produced 6,321 unique songs, with seven tracks marked unanalyzable. The [run measurements](/technical-notes/scaling-audiomuse-album-analysis/) describe coverage and throughput; they do not establish recommendation quality across the library.
+I installed plugin v9 with a checksum-pinned Ansible playbook that checks compatibility, backs up Navidrome's database, stages the plugin and restarts the service. That release's manifest requests HTTP access to any host. I review its permissions on upgrades rather than assuming the configured API URL is itself a permission restriction.
 
 ## Setup sequence and playback check
 
-**Prerequisites:** a working Navidrome library, an AudioMuse instance that can reach it, and compatible releases of Navidrome, AudioMuse and the plugin. My deployment pins plugin v9; a new installation should check the [upstream compatibility notes](https://github.com/NeptuneHub/AudioMuse-AI-NV-plugin#how-to-install) rather than copy that pin blindly.
+**Prerequisites:** a [working Navidrome library](/technical-notes/beyond-spotify-building-a-flac-library/#minimal-navidrome-setup), an AudioMuse instance that can reach it, and compatible releases of Navidrome, AudioMuse and the plugin. For a new installation, check the [upstream installation and compatibility notes](https://github.com/NeptuneHub/AudioMuse-AI-NV-plugin#how-to-install); my v9 pin is not a recommendation to install an older release.
 
-1. Connect AudioMuse to Navidrome with a dedicated library account and analyse a small set of familiar albums.
-2. In Navidrome, enable plugins and install `audiomuseai.ndp` in its configured plugin folder. Back up the data directory before changing an existing installation.
-3. Enable the plugin in the admin UI and set the AudioMuse API URL reachable from the server. Supply an API token if your AudioMuse instance requires one.
-4. Put `audiomuseai` before other sonic-similarity agents in the agent order.
+1. Connect AudioMuse to Navidrome with a dedicated library account and analyse a few familiar albums.
+2. Enable Navidrome plugins and place `audiomuseai.ndp` in its configured plugin folder. Back up the data directory before changing an existing installation.
+3. Enable the plugin in the admin UI. Set the AudioMuse API URL reachable from the server and supply an API token if that instance requires one.
+4. Put `audiomuseai` before other sonic-similarity agents in Navidrome's agent order.
 
-**Check it works:** run Similar Song in AudioMuse, then Instant Mix on the same seed in Navidrome. Confirm that the returned songs play. If only the first works, inspect the plugin's URL, authentication and server logs before changing the analysis settings. Once that small test works, expand coverage; the [scaling case study](/technical-notes/scaling-audiomuse-album-analysis/) is a measurement of my deployment, not a required worker count.
+**Check it works:** run Similar Song in AudioMuse, then Instant Mix on the same seed in Navidrome. Confirm that the returned songs play. If only Similar Song works, check the plugin URL, authentication and server logs before changing analysis settings.
 
-## Choosing a mix
+In my Nepali playlist, I started Instant Mix from “Aama” by Sushant KC. The test produced a queue of 101 songs. That shows the playback path worked; it is not a quality score for all 101 matches. I can save a mix when I want to return to it.
 
-Instant Mix starts with a song I know and finds neighbours in the analysed library. A similar sound is not a guarantee that the language, mood or style will suit the moment. I listen and keep the mixes I enjoy.
+![Instant Mix in the menu of a song in my Navidrome Nepali playlist.](/images/blog/editorial/audiomuse-parallel-analysis/navidrome-instant-mix-menu.png)
 
-For recommendations based on listening habits, I use the separate [ListenBrainz playlist importer](/technical-notes/scrobbling-everything-to-listenbrainz/#closing-the-loop-history-back-into-playlists). Requests for music outside my library belong to [my discovery workflow](/technical-notes/ai-music-recommendations-from-listenbrainz/#follow-a-suggestion-beyond-the-library).
+![Navidrome's Instant Mix queue starting from Aama.](/images/blog/editorial/audiomuse-parallel-analysis/navidrome-instant-mix-queue.png)
 
-## Cleaning up generated playlists
+## Analysing the whole library
 
-Both sources keep producing playlists. AudioMuse clustering adds `_automatic`
-playlists and the ListenBrainz plugin adds a new set every day and week.
-Within a few months the playlist list is mostly generated output.
+After the small test, I asked AudioMuse to process 1,728 albums. The original host, Heimdall, had hit a memory limit. Moving to the larger Shuri host gave the job room, but did not by itself make it faster: the queue still had to supply work and PostgreSQL had to admit the workers.
 
-`scripts/navidrome_playlist_cleanup.py` handles this in review-first steps:
+One coordinator hands album jobs to workers through PostgreSQL. The queue uses `FOR UPDATE SKIP LOCKED` when claiming jobs. During the run, I checked that the 40 active album jobs had distinct identifiers.
 
-1. **Inventory** lists playlists through the OpenSubsonic API.
-2. **Plan** selects only playlists that are old (by last-changed time) and are
-   either AudioMuse output (the `_automatic` suffix) or one of the known
-   ListenBrainz importer names. Smart playlists, file-backed playlists and
-   anything else are excluded. The plan also fetches my recent ListenBrainz
-   listens and reports how many tracks in each playlist I actually played.
-   It matches by recording MBID, falling back to an exact artist and title.
-3. **Apply** deletes only playlist IDs I pass explicitly. It needs a
-   confirmation string and checks each playlist's name, owner, age and
-   tracks again before deleting. It refuses to run if my recent
-   listening history is empty, because then the played-track overlap is
-   meaningless.
+![One coordinator feeds album jobs to workers through PostgreSQL.](/images/blog/editorial/audiomuse-parallel-analysis/queue-flow.png)
 
-The overlap number is a weak signal and the tool says so. ListenBrainz records
-that a track was played, not which playlist it was played from. A track I
-played from an album will look like playlist use, and missing scrobbles
-make a playlist look unused. That is why the tool reports and I decide.
+### The limits I hit
 
-Deleting a playlist removes only the playlist record. Songs, tags and
-AudioMuse's analysis are untouched, and the plugins will create new
-playlists on their next run anyway.
+- **Database connections:** workers reported “too many clients” when the original 100-connection allowance filled up, and the web app became unavailable. I raised the limit in stages to 400 and adjusted database memory alongside it. Each connection-limit change required a database restart. The observed increase of about seven connections per extra worker was specific to the sampled stretch, not a fixed sizing rule.
+- **Job dispatch:** AudioMuse kept at most 25 album jobs outstanding. Adding workers could not overcome that cap. A database-stored setting overrode my environment change; after updating the effective value to 40, I saw 24 jobs running and 16 waiting.
+- **Worker health:** a running container did not always mean its queue processes were working. After a database restart, I had to check the queue itself.
+- **Memory signals:** a temporary guard reacted to occupied swap even while more than 30 GiB of memory remained available. I removed that guard and watched available memory, swap activity, connections and queue progress together.
 
-## What I would tell someone starting
+![AudioMuse's queue with 40 album workers active.](/images/blog/editorial/audiomuse-parallel-analysis/forty-workers-dashboard.png)
 
-- **Analyse a few albums first.** Check Similar Song on music you know well
-  before spending hours on a full-library pass.
-- **Remember the stored settings.** Check the effective app value after
-  changing a model or analysis limit; a saved value can override the
-  container environment.
-- **Put the LLM wherever you already run one.** Here it only names
-  playlists and handles chat requests. Similarity and fingerprinting do not
-  use it.
-- **Plan for cleanup from the start.** Generated playlists keep accumulating,
-  and you need a rule for deleting them.
+![Shuri's CPU, memory and AudioMuse workers during the run.](/images/blog/editorial/audiomuse-parallel-analysis/shuri-htop-forty-workers.png)
+
+### The measured run
+
+To measure a fresh pass, I backed up the database, cleared computed song analysis and indexes, and started the job from the web UI. Music-server settings and saved playlists stayed in place. Clearing analysis was part of this benchmark, not a normal setup step.
+
+Shuri had eight physical cores and 16 logical CPUs. I added an extra 8 GiB swap file about 14 minutes into the run; the elapsed time includes that change. Host and task measurements were sampled every 30 seconds.
+
+| Measurement | Result |
+| --- | --- |
+| Workers | 40 |
+| Selected album jobs | 1,728 completed; zero failed |
+| Elapsed time, including final indexing | 2 h 17 min 36 s |
+| Resulting catalogue | 6,321 unique songs across 1,702 distinct albums |
+| Tracks marked unanalyzable | 7 |
+| Peak sampled PostgreSQL connections | 331 of 400 |
+| Average sampled host CPU use | About 52% across 16 logical CPUs |
+| Lowest sampled available memory | 26.6 GiB |
+
+The queue moved in bursts. These are the nearest samples to each ten-minute
+mark; CPU is total host use, not AudioMuse alone.
+
+| Elapsed | Albums complete | Tracks stored | CPU busy | PostgreSQL connections |
+| ---: | ---: | ---: | ---: | ---: |
+| 10 min | 32 / 1,728 | 520 | 52% | 328 / 400 |
+| 20 min | 74 / 1,728 | 1,050 | 53% | 324 / 400 |
+| 30 min | 140 / 1,728 | 1,561 | 52% | 327 / 400 |
+| 40 min | 189 / 1,728 | 2,152 | 52% | 326 / 400 |
+| 50 min | 361 / 1,728 | 2,654 | 53% | 317 / 400 |
+| 60 min | 631 / 1,728 | 3,112 | 53% | 310 / 400 |
+| 70 min | 852 / 1,728 | 3,560 | 53% | 317 / 400 |
+| 80 min | 1,075 / 1,728 | 3,960 | 53% | 326 / 400 |
+| 90 min | 1,239 / 1,728 | 4,319 | 53% | 328 / 400 |
+| 100 min | 1,363 / 1,728 | 4,771 | 52% | 327 / 400 |
+| 110 min | 1,466 / 1,728 | 5,246 | 53% | 326 / 400 |
+| 120 min | 1,656 / 1,728 | 5,612 | 53% | 314 / 400 |
+| 130 min | 1,712 / 1,728 | 6,133 | 54% | 282 / 400 |
+| Finished: 137 min 36 sec | 1,728 / 1,728 | 6,321 | — | 248 / 400 |
+
+Completed album-job counts and distinct albums in the resulting catalogue are different counters. A successful album job also does not mean every track was analysable. These results establish coverage and throughput, not recommendation quality.
+
+![Completed analysis: 6,321 songs, 1,702 albums and seven unanalyzable tracks.](/images/blog/editorial/audiomuse-parallel-analysis/audiomuse-full-library-result.png)
+
+An earlier single worker stored 307 tracks in 20 minutes. Extending that rate to 6,321 tracks gives roughly 6 h 52 min, about three times the measured 40-worker run. That is an extrapolation, not a controlled full-library comparison. Album sizes varied, final indexing was serial, and 40 workers shared the same CPU cores. I would not promise the same speedup elsewhere.
+
+## Troubleshooting a slow or empty mix
+
+| Symptom | Check first |
+| --- | --- |
+| Similar Song works, Instant Mix fails | Plugin API URL, authentication, compatibility and agent order |
+| Extra workers sit idle | Effective album-dispatch limit and actual queue processes |
+| “Too many clients” errors | PostgreSQL connection usage and worker count |
+| A changed environment setting has no effect | The setting saved in AudioMuse's database |
+| A track has no useful matches | Analysis status, available library coverage and the seed itself |
+
+Start with the smallest failing step. Changing worker counts will not fix a plugin authentication problem, and a completed analysis does not prove that a mix suits my taste.
+
+## Keeping generated playlists manageable
+
+AudioMuse clustering and the separate [ListenBrainz importer](/technical-notes/scrobbling-everything-to-listenbrainz/#closing-the-loop-history-back-into-playlists) can leave old generated playlists behind. My cleanup script inventories them, reports candidates and deletes only the playlist IDs I explicitly approve. It excludes smart and file-backed playlists and rechecks candidates before deleting.
+
+The report compares tracks with recent ListenBrainz history. That overlap is only a hint: hearing a song does not prove I played it from a particular playlist. Removing a generated playlist does not delete the music or its analysis.
+
+My [daily listening workflow](/technical-notes/ai-music-recommendations-from-listenbrainz/) explains what I keep, how ratings help me review playlists, and how I take them offline. The [signals reference](/technical-notes/homelab-music-recommendations-field-guide/) explains where sound-based mixes differ from listening-history suggestions.
+
 
 ## Sources
 
 - [AudioMuse-AI repository](https://github.com/NeptuneHub/AudioMuse-AI)
-- [AudioMuse-AI algorithm description](https://github.com/NeptuneHub/AudioMuse-AI/blob/main/docs/ALGORITHM.md)
-- [AudioMuse-AI Navidrome plugin](https://github.com/NeptuneHub/AudioMuse-AI-NV-plugin)
-- [Aurral](https://aurral.org/)
-- [ListenBrainz daily playlist plugin for Navidrome](https://github.com/kgarner7/navidrome-listenbrainz-daily-playlist)
-- [ListenBrainz data update intervals](https://listenbrainz.readthedocs.io/en/latest/general/data-update-intervals.html)
+- [AudioMuse algorithm notes](https://github.com/NeptuneHub/AudioMuse-AI/blob/main/docs/ALGORITHM.md)
+- [Navidrome plugin installation and checks](https://github.com/NeptuneHub/AudioMuse-AI-NV-plugin)
+- [PostgreSQL connection settings](https://www.postgresql.org/docs/15/runtime-config-connection.html)
+- [PostgreSQL SELECT and SKIP LOCKED](https://www.postgresql.org/docs/15/sql-select.html)

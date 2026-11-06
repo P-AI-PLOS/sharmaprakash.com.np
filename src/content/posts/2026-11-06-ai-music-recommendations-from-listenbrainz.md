@@ -31,7 +31,7 @@ last_modified_at: "2026-11-06T13:00:00+05:45"
 
 Navidrome is my player at home. I browse the library, choose an album or open a playlist. Keeping [recordings and tags in order](/technical-notes/beyond-spotify-building-a-flac-library/) makes it easier to find the right version and lets other tools match songs reliably.
 
-When I want more music like the song playing, I choose Instant Mix. The [AudioMuse integration](/technical-notes/audiomuse-ai-sonic-recommendations/) finds similar sounding tracks in my library. I can listen to the queue and save a mix I want to revisit. The [full-library analysis case study](/technical-notes/scaling-audiomuse-album-analysis/) explains the work that made more of my collection available to it.
+When I want more music like the song playing, I choose Instant Mix. The [AudioMuse guide](/technical-notes/audiomuse-ai-sonic-recommendations/) explains how similar sounding tracks reach my Navidrome queue and what it took to analyse the full library. I can listen to the queue and save a mix I want to revisit.
 
 ## Follow a suggestion beyond the library
 
