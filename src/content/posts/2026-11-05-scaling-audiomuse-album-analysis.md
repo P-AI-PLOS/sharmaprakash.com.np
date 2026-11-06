@@ -19,7 +19,7 @@ use_featured_image: true
 comments: true
 share: true
 draft: false
-last_modified_at: "2026-11-06T11:45:00+05:45"
+last_modified_at: "2026-11-06T12:25:00+05:45"
 ---
 
 ## TL;DR
@@ -43,6 +43,10 @@ My [first AudioMuse experiment](/technical-notes/audiomuse-ai-sonic-recommendati
 used a small slice of my Navidrome library. The recommendations were promising,
 so I asked it to analyse everything: **1,728 albums**. That turned a fun music
 project into an afternoon of watching progress counters.
+
+If you want the listening story before the worker counts, start with
+[my music after Spotify](/audio/my-music-after-spotify/). This post is the
+technical account of making the sound-based part cover my whole library.
 
 AudioMuse had originally lived on `heimdall`, where the analysis ran into a
 memory limit. I moved it to `shuri`, a much larger machine, expecting the job
@@ -175,10 +179,16 @@ The “AI” here is mostly the audio models that learn a representation of a
 song's sound. Finding neighbours in that representation does **not** require
 a large language model call for each recommendation. My separate Ollama
 configuration is for language tasks such as naming playlists and chat, not
-for extracting the sound features used by this run. ListenBrainz contributes
-a different kind of discovery: listening-history playlists imported through
-its own Navidrome plugin. AudioMuse does not feed its vectors into
-ListenBrainz, and Navidrome does not acquire new music from these mixes.
+for extracting the sound features used by this run.
+
+The other apps have their own jobs. **Navidrome** indexes and plays my files;
+the AudioMuse plugin puts sonic matches into its Instant Mix queue.
+**ListenBrainz** uses listening history for a different kind of discovery,
+and its Navidrome plugin imports the playlists it produces when tracks match
+my library. **Aurral** gives me a place to explore music beyond that library,
+make flows and review requests. It connects to **Lidarr**, which manages
+permanent artists and albums. A mix of songs I own and a request for a new
+recording are two separate actions in this setup.
 
 Across the sampled run, host CPU averaged about **52% of 16 logical CPUs**.
 The one-minute load average peaked at **141**, PostgreSQL connections peaked
@@ -219,6 +229,15 @@ its similarity features and Navidrome Instant Mix can look beyond the handful
 of albums in my first test. The Nepali playlist example is the payoff: I picked
 one song, and Navidrome gave me a playable queue drawn from music I already
 own. I can save worthwhile mixes as playlists.
+
+When discovery leads outside my library, Aurral can help me explore and
+request music, with Lidarr managing the permanent library. I also sometimes
+add a particular recording manually. After this run I wanted the 2025 live
+performance of **“Je Chhau Timi” by Swoopna Suman with Sushant KC**. I
+checked it against the studio version I already had, imported the live AAC
+audio as M4A, and verified that Navidrome indexed the two separately. That
+recording-level check is the missing-music part of the journey; the AudioMuse
+analysis did not perform that import.
 
 That does not prove its playlists know my taste better than Spotify did.
 It does mean the raw music, the listening signals and the sound-based

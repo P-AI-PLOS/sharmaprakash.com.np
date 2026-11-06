@@ -22,14 +22,18 @@ share: true
 series: homelab-music
 seriesOrder: 4
 draft: false
-last_modified_at: "2026-11-06T10:04:00+05:45"
+last_modified_at: "2026-11-06T12:25:00+05:45"
 ---
 
-**Update, 6 November 2026:** This post began with a five-album experiment.
-[AudioMuse-AI](https://github.com/NeptuneHub/AudioMuse-AI) now runs on Shuri,
-and a fresh full-library pass has finished:
-1,728 albums in 2 hours 17 minutes with 40 workers. I have updated the setup
-details below; [the scaling story and measurements are in a separate post](/technical-notes/scaling-audiomuse-album-analysis/).
+When I choose a song in Navidrome, I want the next track to be something in my
+own library that I might have forgotten. That is the job I give
+[AudioMuse-AI](https://github.com/NeptuneHub/AudioMuse-AI): analyse the sound
+of my files and make a **sounds-like-this** mix available in my player. For
+the whole listening journey, start with [my music after Spotify](/audio/my-music-after-spotify/).
+
+This post began with a five-album experiment. AudioMuse now runs on Shuri,
+and a fresh full-library pass has finished: 1,728 albums in 2 hours 17 minutes
+with 40 workers. [The scaling story and measurements are in a separate post](/technical-notes/scaling-audiomuse-album-analysis/).
 
 The [field guide](/technical-notes/homelab-music-recommendations-field-guide/)
 that opened this series split music recommendation into separate signals:
@@ -87,9 +91,11 @@ separate music source:
   There is no Redis in this setup.
 - **A dedicated, non-admin Navidrome account.** AudioMuse reads the library
   through Navidrome's API as its own service account, not as me.
-- **Analysis from the UI.** I started the measured full-library run from
-  AudioMuse's web app and watched its progress there. Its cron table is
-  currently empty, so I am not claiming that a weekly analysis is scheduled.
+- **Analysis from the UI and on a schedule.** I started the measured
+  full-library run from AudioMuse's web app and watched its progress there.
+  A weekly library analysis is scheduled for Sunday at 02:00 Kathmandu time;
+  the daily personal discovery playlists are refreshed separately by a
+  Navidrome plugin at 03:00.
 - **Only on the LAN.** I turned off AudioMuse's own login. Its UI and API
   are reachable only from trusted networks: the reverse proxy limits its
   hostname to trusted clients and nothing routes it to the internet. This is a
@@ -168,6 +174,11 @@ mood. It is the only signal that works for Nepali indie releases with almost no
 listeners elsewhere. ListenBrainz cannot recommend what nobody else has
 scrobbled.
 
+**Aurral has another role:** it is where I can browse discoveries and review
+requests for music beyond the files I own. Lidarr remains responsible for
+permanent artist and album management. AudioMuse helps me rediscover a song;
+Aurral helps me decide what to seek next; Navidrome is where I play the result.
+
 It is weaker at cultural context. Two tracks with similar tempo, energy and
 timbre can belong to different scenes, eras or languages, and a sound
 embedding does not know that. Clustering can produce playlists that are
@@ -228,5 +239,6 @@ playlists on their next run anyway.
 - [AudioMuse-AI repository](https://github.com/NeptuneHub/AudioMuse-AI)
 - [AudioMuse-AI algorithm description](https://github.com/NeptuneHub/AudioMuse-AI/blob/main/docs/ALGORITHM.md)
 - [AudioMuse-AI Navidrome plugin](https://github.com/NeptuneHub/AudioMuse-AI-NV-plugin)
+- [Aurral](https://aurral.org/)
 - [ListenBrainz daily playlist plugin for Navidrome](https://github.com/kgarner7/navidrome-listenbrainz-daily-playlist)
 - [ListenBrainz data update intervals](https://listenbrainz.readthedocs.io/en/latest/general/data-update-intervals.html)

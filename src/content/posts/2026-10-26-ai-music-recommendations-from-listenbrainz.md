@@ -22,8 +22,15 @@ share: true
 series: homelab-music
 seriesOrder: 5
 draft: false
-last_modified_at: "2026-11-06T10:04:00+05:45"
+last_modified_at: "2026-11-06T12:25:00+05:45"
 ---
+
+The simple version of [my music after Spotify](/audio/my-music-after-spotify/)
+is that I have four different jobs for four apps. Navidrome plays my files.
+AudioMuse finds similar sounds inside them. ListenBrainz uses listening
+history to suggest what I might enjoy. Aurral helps me explore and review
+requests for music I do not yet own. This post goes deeper into one possible
+next step: bringing listening history and sonic similarity together.
 
 The earlier parts of this series mapped the inputs. The
 [field guide](/technical-notes/homelab-music-recommendations-field-guide/)

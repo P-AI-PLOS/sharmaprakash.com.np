@@ -21,7 +21,18 @@ comments: true
 share: true
 ---
 
-My main music player is an iPod Video from 2006. It has no Wi-Fi, no recommendations and no app that wants my attention. It plays FLAC files from my own library and does exactly what I ask. I am still testing its replacement battery, so I cannot yet say how long it plays between charges.
+My main music player is an iPod Video from 2006. It has no Wi-Fi, no
+recommendations and no app that wants my attention. It plays selected files
+from the same library that powers [my at-home discovery setup](/audio/my-music-after-spotify/).
+For me, leaving Spotify also means being able to take that music somewhere
+without an internet connection. I am still testing its replacement battery,
+so I cannot yet say how long it plays between charges.
+
+I prefer this 5.5G's Wolfson-based presentation for casual listening. My
+Sony WH-1000XM4 works with it over the headphone cable, and I can use
+noise cancellation when the headphones are powered on. I do not need a
+high-end IEM to enjoy a walk with it. That is a preference, not a claim that
+the DAC alone creates a measurable warmth or that the iPod supports Bluetooth.
 
 This post explains why this particular iPod, what was changed inside it, and the settings that make it a purist player. Parts 1 to 6 of this series covered the vocabulary; this is where it meets a real device.
 

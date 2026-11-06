@@ -39,15 +39,15 @@ export const seriesRegistry: Record<string, SeriesMeta> = {
     cover: "/images/blog/ai/what-happens-when-you-send-an-ai-prompt.png",
   },
   "homelab-music": {
-    title: "Homelab Music: Discovery on a Library You Own",
+    title: "Finding Music in a Library I Own",
     description:
-      "Building Spotify-style music discovery at home: the signals and trade-offs, track-aware scrobbling, sending every listen to ListenBrainz, sonic analysis with AudioMuse-AI, and using AI to make recommendations from your own history.",
+      "How I keep the pleasure of music discovery after Spotify: Navidrome for listening, AudioMuse for sounds-like-this mixes, ListenBrainz for history, and Aurral for exploring music to add. These posts explain the technical decisions behind that listening experience.",
     cover: "/images/blog/building-my-homelab/network.png", // TODO: replace with a dedicated homelab-music cover
   },
   "pocket-hi-fi": {
-    title: "Pocket Hi-Fi: Sound Signatures, IEMs and the iPod",
+    title: "Music I Can Take Offline",
     description:
-      "A practical guide to portable listening: understand which audio differences matter, choose and fit IEMs, pick a source, build a FLAC library you own, and put it on a Rockbox iPod.",
+      "A library I own should travel with me. These posts follow my Rockbox iPod Video 5.5G, the files and playlists I take offline, and the headphones I actually enjoy, then go deeper on sound and equipment choices.",
     cover: "/images/blog/building-my-homelab/network.png", // TODO: replace with a dedicated pocket-hi-fi cover
   },
   "agent-ready-react": {

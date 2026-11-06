@@ -21,9 +21,15 @@ comments: true
 share: true
 ---
 
-Leaving Spotify for an iPod raises one question first: where does the music come from? A streaming subscription gives you access, not files. To play lossless music on a dedicated player you need a library you own.
+My [music after Spotify](/audio/my-music-after-spotify/) still has the parts I
+care about: discovery, a player I like, and songs I can take offline. The
+foundation is a library of files I can keep. A streaming subscription gives
+access to a catalogue; it does not give me those files. Building my own
+collection means choosing the right *recording*, not merely finding a file
+with a familiar title.
 
-This post covers building one legally, then making it clean enough that a 2006 iPod running Rockbox handles it well.
+This technical guide covers building that library legally, then making it
+clean enough that a 2006 iPod running Rockbox handles it well.
 
 ## Why FLAC
 
