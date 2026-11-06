@@ -19,7 +19,7 @@ use_featured_image: true
 comments: true
 share: true
 draft: false
-last_modified_at: "2026-11-06T10:13:00+05:45"
+last_modified_at: "2026-11-06T11:45:00+05:45"
 ---
 
 ## TL;DR
@@ -154,13 +154,22 @@ Song** page, it can look up nearby tracks from my own library. I can turn
 those results into a Navidrome playlist if I want to keep them.
 
 There is also a shorter path inside the player. Navidrome has the AudioMuse
-plugin installed and selected first for sonic similarity. When I ask
-Navidrome for an **Instant Mix**, its plugin sends the seed song to AudioMuse,
-gets matching songs back, and hands them to Navidrome as a playable mix.
-Artist radio uses the same integration for artist similarity. I tested an
-Instant Mix from a Navidrome client; the full-library run gives that request
-a much wider pool of analysed tracks to search. It does not itself prove that
-every returned mix is good.
+plugin installed and selected first for sonic similarity. In my **Nepali**
+playlist, I opened a song's menu and chose **Instant Mix**. The plugin sent
+that seed to AudioMuse for sound-based matches, and Navidrome put the returned
+songs in its play queue. This is the part I wanted to reach: I can discover
+other tracks I own without leaving my player.
+
+![Instant Mix in the menu of a song in my Navidrome Nepali playlist.](/images/blog/editorial/audiomuse-parallel-analysis/navidrome-instant-mix-menu.png)
+
+![The Instant Mix result in Navidrome's play queue, starting from Aama.](/images/blog/editorial/audiomuse-parallel-analysis/navidrome-instant-mix-queue.png)
+
+That queue contained 101 songs in this test. AudioMuse's completed analysis
+gives the mix a much wider pool of tracks to search than my first five-album
+sample. It does not guarantee a useful match for every seed, especially the
+seven tracks AudioMuse could not analyse. Artist radio uses the same
+integration for artist similarity. I can save a mix as a playlist when I find
+one I want to revisit.
 
 The “AI” here is mostly the audio models that learn a representation of a
 song's sound. Finding neighbours in that representation does **not** require
@@ -205,10 +214,11 @@ useful, even if the speedup was more modest than the worker count suggested.
 I started down this path because I want to move away from Spotify without
 losing the pleasure of finding music. Navidrome lets me play the files I own.
 ListenBrainz gives me a record of listening through my connected players.
-AudioMuse now has a sonic catalogue covering the library, so its similarity
-features and Navidrome Instant Mix can look beyond the handful of albums in
-my first test. I can seed a mix from a track I already like, hear nearby
-tracks that I already own, and save the worthwhile results as playlists.
+AudioMuse now has a sonic catalogue covering almost the entire library, so
+its similarity features and Navidrome Instant Mix can look beyond the handful
+of albums in my first test. The Nepali playlist example is the payoff: I picked
+one song, and Navidrome gave me a playable queue drawn from music I already
+own. I can save worthwhile mixes as playlists.
 
 That does not prove its playlists know my taste better than Spotify did.
 It does mean the raw music, the listening signals and the sound-based
