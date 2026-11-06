@@ -4,7 +4,7 @@ date: "2026-11-05T21:15:00+05:45"
 category: ["Technical Notes"]
 categories: ["technical-notes"]
 directory: technical-notes
-excerpt: "I moved AudioMuse to a bigger machine, scaled it to 40 workers, and timed a fresh full-library run. The result was faster, though nowhere near 40 times faster."
+excerpt: "I want music discovery built from files I own, not a Spotify feed. I ran AudioMuse across my Navidrome library on Shuri with 40 workers and measured the full pass."
 tags:
   - homelab
   - music
@@ -19,8 +19,22 @@ use_featured_image: true
 comments: true
 share: true
 draft: false
-last_modified_at: "2026-11-06T01:02:00+05:45"
+last_modified_at: "2026-11-06T10:04:00+05:45"
 ---
+
+## TL;DR
+
+- **Purpose:** Build music recommendations from files I own in my homelab,
+  instead of depending on Spotify to decide what I hear next.
+- **Stack:** [Navidrome](https://www.navidrome.org/) serves my library;
+  [AudioMuse-AI](https://github.com/NeptuneHub/AudioMuse-AI) analyses how it
+  sounds; PostgreSQL holds its queue and catalogue; and 40 Incus workers run
+  on Shuri. [ListenBrainz](https://listenbrainz.org/) supplies listening
+  history elsewhere in the stack.
+- **Result:** A fresh pass visited **1,728 albums** with **zero failed album
+  jobs** in **2 hours 17 minutes 36 seconds**. AudioMuse now has **6,321 unique
+  songs** across **1,702 distinct albums**, with seven tracks it could not
+  analyse.
 
 My [first AudioMuse experiment](/technical-notes/audiomuse-ai-sonic-recommendations/)
 used a small slice of my Navidrome library. The recommendations were promising,
@@ -125,6 +139,8 @@ could be busy adding tracks while none had finished. Near the end, most workers
 became idle while the last few large albums ran. AudioMuse then rebuilt its
 indexes before marking the task complete.
 
+![AudioMuse after the full-library run: 6,321 unique songs, 1,702 albums, seven unanalyzable tracks and empty worker queues.](/images/blog/editorial/audiomuse-parallel-analysis/audiomuse-full-library-result.png)
+
 Across the sampled run, host CPU averaged about **52% of 16 logical CPUs**.
 The one-minute load average peaked at **141**, PostgreSQL connections peaked
 at **331 of 400**, and available memory never fell below **26.6 GiB**. A large
@@ -149,12 +165,25 @@ Shuri stayed well clear of a memory limit. CPU contention, changing album
 sizes and the serial tail all limited the gain from adding workers; these
 measurements do not isolate one of them as the sole cause.
 
-For my next long-running job, I will inspect the whole path again. Free CPU
-does not help if the app dispatches too few jobs. More workers do not help if
-PostgreSQL refuses their connections. And a running container is not proof
-that its worker process is taking jobs. Seeing those limits separately made
-the extra hardware useful, even if the final speedup was more modest than the
-worker count suggested.
+The engineering lesson was to check the whole path: how many jobs AudioMuse
+dispatches, whether workers actually claim them, and how many PostgreSQL
+connections they need. Seeing each limit separately made the extra hardware
+useful, even if the speedup was more modest than the worker count suggested.
+
+## What this adds to my audio stack
+
+I started down this path because I want to move away from Spotify without
+losing the pleasure of finding music. Navidrome lets me play the files I own.
+ListenBrainz gives me a record of listening through my connected players.
+AudioMuse now has a sonic catalogue covering the library, so its similarity
+features and Navidrome Instant Mix can look beyond the handful of albums in
+my first test.
+
+That does not prove its playlists know my taste better than Spotify did.
+It does mean the raw music, the listening signals and the sound-based
+recommendation layer are pieces I can run and inspect myself. The result I
+care about is an audio stack that can help me rediscover **my** library,
+instead of waiting for someone else's catalogue to choose for me.
 
 ## References
 

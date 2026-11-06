@@ -4,7 +4,7 @@ date: "2026-10-26T12:00:00+05:45"
 category: ["Technical Notes"]
 categories: ["technical-notes"]
 directory: technical-notes
-excerpt: "A recommender is only as good as the history behind it. This is how every play in my homelab, from Navidrome on the server to an offline iPod running Rockbox, ends up as a clean ListenBrainz listen, and how that history comes back as playlists."
+excerpt: "A recommender is only as good as the history behind it. Navidrome scrobbles to ListenBrainz; a manual importer can add offline Rockbox iPod plays, and a plugin brings ListenBrainz playlists back into my library."
 tags:
   - listenbrainz
   - scrobbling
@@ -21,15 +21,16 @@ share: true
 draft: false
 series: homelab-music
 seriesOrder: 3
+last_modified_at: "2026-11-06T10:04:00+05:45"
 ---
 
 The [field guide](/technical-notes/homelab-music-recommendations-field-guide/)
 that opened this series argued that personal behaviour is one of the strongest
 recommendation signals a homelab can have. The
 [second part](/technical-notes/youtube-to-scrobble/) looked at why YouTube makes
-that signal hard to capture. This part is the practical one: how every play I
-care about ends up as a listen in [ListenBrainz](https://listenbrainz.org/),
-including plays from a device that has no network connection at all.
+that signal hard to capture. This part is the practical one: how Navidrome
+sends listens to [ListenBrainz](https://listenbrainz.org/) and how I can
+import plays from a device that has no network connection at all.
 
 There are two players in my daily rotation:
 
@@ -198,15 +199,17 @@ The run is deliberately boring:
 4. Copy the play log into a dated archive on the NAS, then delete it from the
    iPod so the next run starts clean.
 
-Ordering is the safety property. The log is removed only after every batch
-was accepted; an HTTP error stops the script with the log still on the iPod,
-and the next run picks it up. The archive means the raw history is never lost
-even if I later change the listen rule and want to replay it.
+Ordering protects the source log. The script removes it only after every batch
+was accepted; an HTTP error leaves it on the iPod. That is not exactly-once
+delivery: if some batches were accepted before a later one failed, rerunning
+the script may submit those earlier listens again. I would check the
+ListenBrainz history before retrying a partial failure. After a successful
+submission, the raw log is archived so I can revisit the listen rule later.
 
 A dry run prints what would be submitted without touching the network:
 
 ```sh
-ipod/scrobble_listenbrainz.py /Volumes/IPOD --dry-run
+ipod/scrobble_listenbrainz.py /Volumes/GUTHU --dry-run
 # 214 plays, 131 listens, 129 to submit (117 with MBID), 2 skipped for missing tags
 ```
 
@@ -237,9 +240,11 @@ how many tracks in each candidate playlist I have actually played, matching on
 recording MBIDs first. ListenBrainz records that I heard a track, not which
 playlist I heard it from, so that overlap is a hint for review, not proof.
 
-The result is a loop. Navidrome and the iPod both feed ListenBrainz;
-ListenBrainz turns that history into playlists; the playlists land back in
-Navidrome and, from there, on the iPod at the next sync.
+That gives me the pieces of a loop. Navidrome sends listens to ListenBrainz.
+When I run the iPod importer after a sync, it can add offline plays. The
+playlist plugin brings ListenBrainz playlists back into Navidrome, and a
+later iPod sync can copy selected playlists to the player. The iPod import
+is a manual step, so I have not verified continuous coverage of its plays.
 
 ## Beyond these two players
 

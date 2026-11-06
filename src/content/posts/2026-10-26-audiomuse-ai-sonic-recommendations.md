@@ -22,11 +22,12 @@ share: true
 series: homelab-music
 seriesOrder: 4
 draft: false
-last_modified_at: "2026-11-06T01:02:00+05:45"
+last_modified_at: "2026-11-06T10:04:00+05:45"
 ---
 
 **Update, 6 November 2026:** This post began with a five-album experiment.
-AudioMuse now runs on Shuri, and a fresh full-library pass has finished:
+[AudioMuse-AI](https://github.com/NeptuneHub/AudioMuse-AI) now runs on Shuri,
+and a fresh full-library pass has finished:
 1,728 albums in 2 hours 17 minutes with 40 workers. I have updated the setup
 details below; [the scaling story and measurements are in a separate post](/technical-notes/scaling-audiomuse-album-analysis/).
 

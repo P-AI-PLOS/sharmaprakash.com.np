@@ -4,7 +4,7 @@ date: "2026-10-26T12:20:00+05:45"
 category: ["Technical Notes"]
 categories: ["technical-notes"]
 directory: technical-notes
-excerpt: "Combining my ListenBrainz history (iPod plays included), AudioMuse-AI sonic similarity and a local LLM into playlists that explain themselves. What already runs in my homelab, what is only a design, and how to tell whether any of it works."
+excerpt: "Combining ListenBrainz history, an iPod import path, AudioMuse-AI sonic similarity and a local LLM into playlists that explain themselves. What already runs in my homelab, what remains a design, and how to test it."
 tags:
   - homelab
   - music
@@ -22,13 +22,14 @@ share: true
 series: homelab-music
 seriesOrder: 5
 draft: false
+last_modified_at: "2026-11-06T10:04:00+05:45"
 ---
 
-The earlier parts of this series built the inputs. The
+The earlier parts of this series mapped the inputs. The
 [field guide](/technical-notes/homelab-music-recommendations-field-guide/)
 listed the signals. The [YouTube post](/technical-notes/youtube-to-scrobble/)
 and the [ListenBrainz post](/technical-notes/scrobbling-everything-to-listenbrainz/)
-got my listening into one history. The
+described how I can collect listening history. The
 [AudioMuse-AI post](/technical-notes/audiomuse-ai-sonic-recommendations/)
 added a sound-based similarity engine over the files I own.
 
@@ -44,9 +45,9 @@ combining layer is a **proposal**, and every proposed part is labelled.
 | Piece | Status | What it gives me |
 | --- | --- | --- |
 | ListenBrainz as my listening history | Built | One timeline of recordings, mostly with MusicBrainz IDs |
-| iPod plays to ListenBrainz | Built, on a working branch | A script that reads the Rockbox play log, keeps plays that count as a listen (at least 30 seconds and half the track or four minutes), reads tags and recording MBIDs from the files, and submits them as imports |
+| iPod plays to ListenBrainz | Script committed; routine use unverified | A manual script reads the Rockbox play log, keeps plays that count as a listen (at least 30 seconds and half the track or four minutes), reads tags and recording MBIDs from the files, and can submit them as imports |
 | ListenBrainz playlists in Navidrome | Built | A Navidrome plugin imports Daily Jams, Weekly Jams and Weekly Exploration, matching by MBID |
-| AudioMuse-AI sonic analysis | Built, partial coverage | Similar Song, Song Path, clustering and Instant Mix in Navidrome. Only a small verified sample of the library is analysed so far |
+| AudioMuse-AI sonic analysis | Built, full-library pass complete | Similar Song, Song Path, clustering and Instant Mix in Navidrome. A fresh pass visited all 1,728 selected albums with zero failed album jobs; the resulting catalogue has 6,321 unique songs |
 | Local LLM | Built | Gemma 4 26B on Ollama on my GPU host. AudioMuse uses it to name playlists |
 | Playlist cleanup with a listen check | Built | A script that reports, for each old generated playlist, how many of its tracks show up in my recent ListenBrainz listens |
 
@@ -64,8 +65,8 @@ to **AudioMuse similarity**, and nothing writes down the reasoning.
 > **Proposed.** None of this section is built. It is the design I intend to
 > build. It uses only the pieces in the table above.
 
-A small batch job runs locally on a schedule and produces one or two Navidrome
-playlists a week.
+A small batch job would run locally on a schedule and produce one or two
+Navidrome playlists a week.
 
 ### 1. Read history (proposed)
 
@@ -177,12 +178,13 @@ so its scrobbles arrive in batches. A two-week window covers that delay.
 
 ## What has to happen first
 
-Roughly in order, and none of it is done yet:
+The first prerequisite is done; the combining layer is still a proposal:
 
-1. **Analyse the full library in AudioMuse.** Recommendations from a small
-   sample prove nothing.
-2. **Merge and use the iPod scrobbler routinely** so ListenBrainz includes
-   listening outside the network.
+1. **Analyse the full library in AudioMuse — done.** The [fresh full-library
+   pass](/technical-notes/scaling-audiomuse-album-analysis/) completed. This
+   establishes library coverage, not recommendation quality.
+2. **Use the iPod scrobbler routinely.** The script is committed, but I have
+   not verified a sustained stream of iPod listens in ListenBrainz.
 3. **Build the history read and rule-based ranking** with no LLM, and compare
    it against the existing playlists.
 4. **Add the LLM explanations** only if the rule-based version is played
