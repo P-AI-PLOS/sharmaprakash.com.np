@@ -1,5 +1,5 @@
 ---
-title: "Scrobbling Everything to ListenBrainz: Navidrome, an iPod Running Rockbox, and Beyond"
+title: "Keeping Your Listening History: ListenBrainz for Navidrome and an Offline iPod"
 date: "2026-10-28T10:00:00+05:45"
 category: ["Technical Notes"]
 categories: ["technical-notes"]

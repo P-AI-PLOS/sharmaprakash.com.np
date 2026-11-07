@@ -1,16 +1,15 @@
 ---
-title: "My Rockbox iPod Video 5.5G: Hardware, Settings and Playlist Sync"
+title: "The iPod as an Offline Music Player: Rockbox, Flash Storage and Playlist Sync"
 date: "2026-10-24T10:00:00+05:45"
 category: ["Technical Notes"]
 categories: ["technical-notes"]
 directory: technical-notes
-excerpt: "How an iPod Video 5.5G with a flash and battery mod, Rockbox 4.0 and a short settings file became my main music player: why this model, which settings keep the signal clean, and how the whole setup lives in version control."
+excerpt: "Turning an old iPod Video into an offline music player: which model to look for, a flash and battery mod, Rockbox settings that keep the signal clean, and playlist sync from your own library. Plus when a modern hi-fi player is the better choice."
 tags:
   - audio
   - ipod
   - rockbox
   - flac
-  - spotify
 series: "homelab-music"
 seriesOrder: 3
 cover: "/images/blog/audio/ipod-video-5-5g-rockbox-purist-player.webp"
@@ -22,22 +21,33 @@ share: true
 last_modified_at: "2026-11-06T13:00:00+05:45"
 ---
 
-My main music player is an iPod Video from 2006. It has no Wi-Fi, no
-recommendations and no app that wants my attention. It plays files
-from the same library that powers [my at-home discovery setup](/audio/my-music-after-spotify/).
-For me, leaving Spotify also means being able to take that music somewhere
-without an internet connection. I am still testing its replacement battery,
+An offline music player has one job: play the files you own, anywhere,
+without a signal or a subscription. It has no Wi-Fi, no recommendations and
+no app that wants your attention. Mine is an old iPod Video running Rockbox,
+fed from the same library that powers [my music setup](/audio/my-music-after-spotify/).
+Taking that music somewhere without an internet connection is half the
+point of owning it. I am still testing its replacement battery,
 so I cannot yet say how long it plays between charges.
 
-I prefer this 5.5G's Wolfson-based presentation for casual listening. My
-Sony WH-1000XM4 works with it over the headphone cable, and I can use
-noise cancellation when the headphones are powered on. I do not need a
-high-end IEM to enjoy a walk with it. That is a preference, not a claim that
-the DAC alone creates a measurable warmth or that the iPod supports Bluetooth.
+Why an old iPod rather than a phone or a new player? It is inexpensive to
+find, easy to fit with flash storage and a bigger battery, and Rockbox turns
+it into a capable lossless player. Its Wolfson DAC also has a reputation for
+a warm, relaxed sound. To my ears that suits everyday consumer earphones and
+IEMs: they sound full rather than thin, and I do not need a high-end IEM to
+enjoy a walk with it. Wired headphones work too; my Sony WH-1000XM4 plugs into
+the headphone jack, with noise cancellation when powered on (the iPod has no
+Bluetooth).
 
-This post explains why this particular iPod, what was changed inside it, and the settings I use. Parts 1 to 6 of this series covered the vocabulary; this is where it meets a real device.
+Sound is personal, so treat that as a preference, not a measurement. If you
+have expensive IEMs and want the most neutral, detailed source with more
+power, a modern hi-fi digital audio player is the better match.
+[DACs, Music Players and Output Impedance](/technical-notes/dac-dongles-daps-and-output-impedance/)
+and [iPod or Sony Walkman](/technical-notes/pairing-iems-ipod-vs-sony-walkman/)
+cover that choice.
 
-## Why the 5.5G
+This post covers which iPod to look for, what to change inside it, and the settings I use. If terms like output impedance or sound signature are new, the [headphones and digital audio notes](/series/pocket-hi-fi/) explain them.
+
+## Which iPod: the 5.5G
 
 Apple sold the fifth-generation iPod, the "iPod Video", from 2005. The **5.5G** ("Enhanced") revision came out on 12 September 2006 and was discontinued a year later. Mine is model A1136 with the thin back.
 
@@ -51,7 +61,7 @@ Apple sold the fifth-generation iPod, the "iPod Video", from 2005. The **5.5G** 
 | Stock battery | About 600 mAh, rated about 14 h of audio |
 | Outputs | 3.5 mm headphone jack, 30-pin dock connector |
 
-The reason people still hunt for this model is the **Wolfson** audio codec. Later iPod Classics moved to a different codec, and the 5G/5.5G Wolfson generation is the one listeners tend to describe as fuller and more natural. That reputation is subjective, and I would not claim one is measurably better; what matters to me is that the 5.5G drives ordinary IEMs well and has no hiss I can hear with mine. [Part 9](/technical-notes/pairing-iems-ipod-vs-sony-walkman/) covers IEM pairing in detail.
+The reason people still hunt for this model is the **Wolfson** audio codec. Later iPod Classics moved to a different codec, and the 5G/5.5G Wolfson generation is the one listeners tend to describe as fuller and more natural. That reputation is subjective, and I would not claim one is measurably better; what matters to me is that the 5.5G drives ordinary IEMs well and has no hiss I can hear with mine. [iPod or Sony Walkman](/technical-notes/pairing-iems-ipod-vs-sony-walkman/) covers IEM pairing in detail.
 
 The 5.5G also added a brighter screen and gapless playback over the 5G.
 

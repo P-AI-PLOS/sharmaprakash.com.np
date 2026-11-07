@@ -37,7 +37,7 @@ When I want to explore music I don't own, [Aurral](https://aurral.org/) helps me
 
 That happened with “Je Chhau Timi.” I already had the 2023 studio recording, but I wanted the distinct 2025 live performance with Swoopna Suman and Sushant KC. I checked the recording, added the audio manually, and made sure it appeared as a separate track. This wasn't an Aurral import. I kept the source audio as M4A rather than changing it to FLAC, which wouldn't improve it. It was a small addition, but it meant I could play the performance I had gone looking for.
 
-Playlists are a big part of how I listen offline. I've built them around my listening habits: Bollywood Top, Nepali, Hindi Indie, Forever Classics. My [Rockbox iPod Video 5.5G](/technical-notes/ipod-video-5-5g-rockbox-purist-player/) is getting a 256 GB storage upgrade so I can keep my whole music library on it. When I listen offline, I choose a curated playlist to suit my mood and leave my phone alone while it plays.
+Playlists are a big part of how I listen offline. I've built them around my listening habits: Bollywood Top, Nepali, Hindi Indie, Forever Classics. My [offline iPod running Rockbox](/technical-notes/ipod-video-5-5g-rockbox-purist-player/) is getting a 256 GB storage upgrade so I can keep my whole music library on it. When I listen offline, I choose a curated playlist to suit my mood and leave my phone alone while it plays.
 
 I enjoy the iPod's Wolfson sound with ordinary wired headphones. That's my preference, not a claim that it sounds better for everyone. My Sony WH-1000XM4 works for this too, connected with a headphone cable. I like sitting down with it and listening without much else to do.
 

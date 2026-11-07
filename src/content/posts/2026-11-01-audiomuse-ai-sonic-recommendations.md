@@ -1,5 +1,5 @@
 ---
-title: "How I Use AudioMuse with Navidrome"
+title: "Finding Similar Songs with AI: AudioMuse and Navidrome"
 date: "2026-11-01T10:00:00+05:45"
 category: ["Technical Notes"]
 categories: ["technical-notes"]
@@ -25,7 +25,7 @@ draft: false
 last_modified_at: "2026-11-06T13:00:00+05:45"
 ---
 
-When I want more music like the song playing, I use Instant Mix in Navidrome. [AudioMuse-AI](https://github.com/NeptuneHub/AudioMuse-AI) supplies the sound-based matches from files I already own. [My Music After Spotify](/audio/my-music-after-spotify/) explains why I wanted this; this guide covers the setup and the work needed to analyse my library.
+When I want more music like the song playing, I use Instant Mix in Navidrome. [AudioMuse-AI](https://github.com/NeptuneHub/AudioMuse-AI) supplies the sound-based matches from files I already own. [The series overview](/audio/my-music-after-spotify/) explains why I wanted this; this guide covers the setup and the work needed to analyse my library.
 
 ## What I use AudioMuse for
 

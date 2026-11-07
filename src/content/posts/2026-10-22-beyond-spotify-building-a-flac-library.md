@@ -1,10 +1,10 @@
 ---
-title: "Beyond Spotify: Building a FLAC Library You Own"
+title: "Building a Lossless Music Library You Own"
 date: "2026-10-22T10:00:00+05:45"
 category: ["Technical Notes"]
 categories: ["technical-notes"]
 directory: technical-notes
-excerpt: "How to build a lossless music library legally: rip your CDs accurately, buy lossless downloads, rebuild your Spotify playlists from owned files, then tag, normalise and size it for a Rockbox iPod."
+excerpt: "How to build a lossless music library legally: rip your CDs accurately, buy lossless downloads, rebuild your playlists from owned files, then tag, normalise and size it for a Rockbox iPod."
 tags:
   - audio
   - flac
@@ -22,7 +22,7 @@ share: true
 last_modified_at: "2026-11-06T13:00:00+05:45"
 ---
 
-My [music after Spotify](/audio/my-music-after-spotify/) still has the parts I
+My [own music stack](/audio/my-music-after-spotify/) keeps the parts I
 care about: discovery, a player I like, and songs I can take offline. The
 foundation is a library of files I can keep. A streaming subscription gives
 access to a catalogue; it does not give me those files. Building my own
@@ -71,9 +71,9 @@ Several stores sell DRM-free lossless files:
 
 Store availability varies by country, so check before you plan around one. For an iPod, CD quality (16-bit/44.1 kHz) is enough; see the hi-res note below.
 
-### Rebuild your Spotify playlists
+### Rebuild your playlists
 
-Your playlists are the part of a streaming account worth keeping. Export them as lists of artist, title and album using a playlist export tool or Spotify's own personal data download. That list is your shopping list: tick off each track as you rip or buy the album it comes from. When you are done, the playlist exists again, pointing at files you own.
+Your playlists are the part of a streaming account worth keeping. Export them as lists of artist, title and album using a playlist export tool or your streaming service's personal data download. That list is your shopping list: tick off each track as you rip or buy the album it comes from. When you are done, the playlist exists again, pointing at files you own.
 
 This is slow. It is also where the library becomes yours rather than a copy of an algorithm's picks.
 

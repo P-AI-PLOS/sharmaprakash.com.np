@@ -1,5 +1,5 @@
 ---
-title: "How I Use My Music Library, Discovery Tools and Offline Playlists"
+title: "My Everyday Music Workflow, Without a Subscription"
 date: "2026-11-06T10:00:00+05:45"
 category: ["Technical Notes"]
 categories: ["technical-notes"]
@@ -25,7 +25,7 @@ draft: false
 last_modified_at: "2026-11-06T13:00:00+05:45"
 ---
 
-[My music after Spotify](/audio/my-music-after-spotify/) explains why I wanted this setup. This is how I use it. I start with files I own, use a few different ways to find my next song, and keep playlists that suit how I actually listen.
+[The series overview](/audio/my-music-after-spotify/) explains why I wanted this setup. This is how I use it. I start with files I own, use a few different ways to find my next song, and keep playlists that suit how I actually listen.
 
 ## Start with the music I have
 
@@ -57,7 +57,7 @@ I choose the playlist and let it run. If a song doesn't work for me, I give it o
 
 ## Take the playlists offline
 
-My [Rockbox iPod Video 5.5G](/technical-notes/ipod-video-5-5g-rockbox-purist-player/) is getting a 256 GB upgrade so the whole library can stay on it. The way I choose music remains simple: open a curated playlist and let it play. In the car, I also choose a playlist and listen through it.
+My [offline iPod running Rockbox](/technical-notes/ipod-video-5-5g-rockbox-purist-player/) is getting a 256 GB upgrade so the whole library can stay on it. The way I choose music remains simple: open a curated playlist and let it play. In the car, I also choose a playlist and listen through it.
 
 When I connect the iPod and sync, the existing scripts import its saved play log into ListenBrainz. I have run this workflow before. The iPod records listens while offline; those listens reach the service later, during sync. The [import notes](/technical-notes/scrobbling-everything-to-listenbrainz/#the-ipod-sync-path) cover recording IDs, timestamps and submission handling.
 
