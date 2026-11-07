@@ -59,6 +59,8 @@ I choose the playlist and let it run. If a song doesn't work for me, I give it o
 
 My [offline iPod running Rockbox](/technical-notes/ipod-video-5-5g-rockbox-purist-player/) is getting a 256 GB upgrade so the whole library can stay on it. The way I choose music remains simple: open a curated playlist and let it play. In the car, I also choose a playlist and listen through it.
 
+On my iPhone I use [Amperfy](https://github.com/BLeeEZ/amperfy), an app that connects to Navidrome as a Subsonic-compatible server. It lets me download music for offline listening, so my library comes with me even when I leave the iPod at home.
+
 When I connect the iPod and sync, the existing scripts import its saved play log into ListenBrainz. I have run this workflow before. The iPod records listens while offline; those listens reach the service later, during sync. The [import notes](/technical-notes/scrobbling-everything-to-listenbrainz/#the-ipod-sync-path) cover recording IDs, timestamps and submission handling.
 
 That history gives me another view of what I return to. Alongside the ratings and the playlists themselves, it helps me decide what to keep listening to next.
