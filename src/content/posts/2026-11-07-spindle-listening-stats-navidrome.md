@@ -24,8 +24,8 @@ draft: false
 
 One of the fun parts of a streaming app is the end-of-year recap: who you
 played most, your biggest day, the hour you always reach for music. Owning my
-library should not mean giving that up. [Spindle](https://github.com/xmorose/spindle)
-gives me those stats from my own [Navidrome](https://www.navidrome.org/) plays,
+library should not mean giving that up. [Spindle](https://github.com/xmorose/spindle),
+an open-source project on GitHub, gives me those stats from my own [Navidrome](https://www.navidrome.org/) plays,
 on my own server.
 
 <video controls muted playsinline preload="none" poster="/images/blog/audio/spindle/spindle-wrapped-poster.webp" width="1280" height="810" aria-label="Screen recording scrolling through Spindle's Wrapped recap">
@@ -86,12 +86,12 @@ stops unless I confirm.
 
 Four things were less obvious than I expected:
 
-1. **The collector has no ready-made download.** Spindle's collector is a
-   small plugin that runs inside Navidrome and sends each play to Spindle.
-   It ships only as Rust source. I did not build it by hand: a coding agent
-   compiled it to WebAssembly (`wasm32-wasip1`) against Navidrome's plugin
-   SDK and packaged it with its manifest, and the playbook pins the result
-   by checksum.
+1. **The collector has no ready-made download.** The collector is part of
+   the Spindle project on GitHub: a small plugin that runs inside Navidrome
+   and sends each play to Spindle. Its releases include only the source code,
+   so a coding agent compiled the unchanged v0.4.3 source to WebAssembly
+   (`wasm32-wasip1`) for Navidrome, and my deploy playbook pins the result by
+   checksum.
 2. **Plugin permissions use user IDs, not usernames.** Navidrome accepted a
    username in the plugin's user list without complaint, and the collector
    then silently failed its permission check. Selecting users in the web UI
