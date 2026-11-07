@@ -12,7 +12,7 @@ const outDir = join(repoRoot, "public", "images", "blog", "series");
 const SERIES = [
   {
     slug: "product-stories",
-    label: "series / 13 parts",
+    label: "series / product history",
     title: "Product Stories",
     tagline: "Famous product legends, retold from the record — Blockbuster to Builder.ai.",
     lines: [
@@ -25,7 +25,7 @@ const SERIES = [
   },
   {
     slug: "agile-first-principles",
-    label: "series / 9 parts",
+    label: "series / agile",
     title: "Agile from First Principles",
     tagline: "Four values, twelve principles, zero rituals — agile as reasoning, not ceremony.",
     lines: [
@@ -51,7 +51,7 @@ const SERIES = [
   },
   {
     slug: "leadership-frameworks",
-    label: "series / 7 parts",
+    label: "series / strategy",
     title: "The Strategy Cascade",
     tagline: "The leadership frameworks that earn their keep, layer by layer — and when to drop them.",
     lines: [
@@ -64,7 +64,7 @@ const SERIES = [
   },
   {
     slug: "operating-rhythm",
-    label: "series / 5 parts",
+    label: "series / product ops",
     title: "The Product Operating Rhythm",
     tagline: "The work between strategy and shipping — intake, planning stack, and stakeholders.",
     lines: [
@@ -77,7 +77,7 @@ const SERIES = [
   },
   {
     slug: "innovation-vto",
-    label: "series / 3 parts",
+    label: "series / innovation",
     title: "The Innovation V/TO",
     tagline: "Traction's Vision/Traction Organizer applied to innovation — rocks, bets, and long holds.",
     lines: [
@@ -90,7 +90,7 @@ const SERIES = [
   },
   {
     slug: "pm-context-repo",
-    label: "series / 6 parts",
+    label: "series / product ops",
     title: "The Product Context Repo",
     tagline: "A git repo for what your product knows — signals in, grounded stories out, slop starved.",
     lines: [
@@ -130,7 +130,7 @@ const SERIES = [
   },
   {
     slug: "campsite-for-agents",
-    label: "series / 5 parts",
+    label: "series / self-hosting",
     title: "Campsite for Agents",
     tagline: "Self-hosting a team chat where AI coworkers post and read alongside people.",
     lines: [
