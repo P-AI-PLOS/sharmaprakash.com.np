@@ -1,0 +1,78 @@
+---
+/**
+ * Homepage spotlight for the homelab-music series, framed as the 2026 case
+ * for owning your stack: AI makes small, personal scripts cheap enough that
+ * running your own setup beats renting a made-for-everyone SaaS.
+ */
+import ScrollReveal from "~/components/motion/ScrollReveal.astro";
+import { seriesRegistry } from "~/data/series";
+import { getSeriesPosts } from "~/utils/posts";
+
+const SLUG = "homelab-music";
+const meta = seriesRegistry[SLUG];
+const parts = await getSeriesPosts(SLUG);
+const href = `/series/${SLUG}/`;
+
+const points = [
+  { label: "Scripts, not subscriptions", body: "With an AI coding assistant, a sync script or a cleanup job can be an afternoon, not a project." },
+  { label: "Own the stack", body: "My files, my server, my history. Nothing disappears when a licence or a price changes." },
+  { label: "Keep the fun", body: "Sounds-like mixes, listening stats and a yearly recap, without the monthly bill." },
+];
+---
+
+{meta && parts.length > 0 && (
+  <section aria-labelledby="own-stack-title" class="py-20 lg:py-28 bg-surface-base">
+    <div class="mx-auto max-w-7xl px-6 lg:px-12 grid lg:grid-cols-12 gap-10 lg:gap-16 items-center">
+      <div class="lg:col-span-6">
+        <ScrollReveal>
+          <p class="eyebrow">Owning my stack · 2026</p>
+        </ScrollReveal>
+        <ScrollReveal delay={80}>
+          <h2 id="own-stack-title" class="mt-4 text-display-lg text-strong tracking-tight">
+            I swapped a music subscription for a stack I own
+          </h2>
+        </ScrollReveal>
+        <ScrollReveal delay={160}>
+          <p class="mt-5 text-body-lg text-muted max-w-xl">
+            AI changed the maths for everyday software. When a coding assistant can help write the glue,
+            running your own small stack starts to beat a made-for-everyone SaaS. My music setup is the test case:
+            a lossless library on Navidrome, AI-powered "more like this" mixes, listening stats, and offline listening on my iPhone and an old iPod.
+          </p>
+        </ScrollReveal>
+
+        <ul class="mt-8 grid gap-4 list-none max-w-xl">
+          {points.map((p, i) => (
+            <ScrollReveal delay={200 + i * 60} as="li" class="flex gap-4">
+              <span aria-hidden="true" class="mt-2 size-2 shrink-0 rounded-full bg-[var(--accent-500)]"></span>
+              <p class="text-body text-muted"><strong class="text-strong font-semibold">{p.label}.</strong> {p.body}</p>
+            </ScrollReveal>
+          ))}
+        </ul>
+
+        <ScrollReveal delay={400} class="mt-10 flex flex-wrap items-center gap-4">
+          <a href={href} class="btn btn-primary btn-lg"><span>Read the series →</span></a>
+          <span class="text-caption text-faint">{parts.length} guides · {meta.title}</span>
+        </ScrollReveal>
+      </div>
+
+      <ScrollReveal delay={180} class="lg:col-span-6">
+        <a href={href} class="stack-cover card-interactive block overflow-hidden rounded-xl" aria-label={`Open the series: ${meta.title}`}>
+          <img
+            src="/images/blog/audio/spindle/spindle-wrapped-poster.webp"
+            alt="Spindle's yearly recap, 'Your year in sound', built from my own Navidrome plays"
+            loading="lazy" decoding="async" width="1264" height="800"
+            class="block w-full h-auto"
+          />
+        </a>
+        <p class="mt-3 text-caption text-faint">A yearly recap from my own server, not a streaming app.</p>
+      </ScrollReveal>
+    </div>
+  </section>
+)}
+
+<style>
+  .stack-cover {
+    border: 1px solid var(--ink-200);
+    box-shadow: var(--shadow-lg), var(--shadow-glow);
+  }
+</style>
