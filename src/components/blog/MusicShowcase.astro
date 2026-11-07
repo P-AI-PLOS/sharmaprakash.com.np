@@ -1,0 +1,157 @@
+---
+/**
+ * "What it looks like" band for the homelab-music series page: real captures
+ * of Spindle, the listening-stats dashboard that reads Navidrome's play
+ * history. Videos are muted loops that only play while on screen and never
+ * autoplay under prefers-reduced-motion (the poster frame shows instead).
+ */
+import ScrollReveal from "~/components/motion/ScrollReveal.astro";
+
+const base = "/images/blog/audio/spindle";
+
+// Spindle "All-time" view, captured 2026-11-07. Includes plays imported from
+// before tracking started, so treat as a snapshot, not a live counter.
+const stats = [
+  { value: "757", label: "songs played" },
+  { value: "56h 53m", label: "listening time" },
+  { value: "223", label: "artists" },
+  { value: "310", label: "albums" },
+];
+
+const stills = [
+  { src: `${base}/spindle-tops.webp`, alt: "Spindle Tops view ranking my most-played artists with album art", caption: "Tops — who I actually played, not who I meant to." },
+  { src: `${base}/spindle-albums.webp`, alt: "Spindle Albums grid of cover art from my Navidrome library", caption: "Albums — the library as a wall of covers." },
+  { src: `${base}/spindle-pulse.webp`, alt: "Spindle Pulse view: listening clock peaking at 16:00 and plays by weekday", caption: "Pulse — afternoons and Thursdays, apparently." },
+  { src: `${base}/spindle-flow.webp`, alt: "Spindle Flow streamgraph of artists changing over time", caption: "Flow — how the rotation shifts week to week." },
+];
+---
+
+<section aria-labelledby="music-showcase-title" class="music-showcase relative overflow-hidden py-20 lg:py-28">
+  <div aria-hidden="true" class="glow glow-a"></div>
+  <div aria-hidden="true" class="glow glow-b"></div>
+
+  <div class="relative mx-auto max-w-7xl px-6 lg:px-12">
+    <ScrollReveal>
+      <div class="max-w-reading">
+        <p class="eyebrow mb-3">What it looks like</p>
+        <h2 id="music-showcase-title" class="text-h2 showcase-title">My year in sound, from my own server</h2>
+        <p class="mt-4 text-body-lg showcase-muted">
+          Every play on Navidrome lands in Spindle, a self-hosted stats dashboard.
+          This is the payoff of owning the library: the history is mine too.
+        </p>
+      </div>
+    </ScrollReveal>
+
+    <ScrollReveal delay={80}>
+      <figure class="mt-12">
+        <div class="frame">
+          <div class="frame-bar" aria-hidden="true"><span></span><span></span><span></span><em>spindle.home/wrapped</em></div>
+          <video
+            class="block w-full h-auto bg-black" width="1280" height="810"
+            src={`${base}/spindle-wrapped.mp4`}
+            poster={`${base}/spindle-wrapped-poster.webp`}
+            muted loop playsinline preload="none" data-autoplay
+            aria-label="Screen recording scrolling through Spindle's Wrapped: year title, daily peak, month grid, listening clock and top artists"
+          ></video>
+        </div>
+        <figcaption class="mt-3 text-caption showcase-faint">Wrapped — a year-in-review built from Navidrome scrobbles, no streaming service involved.</figcaption>
+      </figure>
+    </ScrollReveal>
+
+    <ScrollReveal delay={120}>
+      <dl class="mt-14 grid grid-cols-2 lg:grid-cols-4 gap-px overflow-hidden rounded-lg stat-grid">
+        {stats.map((s) => (
+          <div class="stat px-6 py-6">
+            <dt class="text-caption uppercase tracking-[0.12em] showcase-faint">{s.label}</dt>
+            <dd class="mt-2 stat-value font-bold showcase-title">{s.value}</dd>
+          </div>
+        ))}
+      </dl>
+      <p class="mt-3 text-caption showcase-faint">All-time totals in Spindle as of 7 Nov 2026, including history imported from before tracking began.</p>
+    </ScrollReveal>
+
+    <div class="mt-16 grid gap-8 lg:grid-cols-12 items-start">
+      <ScrollReveal delay={80} class="lg:col-span-7">
+        <figure>
+          <div class="frame">
+            <div class="frame-bar" aria-hidden="true"><span></span><span></span><span></span><em>spindle.home</em></div>
+            <video
+              class="block w-full h-auto bg-black" width="1280" height="810"
+              src={`${base}/spindle-tour.mp4`}
+              poster={`${base}/spindle-tour-poster.webp`}
+              muted loop playsinline preload="none" data-autoplay
+              aria-label="Screen recording touring Spindle: home dashboard, top artists, album grid and listening pulse"
+            ></video>
+          </div>
+          <figcaption class="mt-3 text-caption showcase-faint">A quick tour: home, tops, albums, pulse.</figcaption>
+        </figure>
+      </ScrollReveal>
+
+      <ul class="lg:col-span-5 grid grid-cols-2 gap-4 list-none">
+        {stills.map((s, i) => (
+          <ScrollReveal delay={Math.min(i, 4) * 40} as="li">
+            <figure>
+              <a href={s.src} class="still block overflow-hidden rounded-md" aria-label={`Open full-size: ${s.alt}`}>
+                <img src={s.src} alt={s.alt} loading="lazy" decoding="async" width="1200" height="744" class="block w-full h-auto" />
+              </a>
+              <figcaption class="mt-2 text-caption showcase-faint">{s.caption}</figcaption>
+            </figure>
+          </ScrollReveal>
+        ))}
+      </ul>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* Always a dark stage — the captured UI is dark in both site themes. */
+  .music-showcase { background: var(--ink-950); }
+  .showcase-title { color: var(--ink-50); }
+  .showcase-muted { color: var(--ink-300); }
+  .showcase-faint { color: var(--ink-400); }
+
+  .glow { position: absolute; border-radius: var(--radius-full); filter: blur(120px); opacity: 0.28; pointer-events: none; }
+  .glow-a { width: 520px; height: 520px; top: -160px; right: -120px; background: var(--accent-600); }
+  .glow-b { width: 420px; height: 420px; bottom: -180px; left: -140px; background: var(--ink-600); }
+
+  .frame {
+    overflow: hidden;
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--ink-800);
+    background: var(--ink-900);
+    box-shadow: 0 30px 80px -30px rgb(0 0 0 / 0.8), var(--shadow-glow);
+  }
+  .frame-bar { display: flex; align-items: center; gap: 6px; padding: 10px 14px; background: var(--ink-800); }
+  .frame-bar span { width: 10px; height: 10px; border-radius: var(--radius-full); background: var(--ink-600); }
+  .frame-bar em { margin-left: 10px; font-style: normal; font-size: 12px; color: var(--ink-400); }
+
+  .stat-grid { background: var(--ink-800); }
+  .stat { background: var(--ink-900); }
+  .stat-value { font-size: clamp(28px, 4vw, 44px); line-height: 1; letter-spacing: -0.02em; }
+
+  .still {
+    border: 1px solid var(--ink-800);
+    transition: transform var(--dur-normal) var(--ease-out-quad), border-color var(--dur-normal) var(--ease-out-quad);
+  }
+  .still:hover { transform: translateY(-2px); border-color: var(--accent-600); }
+  @media (prefers-reduced-motion: reduce) { .still, .still:hover { transition: none; transform: none; } }
+</style>
+
+<script>
+  function initShowcaseVideos() {
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const videos = document.querySelectorAll<HTMLVideoElement>("video[data-autoplay]");
+    videos.forEach((v) => {
+      if (reduce) { v.controls = true; return; }
+      const io = new IntersectionObserver(([e]) => {
+        // Only fall back to controls when autoplay is blocked; AbortError just
+        // means a pause (scrolled away) interrupted a pending play().
+        if (e.isIntersecting) v.play().catch((err) => { if (err?.name === "NotAllowedError") v.controls = true; });
+        else v.pause();
+      }, { threshold: 0.35 });
+      io.observe(v);
+    });
+  }
+  initShowcaseVideos();
+  document.addEventListener("astro:after-swap", initShowcaseVideos);
+</script>

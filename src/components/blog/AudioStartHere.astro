@@ -1,5 +1,25 @@
-<aside aria-label="Start reading about my music setup" class="mt-6 max-w-reading rounded-lg bg-surface-raised p-6">
-  <p class="eyebrow mb-2">Start here</p>
-  <a class="text-h3 text-strong underline" href="/audio/my-music-after-spotify/">My Music After Spotify</a>
-  <p class="mt-3 text-body text-muted">Why I keep my own music, how I find something new, and what I take offline. The setup guides follow from there.</p>
+---
+import { AUDIO_START_HERE_HREF } from "~/data/series";
+---
+
+<aside aria-label="Start reading about my music setup" class="mt-8 max-w-reading">
+  <a
+    href={AUDIO_START_HERE_HREF}
+    class="card-interactive group relative flex items-center gap-6 overflow-hidden rounded-lg border border-[var(--accent-200)] bg-surface-raised p-6 pl-7"
+  >
+    <span aria-hidden="true" class="absolute inset-y-0 left-0 w-1 bg-[var(--accent-500)]"></span>
+    <span class="flex-1">
+      <span class="eyebrow block mb-2">Start here</span>
+      <span class="block text-h3 text-strong group-hover:text-accent-700 transition-colors">
+        My Music After Spotify
+      </span>
+      <span class="mt-2 block text-body text-muted">
+        Why I keep my own music, how I find something new, and what I take offline. The setup guides follow from there.
+      </span>
+    </span>
+    <span
+      aria-hidden="true"
+      class="hidden sm:flex size-11 shrink-0 items-center justify-center rounded-full bg-[var(--accent-100)] text-accent-700 transition-transform duration-[var(--dur-normal)] group-hover:translate-x-1"
+    >→</span>
+  </a>
 </aside>

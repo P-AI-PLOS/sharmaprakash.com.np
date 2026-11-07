@@ -1,9 +1,10 @@
 ---
 import type { GetStaticPaths } from "astro";
 import AudioStartHere from "~/components/blog/AudioStartHere.astro";
+import MusicShowcase from "~/components/blog/MusicShowcase.astro";
 import SiteShell from "~/layouts/SiteShell.astro";
 import ScrollReveal from "~/components/motion/ScrollReveal.astro";
-import { seriesRegistry } from "~/data/series";
+import { seriesRegistry, AUDIO_START_HERE_HREF } from "~/data/series";
 import {
   getSeriesPosts,
   postUrl,
@@ -41,6 +42,9 @@ const partWord = parts.length === 1 ? "part" : "parts";
 const pad = (n: number) => String(n).padStart(2, "0");
 const companionSlug = slug === "ai-stack" ? "running-ai-yourself"
   : slug === "running-ai-yourself" ? "ai-stack" : undefined;
+const showAudioStartHere = slug === "homelab-music" || slug === "pocket-hi-fi";
+// The start-here card already links part 1 on the music series; skip the duplicate hero button.
+const heroStartsWithCard = showAudioStartHere && first && postUrl(first) === AUDIO_START_HERE_HREF;
 const companion = companionSlug && (await getSeriesPosts(companionSlug)).length > 0
   ? { slug: companionSlug, ...seriesRegistry[companionSlug] } : undefined;
 ---
@@ -52,7 +56,7 @@ const companion = companionSlug && (await getSeriesPosts(companionSlug)).length 
         <p class="eyebrow mb-3">Series</p>
         <h1 class="text-display-lg text-strong">{meta.title}</h1>
         <p class="mt-5 text-body-lg text-muted max-w-reading">{meta.description}</p>
-        {(slug === "homelab-music" || slug === "pocket-hi-fi") && <AudioStartHere />}
+        {showAudioStartHere && <AudioStartHere />}
         {companion && (
           <p class="mt-4 text-body text-muted">
             Continue exploring: <a class="underline" href={`/series/${companion.slug}/`}>{companion.title}</a>.
@@ -64,7 +68,7 @@ const companion = companionSlug && (await getSeriesPosts(companionSlug)).length 
             {firstDate && <> · first published <time datetime={new Date(first.data.date).toISOString()}>{firstDate}</time></>}
           </p>
         )}
-        {first && (
+        {first && !heroStartsWithCard && (
           <div class="mt-8">
             <a href={postUrl(first)} class="btn btn-primary">
               <span>Start with part 1 →</span>
@@ -73,12 +77,14 @@ const companion = companionSlug && (await getSeriesPosts(companionSlug)).length 
         )}
       </div>
       {cover && (
-        <figure class="lg:col-span-5 aspect-[21/9] lg:aspect-[4/3] overflow-hidden rounded-xl bg-ink-100 shadow-md">
+        <figure class="lg:col-span-5 aspect-[21/9] lg:aspect-video overflow-hidden rounded-xl bg-ink-100 shadow-md">
           <img src={cover} alt={meta.title} class="h-full w-full object-cover" />
         </figure>
       )}
     </div>
   </section>
+
+  {slug === "homelab-music" && <MusicShowcase />}
 
   {seriesEpisodes.length > 0 && (
     <section class="pb-4">
@@ -100,7 +106,7 @@ const companion = companionSlug && (await getSeriesPosts(companionSlug)).length 
     </section>
   )}
 
-  <section class="pb-24">
+  <section class={slug === "homelab-music" ? "pt-20 pb-24" : "pb-24"}>
     <div class="mx-auto max-w-7xl px-6 lg:px-12">
       {parts.length === 0 ? (
         <p class="text-muted">No parts published yet.</p>
@@ -115,7 +121,7 @@ const companion = companionSlug && (await getSeriesPosts(companionSlug)).length 
                   class="card-interactive group block bg-surface-raised rounded-lg p-6 lg:p-8"
                 >
                   <div class="grid grid-cols-[auto_1fr] gap-6 items-start">
-                    <span class="text-display-sm font-bold text-accent-700 leading-none">{pad(i + 1)}</span>
+                    <span class="text-h1 font-bold text-accent-700 leading-none">{pad(i + 1)}</span>
                     <div>
                       <h2 class="text-h3 text-strong group-hover:text-accent-700 transition-colors">
                         {post.data.title}
