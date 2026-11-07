@@ -18,37 +18,37 @@ export const seriesRegistry: Record<string, SeriesMeta> = {
     title: "Building My Homelab",
     description:
       "Inside my home infrastructure: the hardware, network topology, storage and virtual machines, followed by the move to 10G networking and two Minisforum XCP-ng hosts.",
-    cover: "/images/blog/building-my-homelab/network.png",
+    cover: "/images/blog/series/building-my-homelab.png",
   },
   "campsite-for-agents": {
     title: "Campsite for Agents: Self-Hosting a Team Chat for AI Coworkers",
     description:
       "A five-part series on running Campsite, an open-sourced Slack alternative with an MCP server, in my homelab so AI agents can post and read alongside people: why self-host, where it runs, deploying it with Kamal, the in-progress move from MySQL to PostgreSQL with Patroni, and how coding agents did much of the work.",
-    cover: "/images/blog/building-my-homelab/network.png", // TODO: replace with a dedicated campsite-for-agents cover
+    cover: "/images/blog/series/campsite-for-agents.png",
   },
   "local-ai-toolkit": {
     title: "Local AI Toolkit: Runtimes, GPU Backends, and Model Files",
     description:
       "Three practical primers on choosing llama.cpp, vLLM, or LM Studio; understanding CUDA, ROCm, Vulkan, and Metal; and reading GGUF, quantization, dense-model, and MoE labels. A companion to the standalone model-architecture guide and Running AI Yourself.",
-    cover: "/images/blog/ai/llama-cpp-vllm-lm-studio-local-runtimes.png",
+    cover: "/images/blog/series/local-ai-toolkit.png",
   },
   "running-ai-yourself": {
     title: "Running AI Yourself: Where the Time and Memory Go",
     description:
       "Six practical explainers following a coding assistant from its first repository question to a shared local service: inference, memory budgets, PCIe topology, prompt caching, scheduling, and hardware placement.",
-    cover: "/images/blog/ai/what-happens-when-you-send-an-ai-prompt.png",
+    cover: "/images/blog/series/running-ai-yourself.png",
   },
   "homelab-music": {
-    title: "Finding Music in a Library I Own",
+    title: "Running My Own Music Stack",
     description:
-      "How I keep the pleasure of music discovery after Spotify: Navidrome for listening, AudioMuse for sounds-like-this mixes, ListenBrainz for history, and Aurral for exploring music to add. These posts explain the technical decisions behind that listening experience.",
-    cover: "/images/blog/building-my-homelab/network.png", // TODO: replace with a dedicated homelab-music cover
+      "A self-hosted music setup with no subscription that keeps the fun parts of streaming: finding new songs, sounds-like-this mixes, listening stats and music that goes offline. Part 1 explains why I left Spotify; the rest are the build guides for a FLAC library, Navidrome, AudioMuse, ListenBrainz and a Rockbox iPod.",
+    cover: "/images/blog/series/homelab-music.png",
   },
   "pocket-hi-fi": {
     title: "Headphones and Digital Audio: Reference Notes",
     description:
       "Concise references on audio formats, headphone tuning, fit, measurements and source compatibility. Price snapshots and buying shortlists are dated separately from the guides.",
-    cover: "/images/blog/building-my-homelab/network.png", // TODO: replace with a dedicated pocket-hi-fi cover
+    cover: "/images/blog/series/pocket-hi-fi.png",
   },
   "agent-ready-react": {
     title: "Agent-ready React",
@@ -198,3 +198,6 @@ export const seriesRegistry: Record<string, SeriesMeta> = {
 
 export const getSeriesMeta = (slug: string | undefined): SeriesMeta | null =>
   slug && slug in seriesRegistry ? seriesRegistry[slug] : null;
+
+/** Entry post for the audio guides — linked by the AudioStartHere card. */
+export const AUDIO_START_HERE_HREF = "/audio/my-music-after-spotify/";

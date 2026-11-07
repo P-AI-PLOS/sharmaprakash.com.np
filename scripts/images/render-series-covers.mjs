@@ -102,6 +102,84 @@ const SERIES = [
     ],
   },
 
+  {
+    slug: "homelab-music",
+    label: "series / music",
+    title: "Running My Own Music Stack",
+    tagline: "No subscription, still the fun parts — discovery, mixes, stats and an offline iPod.",
+    lines: [
+      { text: "subscriptions: 0", color: "#f8fafc" },
+      { text: "flac/ -> navidrome", color: "#38bdf8" },
+      { text: "audiomuse --sounds-like now_playing", color: "#fbbf24" },
+      { text: "scrobble -> listenbrainz", color: "#86efac" },
+      { text: "sync playlists -> offline ipod", color: "#f97316" },
+    ],
+  },
+  {
+    slug: "pocket-hi-fi",
+    label: "series / reference notes",
+    title: "Headphones and Digital Audio",
+    tagline: "Formats, tuning, fit and measurements — what you can actually hear, and why.",
+    lines: [
+      { text: "44.1kHz / 16-bit is enough", color: "#f8fafc" },
+      { text: "harman vs neutral vs v-shape", color: "#38bdf8" },
+      { text: "output impedance < Z / 8", color: "#fbbf24" },
+      { text: "eartip seal > cable", color: "#86efac" },
+      { text: "graphs disagree; ears decide", color: "#f97316" },
+    ],
+  },
+  {
+    slug: "campsite-for-agents",
+    label: "series / 5 parts",
+    title: "Campsite for Agents",
+    tagline: "Self-hosting a team chat where AI coworkers post and read alongside people.",
+    lines: [
+      { text: "self-host campsite + mcp", color: "#f8fafc" },
+      { text: "placement across failure domains", color: "#38bdf8" },
+      { text: "kamal deploy --exact-commit", color: "#fbbf24" },
+      { text: "mysql -> postgres (patroni ha)", color: "#f97316" },
+      { text: "verification over trust", color: "#86efac" },
+    ],
+  },
+  {
+    slug: "building-my-homelab",
+    label: "series / homelab",
+    title: "Building My Homelab",
+    tagline: "The hardware, network and VMs behind everything I self-host — then the jump to 10G.",
+    lines: [
+      { text: "2 intel + 2 minisforum + synology", color: "#f8fafc" },
+      { text: "vlan 10 servers / vlan 20 trusted", color: "#38bdf8" },
+      { text: "xcp-ng: marvel-cosmos + vibranium", color: "#fbbf24" },
+      { text: "10G backbone, 2.5G compute links", color: "#86efac" },
+      { text: "160 GB across two minisforum hosts", color: "#f97316" },
+    ],
+  },
+  {
+    slug: "local-ai-toolkit",
+    label: "series / local ai",
+    title: "Local AI Toolkit",
+    tagline: "Runtimes, GPU backends and model files — what the labels on a local model mean.",
+    lines: [
+      { text: "llama.cpp | vllm | lm-studio", color: "#f8fafc" },
+      { text: "cuda / rocm / vulkan / metal", color: "#38bdf8" },
+      { text: "model-Q4_K_M.gguf", color: "#fbbf24" },
+      { text: "dense vs moe: active params", color: "#86efac" },
+      { text: "pick the runtime, then the quant", color: "#f97316" },
+    ],
+  },
+  {
+    slug: "running-ai-yourself",
+    label: "series / local ai",
+    title: "Running AI Yourself",
+    tagline: "Where the time and memory go when a coding assistant runs on your own hardware.",
+    lines: [
+      { text: "prompt -> prefill -> decode", color: "#f8fafc" },
+      { text: "weights fit; kv cache doesn't", color: "#f97316" },
+      { text: "prefix cache: skip the repeat", color: "#38bdf8" },
+      { text: "two gpus, one narrow cable", color: "#fbbf24" },
+      { text: "one halo or a desk of gpus?", color: "#86efac" },
+    ],
+  },
 ];
 
 const fonts = [
