@@ -1,0 +1,89 @@
+---
+/**
+ * "How the pieces fit" map for the homelab-music series page. Three columns
+ * (library → where I listen → what each tool adds); every node links to the
+ * guide that covers it. Post URLs are locked, so hard-coded hrefs are safe.
+ */
+import ScrollReveal from "~/components/motion/ScrollReveal.astro";
+
+interface Node { name: string; role: string; href: string }
+
+const columns: { heading: string; nodes: Node[] }[] = [
+  {
+    heading: "The library",
+    nodes: [
+      { name: "Lossless files", role: "Ripped and bought music I own, tagged once", href: "/technical-notes/beyond-spotify-building-a-flac-library/" },
+    ],
+  },
+  {
+    heading: "Where I listen",
+    nodes: [
+      { name: "Navidrome", role: "At home and on my network", href: "/technical-notes/beyond-spotify-building-a-flac-library/#minimal-navidrome-setup" },
+      { name: "Amperfy on iPhone", role: "Navidrome on the go, with offline downloads", href: "/technical-notes/ai-music-recommendations-from-listenbrainz/#take-the-playlists-offline" },
+      { name: "Offline iPod", role: "Synced playlists, no signal needed", href: "/technical-notes/ipod-video-5-5g-rockbox-purist-player/" },
+    ],
+  },
+  {
+    heading: "What it adds",
+    nodes: [
+      { name: "AudioMuse", role: "Similar songs and Instant Mix", href: "/technical-notes/audiomuse-ai-sonic-recommendations/" },
+      { name: "ListenBrainz", role: "Listening history, plus weekly playlists from listeners with similar taste", href: "/technical-notes/scrobbling-everything-to-listenbrainz/#closing-the-loop-history-back-into-playlists" },
+      { name: "Aurral", role: "Discover music beyond the library and request additions", href: "/technical-notes/ai-music-recommendations-from-listenbrainz/#follow-a-suggestion-beyond-the-library" },
+      { name: "Spindle", role: "Stats and a yearly recap", href: "/technical-notes/spindle-listening-stats-navidrome/" },
+    ],
+  },
+];
+---
+
+<section aria-labelledby="music-flow-title" class="pt-20">
+  <div class="mx-auto max-w-7xl px-6 lg:px-12">
+    <ScrollReveal>
+      <p class="eyebrow mb-3">How the pieces fit</p>
+      <h2 id="music-flow-title" class="text-h2 text-strong">One library, three ways to listen, four helpers</h2>
+    </ScrollReveal>
+
+    <ol class="flow mt-10 grid gap-4 lg:gap-12 lg:grid-cols-3 list-none">
+      {columns.map((col, i) => (
+        <ScrollReveal delay={i * 80} as="li" class="flow-col">
+          <p class="text-caption uppercase tracking-[0.12em] text-faint mb-3">{col.heading}</p>
+          <ul class="grid gap-3 list-none">
+            {col.nodes.map((n) => (
+              <li>
+                <a href={n.href} class="node card-interactive group block rounded-lg bg-surface-raised p-5">
+                  <span class="block text-h4 text-strong group-hover:text-accent-700 transition-colors">{n.name}</span>
+                  <span class="mt-1 block text-body-sm text-muted">{n.role}</span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </ScrollReveal>
+      ))}
+    </ol>
+  </div>
+</section>
+
+<style>
+  .flow :global(.flow-col) { position: relative; }
+  .node { border: 1px solid var(--ink-200); }
+  .node:hover { border-color: var(--accent-300); }
+
+  /* Arrow between columns: down on mobile, right on desktop. */
+  .flow :global(.flow-col:not(:last-child))::after {
+    content: "↓";
+    display: block;
+    text-align: center;
+    margin-top: 12px;
+    color: var(--accent-600);
+    font-size: 20px;
+  }
+  @media (min-width: 1024px) {
+    .flow :global(.flow-col:not(:last-child))::after {
+      content: "→";
+      position: absolute;
+      top: 50%;
+      right: -34px;
+      transform: translateY(-50%);
+      margin: 0;
+    }
+  }
+</style>

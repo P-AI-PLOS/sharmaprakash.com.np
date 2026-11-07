@@ -2,12 +2,14 @@
 import type { GetStaticPaths } from "astro";
 import AudioStartHere from "~/components/blog/AudioStartHere.astro";
 import MusicShowcase from "~/components/blog/MusicShowcase.astro";
+import MusicStackFlow from "~/components/blog/MusicStackFlow.astro";
 import SiteShell from "~/layouts/SiteShell.astro";
 import ScrollReveal from "~/components/motion/ScrollReveal.astro";
-import { seriesRegistry, AUDIO_START_HERE_HREF } from "~/data/series";
+import { seriesRegistry, seriesCompanions, AUDIO_START_HERE_HREF } from "~/data/series";
 import {
   getSeriesPosts,
   postUrl,
+  postThumbnail,
   estimateReadMinutes,
   type Post,
 } from "~/utils/posts";
@@ -40,8 +42,7 @@ const cover = meta.cover;
 const firstDate = first ? formatBlogDate(first.data.date) : "";
 const partWord = parts.length === 1 ? "part" : "parts";
 const pad = (n: number) => String(n).padStart(2, "0");
-const companionSlug = slug === "ai-stack" ? "running-ai-yourself"
-  : slug === "running-ai-yourself" ? "ai-stack" : undefined;
+const companionSlug = seriesCompanions[slug];
 const showAudioStartHere = slug === "homelab-music" || slug === "pocket-hi-fi";
 // The start-here card already links part 1 on the music series; skip the duplicate hero button.
 const heroStartsWithCard = showAudioStartHere && first && postUrl(first) === AUDIO_START_HERE_HREF;
@@ -85,6 +86,7 @@ const companion = companionSlug && (await getSeriesPosts(companionSlug)).length 
   </section>
 
   {slug === "homelab-music" && <MusicShowcase />}
+  {slug === "homelab-music" && <MusicStackFlow />}
 
   {seriesEpisodes.length > 0 && (
     <section class="pb-4">
@@ -118,18 +120,29 @@ const companion = companionSlug && (await getSeriesPosts(companionSlug)).length 
               <ScrollReveal delay={Math.min(i, 4) * 40} as="li">
                 <a
                   href={postUrl(post)}
-                  class="card-interactive group block bg-surface-raised rounded-lg p-6 lg:p-8"
+                  class="card-interactive group flex flex-col gap-6 bg-surface-raised rounded-lg p-6 md:flex-row lg:p-8"
                 >
-                  <div class="grid grid-cols-[auto_1fr] gap-6 items-start">
+                  <div class="aspect-[16/10] w-full shrink-0 self-start overflow-hidden rounded-md md:order-last md:w-56">
+                    <img
+                      src={postThumbnail(post)}
+                      alt=""
+                      width="448"
+                      height="280"
+                      loading="lazy"
+                      decoding="async"
+                      class="h-full w-full object-cover motion-safe:transition-transform motion-safe:duration-[var(--dur-normal)] motion-safe:ease-[var(--ease-out-expo)] motion-safe:group-hover:scale-[1.03]"
+                    />
+                  </div>
+                  <div class="grid min-w-0 flex-1 grid-cols-[auto_minmax(0,1fr)] gap-6 items-start">
                     <span class="text-h1 font-bold text-accent-700 leading-none">{pad(i + 1)}</span>
-                    <div>
+                    <div class="min-w-0 break-words">
                       <h2 class="text-h3 text-strong group-hover:text-accent-700 transition-colors">
                         {post.data.title}
                       </h2>
                       {post.data.excerpt && (
                         <p class="mt-3 text-body text-muted line-clamp-3 max-w-reading">{post.data.excerpt}</p>
                       )}
-                      <div class="mt-4 flex items-center gap-3 text-caption text-muted">
+                      <div class="mt-4 flex flex-wrap items-center gap-3 text-caption text-muted">
                         <time datetime={new Date(post.data.date).toISOString()}>
                           {formatBlogDate(post.data.date)}
                         </time>

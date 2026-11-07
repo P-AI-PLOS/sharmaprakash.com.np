@@ -41,7 +41,7 @@ export const seriesRegistry: Record<string, SeriesMeta> = {
   "homelab-music": {
     title: "Running My Own Music Stack",
     description:
-      "A self-hosted music setup with no subscription that keeps the fun parts of streaming: finding new songs, sounds-like-this mixes, listening stats and music that goes offline. Part 1 explains why I left Spotify; the rest are the build guides for a FLAC library, Navidrome, AudioMuse, ListenBrainz and a Rockbox iPod.",
+      "A self-hosted music setup with no subscription that keeps the fun parts of streaming: finding new songs, sounds-like-this mixes, listening stats and music that goes offline. Part 1 explains why I left Spotify; the rest are the build guides for a lossless library, Navidrome, AudioMuse, ListenBrainz, Spindle stats and a Rockbox iPod.",
     cover: "/images/blog/series/homelab-music.png",
   },
   "pocket-hi-fi": {
@@ -198,6 +198,14 @@ export const seriesRegistry: Record<string, SeriesMeta> = {
 
 export const getSeriesMeta = (slug: string | undefined): SeriesMeta | null =>
   slug && slug in seriesRegistry ? seriesRegistry[slug] : null;
+
+/** Series pairs that link to each other ("Continue exploring") on their landing pages. */
+export const seriesCompanions: Record<string, string> = {
+  "ai-stack": "running-ai-yourself",
+  "running-ai-yourself": "ai-stack",
+  "homelab-music": "pocket-hi-fi",
+  "pocket-hi-fi": "homelab-music",
+};
 
 /** Entry post for the audio guides — linked by the AudioStartHere card. */
 export const AUDIO_START_HERE_HREF = "/audio/my-music-after-spotify/";
