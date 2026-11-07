@@ -86,10 +86,12 @@ stops unless I confirm.
 
 Four things were less obvious than I expected:
 
-1. **The collector has no ready-made download.** Spindle ships the plugin as
-   Rust source. I compiled it to WebAssembly (`wasm32-wasip1`) against
-   Navidrome's plugin SDK, packaged it with its manifest, and pinned the
-   result by checksum in the playbook.
+1. **The collector has no ready-made download.** Spindle's collector is a
+   small plugin that runs inside Navidrome and sends each play to Spindle.
+   It ships only as Rust source. I did not build it by hand: a coding agent
+   compiled it to WebAssembly (`wasm32-wasip1`) against Navidrome's plugin
+   SDK and packaged it with its manifest, and the playbook pins the result
+   by checksum.
 2. **Plugin permissions use user IDs, not usernames.** Navidrome accepted a
    username in the plugin's user list without complaint, and the collector
    then silently failed its permission check. Selecting users in the web UI
