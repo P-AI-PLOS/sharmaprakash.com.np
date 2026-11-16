@@ -45,7 +45,7 @@ A recorded play does not tell me everything. It may have come from an album, a p
 
 Aurral helps me explore and request music outside the library. I still care which recording I add. Discovery and importing a file are separate steps; a recommendation is not an instruction to accept an arbitrary match.
 
-The [daily workflow](/technical-notes/ai-music-recommendations-from-listenbrainz/) shows how I move between these tools and curated offline playlists. There is no extra combined ranking engine behind that account.
+The [daily workflow](/audio/my-music-after-spotify/) shows how I move between these tools and curated offline playlists. There is no extra combined ranking engine behind that account.
 
 ## Check the right result
 

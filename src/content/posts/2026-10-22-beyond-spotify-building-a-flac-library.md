@@ -150,7 +150,7 @@ For offline listening, the [iPod setup guide](/technical-notes/ipod-video-5-5g-r
 
 ## Maintaining the library
 
-The recurring work is checking recordings, correcting tags and keeping copies of files I want to retain. My [listening workflow](/technical-notes/ai-music-recommendations-from-listenbrainz/) explains how discoveries become additions and how ratings help me refine playlists.
+The recurring work is checking recordings, correcting tags and keeping copies of files I want to retain. My [listening workflow](/audio/my-music-after-spotify/) explains how discoveries become additions and how ratings help me refine playlists.
 
 ## Sources
 

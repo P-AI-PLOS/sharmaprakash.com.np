@@ -18,34 +18,12 @@ use_featured_image: true
 draft: false
 comments: true
 share: true
-last_modified_at: "2026-11-06T13:00:00+05:45"
+last_modified_at: "2026-11-16T18:00:00+05:45"
 ---
 
-An offline music player has one job: play the files you own, anywhere,
-without a signal or a subscription. It has no Wi-Fi, no recommendations and
-no app that wants your attention. Mine is an old iPod Video running Rockbox,
-fed from the same library that powers [my music setup](/audio/my-music-after-spotify/).
-Taking that music somewhere without an internet connection is half the
-point of owning it. I am still testing its replacement battery,
-so I cannot yet say how long it plays between charges.
+An offline music player has one job: play the files you own, anywhere, without a signal or a subscription. Mine is an old iPod Video running Rockbox, fed from the same library that powers [my music setup](/audio/my-music-after-spotify/).
 
-Why an old iPod rather than a phone or a new player? It is inexpensive to
-find, easy to fit with flash storage and a bigger battery, and Rockbox turns
-it into a capable lossless player. Its Wolfson DAC also has a reputation for
-a warm, relaxed sound. To my ears that suits everyday consumer earphones and
-IEMs: they sound full rather than thin, and I do not need a high-end IEM to
-enjoy a walk with it. Wired headphones work too; my Sony WH-1000XM4 plugs into
-the headphone jack, with noise cancellation when powered on (the iPod has no
-Bluetooth).
-
-Sound is personal, so treat that as a preference, not a measurement. If you
-have expensive IEMs and want the most neutral, detailed source with more
-power, a modern hi-fi digital audio player is the better match.
-[DACs, Music Players and Output Impedance](/technical-notes/dac-dongles-daps-and-output-impedance/)
-and [iPod or Sony Walkman](/technical-notes/pairing-iems-ipod-vs-sony-walkman/)
-cover that choice.
-
-This post covers which iPod to look for, what to change inside it, and the settings I use. If terms like output impedance or sound signature are new, the [headphones and digital audio notes](/series/pocket-hi-fi/) explain them.
+Why an old iPod? It is cheap to find, easy to fit with flash storage and a bigger battery, and Rockbox turns it into a capable lossless player. I listen with the [7Hz x Crinacle Zero 2](/technical-notes/pairing-iems-ipod-vs-sony-walkman/), a single-driver IEM that suits its output. Its tuning is clean rather than bass-heavy, which lets vocals and instruments come through clearly. If you want the most neutral, powerful source for expensive IEMs, a modern player is the better match; [DACs, Music Players and Output Impedance](/technical-notes/dac-dongles-daps-and-output-impedance/) covers that choice.
 
 ## Which iPod: the 5.5G
 
@@ -61,9 +39,7 @@ Apple sold the fifth-generation iPod, the "iPod Video", from 2005. The **5.5G** 
 | Stock battery | About 600 mAh, rated about 14 h of audio |
 | Outputs | 3.5 mm headphone jack, 30-pin dock connector |
 
-The reason people still hunt for this model is the **Wolfson** audio codec. Later iPod Classics moved to a different codec, and the 5G/5.5G Wolfson generation is the one listeners tend to describe as fuller and more natural. That reputation is subjective, and I would not claim one is measurably better; what matters to me is that the 5.5G drives ordinary IEMs well and has no hiss I can hear with mine. [iPod or Sony Walkman](/technical-notes/pairing-iems-ipod-vs-sony-walkman/) covers IEM pairing in detail.
-
-The 5.5G also added a brighter screen and gapless playback over the 5G.
+The reason people still hunt for this model is the **Wolfson** codec, and the 5.5G added a brighter screen and gapless playback over the 5G.
 
 ## The mod: flash storage and a bigger battery
 
@@ -71,12 +47,12 @@ A 20-year-old hard drive is the weak point of any vintage iPod. Mine was replace
 
 | Part | Stock | Fitted |
 |---|---|---|
-| Storage | 1.8 in hard drive | 64 GB SD card on a 40-pin ZIF flash adapter; 256 GB upgrade in progress |
-| Battery | About 600 mAh | Labelled 2000 mAh; performance still under test |
+| Storage | 1.8 in hard drive | 256 GB microSD card on a dual-card 40-pin ZIF adapter |
+| Battery | About 600 mAh | Labelled 2000 mAh |
 
 The flash adapter plugs into the same connector the hard drive used, so the iPod sees an ordinary disk. There are no moving parts left, it is silent, and it survives being dropped far better.
 
-I am still testing the replacement battery. In my latest test, it seemed to perform more like a 1000 mAh cell than a 2000 mAh one, so I do not yet have a reliable playback-runtime figure. If further tests confirm the shortfall, I will replace it; I am also considering importing a 2800 mAh cell from the US. Its stated capacity will need to prove itself in use too.
+The new battery gives about 28 hours of continuous playback, against roughly 4 hours from the worn original.
 
 Two warnings from living with it:
 
@@ -125,15 +101,9 @@ What each one does:
 | ReplayGain no-clip | On | Prevents ReplayGain from boosting a track past clipping. |
 | Headphone unplug | Pause | Pulling the cable stops the music instead of losing my place. |
 
-### The crossfeed trade-off
+### Crossfeed
 
-I leave crossfeed on by preference.
-
-Recordings are mixed for speakers. With speakers, each ear hears both speakers, slightly delayed and filtered by your head. With IEMs, the left channel goes only to the left ear. Hard-panned mixes, especially older stereo recordings with drums on one side and vocals on the other, can sound unnatural and tiring that way.
-
-Crossfeed mixes a small, delayed, filtered amount of each channel into the other to imitate what speakers do. Rockbox offers a Meier mode, named after the crossfeed design by Jan Meier, and a custom mode.
-
-The cost: crossfeed changes the signal, narrows the stereo image a little, and on modern mixes made with headphones in mind it can make things sound slightly closed in. I leave it on because much of what I listen to is older and hard-panned, and long sessions are less tiring with it. If you try it, A/B a well-recorded album with it on and off and keep whichever you forget about.
+Recordings are mixed for speakers; with IEMs, each channel reaches only one ear, and hard-panned older mixes can sound tiring. Crossfeed blends a little of each channel into the other. It narrows the image slightly, but I leave it on because much of what I play is older and hard-panned.
 
 ## A player for playback only
 
@@ -148,51 +118,17 @@ That is the Now Playing screen, Playlists and the database browser. Rockbox 4.0 
 Two power settings matter with a big battery:
 
 - **Idle power-off after 10 minutes**, and **backlight off after 10 seconds**. The screen is the biggest battery drain.
-- **Battery capacity set to 2000 mAh** to match the cell's label. The pack's actual performance is still under test.
+- **Battery capacity set to 2000 mAh** to match the cell's label.
 
 There is also an escape hatch: booting with the hold switch on resets every setting to its default. If an experiment goes wrong, I do not need a computer to recover.
 
 ## Settings as code
 
-All of the above lives in a git repository, not only on the iPod. A short Python script, `sync_rockbox.py`, runs when the iPod is connected in disk mode:
-
-1. It backs up the iPod's whole `.rockbox` folder to my NAS with a timestamp.
-2. It merges the managed settings file into the iPod's config. Settings I have not listed keep whatever value was set on the device.
-3. It copies the settings file onto the iPod as a `.cfg` that can be re-applied from the file browser.
-4. It removes the pruned games and demos.
-5. It installs the themes listed in a small table, checking each download's SHA-256.
-
-Rockbox stores settings as plain `key: value` lines, which makes this easy. One trap: setting names change between Rockbox versions, and Rockbox silently ignores names it does not know. I check every name against the source code at the installed release tag before adding it.
-
-The saved settings and theme files give me a starting point for rebuilding the device; replacement hardware still needs testing.
-
-## Check the device before a full sync
-
-**Prerequisites:** a compatible Rockbox installation, a backup of the player, and a mounted iPod in disk mode. The [Rockbox installation manual](https://www.rockbox.org/manual.shtml) owns the bootloader procedure; the snippets here do not install firmware.
-
-1. Copy one album and a small playlist using your chosen file-sync method.
-2. Eject the device, open the playlist in Rockbox and play a track. Check title, album and artwork.
-3. Enable play logging with [rockbox-playlog.example.cfg](/downloads/audio-stack/rockbox-playlog.example.cfg), loading it through Rockbox's configuration-file browser.
-4. After listening, reconnect and confirm `/.rockbox/playback.log` exists before attempting an import.
-
-My local scripts are separate tools: `sync_rockbox.py` manages settings and themes; `scrobble_listenbrainz.py` imports the saved plays. These are local project scripts, not commands installed by Rockbox. Both accept `--dry-run`. For example, from my homelab checkout, with the actual mount substituted:
-
-```sh
-ipod/sync_rockbox.py /Volumes/ipod --dry-run
-ipod/scrobble_listenbrainz.py /Volumes/ipod --tz Asia/Kathmandu --dry-run
-```
-
-**Check it works:** inspect the proposed changes and converted timestamps before running the connected sync workflow. The [import guide](/technical-notes/scrobbling-everything-to-listenbrainz/) explains credentials, accepted submissions and log archiving. Logging alone does not upload anything.
+All of this lives in git. When the iPod is connected in disk mode, `sync_rockbox.py` backs up `.rockbox` to my NAS, merges the managed settings, removes the pruned plugins and installs checksummed themes. One trap: Rockbox silently ignores setting names it does not know, and names change between versions, so I check each one against the source at the installed release tag.
 
 ## Library and playlist sync
 
-The files come from my [tagged music library](/technical-notes/beyond-spotify-building-a-flac-library/). My sync scripts copy music and write playlists for Rockbox. The earlier setup used selected files; the pending 256 GB upgrade is intended to hold the whole library.
-
-My playlists include Bollywood Top, Nepali, Hindi Indie and Forever Classics. I choose one offline and let it play. One-star ratings help me review songs I don't want in those lists later; this is not an automatic recommendation-training loop.
-
-When I connect the iPod and sync, the scripts also import its recorded plays into ListenBrainz. I have used this workflow. The [play-log import guide](/technical-notes/scrobbling-everything-to-listenbrainz/#the-ipod-sync-path) explains timestamps and submission handling.
-
-For the rest of the listening routine, see [how I use the stack](/technical-notes/ai-music-recommendations-from-listenbrainz/).
+The files come from my [tagged music library](/technical-notes/beyond-spotify-building-a-flac-library/), and the sync scripts copy music and write Rockbox playlists. On each sync, a second script imports the iPod's play log into ListenBrainz; the [play-log import guide](/technical-notes/scrobbling-everything-to-listenbrainz/#the-ipod-sync-path) covers timestamps and submission.
 
 ## Sources
 

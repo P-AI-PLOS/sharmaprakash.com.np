@@ -1,10 +1,10 @@
 ---
-title: "Keeping Your Listening History: ListenBrainz for Navidrome and an Offline iPod"
+title: "Keeping Your Listening History: ListenBrainz, Spindle Stats and an Offline iPod"
 date: "2026-10-28T10:00:00+05:45"
 category: ["Technical Notes"]
 categories: ["technical-notes"]
 directory: technical-notes
-excerpt: "A recommender is only as good as the history behind it. Navidrome scrobbles to ListenBrainz; a manual importer can add offline Rockbox iPod plays, and a plugin brings ListenBrainz playlists back into my library."
+excerpt: "A recommender is only as good as the history behind it. Navidrome scrobbles to ListenBrainz; a manual importer can add offline Rockbox iPod plays, and a plugin brings ListenBrainz playlists back into my library, and Spindle turns plays into stats and a yearly recap."
 tags:
   - listenbrainz
   - scrobbling
@@ -259,9 +259,35 @@ The same pattern covers any source:
 YouTube remains the awkward case, for the reasons covered in
 [the YouTube note](/technical-notes/youtube-to-scrobble/).
 
-## Where the history goes next
+## Seeing it: Spindle stats and a yearly recap
 
-The playlist importer supplies suggestions I can play in Navidrome. [AudioMuse](/technical-notes/audiomuse-ai-sonic-recommendations/) separately compares the sound of my files. My [daily workflow](/technical-notes/ai-music-recommendations-from-listenbrainz/) shows how I use both without treating them as one recommendation engine.
+ListenBrainz holds the long-term history. For the fun part of a streaming app, the end-of-year recap, I run [Spindle](https://github.com/xmorose/spindle) next to Navidrome.
+
+<video controls muted playsinline preload="none" poster="/images/blog/audio/spindle/spindle-wrapped-poster.webp" width="1280" height="810" aria-label="Screen recording scrolling through Spindle's Wrapped recap">
+  <source src="/images/blog/audio/spindle/spindle-wrapped.mp4" type="video/mp4" />
+</video>
+
+It shows top artists, albums and tracks, a listening clock (my peak hour is 16:00, Thursday my heaviest day), weekly shifts, listening sessions and a Wrapped-style yearly recap.
+
+<img src="/images/blog/audio/spindle/spindle-pulse.webp" alt="Spindle Pulse view: a listening clock peaking at 16:00 and a weekday bar chart with Thursday highest" loading="lazy" width="1200" height="744" />
+
+A collector plugin inside Navidrome posts each play to the Spindle backend, which keeps its own SQLite store and reads Navidrome's database for artwork and metadata.
+
+```text
+Navidrome play ──► collector plugin ──► Spindle backend (SQLite events)
+                                              │
+              navidrome.db (metadata, art) ───┘──► dashboard
+```
+
+It runs as a Compose service behind its own profile, served by Caddy on a local hostname only. Three gotchas:
+
+1. **No ready-made collector.** Releases ship source only, so I compiled the unchanged v0.4.3 source to WebAssembly (`wasm32-wasip1`) and pin it by checksum.
+2. **Plugin users are IDs, not usernames.** A username is accepted silently and the collector then fails its permission check. Pick users in the web UI.
+3. **Mount Navidrome's data read-write.** Spindle reads the database, but SQLite still manages its [write-ahead log](https://www.sqlite.org/wal.html) beside it.
+
+Spindle can import older plays from ListenBrainz, keeping only exact matches to my library. Undated totals count toward all-time numbers but not the charts, so my recap effectively starts in August. iPod plays never pass through Navidrome and only arrive through that import.
+
+It shows what I played, not what I liked: a song can top the chart because it sat in a long playlist. Read that way, it is a quick look at my own listening without a subscription.
 
 ## Sources
 
@@ -270,3 +296,5 @@ The playlist importer supplies suggestions I can play in Navidrome. [AudioMuse](
 - [Last.fm API: Scrobbling (when a track should be scrobbled)](https://www.last.fm/api/scrobbling)
 - [Navidrome: External services (ListenBrainz agent)](https://www.navidrome.org/docs/usage/integration/external-services/)
 - [ListenBrainz Daily Playlist Importer for Navidrome](https://github.com/kgarner7/navidrome-listenbrainz-daily-playlist)
+- [Spindle repository and releases](https://github.com/xmorose/spindle)
+- [Navidrome plugins documentation](https://www.navidrome.org/docs/usage/plugins/)

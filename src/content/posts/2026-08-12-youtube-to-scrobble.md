@@ -40,4 +40,4 @@ When I want a particular performance in my library, I check it against the recor
 
 Once a file is in the library, [tags and recording IDs](/technical-notes/beyond-spotify-building-a-flac-library/#tagging-with-musicbrainz) help the player and listening-history tools identify it. Changing an AAC file to FLAC would not recover missing information, so I retain the source format when appropriate.
 
-My regular discovery and offline listening routine is described in [how I use the stack](/technical-notes/ai-music-recommendations-from-listenbrainz/). The broader [signals reference](/technical-notes/homelab-music-recommendations-field-guide/) separates recording identity from sound similarity and listening habits.
+My regular discovery and offline listening routine is described in [how I use the stack](/audio/my-music-after-spotify/). The broader [signals reference](/technical-notes/homelab-music-recommendations-field-guide/) separates recording identity from sound similarity and listening habits.

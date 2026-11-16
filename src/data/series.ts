@@ -41,7 +41,7 @@ export const seriesRegistry: Record<string, SeriesMeta> = {
   "homelab-music": {
     title: "Running My Own Music Stack",
     description:
-      "A self-hosted music setup with no subscription that keeps the fun parts of streaming: finding new songs, sounds-like-this mixes, listening stats and music that goes offline. Part 1 explains why I left Spotify; the rest are the build guides for a lossless library, Navidrome, AudioMuse, ListenBrainz, Spindle stats and a Rockbox iPod.",
+      "A self-hosted music setup with no subscription that keeps the fun parts of streaming: finding new songs, sounds-like-this mixes, listening stats and music that goes offline. Part 1 explains why I left Spotify and how I use the stack; the other four cover the lossless library, the Rockbox iPod, listening history and stats, and AudioMuse.",
     cover: "/images/blog/series/homelab-music.png",
   },
   "pocket-hi-fi": {

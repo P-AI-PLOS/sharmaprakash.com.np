@@ -142,7 +142,7 @@ AudioMuse clustering and the separate [ListenBrainz importer](/technical-notes/s
 
 The report compares tracks with recent ListenBrainz history. That overlap is only a hint: hearing a song does not prove I played it from a particular playlist. Removing a generated playlist does not delete the music or its analysis.
 
-My [daily listening workflow](/technical-notes/ai-music-recommendations-from-listenbrainz/) explains what I keep, how ratings help me review playlists, and how I take them offline. The [signals reference](/technical-notes/homelab-music-recommendations-field-guide/) explains where sound-based mixes differ from listening-history suggestions.
+My [daily listening workflow](/audio/my-music-after-spotify/) explains what I keep, how ratings help me review playlists, and how I take them offline. The [signals reference](/technical-notes/homelab-music-recommendations-field-guide/) explains where sound-based mixes differ from listening-history suggestions.
 
 
 ## Sources

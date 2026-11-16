@@ -73,6 +73,8 @@ I bought the **7Hz x Crinacle Zero 2**: one 10 mm dynamic driver, 32 Ω, 108 dB/
 
 Why it suits the iPod: a single dynamic driver usually has a fairly flat impedance curve, so the iPod's few ohms of output impedance should barely change its tuning. Its 32 Ω is also within the load range the iPod's headphone amp was designed for.
 
+How it sounds: unlike many budget IEMs, it is not bass-boosted. Coming from my Sony WH-1000XM4, which is tuned warm and bass-forward, the Zero 2 sounds clearer, and I hear small details in vocals and instruments that the XM4's bass used to mask. That is the tuning at work, not extra resolution: less bass lets the mids and treble come through.
+
 What it is not: a detail monster or a soundstage showpiece. Pricier hybrids may resolve more, but they also tend to be fussier about the source. For an iPod, an easy, coherent single-DD set is a sensible match, not a compromise.
 
 <figure>

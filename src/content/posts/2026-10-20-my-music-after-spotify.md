@@ -18,29 +18,39 @@ use_featured_image: true
 draft: false
 comments: true
 share: true
-last_modified_at: "2026-11-06T13:00:00+05:45"
+last_modified_at: "2026-11-16T18:00:00+05:45"
 series: "homelab-music"
 seriesOrder: 1
 ---
 
-I wanted to leave Spotify, but I didn't want to stop finding music. I liked opening an app without a song in mind and hearing something I wanted to play again. A folder of albums could hold my favourites, but I worried I would keep choosing the same ones.
+I wanted to leave Spotify without losing the pleasure of finding music: opening an app with no song in mind and hearing something I want to play again. A folder of albums holds favourites, but I worried I would keep choosing the same ones.
 
-What I wanted was to choose music from files I own, while still leaving room for something new. I could keep a recording I loved, decide where to play it, and take it with me. [Building that library](/technical-notes/beyond-spotify-building-a-flac-library/) took some work. Then I needed a way to enjoy it without spending every evening sorting files.
+So the goal became simple: play music from files I own, and still leave room for something new. This is how the pieces fit together and how I use them day to day.
 
-[Navidrome](https://www.navidrome.org/) is where I play that music at home. It turns the files on my storage drive into a library I can browse by song or album. Most days, I just want to pick something and listen.
+## Play at home
 
-Sometimes I know the first song I want, but not the next one. I tried starting with “Aama” by Sushant KC and choosing Instant Mix. Behind that mix is [AudioMuse](https://github.com/NeptuneHub/AudioMuse-AI), which finds similar sounding songs among the files I already have. Sonic analysis means comparing how songs sound, including their rhythm, energy and tone. It gives me a way to wander through my own collection without choosing every track myself. The [AudioMuse guide](/technical-notes/audiomuse-ai-sonic-recommendations/) covers the Navidrome setup and the measured whole-library run.
+[Navidrome](https://www.navidrome.org/) turns the files on my storage drive into a library I can browse by song, album or playlist. [Building that library](/technical-notes/beyond-spotify-building-a-flac-library/) took some work; keeping recordings and tags in order is what lets the other tools match songs reliably.
 
-That helps me find music I've already kept. For suggestions based on listening habits, I use [ListenBrainz](https://listenbrainz.org/). It looks at what I play and what other people listen to, then suggests music I might like. Some of those suggestions match files in my library and become playlists I can play. Others give me something new to look for. The [listening history and playlist setup](/technical-notes/scrobbling-everything-to-listenbrainz/) has its own notes, too.
+On my iPhone I use [Amperfy](https://github.com/BLeeEZ/amperfy), which connects to Navidrome and downloads music for offline listening.
 
-When I want to explore music I don't own, [Aurral](https://aurral.org/) helps me discover it and request additions to my library. I still choose what to add. Finding a title is only part of it; sometimes I want one particular recording of a song.
+## Find the next song
 
-That happened with “Je Chhau Timi.” I already had the 2023 studio recording, but I wanted the distinct 2025 live performance with Swoopna Suman and Sushant KC. I checked the recording, added the audio manually, and made sure it appeared as a separate track. This wasn't an Aurral import. I kept the source audio as M4A rather than changing it to FLAC, which wouldn't improve it. It was a small addition, but it meant I could play the performance I had gone looking for.
+Three tools, three different starting points:
 
-Playlists are a big part of how I listen offline. I've built them around my listening habits: Bollywood Top, Nepali, Hindi Indie, Forever Classics. My [offline iPod running Rockbox](/technical-notes/ipod-video-5-5g-rockbox-purist-player/) is getting a 256 GB storage upgrade so I can keep my whole music library on it. When I listen offline, I choose a curated playlist to suit my mood and leave my phone alone while it plays.
+- **More like this song.** Instant Mix in Navidrome is backed by [AudioMuse](/technical-notes/audiomuse-ai-sonic-recommendations/), which compares how songs sound (rhythm, energy, tone) across files I already have. Starting from “Aama” by Sushant KC, it wanders through my own collection without me picking every track.
+- **Based on my listening.** [ListenBrainz](/technical-notes/scrobbling-everything-to-listenbrainz/) suggests music from what I and similar listeners play. Matches in my library become playable Navidrome playlists.
+- **Beyond the library.** [Aurral](https://aurral.org/) is where I browse discoveries and request additions through Lidarr. I still choose what to add, and sometimes I want one particular recording.
 
-I enjoy the iPod's Wolfson sound with ordinary wired headphones. That's my preference, not a claim that it sounds better for everyone. My Sony WH-1000XM4 works for this too, connected with a headphone cable. I like sitting down with it and listening without much else to do.
+That happened with “Je Chhau Timi.” I had the 2023 studio version but wanted the 2025 live performance with Swoopna Suman and Sushant KC. I checked the recording, added it manually as a separate track, and kept the source M4A rather than converting it to FLAC, which would not improve it.
 
-I take selected music and playlists from the same library into my car, too. I pick a playlist and let the songs play through. If I don't like a song in a playlist, I usually give it one star. Those ratings help me fine-tune the playlists later, so the next time I choose one, it has more of what I want to hear.
+## Keep playlists I want to hear
 
-The practical follow-up is [how I use the library, discovery tools and offline playlists](/technical-notes/ai-music-recommendations-from-listenbrainz/).
+My regular playlists are Bollywood Top, Nepali, Hindi Indie and Forever Classics. When a song doesn't work in one, I give it one star and use that when I next review the list. A rating is a cue to reconsider, not an instruction to delete the recording.
+
+Generated ListenBrainz playlists pile up, so a small cleanup tool reports old ones and deletes only the playlists I approve.
+
+## Take it offline
+
+My [iPod running Rockbox](/technical-notes/ipod-video-5-5g-rockbox-purist-player/) holds my complete library, but I still listen through curated playlists. I pick one to suit my mood and leave the phone alone. I listen with wired IEMs, and in the car I do the same: choose a playlist and let it play.
+
+When I sync the iPod, its offline play log goes to ListenBrainz, so those listens count too. That history, alongside the ratings, helps me decide what to keep listening to next.

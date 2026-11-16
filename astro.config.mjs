@@ -38,6 +38,8 @@ export default defineConfig({
     }),
   },
   redirects: {
+    "/technical-notes/ai-music-recommendations-from-listenbrainz/": "/audio/my-music-after-spotify/",
+    "/technical-notes/spindle-listening-stats-navidrome/": "/technical-notes/scrobbling-everything-to-listenbrainz/#seeing-it-spindle-stats-and-a-yearly-recap",
     "/technical-notes/scaling-audiomuse-album-analysis/": "/technical-notes/audiomuse-ai-sonic-recommendations/#analysing-the-whole-library",
     "/technical-notes/sony-walkman-vs-modded-ipod-video-scorecard/": "/technical-notes/pairing-iems-ipod-vs-sony-walkman/",
     "/javascript/ie-alternative-to-inludes/": "/javascript/ie-alternative-to-includes/",
