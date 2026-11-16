@@ -20,6 +20,12 @@ export const seriesRegistry: Record<string, SeriesMeta> = {
       "Inside my home infrastructure: the hardware, network topology, storage and virtual machines, followed by the move to 10G networking and two Minisforum XCP-ng hosts.",
     cover: "/images/blog/series/building-my-homelab.png",
   },
+  "hermes-agent-factory": {
+    title: "Running a Hermes Agent Factory",
+    description:
+      "Four Hermes instances on one model, kept apart by their harnesses: why agents are more than scheduled prompts, how engineering, product, growth and a personal assistant stay in their lanes, steering work from shared rooms, one skill registry for every harness, and the assistant-only calendar and inbox work.",
+    cover: "/images/blog/series/hermes-agent-factory.png",
+  },
   "campsite-for-agents": {
     title: "Campsite for Agents: Self-Hosting a Team Chat for AI Coworkers",
     description:
