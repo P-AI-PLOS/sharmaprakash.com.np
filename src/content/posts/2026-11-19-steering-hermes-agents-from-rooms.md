@@ -86,6 +86,18 @@ Not everything moved. Potts asked EM to schedule a one-shot job to resume the im
 
 Engineering commands from a room turn need an admitted Kanban claim, and a chat message isn't one. EM recorded the refusal on the card and asked for the authorised route instead. That's the harness doing its job. It's slower in the moment, and it's why I trust what EM tells me.
 
+## When a fix lands, the conversation hears about it
+
+One problem kept coming back early on. EM would ship a fix, but my chat with Potts never noticed. Potts kept answering from what it knew when the conversation started, and I had to tell it by hand that something had changed.
+
+Three pieces closed that gap:
+
+- **Completion wakes the room.** When an engineering card finishes, EM's `factory_hq_update` tool posts a receipt into Factory HQ, and that receipt wakes Potts. In the test run, the worker finished, EM's completion event reached the room, and Potts acknowledged it on the next event, with no polling and no nudge from me.
+- **Updates go back to the original conversation.** Potts's `potts_photo_update` tool sends a labelled automation message into the exact conversation where I made the request, not a separate bot chat I would never open.
+- **Fixes load without a restart.** Plugins hot-reload, so a corrected tool reaches rooms that are already running. Work in progress doesn't stop for a deploy.
+
+Now an engineering fix shows up where I'm already talking, and the assistant carries on with it.
+
 ## What the migration taught the agents
 
 The rule that came out of this thread is now written into every NAS task brief and the engineering runbook: **a ready email or a completed task does not prove the migration is complete.** Completion means counted files, matched hashes and photos visible in Synology Photos.
