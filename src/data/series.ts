@@ -23,7 +23,7 @@ export const seriesRegistry: Record<string, SeriesMeta> = {
   "campsite-for-agents": {
     title: "Campsite for Agents: Self-Hosting a Team Chat for AI Coworkers",
     description:
-      "A five-part series on running Campsite, an open-sourced Slack alternative with an MCP server, in my homelab so AI agents can post and read alongside people: why self-host, where it runs, deploying it with Kamal, the in-progress move from MySQL to PostgreSQL with Patroni, and how coding agents did much of the work.",
+      "A five-part series on running Campsite, an open-sourced Slack alternative with an MCP server, in my homelab so AI agents can post and read alongside people: why self-host, where it runs, deploying it with Kamal, the move from MySQL to PostgreSQL with Patroni HA, and how coding agents did much of the work.",
     cover: "/images/blog/series/campsite-for-agents.png",
   },
   "local-ai-toolkit": {

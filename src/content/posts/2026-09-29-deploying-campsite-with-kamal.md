@@ -1,11 +1,12 @@
 ---
 title: "Deploying Campsite with Kamal: Split Configs, Exact-Commit Images and a Secrets Preflight"
 date: "2026-09-29T18:00:00+05:45"
+last_modified_at: "2026-11-16T21:00:00+05:45"
 directory: homelab
 category: ["Homelab"]
 categories: ["technical"]
 tags: ["homelab", "Campsite", "Kamal", "Docker", "Forgejo", "deployment"]
-excerpt: "Six Kamal configs for six runtimes, a background worker that can't be started by accident, images tagged with the exact commit they came from, and a secrets check that never prints a value."
+excerpt: "One Kamal config per runtime, a background worker that can't be started by accident, images tagged with the exact commit they came from, and a secrets check that never prints a value."
 series: campsite-for-agents
 seriesOrder: 3
 cover: "/images/blog/campsite-for-agents/deploying-campsite-with-kamal/cover.png"
@@ -16,58 +17,35 @@ comments: true
 share: true
 ---
 
-[The infrastructure overview explains where Campsite's services run across three VMs and why they are placed in separate failure domains](/homelab/where-campsite-runs-in-my-homelab/). Here I focus on how code gets there.
+[Part 2 covers where Campsite runs](/homelab/where-campsite-runs-in-my-homelab/). This part covers how code gets there.
 
-I use [Kamal](https://kamal-deploy.org/) for all of it. There's no second deployment path: no hand-run `docker run`, no script that SSHes in and restarts things. Kamal uses SSH to reach the hosts, but SSH is its transport, not a procedure of its own. Commands run directly on a host are reserved for provisioning and break-glass recovery, and each one is a separately approved change.
+Everything goes through [Kamal](https://kamal-deploy.org/). There's no second path: no hand-run `docker run`, no script that SSHes in and restarts things. Commands run directly on a host are for provisioning and break-glass recovery only.
 
-The interesting parts are the choices around Kamal rather than Kamal itself.
+The useful parts are the choices around Kamal.
 
 ## One config per runtime
 
-Kamal deploys one application image per configuration file. Campsite has six runtimes, so it has six configs:
+Kamal deploys one application image per config file, so each Campsite runtime has its own: API, worker, web, sync, styled-text and HTML-to-image. They share host, registry, secret and network conventions, so they read as one system. But each deploys and rolls back on its own. A release that only touches the API deploys the API and worker and leaves the rest alone.
 
-| Config | Runtime |
-|---|---|
-| `deploy.campsite-api.yml` | Rails API and auth, plus the MySQL, Redis and Elasticsearch accessory declarations |
-| `deploy.campsite-worker.yml` | Sidekiq only |
-| `deploy.campsite-web-home.yml` | The private Next.js web app |
-| `deploy.campsite-sync.yml` | Collaborative-editing sync server |
-| `deploy.campsite-styled-text.yml` | Rich-text conversion service |
-| `deploy.campsite-html-to-image.yml` | HTML-to-image renderer |
+Stateful services, including the PostgreSQL members, are Kamal *accessories*. Accessory commands are scoped to explicit hosts. An unscoped command that resolves the wrong host isn't evidence of anything.
 
-They share host, registry, secret and network conventions, so they read like one system. But each can be deployed, rolled back and reasoned about on its own. When a release only touches the API, I deploy the API and the worker, and leave the other four alone. The 24 September release did exactly that.
+## The worker deploys separately
 
-Stateful services (MySQL, Redis, Elasticsearch) are Kamal *accessories*, declared alongside the API. Accessory commands and application deploys are scoped to their own hosts. I learned to keep that explicit: an unscoped command that resolves the wrong host isn't something I'd accept as evidence of anything.
+The API and the worker run the same Rails image but don't share a config. Deploying the API **can never start a queue consumer**. Sidekiq only starts when its own config is deployed, on purpose.
 
-## Writer custody: the worker deploys separately
+The worker sends mail, delivers webhooks and does anything else with side effects outside the database. Keeping it separate means I choose when it starts: after the API has migrated and is healthy, and never on two stacks at once during a move. The scheduler inside the worker is off by default, so scheduled jobs can't fire from two places.
 
-The most deliberate split is between the API and the worker. Both run the same Rails image. They don't share a config.
+## Migrations gate the API
 
-That means deploying the API **can never start a queue consumer**. The only way to start Sidekiq is to deploy `deploy.campsite-worker.yml`, on purpose.
+The API's start command runs `bin/rails db:migrate` and only starts Puma if it succeeds. Kamal won't route traffic to a container that fails its health check, so a failed migration leaves the previous API serving.
 
-I call this writer custody. The worker sends mail, delivers webhooks, and does anything else with side effects outside the database. When I moved Campsite from its old VM to the current three, both stacks existed for a while, each with its own copy of the data. Only one of them ever had a running worker: the old stack's writers were stopped before the new worker started. The same rule earns its keep in normal releases, because I choose when the new worker starts, after the API has migrated and is healthy.
+The schema is always advanced by the exact image being released. Rolling code back is one `kamal rollback` per runtime. Rolling schema back is a separate decision, because a newer release may have written data the old schema can't hold.
 
-The scheduler inside the worker goes one step further. It's disabled by default, and turning it on is a separate promotion step, so scheduled jobs can't fire twice from two places.
+## Exact-commit images
 
-## Migrations run before the API is healthy
+My laptop doesn't build production images. A builder VM does every linux/amd64 build and pushes to a private registry. Base images are pinned to digests, so a moved tag upstream can't change a build silently.
 
-The API role's start command runs `bin/rails db:migrate` and only starts Puma when the migration succeeds. Kamal won't route traffic to a container that hasn't passed its health check.
-
-So a failed migration leaves the previous, healthy API serving. The schema is always advanced by the exact image being released, not by a developer laptop or a separate job.
-
-Rolling the *code* back is one `kamal rollback` per runtime, because the previous immutable image stays available. Rolling the *schema* back is different: a newer release may already have written data that the old schema can't hold. That stays an explicit decision I make, not something a script does for me.
-
-## Images built remotely, tagged with the exact commit
-
-My laptop doesn't build production images. A builder VM in the lab does every linux/amd64 build and pushes to a private registry that only the lab machines that need it can reach. The hosts pull from there.
-
-Base images and Elasticsearch are pinned to manifest digests rather than tags. Updating a base image means refreshing its digest and rebuilding. It can't happen silently because a tag on Docker Hub moved.
-
-Every application image is tagged with the full git SHA it was built from. That sounds obvious. I got it wrong anyway.
-
-Kamal appends `_uncommitted` to the tag when you deploy from a working tree with uncommitted changes. Before 24 September, the running API and worker were `…_uncommitted_…` images. They worked. But their tag no longer told me exactly what code was inside, which defeats the point of tagging.
-
-The fix was procedural, not technical. Releases now deploy from a **clean, detached worktree at the merged commit** on the review server:
+Every image is tagged with the full git SHA. Kamal appends `_uncommitted` when you deploy from a dirty working tree, and such a tag no longer says what code is inside. So releases deploy from a **clean, detached worktree at the merged commit**:
 
 ```sh
 git fetch forgejo
@@ -76,61 +54,46 @@ cd ../campsite-release
 # preflight, then deploy the runtimes this release touches
 ```
 
-The 24 September release deployed the API and worker this way, from the merged revision, with no `_uncommitted` suffix. The older images are still in the registry, so `kamal rollback` can still reach them. If you work with [git worktrees](/ai/git-worktrees-branches-as-places/) already, this costs nothing: a release is just another place to check out a commit.
+If you already use [git worktrees](/ai/git-worktrees-branches-as-places/), this costs nothing: a release is just another place to check out a commit.
 
 ## A secrets preflight that never prints a value
 
-Kamal reads secrets through a value-free bridge file: it lists which environment variables each config needs, and the values come from an encrypted local profile loaded at deploy time. No value belongs in a deploy YAML, an image layer, git history or command output.
+Kamal reads secrets through a bridge file that lists environment references only. The values come from an encrypted local profile at deploy time. No value belongs in a deploy YAML, an image layer, git history or command output.
 
-Before rendering, building or deploying any Campsite config, a preflight runs:
+Before any build or deploy, a preflight runs:
 
 ```sh
 mise -E deploy exec -- script/check-campsite-kamal-secrets
 ```
 
-It derives the required secret *names* from every `deploy.campsite-*.yml` file. It checks that each config points at the dedicated bridge file and that the bridge only contains environment references, not values. Then it reports each name as present or missing and exits non-zero if anything is missing. It never prints a value.
+It derives the required secret *names* from every Campsite deploy config, checks that each config uses the bridge and that the bridge holds no values, then reports each name as present or missing. It exits non-zero on anything missing and never prints a value, so it's safe to run inside an agent session.
 
-A narrower mode checks only the secrets a single image *build* needs. That exists so a build doesn't require runtime credentials it has no business touching. It doesn't count as deploy evidence: the full check still gates every application or accessory change.
-
-By design, credentials are also grouped by what they're for (the backup group belongs to the backup setup, which isn't running yet):
-
-- **runtime**: least privilege for normal reads and writes;
-- **migration**: temporary source-read and destination-write access, revoked after the rollback window;
-- **backup**: can append backups but isn't the runtime credential, so the application can't delete backup history;
-- **operator**: provisioning and restore authority, never injected into an application.
+A narrower mode checks only what an image build needs, so builds don't touch runtime credentials. Credentials are grouped by purpose: runtime (least privilege), migration (temporary), backup (append-only, not usable by the app) and operator (never injected into an application).
 
 ## Review on Forgejo
 
-Code review happens on a Forgejo instance on the NAS, not on GitHub. The upstream GitHub remote is read-only for me by rule: nothing gets pushed there.
-
-Pull requests are opened with Forgejo's AGit flow. Instead of pushing a branch and then opening a PR in the web UI, you push to a special ref:
+Review happens on a self-hosted Forgejo, not GitHub. The upstream GitHub remote is read-only for me. Pull requests use Forgejo's AGit flow:
 
 ```sh
 git push forgejo HEAD:refs/for/main
 ```
 
-Forgejo turns that into a pull request against `main`. It suits agent-driven work well: a lane can open a PR with one git command and no API token for the forge. There's no CI on this repository, so I run the relevant tests, lint and builds locally, and the PR is where the evidence gets recorded.
+That opens a PR against `main` with one git command and no forge API token, which suits agent work. There's no CI on this repository, so tests, lint and builds run locally and the PR records the evidence.
 
 ## What a release checks
 
-The 24 September release is typical. After the preflight passed and the API and worker were deployed:
+After deploy: API and auth health endpoints return 200, Sidekiq shows its processes with sane queues, and search document counts match the database. Pre-existing failed jobs get written down so they aren't mistaken for regressions.
 
-- the API and auth health endpoints returned 200;
-- Sidekiq showed two processes and empty queues;
-- search matched the database: 768 of 768 posts and 69 of 69 notes, and known-record searches returned the right results.
+A 200 isn't a working product, as I've argued in [exit 0 is not evidence](/ai/exit-0-is-not-evidence/). Health checks are the floor; real flows such as signing in, uploading and searching are the proof.
 
-A few failed mail retries and old dead jobs showed up too. They predated the release and weren't related, but I wrote them down so I wouldn't mistake them for a regression later.
+## What I'd keep
 
-A health endpoint returning 200 isn't the same as a working product, and I've written about [why exit codes aren't evidence](/ai/exit-0-is-not-evidence/). The design lists the synthetic checks that should back each release: the private web page, an authenticated API call, a WebSocket connection, a styled-text conversion, a rendered PNG, an object upload and download, a queued job, and a search. Some of those are covered. An authenticated browser flow, a two-client collaborative edit and a browser upload are still open. Until they pass, I describe the deployment as working with known gaps, not as done.
+- **One config per runtime.** Small releases stay small.
+- **A worker you start on purpose.** Accidental side effects are the ones you can't undo.
+- **Exact commit tags from a clean worktree.** The tag answers "what's running?"
+- **A preflight that checks names, never values.**
 
-## What I'd do the same way again
-
-- **One config per runtime.** It makes small releases small.
-- **A worker you have to start on purpose.** Accidental side effects are the ones I can't undo.
-- **Exact commit tags from a clean worktree.** The tag should answer "what's running?" without a follow-up question.
-- **A preflight that checks names, never values.** It's safe to run anywhere, including inside an agent session.
-
-That last point matters because coding agents handled much of this implementation; [the engineering account describes how their work was divided into lanes and verified before merge](/homelab/letting-coding-agents-build-campsite/). The biggest change this release process has had to carry so far is the database move; [the migration account covers dual-adapter testing, data-copy validation and the PostgreSQL HA setup](/homelab/campsite-mysql-to-postgresql-patroni/).
+Next: [moving the database from MySQL to PostgreSQL with Patroni](/homelab/campsite-mysql-to-postgresql-patroni/).
 
 <!--
 # Image prompt
