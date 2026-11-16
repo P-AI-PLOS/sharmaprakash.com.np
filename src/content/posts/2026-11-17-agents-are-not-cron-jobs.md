@@ -46,7 +46,7 @@ If you use an agent only as a scheduled prompt with no tools, no state and no wa
 
 Most of my useful agent work starts from a conversation, not a timer. I ask for something, the agent plans, and partway through I correct it.
 
-A recent example: I asked my assistant to move my Google Photos library to the NAS. Its first answer was a polite list of reasons it couldn't. After a few corrections in a shared room, the agents moved the Takeout archives to the NAS, and I finished the copy with Codex. Part 3 covers that thread in detail.
+A recent example: I asked my assistant to move my Google Photos library to the NAS. Its first answer was a polite list of reasons it couldn't. After a few corrections in a shared room, the agents moved the Takeout archives to the NAS, and an engineering agent later verified every file in the library. Part 3 covers that thread in detail.
 
 ![The Factory HQ room in the Hermes web app, with EM, Reviewer, HOP, HOG and Potts as members and the engineering roster in the sidebar.](/images/blog/hermes-factory/factory-hq-room.webp)
 

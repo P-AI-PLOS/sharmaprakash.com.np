@@ -102,7 +102,7 @@ Now an engineering fix shows up where I'm already talking, and the assistant car
 
 The rule that came out of this thread is now written into every NAS task brief and the engineering runbook: **a ready email or a completed task does not prove the migration is complete.** Completion means counted files, matched hashes and photos visible in Synology Photos.
 
-The migration is done, though not the way the room planned it. For the last stretch I switched to Codex, which copied the library into `/volume1/homes/prakash/Photos` and cleaned up the leftovers. About 33,000 files, 129 GB. I skipped the hash-by-hash reconciliation the reviewer had specified; the photos are on the NAS, and that was enough for me. The task cards in the room still said blocked afterwards, a reminder that the board only knows what someone tells it.
+The migration is done. The final copy into `/volume1/homes/prakash/Photos` happened outside the room, so I sent the card back to engineering with a narrower job: prove it. The worker hashed every photo and video in the three Takeout archives and matched each one against the library: **16,175 files, 31.5 GB, every one matched by SHA256, none missing.** That's the rule from this thread applied to my own shortcut: the copy said done, the hashes proved it.
 
 None of this was one prompt on a timer. It was one request, a route engineering built on demand, and a few corrections typed into a room at the right moment.
 
