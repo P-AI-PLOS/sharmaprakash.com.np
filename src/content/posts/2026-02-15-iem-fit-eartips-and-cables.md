@@ -70,7 +70,7 @@ A painful fit needs changing. Comfort counts: a slightly smaller tip you wear al
 
 ## Cables and 4.4 mm balanced
 
-Many current IEMs use detachable cables, often with swappable plugs. The Crinear Daybreak I am considering, for example, comes with 3.5 mm and 4.4 mm plugs.
+Many current IEMs use detachable cables, often with swappable plugs. Some ship with both 3.5 mm and 4.4 mm plugs. Mine, the 7Hz x Crinacle Zero 2, is plain 3.5 mm, which is all the iPod needs.
 
 | Connection | What it is | Where it helps |
 |---|---|---|
@@ -101,4 +101,3 @@ With fit sorted, the next part turns to sources: DAC dongles, digital audio play
 - [IEM ear tips fit and seal guide, Campfire Audio](https://www.campfireaudio.com/blogs/insights/iem-ear-tips-fit-seal-guide)
 - [Foam vs silicone ear tips, Soundbrenner](https://www.soundbrenner.com/blogs/articles/foam-vs-silicone-ear-tips-iem-fit-guide)
 - [Best IEM tips thread (tip measurements on a Moondrop Stellaris), Head-Fi](https://head-fi.org/threads/best-iem-tips.626895/page-223)
-- [Crinear Daybreak, headphones.com](https://headphones.com/products/crinear-daybreak-in-ear-headphones)

@@ -22,7 +22,7 @@ share: true
 last_modified_at: "2026-11-06T13:00:00+05:45"
 ---
 
-This guide keeps my headphone shortlist alongside the source checks needed before buying. I have not run a controlled comparison of these players, so it does not rank their sound.
+This guide covers the source checks that matter before buying IEMs.
 
 ## The two players
 
@@ -40,7 +40,7 @@ These are models and approximate price ranges recorded in the October 2026 compa
 
 The [format guide](/technical-notes/what-you-can-actually-hear/) explains sample rate and bit depth. Format support alone does not establish an audible ranking.
 
-For IEM pairing, verify output impedance rather than assuming it from the model or price. The practical comparison below separates features from unmeasured sound differences.
+For IEM pairing, verify output impedance rather than assuming it from the model or price.
 
 ## Comparison priorities
 
@@ -52,8 +52,6 @@ For IEM pairing, verify output impedance rather than assuming it from the model 
 | Battery | Measured runtime under comparable playback conditions |
 | Controls | Click wheel or touchscreen, and ease of use |
 | Cost | Player, storage, repairs and accessories together |
-
-I have not run a controlled listening comparison of these players. Numerical sound scores would imply evidence I do not have.
 
 ## Reasons to consider the Walkman
 
@@ -69,36 +67,18 @@ The [output impedance guide](/technical-notes/dac-dongles-daps-and-output-impeda
 
 Compare the IEM's impedance curve, source noise and available level. Where a figure is missing, compatibility remains an open question.
 
-## IEM shortlist
+## What I bought
 
-Prices and product shortlist were recorded in October 2026 and retained in the November revision. They are not February prices or guaranteed current offers. Pairings are candidates to check, not measured compatibility results.
+I bought the **7Hz x Crinacle Zero 2**: one 10 mm dynamic driver, 32 Ω, 108 dB/Vrms, wired 3.5 mm.
 
-These picks come from my own shortlist, sorted by signature (part 2) and by how forgiving they are of the source.
+Why it suits the iPod: a single dynamic driver usually has a fairly flat impedance curve, so the iPod's few ohms of output impedance should barely change its tuning. Its 32 Ω is also within the load range the iPod's headphone amp was designed for.
 
-| Signature | Pick | Approx. price | Drivers | Pairing status |
-|---|---|---|---|---|
-| Neutral | Crinear Daybreak | $170 | 1 DD + 2 BA + 2 micro-planar | Not measured here |
-| Neutral | Softears RSV | $730 | Multi-BA | Not measured here |
-| Bassy | Softears Volume S | $320 | Hybrid | Not measured here |
-| Bassy | Thieaudio Origin | $849 | Not checked | Not measured here |
-| Bright | Softears RS10 | $2,100 | 10, mostly BA | Not measured here |
-
-The shortlist is a starting point for comparison. I have not measured these pairings or established that one player sounds better with them.
+What it is not: a detail monster or a soundstage showpiece. Pricier hybrids may resolve more, but they also tend to be fussier about the source. For an iPod, an easy, coherent single-DD set is a sensible match, not a compromise.
 
 <figure>
 <img src="/images/blog/audio/pocket-hi-fi/pairing-guide.svg" alt="A pairing guide: an easy-to-drive IEM with a fairly flat impedance curve is likely to suit the iPod; a demanding IEM with low impedance dips is safer with a low-output-impedance source that has enough power." loading="lazy" width="960" height="380" />
 <figcaption>Use the curve and power needs as a starting point, then listen with the IEM you actually own.</figcaption>
 </figure>
-
-## My buying order
-
-1. **Fit first:** try the supplied tips before replacing equipment.
-2. **Crinear Daybreak:** a candidate from my neutral shortlist; check fit and source compatibility.
-3. **Softears Volume S:** a candidate when comparing bass-oriented tunings.
-4. **Thieaudio Origin:** a more expensive alternative to audition, not an automatic quality upgrade.
-5. **Another player:** consider one when you need a specific connection, app or measured output capability.
-
-This is a shopping order, not a listening-test ranking.
 
 ## Settings on both players
 
@@ -117,7 +97,7 @@ Crossfeed is a reasonable exception if old hard-panned stereo recordings tire yo
 
 ## What a comparison can establish
 
-I have not run a controlled blind comparison of these players. Use the same recording and headphones, match levels and keep processing settings consistent. A product's price or driver layout cannot substitute for a measurement of its output or impedance curve.
+To compare players yourself, use the same recording and headphones, match levels and keep processing settings consistent. A product's price or driver layout cannot substitute for a measurement of its output or impedance curve.
 
 ## Related checks
 
@@ -130,9 +110,6 @@ Use the [source guide](/technical-notes/dac-dongles-daps-and-output-impedance/) 
 - [Moon Audio: Sony NW-ZX707](https://moon-audio.com/sony-walkman-nw-zx707-music-player.html)
 - [ShopSavvy: Sony NW-WM1AM2 retailer prices](https://shopsavvy.com/products/sony-nw-wm1am2-walkman.md)
 - [Funkykit: Sony launches NW-WM1ZM2 and NW-WM1AM2](https://www.funkykit.com/news/audio-visual/sony-electronics-debuts-two-new-premium-music-players/)
+- [7Hz x Crinacle Zero 2, Gadgetbyte Nepal](https://www.gadgetbytenepal.com/product/7hz-x-crinacle-zero-2/)
 - [What Hi-Fi: Sony NW-WM1ZM2 review](https://www.whathifi.com/reviews/sony-nw-wm1zm2)
 - [Worldwide Stereo: Sony NW-WM1ZM2](https://www.worldwidestereo.com/products/sony-nw-wm1zm2-256gb-signature-series-premium-digital-music-player)
-- [Crinear Daybreak, headphones.com](https://headphones.com/products/crinear-daybreak-in-ear-headphones)
-- [Softears RSV vs Thieaudio Origin, IEM Ranking](https://www.iemranking.com/compare/softears-rsv--vs--thieaudio-origin)
-- [Softears RSV vs Volume S, IEM Ranking](https://www.iemranking.com/compare/softears-rsv--vs--softears-volume-s)
-- [Softears RS10, Audio Essence](https://audioessence.ch/products/softears-rs10-reference-iems)
