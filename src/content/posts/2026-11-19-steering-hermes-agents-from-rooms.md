@@ -90,7 +90,7 @@ Engineering commands from a room turn need an admitted Kanban claim, and a chat 
 
 The rule that came out of this thread is now written into every NAS task brief and the engineering runbook: **a ready email or a completed task does not prove the migration is complete.** Completion means counted files, matched hashes and photos visible in Synology Photos.
 
-The migration is done. The library now lives in `/volume1/homes/prakash/Photos`: about 33,000 files, 129 GB, in the year/month layout Synology Photos expects. One loose end proves the rule: the agents finished the import but left their task cards marked blocked, so the board said less was done than the NAS showed. Counting the files, not reading the card, is what settled it.
+The migration is done, though not the way the room planned it. For the last stretch I switched to Codex, which copied the library into `/volume1/homes/prakash/Photos` and cleaned up the leftovers. About 33,000 files, 129 GB. I skipped the hash-by-hash reconciliation the reviewer had specified; the photos are on the NAS, and that was enough for me. The task cards in the room still said blocked afterwards, a reminder that the board only knows what someone tells it.
 
 None of this was one prompt on a timer. It was one request, a route engineering built on demand, and a few corrections typed into a room at the right moment.
 
