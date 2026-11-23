@@ -98,6 +98,13 @@ const HEADERS = {
     sublineSize: 25, pill: "active work ≠ total storage", pillWidth: 700,
     diagram: "model-artifact-labels",
   },
+  "2026-11-23-inkling-2-mini-vs-qwen-on-shuri": {
+    chip: "LOCAL AI TOOLKIT · 4", chipWidth: 300,
+    headline: ["The Bigger File", "Answered Faster"], headlineSize: 57,
+    subline: ["Inkling 2 Mini and Qwen 27B", "on a Radeon 780M."],
+    sublineSize: 25, pill: "Shuri · 64 GB DDR5 · Radeon 780M", pillWidth: 760,
+    diagram: "shuri-decode",
+  },
   "2026-09-05-what-happens-when-you-send-an-ai-prompt": {
     chip: "RUNNING AI · PART 1", chipWidth: 280,
     headline: ["What Happens", "After Send?"], headlineSize: 62,
@@ -197,6 +204,7 @@ const diagrams = {
   "local-runtime-layers": localRuntimeLayers,
   "gpu-backend-options": gpuBackendOptions,
   "model-artifact-labels": modelArtifactLabels,
+  "shuri-decode": shuriDecode,
   "harness-loop": harnessLoop,
   "inference-flow": inferenceFlow,
   "memory-budget": memoryBudget,
@@ -503,6 +511,25 @@ function gpuBackendOptions() {
 function modelArtifactLabels() {
   return ["identity · model + revision", "container · GGUF / safetensors", "precision · BF16 / quantized", "routing · dense / MoE"]
     .map((label, i) => diagramBox(990, 135 + i * 120, 700, label, i === 3)).join("");
+}
+
+function shuriDecode() {
+  const results = [
+    { label: "Inkling · llama.cpp", rate: 13.48, color: palette.amber500 },
+    { label: "Inkling · Strata", rate: 8.9, color: palette.ink400 },
+    { label: "Qwen · llama.cpp", rate: 4.14, color: palette.ink400 },
+  ];
+  const rows = results.map(({ label, rate, color }, index) => {
+    const y = 263 + index * 115;
+    const width = rate / 15 * 585;
+    return `<text x="986" y="${y}" font-family="Arial" font-size="29" font-weight="700" fill="${palette.navy}">${escapeXml(label)}</text>
+      <rect x="986" y="${y + 20}" width="585" height="27" rx="13" fill="${palette.ink100}"/>
+      <rect x="986" y="${y + 20}" width="${width}" height="27" rx="13" fill="${color}"/>
+      <text x="1660" y="${y + 45}" text-anchor="end" font-family="Arial" font-size="32" font-weight="700" fill="${palette.navy}">${rate.toFixed(2)}</text>`;
+  }).join("");
+  return `<rect x="928" y="137" width="795" height="475" rx="30" fill="${palette.surface}" stroke="${palette.ink200}" stroke-width="2" filter="url(#mini-shadow)"/>
+    <text x="986" y="205" font-family="Arial" font-size="31" font-weight="700" fill="${palette.navy}">Short-context generation · tok/s</text>
+    ${rows}`;
 }
 
 function memoryBudget() {

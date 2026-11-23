@@ -1,61 +1,57 @@
 ---
-title: "Inkling 2 Mini vs Qwen 27B on a Radeon 780M"
+title: "The Bigger File Answered Faster: Inkling 2 Mini vs. Qwen on Shuri"
 date: "2026-11-23T23:45:00+05:45"
 directory: ai
 category: ["AI"]
 categories: ["ai"]
-excerpt: "I benchmarked Inkling 2 Mini and Qwen 27B on a 64 GB mini PC, then ran the same Inkling weights through Strata to see which engine I would keep serving."
+excerpt: "Two models took up about 16 GiB each. One wrote three times as fast. Then Strata made the faster model quicker at reading and slower at answering."
 tags: ["local AI", "homelab", "Inkling", "Qwen", "llama.cpp", "Strata", "Vulkan", "ROCm"]
 series: local-ai-toolkit
 seriesOrder: 4
+cover: "/images/blog/ai/inkling-2-mini-vs-qwen-on-shuri.png"
+thumb: "/images/blog/ai/inkling-2-mini-vs-qwen-on-shuri.png"
+use_featured_image: true
 draft: false
 ---
 
-On Shuri, my AMD mini PC, Inkling 2 Mini generated **13.48 tokens per second**. The Qwen 27B build I already had generated **4.14 tokens per second**. Both model files occupied roughly 16 GiB on disk. When I ran the same Inkling file through Strata, it read prompts faster but generated replies more slowly. I kept Inkling on llama.cpp.
+The first useful question I asked Inkling 2 Mini was the sum of 17 and 25. It said **42**. A calculator would have done it faster, but a calculator wouldn't have given me a reason to spend the evening comparing GPU runtimes.
 
-## The machine and the model files
+I wanted to know whether the mini PC in my homelab could run a model I'd actually want to wait for. The first surprise was that the slightly bigger file answered three times as fast as the Qwen model I already had. The second was that I could make Inkling faster at reading and slower at writing without changing the model file at all.
 
-Shuri is a Minisforum UM880 Plus running Ubuntu, with a Ryzen 7 8845HS, integrated Radeon 780M graphics, and 64 GB of DDR5. The GPU shares system memory. I could offload either model to it without a discrete graphics card.
+## Same shelf space, different pace
 
-I used the ggml-org `IQ4_NL` build of Inkling 2 Mini (16.41 GiB, about 4.5 bits per weight) and the `Q4_K_M` file from my existing `qwen3.8:27b` Ollama tag (15.65 GiB). The llama.cpp benchmark identified the latter as a 27B model with GGUF architecture `qwen35`. The Ollama tag identifies the installed artifact in this test. [Inkling GGUF files](https://huggingface.co/ggml-org/Inkling-2-Mini-GGUF/tree/main)
+Shuri is my Minisforum UM880 Plus. It runs Ubuntu on a Ryzen 7 8845HS with 64 GB of DDR5 and a Radeon 780M that borrows from that memory. Both models fit on the integrated GPU. The one labelled `qwen3.8:27b` in my local Ollama library was a 15.65 GiB `Q4_K_M` GGUF. Inkling was the 16.41 GiB `IQ4_NL` GGUF, about 4.5 bits per weight. [Inkling GGUF downloads](https://huggingface.co/ggml-org/Inkling-2-Mini-GGUF/tree/main)
 
-The similar file sizes describe how much weight data I had to store. They tell me less about how much of that data the engine touches per token. Inkling is a mixture-of-experts model. Thinking Machines reports 26.4B total parameters, 3.4B active parameters, and 5.4B weight activations per token once repeated layer visits are counted. That gives a plausible reason for the gap against dense Qwen. This test measures the combined effect of architecture, quantization, and the engine's kernels. [Thinking Machines release notes](https://thinkingmachines.ai/news/inkling-2-mini/) · [A primer on GGUF, quantization, and MoE](/ai/gguf-quantization-dense-moe-model-files/)
+At their measured generation rates, **128 tokens took about 31 seconds from Qwen and under 10 from Inkling**, once generation began. Those are benchmark token counts, but the difference is easy to picture. Ten seconds is long enough to read the answer as it appears. Thirty seconds is long enough for me to switch tabs.
 
-## Inkling vs Qwen in llama.cpp
+The file size tells me what I need room to load. The architecture helps explain how much work goes into a token. Qwen is dense. Inkling is a mixture-of-experts model, so it routes tokens through a subset of its weights. Thinking Machines reports 26.4 billion parameters in total, 3.4 billion active parameters, and 5.4 billion weight activations per token once repeat visits to layers are counted. I measured the whole setup, so I can't assign the speed difference to any one of those numbers. [Thinking Machines release notes](https://thinkingmachines.ai/news/inkling-2-mini/) · [A primer on model files and mixture of experts](/ai/gguf-quantization-dense-moe-model-files/)
 
-I ran both files directly through `llama-bench` build b12651. The settings were full Vulkan offload, Flash Attention, and eight CPU threads. I ran the 512-token prompt-processing test and the 128-token short-context generation test three times for each model. Prompt processing is the work the engine does to read the input. Generation is the rate at which it produces the reply. [llama.cpp b12651](https://github.com/ggml-org/llama.cpp/releases/tag/b12651)
+## The faster engine lost the second half
 
-| Model | Model file | Prompt processing, 512 tokens | Short-context generation, 128 tokens |
+I had Inkling running on llama.cpp with Vulkan when I came across Strata. Its Inkling engine could use the exact GGUF I already had. I paused llama.cpp, pointed Strata at the same file, and gave the Radeon 780M's experimental HIP build a go. No second download and no new quantization. [Strata v0.2.20](https://github.com/Niko1221/Strata/releases/tag/v0.2.20) · [Radeon 780M build guide](https://github.com/Niko1221/Strata/blob/v0.2.20/docs/RADEON_780M.md)
+
+Strata read the 512-token prompt at **212.8 tokens/s**, up from llama.cpp's **160.49**. On a 4,096-token prompt, Strata sustained **207.1 tokens/s** and finished reading in just under 20 seconds. I could see the appeal for handing it a long document and asking for a short answer.
+
+Then the answer started. Strata managed **8.9 tokens/s** at short context, against **13.48** from llama.cpp. After a 4,096-token prefix it was **8.2** versus **11.35**. For a typical back-and-forth with a short prompt, I'd give up less than a second of reading speed to get the answer several seconds sooner. That's an estimate from the split tests. It also explains why I put the Vulkan service back.
+
+## The numbers, if you want to rerun it
+
+| Model and runtime | Read 512 tokens | Write 128 tokens at short context | Write after a 4,096-token prefix |
 | --- | ---: | ---: | ---: |
-| Inkling 2 Mini `IQ4_NL` | 16.41 GiB | 160.49 tok/s | **13.48 tok/s** |
-| Qwen 27B `Q4_K_M` | 15.65 GiB | 94.86 tok/s | **4.14 tok/s** |
+| Inkling 2 Mini · llama.cpp Vulkan | 160.49 tok/s | **13.48 tok/s** | **11.35 tok/s** |
+| Qwen 27B · llama.cpp Vulkan | 94.86 tok/s | 4.14 tok/s | — |
+| Inkling 2 Mini · Strata HIP | **212.8 tok/s** | 8.9 tok/s | 8.2 tok/s |
 
-Inkling generated about **3.3× as fast** and processed the benchmark prompt about **1.7× as fast**. After a 4,096-token prefix, its generation rate dropped to **11.35 tok/s**. A short interactive reply ran at **12.7 tok/s**, including reasoning tokens.
+I ran both model files directly in llama.cpp b12651, using full GPU offload, Flash Attention, and eight CPU threads. The table shows averages of three llama.cpp runs and single Strata runs, with hipBLASLt disabled for the latter. The engines use their own benchmark programs, and Strata's short-context decode starts from one input token. A real Inkling reply in the CLI ran at 12.7 tok/s including reasoning. These are throughput tests for text on one machine. Model quality would need a different experiment. [llama.cpp b12651](https://github.com/ggml-org/llama.cpp/releases/tag/b12651)
 
-To repeat the main comparison, run this once for each GGUF, setting `model` to its path.
+Eight threads won the small tuning sweep. Four gave 12.44 tok/s and sixteen gave 12.73. Dropping GPU layers to zero in a separate 96-token test took Inkling from 13.40 down to 4.76 tok/s. To reproduce the main llama.cpp comparison, set `model` to each GGUF in turn.
 
 ```sh
 llama-bench -m "$model" -p 512 -n 128 -ngl 99 -t 8 -fa on -r 3
 ```
 
-I also changed the thread count while keeping the GPU offload settings. Four threads produced 12.44 tok/s, eight produced 13.48, and sixteen produced 12.73. An initial 96-token comparison measured 13.40 tok/s with full offload and 4.76 with zero GPU layers. Those results made eight threads and full offload a straightforward choice on this machine.
+## What stayed plugged in
 
-## The same Inkling GGUF in Strata
+Inkling now starts with Shuri and serves OpenCode and my three Hermes factories through llama.cpp's OpenAI-compatible API. I set it up with two request slots, 65,536 tokens per slot, and quantized KV caches. The headline speeds are from the single-request benchmark. Qwen is still on disk whenever I want to try it again.
 
-I built Strata v0.2.20's Inkling engine for the Radeon 780M's `gfx1103` target. The HIP backend used the same `IQ4_NL` GGUF directly and reported native execution for all 3,072 routed expert entries, with no requantization. I paused the resident llama.cpp service during the test and disabled hipBLASLt for the experimental 780M path. [Strata v0.2.20](https://github.com/Niko1221/Strata/releases/tag/v0.2.20) · [Strata’s Radeon 780M build guide](https://github.com/Niko1221/Strata/blob/v0.2.20/docs/RADEON_780M.md)
-
-| Inkling test | llama.cpp Vulkan | Strata HIP |
-| --- | ---: | ---: |
-| Prompt processing, 512 tokens | 160.49 tok/s | **212.8 tok/s** |
-| Short-context generation | **13.48 tok/s** | 8.9 tok/s |
-| Generation after a 4,096-token prefix | **11.35 tok/s** | 8.2 tok/s |
-
-Strata also processed a 4,096-token prompt at **207.1 tok/s**, taking **19.77 seconds**. I measured 8.7 tok/s of generation after its 512-token prompt. The runtimes use different benchmark programs. The llama.cpp figures are three-run averages, while the Strata figures are single runs. Strata's short-context test starts from one prompt token, and both short-context tests generate 128 tokens.
-
-For a request with 512 input tokens and a 128-token reply, my measurements suggest Strata saves less than a second on prompt processing, while llama.cpp has the larger advantage during generation. I treated that as a guide to the trade-off. An end-to-end timing would need identical prompts, sampling, and output lengths across the two runtimes.
-
-## What stayed on Shuri
-
-I restored llama.cpp after the Strata trial and made Inkling the always-on local model on Shuri. It runs under systemd, using full Vulkan offload, Flash Attention, and eight CPU threads. The service now has two request slots with 65,536 tokens per slot and quantized KV caches. OpenCode and my engineering, product, and growth Hermes factories can select it through its OpenAI-compatible API. I verified actual replies from both clients. I kept the Qwen files on disk so I can load them again when I want to compare a task.
-
-The speed figures came from single-request tests. My comparison also focused on text throughput, so a model-quality decision would need a separate set of prompts and scoring. For the day-to-day local endpoint, Inkling on llama.cpp was the combination that spent less time generating the replies I wanted to read.
+My next local model will get two stopwatch readings. One for how long it spends reading what I sent, and one for how long I spend watching the answer appear.
