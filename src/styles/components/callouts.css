@@ -1,0 +1,47 @@
+/* Callouts: GitHub-style alerts rendered by rehype-github-alerts.
+   Write them in Markdown as a blockquote whose first line is the type:
+
+     > [!CAUTION]
+     > The thing that went wrong, and what fixed it.
+
+   Types: NOTE, TIP, IMPORTANT, WARNING, CAUTION. Each gets a faint tinted
+   background, a full border in the same hue and a small uppercase label. */
+
+.markdown-alert {
+  --callout: #2563eb;
+  margin: 1.75rem 0;
+  padding: 0.9rem 1.15rem 0.95rem;
+  border: 1px solid color-mix(in oklab, var(--callout), transparent 55%);
+  border-left-width: 4px;
+  border-left-color: var(--callout);
+  border-radius: 0.5rem;
+  background: color-mix(in oklab, var(--callout), transparent 93%);
+}
+
+.markdown-alert > :first-child { margin-top: 0; }
+.markdown-alert > :last-child  { margin-bottom: 0; }
+
+.markdown-alert .markdown-alert-title {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  margin: 0 0 0.4rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: color-mix(in oklab, var(--callout), black 18%);
+}
+
+.markdown-alert .markdown-alert-title svg {
+  width: 1rem;
+  height: 1rem;
+  fill: currentColor;
+  flex: none;
+}
+
+.markdown-alert-note      { --callout: #2563eb; }
+.markdown-alert-tip       { --callout: #15803d; }
+.markdown-alert-important { --callout: #7c3aed; }
+.markdown-alert-warning   { --callout: var(--accent-600); }
+.markdown-alert-caution   { --callout: #dc2626; }

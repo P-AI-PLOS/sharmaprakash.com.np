@@ -3,6 +3,7 @@ import sitemap from "@astrojs/sitemap";
 import react from "@astrojs/react";
 import mdx from "@astrojs/mdx";
 import rehypePrettyCode from "rehype-pretty-code";
+import { rehypeGithubAlerts } from "rehype-github-alerts";
 import tailwindcss from "@tailwindcss/vite";
 import { unified } from "@astrojs/markdown-remark";
 import { podcastFeeds } from "./src/integrations/podcast-feeds.ts";
@@ -34,7 +35,7 @@ export default defineConfig({
   markdown: {
     syntaxHighlight: false,
     processor: unified({
-      rehypePlugins: [[rehypePrettyCode, prettyCodeOptions]],
+      rehypePlugins: [rehypeGithubAlerts, [rehypePrettyCode, prettyCodeOptions]],
     }),
   },
   redirects: {

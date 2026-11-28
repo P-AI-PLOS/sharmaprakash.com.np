@@ -64,7 +64,8 @@ My everyday Pi configuration carried about a dozen extension packages, a GSD wor
 
 I cut it back to three packages (the Claude provider, a status line and a usage meter), one small extension, six short skills written for Pi, and a 1.7 KB `AGENTS.md` holding only the rules that matter for coding. The same trivial prompt now costs **16,709 tokens**. Everything removed is parked in a `disabled/` folder rather than deleted, so I can bring back whatever I miss.
 
-One cleanup step went wrong in a useful way. Setting `defaultTools` to an empty list doesn't mean "no extras". It means no tools at all, and Pi's next run failed with `Tool bash not found`. Removing the key fixed it.
+> [!CAUTION]
+> One cleanup step went wrong in a useful way. Setting `defaultTools` to an empty list doesn't mean "no extras". It means no tools at all, and Pi's next run failed with `Tool bash not found`. Removing the key fixed it.
 
 ## Making Hermes usable
 
@@ -77,7 +78,7 @@ Hermes was the slowest by far, and the reasons had little to do with the model. 
 ## A few traps worth knowing
 
 - **Close stdin.** Non-interactive `pi -p` waited on standard input until I redirected it from `/dev/null`.
-- **Interactive prompts hang agents.** In a new worktree, `mise` asks whether to trust the project's config. Claude Code's shell closes stdin, so mise fails fast and the agent runs `mise trust`. Pi's shell leaves stdin open, so it waited six minutes for an answer that never came. Trusting the folder in advance fixed it.
+- **Interactive prompts hang agents.** In a new worktree, `mise` asks whether to trust the project's config. Claude Code's shell closes stdin, so mise fails fast and the agent runs `mise trust`. Pi's shell leaves stdin open, so it waited six minutes for an answer that never came. Trusting the folder in advance fixed it, and mise's `trusted_config_paths` setting in my dotfiles now covers every workspace folder, so a new worktree never prompts.
 - **Don't override your own sandbox config.** My Codex config grants full access. Passing `-s workspace-write` from a script quietly replaced it with a sandbox that blocked mise's state directory and the worktree's `.git` folder.
 - **One Hermes launch at a time.** Two concurrent Hermes commands on the same install deadlocked on the Claude provider plugin's lock.
 
@@ -85,17 +86,24 @@ Hermes was the slowest by far, and the reasons had little to do with the model. 
 
 Hermes is not really a harness. It's an agent runtime: a long-running gateway that takes instructions from Telegram, [Campsite](https://github.com/TruemarkDev/campsite/issues) rooms, a kanban board or cron, and keeps profiles, memory and schedules for them. It contains an agent loop, which is what the table above measured. As a router it's useful. As the thing that edits code, it brings that whole runtime to every task.
 
-So I split the two jobs. The lean Pi setup from my laptop now goes onto the VM through Ansible, with its own Claude token in a private file. On Friday it answers a one-word prompt in **8 seconds**, against 43 to 59 seconds for the lean Hermes profile. A new Hermes profile called `dispatch` has one tool, the terminal, a four-turn cap and one instruction: run `pi -p` with the task in the repository and return Pi's answer.
+So I split the two jobs. The lean Pi setup from my laptop now goes onto the VM through Ansible, with its own Claude token in a private file. On Friday it answers a one-word prompt in **8 seconds**, against 43 to 59 seconds for the lean Hermes profile. A new Hermes profile called `dispatch` has one tool, the terminal, and one instruction: hand the task to Pi and return Pi's answer.
 
-| Run | Result | Hermes tokens ¹ | Pi tokens | Time |
-| --- | --- | ---: | ---: | ---: |
-| Dispatch → Pi, first run | ❌ upgraded, then stopped before verifying and committing | 33,926 | 36,249 | 487s |
-| Dispatch → Pi, second run | ✅ committed | not measured ² | 72,107 | 142s |
+These numbers come from Hermes's own per-session usage table, which splits cache reads from writes, so unlike the first table they can be priced.
 
-¹ Self-reported by Hermes, as above.
-² Hermes's `insights` command hung on the second run, so only Pi's share was recorded.
+| Run | Result | Hermes | Pi | Total cost | Time |
+| --- | --- | ---: | ---: | ---: | ---: |
+| 1. Dispatcher runs `pi -p` | ❌ stopped before committing | 33,926 tokens, 3 calls | 36,249 | — | 487s |
+| 2. Same, second try | ✅ | 32,472 tokens, 3 calls | 72,107, ~4 calls | ~$0.21 | 142s |
+| 3. One-line `pi-task` wrapper | ✅ | **20,293** tokens, **2** calls | 111,921, 6 calls | ~$0.30 | 142s |
+| Pi alone, thinking set to low | ✅ | — | **53,377**, 3 calls | **$0.12** | 52s |
 
-The first run failed in an instructive way. On its second step, the model wrote its next shell command as plain text instead of an actual tool call, and Pi took that as a finished answer. The second run went through cleanly. Handing the work to Pi didn't make the Hermes layer free either: the dispatcher alone still started up for minutes and spent about 34,000 tokens routing a single command.
+The first run failed in an instructive way. On its second step, the model wrote its next shell command as plain text instead of an actual tool call, and Pi took that as a finished answer.
+
+The second run worked but showed waste on the Hermes side. Pi's raw JSON output was unreadable to the dispatcher, so Hermes made a third call to grep Pi's log and run `git log` itself. A small wrapper, `pi-task`, now runs Pi, keeps the JSON log for measurement and prints only Pi's final answer. The dispatcher dropped to two calls and about 20,000 tokens.
+
+That made the remaining cost visible, and it sits in the bridge between Pi and Claude. In run 3, Pi's six calls wrote **96,450 tokens to the cache and read back only 13,482**. The `claude-code-pi` bridge starts a fresh `claude -p` for each Pi turn, so Claude Code's long prompt is cached again every time and never reused. At 25 times the price of a cache read, those writes were about 90% of Pi's cost. It also explains the main table: Pi sent fewer tokens than Claude Code but cost more.
+
+Two other things moved the number. The same task took Pi four calls one time and six the next, so a single run says less than it seems. And my Pi profile was set to think at a high level by default. Dropping it to low halved the tokens, the calls and the cost on the same task, with the same commit. Low is now the default for the VM profile.
 
 ## Making it repeatable
 
