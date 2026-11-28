@@ -81,8 +81,26 @@ Hermes was the slowest by far, and the reasons had little to do with the model. 
 - **Don't override your own sandbox config.** My Codex config grants full access. Passing `-s workspace-write` from a script quietly replaced it with a sandbox that blocked mise's state directory and the worktree's `.git` folder.
 - **One Hermes launch at a time.** Two concurrent Hermes commands on the same install deadlocked on the Claude provider plugin's lock.
 
-## Where this leaves me
+## Hermes as the front door, Pi as the worker
 
-Hermes earns its place as the front door. It takes instructions from Telegram and other channels, and it runs schedules. As a coding worker, though, it brings a heavy runtime to every task. The next arrangement I'm testing keeps a minimal Hermes profile whose only job is to hand the task to Pi, with the same lean Pi setup on every VM. For error monitoring and pull requests, a small script around Pi may be all I need.
+Hermes is not really a harness. It's an agent runtime: a long-running gateway that takes instructions from Telegram, Campsite rooms, a kanban board or cron, and keeps profiles, memory and schedules for them. It contains an agent loop, which is what the table above measured. As a router it's useful. As the thing that edits code, it brings that whole runtime to every task.
 
-What I'm taking from this is simpler than any of the numbers. Choosing a model is the decision everyone talks about, but the harness around it sets the bill. Every extension, skill and policy file rides along on every call, and it's worth knowing exactly what yours is sending.
+So I split the two jobs. The lean Pi setup from my laptop now goes onto the VM through Ansible, with its own Claude token in a private file. On Friday it answers a one-word prompt in **8 seconds**, against 43 to 59 seconds for the lean Hermes profile. A new Hermes profile called `dispatch` has one tool, the terminal, a four-turn cap and one instruction: run `pi -p` with the task in the repository and return Pi's answer.
+
+| Run | Result | Hermes tokens ¹ | Pi tokens | Time |
+| --- | --- | ---: | ---: | ---: |
+| Dispatch → Pi, first run | ❌ upgraded, then stopped before verifying and committing | 33,926 | 36,249 | 487s |
+| Dispatch → Pi, second run | ✅ committed | not measured ² | 72,107 | 142s |
+
+¹ Self-reported by Hermes, as above.
+² Hermes's `insights` command hung on the second run, so only Pi's share was recorded.
+
+The first run failed in an instructive way. On its second step, the model wrote its next shell command as plain text instead of an actual tool call, and Pi took that as a finished answer. The second run went through cleanly. Handing the work to Pi didn't make the Hermes layer free either: the dispatcher alone still started up for minutes and spent about 34,000 tokens routing a single command.
+
+## Making it repeatable
+
+I don't want to redo this by hand the next time I change a setup or try a new harness. The eval now lives in my homelab repository as a script. It reads one config file listing each harness and its exact command, and gives every harness a fresh git worktree, the same prompt, closed stdin and a time limit. A run passes only if the last commit has the expected subject. Tokens come from each tool's own output, with Hermes marked as self-reported, and cost comes from a price table I keep current. Results are saved as JSON and Markdown with a timestamp, and a `--trivial` mode measures startup overhead alone.
+
+## What I took from it
+
+Choosing a model is the decision everyone talks about, but on this test the harness around it set the bill. Lean setups beat heavy ones every time, often by a factor of three or more. A gateway like Hermes is worth having for taking instructions from anywhere, as long as the coding itself runs in something small. Every extension, skill and policy file rides along on every call, and it's worth knowing exactly what yours is sending.
