@@ -24,7 +24,7 @@ That was enough to justify a proper comparison.
 
 ## The real test: upgrade, verify, commit
 
-The main test used Campsite, another Rails API of mine. Each harness got the same instruction in a fresh git worktree:
+The main test used [Campsite](https://github.com/TruemarkDev/campsite/issues), a Rails API I work on. Each harness got the same instruction in a fresh git worktree:
 
 ```text
 In this repository's api/ directory: upgrade the brakeman gem to 8.1.1 with
@@ -83,7 +83,7 @@ Hermes was the slowest by far, and the reasons had little to do with the model. 
 
 ## Hermes as the front door, Pi as the worker
 
-Hermes is not really a harness. It's an agent runtime: a long-running gateway that takes instructions from Telegram, Campsite rooms, a kanban board or cron, and keeps profiles, memory and schedules for them. It contains an agent loop, which is what the table above measured. As a router it's useful. As the thing that edits code, it brings that whole runtime to every task.
+Hermes is not really a harness. It's an agent runtime: a long-running gateway that takes instructions from Telegram, [Campsite](https://github.com/TruemarkDev/campsite/issues) rooms, a kanban board or cron, and keeps profiles, memory and schedules for them. It contains an agent loop, which is what the table above measured. As a router it's useful. As the thing that edits code, it brings that whole runtime to every task.
 
 So I split the two jobs. The lean Pi setup from my laptop now goes onto the VM through Ansible, with its own Claude token in a private file. On Friday it answers a one-word prompt in **8 seconds**, against 43 to 59 seconds for the lean Hermes profile. A new Hermes profile called `dispatch` has one tool, the terminal, a four-turn cap and one instruction: run `pi -p` with the task in the repository and return Pi's answer.
 
