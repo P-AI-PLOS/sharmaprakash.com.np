@@ -12,73 +12,77 @@ use_featured_image: true
 draft: false
 ---
 
-This morning a routine Pi session ate through more of my Claude allowance than I expected. I've only been on Pi for a short while, and early in an adoption is the best time to find out a tool is expensive. So I stopped guessing and measured it.
+This morning a routine Pi session ate through more of my Claude allowance than I expected. I've only been using Pi for a short while, and early on is the best time to find out a tool is expensive. So I stopped guessing and measured it.
 
-The suspicion I started with was a familiar one: that Claude bills subscription usage more heavily when it comes through third-party software. That turned out to be the wrong question. Every Claude path I tested ends up in the official `claude` CLI on my own login. What changed the bill was everything the harness packed around my prompt before the model ever saw it.
+I started from a common suspicion: that Claude bills subscription usage more heavily when it arrives through third-party software. That turned out to be the wrong question. Every Claude path I tested ends up in the official `claude` CLI on my own login. What changed the bill was everything each harness packed around my prompt before the model saw it.
 
-## One small job, one prompt
+## The first warning sign
 
-The test needed to be real work, but small enough to repeat. I picked a patch upgrade in my Rails app, LeaveBalance: move the development-only `lookbook` gem from 2.3.14 to 2.3.17 and prove the new version loads. Every harness got the same instruction in its own fresh git worktree off `main`:
+My first probe was a patch upgrade of a development-only gem in my Rails app, with no commit. Pi with my everyday configuration used **190,211 tokens**, almost all of them cache writes, and still failed because its shell picked up the wrong Ruby. Pi with every extension, skill and context file switched off did the same job in **37,271**. Same model, same login, same prompt, five times the tokens.
+
+That was enough to justify a proper comparison.
+
+## The real test: upgrade, verify, commit
+
+The main test used Campsite, another Rails API of mine. Each harness got the same instruction in a fresh git worktree:
 
 ```text
-Upgrade the lookbook gem to 2.3.17 with 'mise exec -- bundle update --conservative lookbook',
-then confirm Lookbook::VERSION prints 2.3.17. Do not commit. Reply with one line: done or the error.
+In this repository's api/ directory: upgrade the brakeman gem to 8.1.1 with
+'mise exec -- bundle update --conservative brakeman' (run 'mise trust' first if mise asks).
+Verify 'mise exec -- bundle exec brakeman --version' prints 8.1.1. Commit only
+api/Gemfile.lock with the message 'Upgrade brakeman to 8.1.1'. Do not push.
 ```
 
-A correct run changes seven lines of `Gemfile.lock` and nothing else. That made success easy to check with `git diff --stat`, and the token counts came from each tool's own JSON output.
+Success meant a commit on the branch, so there was no room for a confident "done" that hadn't happened. Claude Code, Codex and Pi ran on my laptop. Hermes ran on Friday, a 4-vCPU VM in my homelab where my agent runtime lives.
 
-## The results
+| Harness | Model | Committed | Tokens | Est. API cost | Time |
+| --- | --- | :---: | ---: | ---: | ---: |
+| Hermes, tuned lean profile | Sonnet 5.5 | ✅ | 39,073 ¹ | $0.004–$0.10 ² | 119s |
+| **Pi, lean** | Sonnet 5.5 | ✅ | **66,006** | $0.108 | 32s |
+| Pi, everyday setup after cleanup | Sonnet 5.5 | ✅ | 82,624 | $0.196 | 33s |
+| Claude Code, trimmed | Sonnet 5.5 | ✅ | 108,092 | $0.064 | 25s |
+| Hermes, full engineering profile | Sonnet 5.5 | ✅ | 135,585 ¹ | $0.014–$0.34 ² | 167s ³ |
+| Codex | GPT-6 Luna | ✅ | 222,023 | $0.006 | 39s |
 
-| Harness | Model | Result | Tokens | Cache write | Cache read | Output | Est. API cost |
-| --- | --- | --- | ---: | ---: | ---: | ---: | ---: |
-| **Pi, lean** | Sonnet 5.5 | ✅ | **37,271** | 16,530 | 20,514 | 223 | **$0.046** |
-| Claude Code, trimmed | Sonnet 5.5 | ✅ | 75,294 | 13,346 | 61,602 | 340 | $0.043 |
-| Codex | GPT-6 Luna | ✅ | 92,405 | — | 30,336 | 152 | $0.007 |
-| Pi, my full setup | Sonnet 5.5 | ❌ | 190,211 | 186,613 | 2,986 | 608 | **$0.473** |
-| Hermes, full profile | Opus 5.5 | ❌ ¹ | 95,770 | n/a | n/a | ~680 | $0.07–$0.98 ² |
-| Hermes, lean | Sonnet 5.5 | ❌ ¹ | 22,258 | n/a | n/a | n/a | under $0.06 ² |
+Costs use list API prices. Sonnet 5.5 is $2 per million input tokens, $10 output, $0.10 cache read and $2.50 cache write. GPT-6 Luna is $0.10 input and $0.50 output. On a subscription none of this is billed in dollars, but the same tokens draw down the same allowance.
 
-Costs use list API prices: Sonnet 5.5 at $2 per million input tokens, $10 output, $0.10 cache read and $2.50 cache write; Opus 5.5 at four times that; GPT-6 Luna at $0.10 input and $0.50 output. On a subscription none of this is billed in dollars, but the same tokens draw down the same allowance, so the dollar column is a fair way to compare runs.
+¹ Hermes's numbers are self-reported and I couldn't verify them. A trivial one-word reply cost 16,957 tokens through the `claude` CLI directly, but only 7,141 by Hermes's own count. Either Hermes replaces Claude Code's long system prompt with a shorter one, or it undercounts. Treat those rows as a floor.
+² Hermes doesn't break out cache reads and writes, so its cost is a range between the two.
+³ The full profile ran after the lean one had already downloaded the gems, so its time looks better than it was.
 
-¹ Hermes runs on a different machine in my homelab that can't compile the `rugged` native extension, so `bundle update` failed there for reasons unrelated to Hermes. Its rows measure overhead, not success.
-² Hermes reports totals without the cache split, so its cost is a range between all-read and all-write.
+## What the numbers say
 
-## Where 150,000 extra tokens came from
+**The harness matters more than the model.** Lean Pi and trimmed Claude Code drove the same Sonnet model through the same CLI. Pi sent about 60% of the tokens. Hermes's full profile sent roughly three and a half times what its lean profile did.
 
-The two Pi rows use the same model, the same login and the same prompt. The only difference is what Pi loaded at startup. My everyday Pi configuration carries about a dozen extension packages (subagents, plan mode, a usage meter, web browsing, a memory provider and others), a skill library, prompt templates and a long global `AGENTS.md` policy file. Each of them is useful. Together they put roughly 150,000 tokens of instructions and tool definitions in front of a request to update one gem.
+**Tokens and cost don't rank the same way.** Pi used fewer tokens than Claude Code but cost more, because it wrote its prompt to the cache on each call where Claude Code read it back. Cache writes cost 25 times as much as cache reads, so a harness that caches well can send more tokens and still cost less.
 
-Worse, almost all of it showed up as **cache writes**. Prompt caching only pays off when the next call reads what the last one wrote, and here the cache read was just 3,000 tokens. At list prices a cache write costs 25 times as much as a cache read, so the full setup cost ten times the lean one, even though it used only five times the tokens.
+**Codex is in a different price class.** It used the most tokens and cost under a cent, because GPT-6 Luna is a far smaller model. Whether that trade is right depends on the task. For a lockfile bump it was fine.
 
-The lean run turned all of that off and loaded only the provider that bridges Pi to Claude Code:
+## Rebuilding Pi
 
-```sh
-pi --no-extensions -e ~/.pi/agent/npm/node_modules/claude-code-pi/src/index.ts \
-   --no-skills --no-prompt-templates --no-context-files \
-   --model claude-code-cli/sonnet -p "..."
-```
+My everyday Pi configuration carried about a dozen extension packages, a GSD workflow layer, over a hundred skills and a 28 KB global policy file. Each was something I had tried in my first weeks. Together they meant a trivial "say ok" cost **91,658 tokens**.
 
-That run finished the job in two model calls and 37,271 tokens, about half of what trimmed Claude Code used. On cost the two came out level, because Pi's smaller prompt was written to cache rather than read from it. For a one-shot task, a lean harness and a trimmed Claude Code are about the same price. Load everything, and the cost jumps an order of magnitude.
+I cut it back to three packages (the Claude provider, a status line and a usage meter), one small extension, six short skills written for Pi, and a 1.7 KB `AGENTS.md` holding only the rules that matter for coding. The same trivial prompt now costs **16,709 tokens**. Everything removed is parked in a `disabled/` folder rather than deleted, so I can bring back whatever I miss.
 
-## Hermes showed the same pattern
+One cleanup step went wrong in a useful way. Setting `defaultTools` to an empty list doesn't mean "no extras". It means no tools at all, and Pi's next run failed with `Tool bash not found`. Removing the key fixed it.
 
-Hermes is the agent runtime behind my homelab factories, and it had always felt slow to me. Its full `em` profile took about eight and a half minutes and almost 96,000 tokens on Opus to reach the build failure. Restricting it to the terminal toolset, capping turns and switching to Sonnet got it to the same failure in 85 seconds and 22,258 tokens.
+## Making Hermes usable
 
-```sh
-hermes -p em chat -Q --oneshot -t terminal --max-turns 8 -m sonnet -q "..."
-```
+Hermes was the slowest by far, and the reasons had little to do with the model. After upgrading Friday to Hermes v0.23.5, a one-word reply took **193 seconds**. Here's where the time went:
 
-That isn't a like-for-like comparison with the laptop runs, because the machine and the outcome are different. But the ratio matches what Pi showed: the work itself is cheap, and the default context is what you pay for.
+- **Lazy installs.** On launch, Hermes was installing default messaging plugins into all 58 profiles on Friday, at about 80 seconds per plugin per profile. Setting `security.allow_lazy_installs: false` brought a cold start down to 61 seconds.
+- **The profile itself.** A lean profile with memory off, only the terminal and file toolsets, and no MCP server cut the tool list from 70 tools to 8, and the tool listing from 13,299 tokens to 576. A trivial reply then took 43 to 59 seconds, of which the model call itself was 2 to 6.
+- **The machine.** Friday's multiplexed Hermes gateway uses about 63% of a CPU while idle, polling 58 profiles, which keeps the VM's load near 4 on 4 cores.
 
-## What I'm changing
+## A few traps worth knowing
 
-- **A lean Pi command for focused work.** My full configuration stays for exploratory sessions, where subagents and memory earn their keep. Narrow, well-specified jobs get a `pi-lean` shell function with only the Claude provider loaded.
-- **Toolsets per Hermes job.** Scheduled and single-purpose Hermes jobs should name the toolsets and model they need, instead of inheriting a profile built for open-ended engineering.
-- **Measure before rolling out.** I was partway through making Claude the primary model across every Hermes install in my homelab. One machine has switched. The rest wait until their profiles are trimmed, because every machine draws on the same allowance.
+- **Close stdin.** Non-interactive `pi -p` waited on standard input until I redirected it from `/dev/null`.
+- **Interactive prompts hang agents.** In a new worktree, `mise` asks whether to trust the project's config. Claude Code's shell closes stdin, so mise fails fast and the agent runs `mise trust`. Pi's shell leaves stdin open, so it waited six minutes for an answer that never came. Trusting the folder in advance fixed it.
+- **Don't override your own sandbox config.** My Codex config grants full access. Passing `-s workspace-write` from a script quietly replaced it with a sandbox that blocked mise's state directory and the worktree's `.git` folder.
+- **One Hermes launch at a time.** Two concurrent Hermes commands on the same install deadlocked on the Claude provider plugin's lock.
 
-A few practical notes for anyone repeating this. Non-interactive `pi -p` waited on standard input until I redirected it from `/dev/null`. Codex's `workspace-write` sandbox blocks network access unless you enable it, which cost one failed run of 61,000 tokens before I noticed. And the Claude bridge inside Pi didn't inherit mise's shims, so `bundle` quietly ran on the system Ruby until I put them on `PATH`.
+## Where this leaves me
 
-## The takeaway
+Hermes earns its place as the front door. It takes instructions from Telegram and other channels, and it runs schedules. As a coding worker, though, it brings a heavy runtime to every task. The next arrangement I'm testing keeps a minimal Hermes profile whose only job is to hand the task to Pi, with the same lean Pi setup on every VM. For error monitoring and pull requests, a small script around Pi may be all I need.
 
-Choosing a model is the decision everyone talks about, but on this test it was the smaller lever. The bigger one is how much the harness sends along with each request. Every extension, skill and policy file rides along on every call, whether the task needs it or not.
-
-I'm glad I caught this in my first weeks with Pi rather than after a year of habits had formed around it. The tooling is good. It just pays to know what it is sending on your behalf.
+What I'm taking from this is simpler than any of the numbers. Choosing a model is the decision everyone talks about, but the harness around it sets the bill. Every extension, skill and policy file rides along on every call, and it's worth knowing exactly what yours is sending.
